@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigation } from "@react-navigation/native";
 
 interface useWelcomeViewBehavior {
 	currentTitle: string,
@@ -11,6 +12,7 @@ interface useWelcomeViewBehavior {
 }
 
 export const useWelcomeView = (): useWelcomeViewBehavior => {
+	const navigation = useNavigation();
 	const slides = [0, 1, 2];
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const [currentTitle, setCurrentTitle] = useState<string>('');
@@ -19,6 +21,10 @@ export const useWelcomeView = (): useWelcomeViewBehavior => {
 	const nextSlide = () => {
 		if (currentSlide < 2) {
 			setCurrentSlide(prev => prev + 1)
+		}
+		if (currentSlide >= 2) {
+			//@ts-ignore
+			navigation.navigate('login')
 		}
 	};
 	const prevSlide = () => {

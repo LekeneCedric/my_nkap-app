@@ -1,7 +1,7 @@
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { StyleSheet } from 'react-native';
-import { Theme } from '../../shared/Theme';
-import { FontSize } from '../../shared/FontSize';
+import { Theme } from "../../Global/Theme.ts";
+import { FontSize } from "../../Global/FontSize.ts";
 
 const styles = StyleSheet.create({
 	pageContainer: {
