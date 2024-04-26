@@ -1,6 +1,6 @@
 
 import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
-import styles from './welcome.style.tsx';
+import styles from './welcomeView.style.tsx';
 import { useState } from 'react';
 import { useWelcomeView } from './useWelcomeView.ts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

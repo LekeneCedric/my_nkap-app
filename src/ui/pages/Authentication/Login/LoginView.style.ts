@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   titleContainer: {
-    marginTop: hp(10),
+    marginTop: hp(7),
     width: '100%',
   },
   formContainer: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     height: hp(100),
     width: wp(100),
     marginTop: hp(20),
-    paddingTop: hp(10),
+    paddingTop: hp(5),
     zIndex: 2,
     position: 'absolute',
     backgroundColor: Theme.light

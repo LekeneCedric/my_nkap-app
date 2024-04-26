@@ -6,6 +6,10 @@ const TextStyles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: FontSize.high
+  },
+  description: {
+    fontWeight: '300',
+    fontSize: FontSize.medium
   }
 });
 export default TextStyles;

@@ -1,0 +1,68 @@
+import Animated, {
+  LightSpeedInLeft,
+  LightSpeedOutRight,
+} from "react-native-reanimated";
+import styles from "./InputPasswordForm.style";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {Icons} from "../../../Global/Icons";
+import {IconSizes} from "../../../Global/IconSizes";
+import {Theme} from "../../../Global/Theme";
+import {FontSize} from "../../../Global/FontSize";
+import {ControllerRenderProps} from "react-hook-form";
+import {useState} from "react";
+
+type inputFormPasswordProps = {
+  label: string;
+  errorMessage?: string;
+  field: ControllerRenderProps<any, any>;
+};
+const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps) => {
+  const [canSee, setCanSee] = useState<boolean>(false);
+  return (
+    <Animated.View
+      entering={LightSpeedInLeft.duration(1500)}
+      exiting={LightSpeedOutRight.duration(1500)}
+      style={styles.container}
+    >
+      <Text style={styles.inputLabel}>{label}</Text>
+      <View style={styles.inputContainer}>
+        <Icon name={Icons.secure} size={IconSizes.normal} color={Theme.dark} />
+        <TextInput
+          secureTextEntry={!canSee}
+          placeholder={"Entrez votre adresse e-mail"}
+          placeholderTextColor={Theme.gray}
+          cursorColor={Theme.primary}
+          onBlur={field.onBlur}
+          value={field.value}
+          onChangeText={field.onChange}
+          style={{
+            flex: 8,
+            color: Theme.dark,
+            textDecorationLine: "none",
+            fontSize: FontSize.normal,
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            setCanSee(prev => !prev);
+          }}
+          style={{flex: 1}}
+        >
+          <Icon
+            name={ canSee ? Icons.eyeOpen : Icons.eyeClose}
+            size={IconSizes.normal}
+            color={Theme.dark}
+          />
+        </TouchableOpacity>
+      </View>
+      {errorMessage ? (
+        <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+      ) : (
+        <Text style={[styles.info, {color: Theme.gray}]} />
+      )}
+    </Animated.View>
+  );
+};
+
+export default InputPasswordForm;
