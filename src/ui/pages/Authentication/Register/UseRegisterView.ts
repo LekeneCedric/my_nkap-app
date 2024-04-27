@@ -15,7 +15,7 @@ export const useRegisterView = (): RegisterViewBehaviour => {
     });
 
     const onSubmit = (data: InputRegisterForm) => {
-        console.log(data);
+        console.warn(data);
     }
     return {
         form: form,

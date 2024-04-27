@@ -41,6 +41,7 @@ const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps)
             color: Theme.dark,
             textDecorationLine: "none",
             fontSize: FontSize.normal,
+            width: '100%'
           }}
         />
         <TouchableOpacity

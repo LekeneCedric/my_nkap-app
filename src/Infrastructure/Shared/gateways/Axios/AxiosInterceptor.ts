@@ -2,10 +2,10 @@ import api from "./AxiosInstance";
 
 api.interceptors.request.use(
     config => {
-        const token = 'token';
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
+        // const token = 'token';
+        // if (token) {
+        //     config.headers.Authorization = `Bearer ${token}`;
+        // }
         return config;
     },
     error => {

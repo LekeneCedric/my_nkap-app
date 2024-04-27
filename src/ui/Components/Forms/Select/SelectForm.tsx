@@ -28,13 +28,13 @@ const SelectForm = ({
   placeholder,
   list,
 }: SelectFormProps) => {
-  const [professionName, setProfessionName] = useState<string>("");
+  const [selectedValueName, setSelectedValueName] = useState<string>("");
   const [modalIsVisible, setModalIsVisible] = useState(false);
   return (
     <>
     <SelectModalView
       action = {(id: string, name: string) => {
-        setProfessionName(name);
+        setSelectedValueName(name);
         field.onChange(id)
         setModalIsVisible(false)
       }}
@@ -53,11 +53,11 @@ const SelectForm = ({
       <TouchableOpacity style={styles.inputContainer} onPress={() => {setModalIsVisible(true)}}>
         <Icon name={icon} size={IconSizes.normal} color={Theme.dark} />
         {
-            professionName.length > 0 && 
-            <Text style={styles.professionLabel}>{professionName}</Text>
+            selectedValueName.length > 0 && 
+            <Text style={styles.professionLabel}>{selectedValueName}</Text>
         }
         {
-            professionName.length == 0 &&
+            selectedValueName.length == 0 &&
             <Text style={styles.professionLabel}>{placeholder}</Text>
         }
         <Icon

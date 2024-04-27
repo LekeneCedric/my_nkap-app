@@ -5,9 +5,10 @@ import { Theme } from "../../Global/Theme";
 import { FontSize } from "../../Global/FontSize";
 
 type SearchInputProps = {
+    value: string,
     onChange: (text: string) => void;
 }
-const SeachInput = ({onChange}: SearchInputProps) => {
+const SeachInput = ({value, onChange}: SearchInputProps) => {
     return <Animated.View style={styles.container}>
         <TextInput
           keyboardType={'default'}
@@ -15,7 +16,8 @@ const SeachInput = ({onChange}: SearchInputProps) => {
           placeholderTextColor={Theme.gray}
           cursorColor={Theme.primary}
           onChangeText={onChange}
-          style={{color: Theme.dark, textDecorationLine: "none", fontSize: FontSize.normal}}
+          value={value}
+          style={{color: Theme.dark, textDecorationLine: "none", fontSize: FontSize.normal, width: '100%'}}
         />
     </Animated.View>
 }
