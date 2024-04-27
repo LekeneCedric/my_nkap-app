@@ -120,7 +120,7 @@ export const RegisterForm = ({
           render={({field}) => (
             <InputPasswordForm
               label={"Mot de passe"}
-              errorMessage={errors.professionId?.message}
+              errorMessage={errors.password?.message}
               field={field}
             />
           )}
@@ -132,7 +132,7 @@ export const RegisterForm = ({
           render={({field}) => (
             <InputPasswordForm
               label={"Confirmation mot de passe"}
-              errorMessage={errors.professionId?.message}
+              errorMessage={errors.passwordConfirmation?.message}
               field={field}
             />
           )}

@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
 const dateSchema = yup.string().transform((originalValue, originalObject) => {
-  // Use a regular expression to match the date pattern "YYYY-DD-MM"
-  const dateRegex = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
+  // Use a regular expression to match the date pattern "DD-MM-YYYY"
+  const dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
 
   // Check if the date string matches the pattern
   const match = originalValue.match(dateRegex);
@@ -13,9 +13,9 @@ const dateSchema = yup.string().transform((originalValue, originalObject) => {
   }
 
   // Extract the year, day, and month from the matched groups
-  const year = parseInt(match[1], 10);
+  const day = parseInt(match[1], 10);
   const month = parseInt(match[2], 10);
-  const day = parseInt(match[3], 10);
+  const year = parseInt(match[3], 10);
 
   // Create a JavaScript Date object using the extracted values
   const date = new Date(year, month - 1, day);

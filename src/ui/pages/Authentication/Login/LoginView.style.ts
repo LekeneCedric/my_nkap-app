@@ -9,8 +9,6 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.primary,
     height: hp(100),
     width: wp(100),
-    zIndex: 1,
-    position: 'absolute'
   },
   titleContainer: {
     marginTop: hp(7),
