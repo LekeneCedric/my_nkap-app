@@ -7,6 +7,7 @@ import { Icons } from "../../../../Global/Icons";
 import { IconSizes } from "../../../../Global/IconSizes";
 import { Theme } from "../../../../Global/Theme";
 import { useSelectModalView } from "./useSelectModalView";
+import { useState } from "react";
 
 type selectModalViewProps = {
     action: (id: string, name: string) => void,
@@ -18,7 +19,12 @@ type selectModalViewProps = {
 const SelectModalView = ({
     action, closeModal, isVisible, list
 }: selectModalViewProps) => {
+    const [inputSearch, setInputSearch] = useState<string>('');
     const {filterList, sortList} = useSelectModalView(list);
+    const clearSearch = () => {
+        setInputSearch('');
+        sortList('')
+    }
     return (
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)} style={styles.container}>
@@ -26,8 +32,11 @@ const SelectModalView = ({
                     <TouchableOpacity onPress={closeModal} style={{flex: 1, alignItems: 'center'}}>
                         <Icon name={Icons.back} size={IconSizes.normal} color={Theme.primary}/>
                     </TouchableOpacity>
-                    <SeachInput onChange={(text: string) => {sortList(text)}} />
-                    <TouchableOpacity style={{flex: 1, alignItems: 'center'}}>
+                    <SeachInput value={inputSearch} onChange={(text: string) => {
+                        setInputSearch(text);
+                        sortList(text)
+                    }} />
+                    <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
                         <Icon name={Icons.close} size={IconSizes.normal} color={Theme.primary}/>
                     </TouchableOpacity>
                 </View>

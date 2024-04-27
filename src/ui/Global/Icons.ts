@@ -9,5 +9,6 @@ export const Icons = {
 	work: 'briefcase-account-outline',
 	dropDown: 'chevron-down',
 	back: 'chevron-left',
-	close: 'close'
+	close: 'close',
+	refresh: 'refresh'
 }

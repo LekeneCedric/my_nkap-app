@@ -37,7 +37,7 @@ export const InputForm = ({icon, label, errorMessage, field, keyboardType, place
           onBlur={field.onBlur}
           value={field.value}
           onChangeText={field.onChange}
-          style={{color: Theme.dark, textDecorationLine: "none", fontSize: FontSize.normal}}
+          style={{color: Theme.dark, textDecorationLine: "none", fontSize: FontSize.normal,width: '100%'}}
         />
       </View>
       {errorMessage ? (

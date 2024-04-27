@@ -1,4 +1,4 @@
-import {ScrollView, View} from "react-native";
+import {ScrollView, TouchableOpacity, View} from "react-native";
 import {RegisterViewBehaviour} from "../UseRegisterView";
 import {Controller} from "react-hook-form";
 import {InputForm} from "../../../../Components/Forms/Input/InputForm";
@@ -8,6 +8,12 @@ import InputBirthdayForm from "../../../../Components/Forms/InputBirthDate/Input
 import SelectForm from "../../../../Components/Forms/Select/SelectForm";
 import ButtonForm from "../../../../Components/Forms/Button/ButtonForm";
 import InputPasswordForm from "../../../../Components/Forms/InputPassword/InputPasswordForm";
+import useRegisterFormView from "./useRegisterFormView";
+import { LoadingState } from "../../../../../Domain/Enums/LoadingState";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Text } from "react-native";
+import { IconSizes } from "../../../../Global/IconSizes";
+import Loading from "../../../../Components/Loading/Loading";
 
 export const RegisterForm = ({
   registerFormBehaviour,
@@ -15,6 +21,7 @@ export const RegisterForm = ({
   registerFormBehaviour: RegisterViewBehaviour;
 }) => {
   const {form, onSubmit} = registerFormBehaviour;
+  const {refresh, professions, loadingState: professionLoadingState} = useRegisterFormView();
   const {
     formState: {errors},
     handleSubmit,
@@ -62,57 +69,40 @@ export const RegisterForm = ({
             />
           )}
         />
-        <Controller
-          control={control}
-          name={"professionId"}
-          render={({field}) => (
-            <SelectForm
-              icon={Icons.work}
-              label={"Profession"}
-              errorMessage={errors.professionId?.message}
-              field={field}
-              placeholder={"Selectionnez votre profession"}
-              list={[
-                {name: "Accompagnant éducatif et social"},
-                {name: "Accompagnateur de tourisme équestre"},
-                {name: "Accompagnateur de voyages"},
-                {name: "Accompagnateur en moyenne montagne"},
-                {name: "Acheteur"},
-                {name: "Acheteur d'espaces publicitaires"},
-                {name: "Acheteur international"},
-                {name: "Acheteur-Vendeur"},
-                {name: "Acousticien"},
-                {name: "Actrice"},
-                {name: "Actuaire"},
-                {name: "Adjoint de direction"},
-                {name: "Administrateur de base de données"},
-                {name: "Administrateur de bases de données"},
-                {name: "Administrateur de biens"},
-                {name: "Administrateur de salle de spectacles"},
-                {name: "Administrateur réseaux"},
-                {name: "Aérodynamicien"},
-                {name: "Affréteur"},
-                {name: "Agenceur d'intérieur bois"},
-                {name: "Agencier"},
-                {name: "Agent à domicile"},
-                {name: "Agent administratif"},
-                {name: "Agent artistique"},
-                {name: "Agent d'élevage"},
-                {name: "Agent d'entretien"},
-                {name: "Agent d'entretien et de rénovation"},
-                {name: "Agent d'escale"},
-                {name: "Agent de bord"},
-                {name: "Agent de circulation"},
-                {name: "Agent de circulation et d’accueil"},
-                {name: "Agent de développement des énergies renouvelables"},
-                {name: "Agent de développement sportif Parcours"},
-                {name: "Agent de petite maintenance"},
-                {name: "Agent de piste"},
-                {name: "Agent de planning"},
-              ]}
-            />
-          )}
-        />
+        {
+          professionLoadingState === LoadingState.pending && (
+            <Loading message={'chargement des professions'} />
+          )
+        }
+        {
+          (professions.length > 0) && (
+            <Controller
+            control={control}
+            name={"professionId"}
+            render={({field}) => (
+              <SelectForm
+                icon={Icons.work}
+                label={"Profession"}
+                errorMessage={errors.professionId?.message}
+                field={field}
+                placeholder={"Selectionnez votre profession"}
+                list={professions}
+              />
+            )}
+          />
+          )
+        }
+        {
+          (
+            (professionLoadingState === LoadingState.failed || professions.length == 0)
+             && professionLoadingState !== LoadingState.pending) && (
+            <TouchableOpacity onPress={refresh} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <Icon name={Icons.refresh} size={IconSizes.normal}/>
+              <Text>Reessayer</Text>
+            </TouchableOpacity>
+          )
+        }
+        
 
         <Controller
           control={control}
