@@ -10,7 +10,7 @@ import { Icons } from "../../../../Global/Icons.ts";
 export const LoginForm = (
   {loginFormBehaviour}: {loginFormBehaviour: LoginFormBehaviour}
 ) => {
-  const {form, onSubmit} = loginFormBehaviour;
+  const {form, onSubmit, loadingState} = loginFormBehaviour;
   const {formState: {errors}, control, handleSubmit, } = form
   return (<View style={{flexDirection: 'column'}}>
     <Controller
@@ -28,7 +28,7 @@ export const LoginForm = (
         />
       )}
     />
-    <VerticalSeparator percent={2} />
+    <VerticalSeparator percent={1} />
     <Controller
       name={'password'}
       control={control}
@@ -41,6 +41,6 @@ export const LoginForm = (
       )}
     />
     <VerticalSeparator percent={5} />
-    <ButtonForm label={'connexion'} handleClick={handleSubmit(onSubmit)} />
+    <ButtonForm loading={loadingState} loadingLabel={'Connexion en cours...'} label={'connexion'} handleClick={handleSubmit(onSubmit)} />
   </View>)
 }

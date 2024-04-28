@@ -18,7 +18,7 @@ export const ProfessionSlice = createSlice({
     name: 'professionSlice',
     initialState: initialState,
     reducers: {},
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder
             .addCase(GetAllProfessionAsync.pending, state => {
                 state.loading = LoadingState.pending;

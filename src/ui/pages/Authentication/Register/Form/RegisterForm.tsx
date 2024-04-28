@@ -20,7 +20,7 @@ export const RegisterForm = ({
 }: {
   registerFormBehaviour: RegisterViewBehaviour;
 }) => {
-  const {form, onSubmit} = registerFormBehaviour;
+  const {form, onSubmit, loadingState} = registerFormBehaviour;
   const {refresh, professions, loadingState: professionLoadingState} = useRegisterFormView();
   const {
     formState: {errors},
@@ -130,7 +130,9 @@ export const RegisterForm = ({
         <VerticalSeparator percent={2} />
         <ButtonForm
           label={"Inscription"}
+          loadingLabel={'Inscription en cours...'}
           handleClick={handleSubmit(onSubmit)}
+          loading={loadingState}
         />
       </View>
   );

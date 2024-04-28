@@ -3,8 +3,9 @@ import {persistReducer, persistStore} from 'redux-persist';
 import {configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
 import {rootReducer} from './reducers/Reducer.ts';
-import { professionApiGatewayHttp } from '../Infrastructure/Profession/Gateways/ProfessionApiGatewayHttp.ts';
+import { ProfessionApiGatewayHttp } from '../Infrastructure/Profession/Gateways/ProfessionApiGatewayHttp.ts';
 import { listenerMiddleware } from './listenerMiddleware.ts';
+import AuthenticationApiGatewayHttp from '../Infrastructure/Authentication/Gateways/AuthenticationApiGatewayHttp.ts';
 
 const persistConfig = {
   key: 'my_nkap',
@@ -18,7 +19,8 @@ export const store = configureStore({
     getDefaultMiddleware({
       thunk: {
         extraArgument: {
-          professionApiGatewayHttp: new professionApiGatewayHttp(),
+          professionApiGatewayHttp: new ProfessionApiGatewayHttp(),
+          authenticationApiGatewayHttp: new AuthenticationApiGatewayHttp(),
         },
       },
     }).prepend(listenerMiddleware.middleware),
