@@ -4,19 +4,19 @@ import { ApiRoutes } from "../../Api/routes";
 import { HttpProvider } from "../../Shared/gateways/Axios/HttpProvider";
 import GetAllProfessionResponseFactory from "../Factories/GetAllProfessionResponseFactory";
 
-export class professionApiGatewayHttp extends HttpProvider implements ProfessionApiGateway {
+export class ProfessionApiGatewayHttp extends HttpProvider implements ProfessionApiGateway {
     async getAll ():Promise<IGetAllProfessionResponse> {
         let result: any;
         
         try{
             const response = await this.get(ApiRoutes.professions.getAll);
+            //@ts-ignore
             result = response.data;
             if (!result.status) {
                 throw new Error(result.message)
             }
         } catch (e: any) {
-            console.warn(e)
-            throw new Error(e);
+            throw new Error('Une erreur technique est survenue , veuillez reessayer plus-tard');
         }
         return GetAllProfessionResponseFactory.fromApi(result);
     };
