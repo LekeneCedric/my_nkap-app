@@ -8,7 +8,7 @@ import { listenerMiddleware } from './listenerMiddleware.ts';
 import AuthenticationApiGatewayHttp from '../Infrastructure/Authentication/Gateways/AuthenticationApiGatewayHttp.ts';
 
 const persistConfig = {
-  key: 'my_nkap',
+  key: 'my_nkap_',
   storage: AsyncStorage,
 };
 

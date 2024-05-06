@@ -35,7 +35,7 @@ export const useRegisterView = (): RegisterViewBehaviour => {
     } as IRegisterCommand;
     const response = await dispatch(RegisterAsync(command));
     if (RegisterAsync.fulfilled.match(response)) {
-      toast.show(response.payload.message, {
+      toast.show('Bienvenue ,'+response.payload.user.username, {
         type: "success",
         placement: "top",
         duration: 3000,
