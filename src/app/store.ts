@@ -6,6 +6,7 @@ import {rootReducer} from './reducers/Reducer.ts';
 import { ProfessionApiGatewayHttp } from '../Infrastructure/Profession/Gateways/ProfessionApiGatewayHttp.ts';
 import { listenerMiddleware } from './listenerMiddleware.ts';
 import AuthenticationApiGatewayHttp from '../Infrastructure/Authentication/Gateways/AuthenticationApiGatewayHttp.ts';
+import AccountApiGatewayHttp from '../Infrastructure/Account/Gateways/AccountApiGatewayHttp.ts';
 
 const persistConfig = {
   key: 'my_nkap_',
@@ -21,6 +22,7 @@ export const store = configureStore({
         extraArgument: {
           professionApiGatewayHttp: new ProfessionApiGatewayHttp(),
           authenticationApiGatewayHttp: new AuthenticationApiGatewayHttp(),
+          accountApiGatewayHttp: new AccountApiGatewayHttp(),
         },
       },
     }).prepend(listenerMiddleware.middleware),

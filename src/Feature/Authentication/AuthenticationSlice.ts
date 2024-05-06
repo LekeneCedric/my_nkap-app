@@ -6,13 +6,13 @@ import IRegisterResponse from "./Thunks/Register/RegisterResponse";
 import { LoginAsync } from "./Thunks/Login/LoginAsync";
 import ILoginResponse from "./Thunks/Login/LoginResponse";
 
-interface IAuthenticationSliceState {
+interface IAuthenticationState {
     loadingState: LoadingState,
     user?: IUser,
     token?: string,
 }
 
-const initialState: IAuthenticationSliceState = {
+const initialState: IAuthenticationState = {
     loadingState: LoadingState.idle,
 }
 

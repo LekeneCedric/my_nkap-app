@@ -18,7 +18,7 @@ export class ProfessionApiGatewayHttp extends HttpProvider implements Profession
         } catch (e: any) {
             throw new Error('Une erreur technique est survenue , veuillez reessayer plus-tard');
         }
-        return GetAllProfessionResponseFactory.fromApi(result);
+        return GetAllProfessionResponseFactory.buildFromApi(result);
     };
     
 }
