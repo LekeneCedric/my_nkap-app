@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     accountsContainer: {
         width: '100%',
         flexDirection: 'column',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     },
     title: {
         fontSize: FontSize.medium,
@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
         backgroundColor: Theme.primary,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10
     },
     transactionHeaderBar: {
         backgroundColor: Theme.primaryLight,
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
         color: Theme.light,
     },
     transactionBodyContainer: {
-        height: '50%'
+        height: hp(40)
     }
 });
 export default styles;

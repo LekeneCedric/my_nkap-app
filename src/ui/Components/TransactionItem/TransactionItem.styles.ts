@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
     transactionContainer: {
         flexDirection: 'row',
         padding: 8,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 8,
     },
     transactionIconContainer: {
         backgroundColor: Theme.light,
@@ -33,7 +35,9 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     transactionAmountTitle: {
-
+        fontWeight: 'bold',
+        color: Theme.light,
+        fontSize: FontSize.normal
     }
 });
 export default styles;

@@ -30,8 +30,14 @@ const Transactions = () => {
             </Text>
           </View>
           <View style={styles.transactionBodyContainer}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <TransactionItem />
+              <TransactionItem />
+              <TransactionItem />
+              <TransactionItem />
+              <TransactionItem />
+              <TransactionItem />
+              
             </ScrollView>
           </View>
         </View>
