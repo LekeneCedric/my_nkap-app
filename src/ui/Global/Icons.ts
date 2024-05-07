@@ -19,5 +19,9 @@ export const Icons = {
 	statistics: 'triangle-wave',
 	financialGoalOutline: 'trophy-outline',
 	financialGoal: 'trophy-variant',
-	settings: 'cog-outline'
+	settings: 'cog-outline',
+	stats: {
+		up: 'arrow-top-right',
+		down: 'arrow-bottom-right-thin'
+	}
 }

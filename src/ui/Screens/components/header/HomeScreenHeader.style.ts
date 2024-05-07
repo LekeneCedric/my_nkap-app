@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingLeft: wp(4),
+        paddingRight: wp(4)
     },
     iconContainer: {
         alignItems: 'center',
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         borderRadius: 100
     },
     icon: {
-        margin: 5
+        margin: 7
     },
     title: {
         fontWeight: '600',

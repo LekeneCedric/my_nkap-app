@@ -36,7 +36,7 @@ const HomeScreen = () => {
         }}
       />
       <Tab.Screen
-        name={"wallet"}
+        name={"Comptes"}
         component={() => <></>}
         options={{
           headerShown: true,
@@ -82,7 +82,7 @@ const HomeScreen = () => {
         }}
       />
       <Tab.Screen
-        name={'statistics'}
+        name={'Statistiques'}
         component={() => <></>}
         options={{
             headerShown: true,
@@ -97,7 +97,7 @@ const HomeScreen = () => {
           }}
       />
       <Tab.Screen
-        name={'financial-goals'}
+        name={'Mes objectifs'}
         component={() => <></>}
         options={{
             headerShown: true,

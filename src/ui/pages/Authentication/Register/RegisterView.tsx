@@ -1,7 +1,7 @@
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./RegisterView.style";
 import Animated, { BounceInDown, BounceInUp, LightSpeedInLeft, LightSpeedInRight } from "react-native-reanimated";
-import TextStyles from "../../../Global/Styles/TextStyles";
+import TextStyles from "../../../Global/Styles/Text.styles";
 import { Theme } from "../../../Global/Theme";
 import { hp, wp } from "../../../Global/Percentage";
 import { FontSize } from "../../../Global/FontSize";

@@ -1,6 +1,6 @@
 import styles from "./LoginView.style.ts";
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import TextStyles from "../../../Global/Styles/TextStyles.ts";
+import TextStyles from "../../../Global/Styles/Text.styles.ts";
 import { LoginForm } from "./Form/LoginForm.tsx";
 import { Theme } from "../../../Global/Theme.ts";
 import Animated, {

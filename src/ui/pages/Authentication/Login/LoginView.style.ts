@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { PageStyles } from "../../../Global/Styles/pageStyles.ts";
+import { PageStyles } from "../../../Global/Styles/page.styles.ts";
 import { Theme } from "../../../Global/Theme.ts";
 import { hp, wp } from "../../../Global/Percentage.ts";
 
