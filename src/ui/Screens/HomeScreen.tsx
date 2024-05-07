@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Theme} from "../Global/Theme";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../Global/Icons";
-import Transactions from "../pages/Home/Transactions/Transactions";
+import Transactions from "../pages/Home/Transactions/TransactionsView";
 import {Platform, View} from "react-native";
 import {wp} from "../Global/Percentage";
 import {useNavigation} from "@react-navigation/native";
@@ -17,7 +17,7 @@ const HomeScreen = () => {
       screenOptions={{
         tabBarActiveTintColor: Theme.light,
         tabBarStyle: {backgroundColor: Theme.primary},
-        header: () => <HomeScreenHeader userName={username} />
+        header: (props) => <HomeScreenHeader userName={username} props={props}/>
       }}
     >
       <Tab.Screen
@@ -25,7 +25,7 @@ const HomeScreen = () => {
         component={Transactions}
         options={{
           headerShown: true,
-          tabBarLabel: "",
+          tabBarLabel: "Transactions",
           tabBarIcon: ({size, focused}) => (
             <Icon
               name={ focused ? Icons.transactions: Icons.transactionsOutline}
@@ -40,7 +40,7 @@ const HomeScreen = () => {
         component={() => <></>}
         options={{
           headerShown: true,
-          tabBarLabel: "",
+          tabBarLabel: "Comptes",
           tabBarIcon: ({size, focused}) => (
             <Icon
               name={focused ? Icons.wallet: Icons.walletOutline}
@@ -62,8 +62,8 @@ const HomeScreen = () => {
             <View
               style={{
                 top: Platform.OS == "ios" ? -10 : -20,
-                width: Platform.OS == "ios" ? wp(13) : wp(15),
-                height: Platform.OS == "ios" ? wp(13) : wp(15),
+                width: Platform.OS == "ios" ? wp(16) : wp(18),
+                height: Platform.OS == "ios" ? wp(16) : wp(18),
                 borderRadius: wp(10),
                 alignItems: "center",
                 justifyContent: "center",
@@ -75,7 +75,7 @@ const HomeScreen = () => {
               <Icon
                 name={Icons.add}
                 size={size}
-                color={focused ? Theme.light : Theme.primaryLight}
+                color={focused ? Theme.light : Theme.light}
               />
             </View>
           ),
@@ -86,7 +86,7 @@ const HomeScreen = () => {
         component={() => <></>}
         options={{
             headerShown: true,
-            tabBarLabel: "",
+            tabBarLabel: "Statistiques",
             tabBarIcon: ({size, focused}) => (
               <Icon
                 name={Icons.statistics}
@@ -101,7 +101,7 @@ const HomeScreen = () => {
         component={() => <></>}
         options={{
             headerShown: true,
-            tabBarLabel: "",
+            tabBarLabel: "Objectifs",
             tabBarIcon: ({size, focused}) => (
               <Icon
                 name={focused ? Icons.financialGoal : Icons.financialGoalOutline}
