@@ -5,7 +5,7 @@ export const Icons = {
 	eyeOpen: 'eye-outline',
 	eyeClose: 'eye-off-outline',
 	user: 'account-outline',
-	calendar: 'calendar',
+	calendar: 'calendar-month',
 	work: 'briefcase-account-outline',
 	dropDown: 'chevron-down',
 	back: 'chevron-left',
@@ -20,6 +20,8 @@ export const Icons = {
 	financialGoalOutline: 'trophy-outline',
 	financialGoal: 'trophy-variant',
 	settings: 'cog-outline',
+	logout: 'logout',
+	filter: '',
 	stats: {
 		up: 'arrow-top-right',
 		down: 'arrow-bottom-right-thin'

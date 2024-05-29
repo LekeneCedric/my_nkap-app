@@ -1,11 +1,14 @@
+import { useAppSelector } from "../../../../app/hook";
+import { store } from "../../../../app/store";
+import { selectToken } from "../../../../Feature/Authentication/AuthenticationSelector";
 import api from "./AxiosInstance";
 
 api.interceptors.request.use(
     config => {
-        // const token = 'token';
-        // if (token) {
-        //     config.headers.Authorization = `Bearer ${token}`;
-        // }
+        const token = selectToken(store.getState())
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
     },
     error => {

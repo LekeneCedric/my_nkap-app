@@ -21,7 +21,7 @@ export const  AccountSlice = createSlice({
     extraReducers: builder => {
         builder
         .addCase(GetAllAccountAsync.pending, state => {
-            state.loadingState = LoadingState.pending
+            state.loadingState = LoadingState.pending;
         })
         .addCase(GetAllAccountAsync.fulfilled, (state, {payload}: PayloadAction<IGetAllAccountResponse>) => {
             state.loadingState = LoadingState.success;

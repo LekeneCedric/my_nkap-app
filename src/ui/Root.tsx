@@ -6,6 +6,7 @@ import RegisterView from "./pages/Authentication/Register/RegisterView.tsx";
 import {routes} from "./pages/routes/index.ts";
 import useRootView from "./useRootView.ts";
 import HomeScreen from "./Screens/HomeScreen.tsx";
+import SettingsView from "./pages/Home/Settings/SettingsView.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {
@@ -24,7 +25,8 @@ const Root = () => {
       {
         isAuthenticated && (
           <>
-            <Stack.Screen name={'home'} component={HomeScreen} />
+            <Stack.Screen name={routes.home.main} component={HomeScreen} />
+            <Stack.Screen name={routes.home.settings} component={SettingsView} />
           </>
         )
       }

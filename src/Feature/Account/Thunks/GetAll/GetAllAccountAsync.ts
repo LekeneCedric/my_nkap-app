@@ -7,8 +7,8 @@ import IErrorResult from "../../../IErrorResult";
 export const GetAllAccountAsync = createAsyncThunk<IGetAllAccountResponse, IGetAllAccountCommand>(
     'accounts/all',
     async (command: IGetAllAccountCommand, thunkApi: any) => {
+        const accountApiGatewayHttp: IAccountApiGateway = thunkApi.extra.accountApiGatewayHttp;
         try {
-            const accountApiGatewayHttp: IAccountApiGateway = thunkApi.extra.accountApiGatewayHttp;
             return await accountApiGatewayHttp.getAll(command);
         } catch (error: any) {
             const result: IErrorResult = {

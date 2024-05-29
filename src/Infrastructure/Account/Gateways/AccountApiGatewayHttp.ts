@@ -17,9 +17,9 @@ export default class AccountApiGatewayHttp extends HttpProvider implements IAcco
                 throw new Error(result.message);
             }
         } catch (e: any) {
-            throw new Error('Une erreur technique est survenue , veuillez reessayer plus-tard');
+            throw new Error(e.message ? e.message : 'Une erreur technique est survenue , veuillez reessayer plus-tard');
         }
-        return GetAllAccountCommandFactory.buildFromApi(result);
+        return GetAllAccountCommandFactory.buildFromApiResponse(result);
     }
 
 }

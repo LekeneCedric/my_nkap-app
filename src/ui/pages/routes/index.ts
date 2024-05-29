@@ -1,5 +1,7 @@
 import { AuthRoutes } from "./AuthRoutes";
+import { HomeRoutes } from "./HomeRoutes";
 
 export const routes = {
-    auth: AuthRoutes
+    auth: AuthRoutes,
+    home: HomeRoutes,
 }

@@ -2,12 +2,12 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Theme} from "../Global/Theme";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../Global/Icons";
-import Transactions from "../pages/Home/Transactions/TransactionsView";
+import TransactionsView from "../pages/Home/Tabs/Transactions/TransactionsView";
 import {Platform, View} from "react-native";
 import {wp} from "../Global/Percentage";
-import {useNavigation} from "@react-navigation/native";
-import HomeScreenHeader from "./components/header/HomeScreenHeader";
+import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
+import AddTransactionView from "../pages/Home/Tabs/AddTransaction/AddTransactionView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
@@ -21,8 +21,8 @@ const HomeScreen = () => {
       }}
     >
       <Tab.Screen
-        name={"Transactions"}
-        component={Transactions}
+        name={"transactions"}
+        component={TransactionsView}
         options={{
           headerShown: true,
           tabBarLabel: "Transactions",
@@ -36,7 +36,7 @@ const HomeScreen = () => {
         }}
       />
       <Tab.Screen
-        name={"Comptes"}
+        name={"comptes"}
         component={() => <></>}
         options={{
           headerShown: true,
@@ -52,11 +52,9 @@ const HomeScreen = () => {
       />
       <Tab.Screen
         name={"add-transaction"}
-        component={() => {
-          return <></>;
-        }}
+        component={AddTransactionView}
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarLabel: "",
           tabBarIcon: ({size, focused}) => (
             <View
@@ -82,7 +80,7 @@ const HomeScreen = () => {
         }}
       />
       <Tab.Screen
-        name={'Statistiques'}
+        name={'statistiques'}
         component={() => <></>}
         options={{
             headerShown: true,
@@ -97,7 +95,7 @@ const HomeScreen = () => {
           }}
       />
       <Tab.Screen
-        name={'Mes objectifs'}
+        name={'objectifs'}
         component={() => <></>}
         options={{
             headerShown: true,

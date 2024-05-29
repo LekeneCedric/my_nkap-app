@@ -19,7 +19,12 @@ const initialState: IAuthenticationState = {
 export const AuthenticationSlice = createSlice({
     name: 'authenticationSlice',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        Logout: (state) => {
+            state.token = undefined;
+            state.user = undefined;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(RegisterAsync.pending, state => {
@@ -48,5 +53,7 @@ export const AuthenticationSlice = createSlice({
     },
 })
 
-export const {} = AuthenticationSlice.actions;
+export const {
+    Logout
+} = AuthenticationSlice.actions;
 export default AuthenticationSlice.reducer;

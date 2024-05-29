@@ -7,9 +7,10 @@ import { ProfessionApiGatewayHttp } from '../Infrastructure/Profession/Gateways/
 import { listenerMiddleware } from './listenerMiddleware.ts';
 import AuthenticationApiGatewayHttp from '../Infrastructure/Authentication/Gateways/AuthenticationApiGatewayHttp.ts';
 import AccountApiGatewayHttp from '../Infrastructure/Account/Gateways/AccountApiGatewayHttp.ts';
+import OperationsApiGatewayHttp from "../Infrastructure/Operation/Gateways/OperationsApiGatewayHttp.ts";
 
 const persistConfig = {
-  key: 'my_nkap_',
+  key: 'my_nkap',
   storage: AsyncStorage,
 };
 
@@ -23,14 +24,15 @@ export const store = configureStore({
           professionApiGatewayHttp: new ProfessionApiGatewayHttp(),
           authenticationApiGatewayHttp: new AuthenticationApiGatewayHttp(),
           accountApiGatewayHttp: new AccountApiGatewayHttp(),
+          operationsApiGatewayHttp: new OperationsApiGatewayHttp(),
         },
       },
     }).prepend(listenerMiddleware.middleware),
 });
 
-const persistor = persistStore(store);
+const persist = persistStore(store);
 
 setupListeners(store.dispatch);
-export default persistor;
+export default persist;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

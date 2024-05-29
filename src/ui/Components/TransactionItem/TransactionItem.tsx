@@ -13,13 +13,13 @@ const TransactionItem = () => {
           <Icon
             style={styles.transactionIcon}
             name={Icons.calendar}
-            color={"orange"}
+            color={Theme.primary}
             size={IconSizes.normal}
           />
         </View>
         <View style={styles.transactionDetailContainer}>
           <Text numberOfLines={1} style={styles.transactionTitle}>
-            Buy money
+            Buy my parents house
           </Text>
           <Text style={styles.transactionType}>Expense</Text>
         </View>

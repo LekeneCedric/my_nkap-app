@@ -1,4 +1,4 @@
 const AccountRoutes = {
-    all: '/all'
+    all: '/accounts/all'
 };
 export default AccountRoutes;

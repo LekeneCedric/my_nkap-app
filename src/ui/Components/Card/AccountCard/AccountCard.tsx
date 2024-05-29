@@ -5,23 +5,20 @@ import { IconSizes } from "../../../Global/IconSizes";
 import { Icons } from "../../../Global/Icons";
 import { Theme } from "../../../Global/Theme";
 import Animated, { BounceInLeft } from "react-native-reanimated";
+import { useEffect } from "react";
 
-const AccountCard = () => {
+type props = {
+    name: string;
+    amount: number;
+    type: string;
+}
+const AccountCard = ({name, amount, type}: props) => {
     return (
         <Animated.View entering={BounceInLeft.duration(1500)} style={styles.container}>
-            <Text numberOfLines={1} style={styles.title}>Credit Account</Text>
-            <Text numberOfLines={1} style={styles.amount}>XAF 100.000</Text>
-            <View style={styles.statsContainer}>
-                <Text style={styles.statDesc}> Cette semaine </Text>
-                <View style={styles.statView}>
-                    <Text style={styles.statViewText}>10.8%</Text>
-                    <View style={styles.statViewIconContainer}>
-                        <Icon style={styles.stateViewIcon} size={IconSizes.small} name={Icons.stats.up} color={Theme.dark} />
-                    </View>
-                </View>
-            </View>
+            <Text numberOfLines={1} style={styles.title}>{type}</Text>
+            <Text numberOfLines={1} style={styles.amount}>XAF {amount}</Text>
             <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Account Details</Text>
+                <Text style={styles.buttonText}>Détails</Text>
             </TouchableOpacity>
         </Animated.View>
     )

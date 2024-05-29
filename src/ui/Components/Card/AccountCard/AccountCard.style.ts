@@ -8,20 +8,25 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     padding: 10,
-    backgroundColor: Theme.primary,
-    width: wp(45),
-    marginRight: 5,
+    backgroundColor: Theme.light,
+    width: wp(42),
+    margin: 5,
     marginTop: '2%',
     flexDirection: "column",
+    shadowColor: "#171717",
+    shadowOffset: {width: 5, height: 5},
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 3,
   },
   title: {
     fontWeight: "400",
-    color: Theme.primaryLight,
+    color: Theme.dark,
     fontSize: FontSize.normal,
     overflow: "hidden",
   },
   amount: {
-    color: Theme.light,
+    color: Theme.dark,
     fontWeight: "bold",
     fontSize: RFPercentage(2.5),
   },
@@ -29,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginTop: '8%'
+    marginTop: '8%',
   },
   statView: {
     flexDirection: 'row'
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
   statViewText: {
     fontSize: FontSize.small,
     fontWeight: 'bold',
-    color: Theme.light
+    color: Theme.dark
   },
   statDesc: {
     fontSize: FontSize.small,
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: Theme.primaryLight,
+    backgroundColor: Theme.dark,
     borderRadius: 5,
     marginTop: '9%'
   },

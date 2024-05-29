@@ -14,12 +14,18 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Text } from "react-native";
 import { IconSizes } from "../../../../Global/IconSizes";
 import Loading from "../../../../Components/Loading/Loading";
+import { Theme } from "../../../../Global/Theme";
+import { hp, wp } from "../../../../Global/Percentage";
+import { FontSize } from "../../../../Global/FontSize";
+import useCustomNavigation from "../../../../utils/useNavigation";
+import { routes } from "../../../routes";
 
 export const RegisterForm = ({
   registerFormBehaviour,
 }: {
   registerFormBehaviour: RegisterViewBehaviour;
 }) => {
+  const {navigateByPath} = useCustomNavigation();
   const {form, onSubmit, loadingState} = registerFormBehaviour;
   const {refresh, professions, loadingState: professionLoadingState} = useRegisterFormView();
   const {
@@ -134,6 +140,12 @@ export const RegisterForm = ({
           handleClick={handleSubmit(onSubmit)}
           loading={loadingState}
         />
+        <View style={{flexDirection: 'row', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(1), marginBottom: hp(10)}}>
+              <Text style={{color: Theme.dark, fontWeight: '300', fontSize: FontSize.normal}}> Vous avez deja un compte ? </Text>
+              <TouchableOpacity onPress={()=>{navigateByPath(routes.auth.login)}}>
+                <Text style={{color: Theme.primary, fontWeight: 'bold', fontSize: FontSize.normal}}> Connectez vous </Text>
+              </TouchableOpacity>
+        </View>
       </View>
   );
 };

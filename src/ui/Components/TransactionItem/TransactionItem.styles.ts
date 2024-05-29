@@ -23,12 +23,13 @@ const styles = StyleSheet.create({
     },
     transactionTitle: {
         fontWeight: 'bold',
-        color: Theme.light,
+        color: Theme.primary,
         fontSize: FontSize.normal
     },
     transactionType: {
-        color: Theme.primaryLight,
-        fontSize: FontSize.small
+        color: Theme.primary,
+        fontSize: FontSize.small,
+        
     },
     transactionDetailAmountContainer: {
         flexDirection: "column",
