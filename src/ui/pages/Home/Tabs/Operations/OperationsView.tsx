@@ -1,9 +1,9 @@
 import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import styles from "./TransactionsView.styles";
+import styles from "./OperationsView.styles.ts";
 import {pageStylesConstant} from "../../../../Global/Styles/constants";
 import AccountCard from "../../../../Components/Card/AccountCard/AccountCard";
 import TransactionItem from "../../../../Components/TransactionItem/TransactionItem";
-import useTransactionView from "./useTransctionView";
+import useOperationsView from "./useOperationView.ts";
 import {LoadingState} from "../../../../../Domain/Enums/LoadingState";
 import LoadingAccount from "../../../../Components/Card/AccountCard/Loading/LoadingAccount.tsx";
 import LoadingTransactionItem from "../../../../Components/TransactionItem/Loading/LoadingTransactionItem.tsx";
@@ -18,7 +18,7 @@ const Transactions = () => {
         accountLoadingState,
         operationsLoadingState,
         operations,
-    } = useTransactionView();
+    } = useOperationsView();
     return (
         <SafeAreaView
             style={[styles.pageContainer, {padding: pageStylesConstant.padding}]}
@@ -35,9 +35,9 @@ const Transactions = () => {
                             {
                                 accountLoadingState == LoadingState.pending && (
                                     <>
-                                        <LoadingAccount />
-                                        <View  style={{marginLeft: 5}}/>
-                                        <LoadingAccount />
+                                        <LoadingAccount/>
+                                        <View style={{marginLeft: 5}}/>
+                                        <LoadingAccount/>
                                     </>
 
                                 )
@@ -61,7 +61,7 @@ const Transactions = () => {
                             Opérations récentes
                         </Text>
                         <TouchableOpacity>
-                            <Icon name={Icons.calendar} size={IconSizes.normal} color={Theme.light} />
+                            <Icon name={Icons.calendar} size={IconSizes.normal} color={Theme.light}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.transactionBodyContainer}>
@@ -69,7 +69,7 @@ const Transactions = () => {
                             {
                                 operationsLoadingState == LoadingState.pending && (
                                     <>
-                                        <LoadingTransactionItem count={10} />
+                                        <LoadingTransactionItem count={10}/>
                                     </>
                                 )
                             }
@@ -77,8 +77,8 @@ const Transactions = () => {
                                 operationsLoadingState == LoadingState.success && (
                                     <>
                                         {
-                                            operations.map( op =>
-                                                <TransactionItem />
+                                            operations.map(op =>
+                                                <TransactionItem/>
                                             )
                                         }
                                     </>
@@ -87,7 +87,8 @@ const Transactions = () => {
                             {
                                 operationsLoadingState !== LoadingState.pending && operations.length === 0 && (
                                     <View style={styles.notFoundContainer}>
-                                        <Image style={styles.notFoundImage} source={require('../../../../../assets/icons/Home/transactions/not-found.png')} />
+                                        <Image style={styles.notFoundImage}
+                                               source={require('../../../../../assets/icons/Home/transactions/not-found.png')}/>
                                         <Text style={styles.notFoundText}>Aucune opération éffectuée pour le moment !</Text>
                                     </View>
                                 )

@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
     padding: wp(1),
     height: hp(6),
     backgroundColor: Theme.primaryLight,
-    borderRadius: 2,
     alignSelf: 'center',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10,
   },
   info: {
     width: wp(90),

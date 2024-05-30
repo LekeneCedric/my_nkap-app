@@ -2,12 +2,12 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Theme} from "../Global/Theme";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../Global/Icons";
-import TransactionsView from "../pages/Home/Tabs/Transactions/TransactionsView";
+import OperationsView from "../pages/Home/Tabs/Operations/OperationsView.tsx";
 import {Platform, View} from "react-native";
 import {wp} from "../Global/Percentage";
 import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
-import AddTransactionView from "../pages/Home/Tabs/AddTransaction/AddTransactionView.tsx";
+import AddOperationView from "../pages/Home/Tabs/AddTransaction/AddOperationView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
@@ -22,7 +22,7 @@ const HomeScreen = () => {
     >
       <Tab.Screen
         name={"transactions"}
-        component={TransactionsView}
+        component={OperationsView}
         options={{
           headerShown: true,
           tabBarLabel: "Transactions",
@@ -52,7 +52,7 @@ const HomeScreen = () => {
       />
       <Tab.Screen
         name={"add-transaction"}
-        component={AddTransactionView}
+        component={AddOperationView}
         options={{
           headerShown: false,
           tabBarLabel: "",

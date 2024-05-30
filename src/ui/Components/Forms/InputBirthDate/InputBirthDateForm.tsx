@@ -14,12 +14,14 @@ import DatePicker from "react-native-date-picker";
 import useUtils from "../../../utils/useUtils";
 
 type InputBirthDateFormProps = {
+  mode?: 'date' | 'time' | 'datetime',
   label: string;
   errorMessage?: string;
   field: ControllerRenderProps<any, any>;
   placeholder: string;
 };
 const InputBirthdayForm = ({
+  mode,
   label,
   errorMessage,
   field,
@@ -28,7 +30,7 @@ const InputBirthdayForm = ({
     const [date, setDate] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState<string>('');
     const [open, setOpen] = useState<boolean>(false);
-    const {formatDateToYYYYMMDD} = useUtils();
+    const {formatDateToYYYYMMDD, formatDateToYYYYMMDDHIS} = useUtils();
   return (
     <>
     <DatePicker
@@ -36,9 +38,10 @@ const InputBirthdayForm = ({
         locale={'fr'}
         open={open}
         date={date}
-        mode={'date'}
+        mode={mode ? mode :'date'}
         onConfirm={(date) => {
-            const formatedDate = formatDateToYYYYMMDD(date);
+            const formatedDate = mode && mode == 'date' ?
+                formatDateToYYYYMMDD(date) : formatDateToYYYYMMDDHIS(date);
             field.onChange(formatedDate);
             setFormattedDate(formatedDate);
             setOpen(false);
@@ -61,18 +64,18 @@ const InputBirthdayForm = ({
           color={Theme.dark}
         />
         {
-          formattedDate && 
+          formattedDate &&
           <Text style={styles.birthdate}>
             {formattedDate}
           </Text>
         }
         {
-          formattedDate.length == 0 && 
+          formattedDate.length == 0 &&
           <Text style={styles.placeholder}>
             {placeholder}
           </Text>
         }
-        
+
       </TouchableOpacity>
       {errorMessage ? (
         <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>

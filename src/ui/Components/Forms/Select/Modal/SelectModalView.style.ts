@@ -30,12 +30,15 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: 0.3,
     borderBottomColor: Theme.gray,
-    padding: '4%'
+    padding: '4%',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   itemText: {
     color: Theme.dark,
     fontSize: FontSize.normal,
-    fontWeight: '500'
+    fontWeight: '500',
+    paddingLeft: 10,
   },
 });
 export default styles;

@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
         width: wp(90),
         backgroundColor: Theme.primary,
         alignSelf: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 10,
     },
     text: {
         color: Theme.light,

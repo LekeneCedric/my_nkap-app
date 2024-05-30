@@ -15,11 +15,11 @@ export interface LoginFormBehaviour {
   loadingState: LoadingState;
 }
 
-interface UseLogiViewBehaviour {
+interface UseLoginViewBehaviour {
   loginFormBehaviour: LoginFormBehaviour;
 }
 
-export const UseLoginView = (): UseLogiViewBehaviour => {
+export const UseLoginView = (): UseLoginViewBehaviour => {
   const dispatch = useAppDispatch();
   const loadingState = useAppSelector(selectAuthenticationLoadingState);
   const toast = useToast();

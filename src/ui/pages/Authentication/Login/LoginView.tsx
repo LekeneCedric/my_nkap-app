@@ -16,7 +16,7 @@ import Animated, {
 import { UseLoginView } from "./UseLoginView.ts";
 import { hp, wp } from "../../../Global/Percentage.ts";
 import { FontSize } from "../../../Global/FontSize.ts";
-import { routes } from "../../routes/index.ts";
+import { routes } from "../../routes";
 import useCustomNavigation from "../../../utils/useNavigation.ts";
 
 const LoginView = () => {

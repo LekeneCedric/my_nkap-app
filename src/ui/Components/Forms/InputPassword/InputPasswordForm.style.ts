@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: wp(1),
     height: hp(6),
     backgroundColor: Theme.primaryLight,
-    borderRadius: 2,
+    borderRadius: 10,
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center'

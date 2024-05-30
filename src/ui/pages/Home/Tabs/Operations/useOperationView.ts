@@ -23,7 +23,7 @@ interface UseTransactionViewBehaviour {
     operations: IOperation[],
     operationsLoadingState: LoadingState,
 }
-const useTransactionView = (): UseTransactionViewBehaviour => {
+const useOperationsView = (): UseTransactionViewBehaviour => {
 
     const toast = useToast();
     const dispatch = useAppDispatch();
@@ -80,4 +80,4 @@ const useTransactionView = (): UseTransactionViewBehaviour => {
         operationsLoadingState: operationsLoadingState,
     };
 };
-export default useTransactionView;
+export default useOperationsView;

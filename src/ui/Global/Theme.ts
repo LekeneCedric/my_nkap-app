@@ -7,4 +7,5 @@ export const Theme = {
 	grayLight: 'rgba(216,224,232)',
 	red: '#d44',
 	green: '#2ECC71',
+	blue: '#0d48e6'
 }

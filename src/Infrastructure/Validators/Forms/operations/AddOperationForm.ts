@@ -1,9 +1,10 @@
 import {IOperationTypeEnum} from "../../../../Domain/Operation/Operation.ts";
 
-export default interface AddTransactionForm {
+export default interface AddOperationForm {
     accountId: string,
-    amount: number,
     type: IOperationTypeEnum,
+    amount: number,
     categoryId: string,
-    details: string,
+    date: string,
+    details?: string,
 }

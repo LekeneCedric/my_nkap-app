@@ -7,6 +7,7 @@ export default class GetAllAccountCommandFactory {
             status: result.status,
             accounts: result.accounts.map((a: any): IAccount =>{
                 return {
+                    id: a.accountId,
                     name: a.accountName,
                     type: a.accountType,
                     totalIncomes: a.totalIncomes,
