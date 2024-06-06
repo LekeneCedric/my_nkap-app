@@ -15,7 +15,7 @@ import {
 import IOperation from "../../../../../Domain/Operation/Operation.ts";
 import FilterOperationsAsync from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsCommand from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsCommand.ts";
-import gatewayMessages from "../../../../../Infrastructure/Shared/gateways/constants/gatewayMessages.ts";
+import gatewayMessages from "../../../../../Infrastructure/Shared/Gateways/constants/gatewayMessages.ts";
 
 interface UseTransactionViewBehaviour {
     accounts: IAccount[],

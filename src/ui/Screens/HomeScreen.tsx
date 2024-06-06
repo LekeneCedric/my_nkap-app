@@ -7,7 +7,7 @@ import {Platform, View} from "react-native";
 import {wp} from "../Global/Percentage";
 import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
-import AddOperationView from "../pages/Home/Tabs/AddTransaction/AddOperationView.tsx";
+import AddOperationView from "../pages/Home/Tabs/AddOperations/AddOperationView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {

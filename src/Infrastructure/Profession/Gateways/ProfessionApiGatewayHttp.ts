@@ -1,7 +1,7 @@
 import { ProfessionApiGateway } from "../../../Domain/profession/ProfessionApiGateway";
 import IGetAllProfessionResponse from "../../../Feature/Profession/Thunks/GetAll/GetAllProfessionResponse";
 import { ApiRoutes } from "../../Api/routes";
-import { HttpProvider } from "../../Shared/gateways/Axios/HttpProvider";
+import { HttpProvider } from "../../Shared/Gateways/Axios/HttpProvider";
 import GetAllProfessionResponseFactory from "../Factories/GetAllProfessionResponseFactory";
 
 export class ProfessionApiGatewayHttp extends HttpProvider implements ProfessionApiGateway {

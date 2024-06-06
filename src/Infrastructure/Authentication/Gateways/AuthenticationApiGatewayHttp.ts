@@ -4,7 +4,7 @@ import ILoginResponse from "../../../Feature/Authentication/Thunks/Login/LoginRe
 import { IRegisterCommand } from "../../../Feature/Authentication/Thunks/Register/RegisterCommand";
 import IRegisterResponse from "../../../Feature/Authentication/Thunks/Register/RegisterResponse";
 import { ApiRoutes } from "../../Api/routes";
-import { HttpProvider } from "../../Shared/gateways/Axios/HttpProvider";
+import { HttpProvider } from "../../Shared/Gateways/Axios/HttpProvider";
 import LoginResponseFactory from "../Factories/LoginResponseFactory";
 import RegisterResponseFactory from "../Factories/RegisterResponseFactory";
 

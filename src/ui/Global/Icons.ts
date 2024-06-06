@@ -30,5 +30,7 @@ export const Icons = {
         unChecked: 'checkbox-blank-circle-outline',
         checked: 'checkbox-marked-circle'
     },
-    money: 'money'
+    money: 'money',
+    category: 'dots-grid',
+    icon: 'crosshairs-question'
 }

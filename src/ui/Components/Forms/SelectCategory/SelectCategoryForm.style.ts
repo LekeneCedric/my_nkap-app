@@ -16,23 +16,25 @@ const styles = StyleSheet.create({
     inputContainer: {
         width: '90%',
         padding: wp(1),
-        height: hp(13),
+        height: hp(6),
         backgroundColor: Theme.primaryLight,
         borderRadius: 10,
         alignSelf: 'center',
         flexDirection: 'row',
-        alignItems: 'flex-start',
-    },
-    input: {
-        color: Theme.dark,
-        textDecorationLine: 'none',
-        fontSize: FontSize.normal,
-        width: '100%',
+        alignItems: 'center',
     },
     info: {
         width: wp(90),
         alignSelf: 'center',
         fontSize: FontSize.normal
+    },
+    professionLabel: {
+        flex: 9,
+        fontSize: FontSize.normal,
+        color: Theme.dark,
+        width: wp(90),
+        marginLeft: wp(1),
+        alignSelf: 'center',
     }
 });
 export default styles;

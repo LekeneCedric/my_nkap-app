@@ -8,6 +8,7 @@ import { listenerMiddleware } from './listenerMiddleware.ts';
 import AuthenticationApiGatewayHttp from '../Infrastructure/Authentication/Gateways/AuthenticationApiGatewayHttp.ts';
 import AccountApiGatewayHttp from '../Infrastructure/Account/Gateways/AccountApiGatewayHttp.ts';
 import OperationsApiGatewayHttp from "../Infrastructure/Operation/Gateways/OperationsApiGatewayHttp.ts";
+import CategoryApiGatewayHttp from "../Infrastructure/Category/Gateways/CategoryApiGatewayHttp.ts";
 
 const persistConfig = {
   key: 'my_nkap',
@@ -25,6 +26,7 @@ export const store = configureStore({
           authenticationApiGatewayHttp: new AuthenticationApiGatewayHttp(),
           accountApiGatewayHttp: new AccountApiGatewayHttp(),
           operationsApiGatewayHttp: new OperationsApiGatewayHttp(),
+          categoryApiGatewayHttp: new CategoryApiGatewayHttp(),
         },
       },
     }).prepend(listenerMiddleware.middleware),

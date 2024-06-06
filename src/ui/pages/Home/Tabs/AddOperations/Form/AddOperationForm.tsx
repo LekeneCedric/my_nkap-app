@@ -12,12 +12,16 @@ import InputBirthDateForm from "../../../../../Components/Forms/InputBirthDate/I
 import InputTextAreaForm from "../../../../../Components/Forms/InputTextArea/InputTextAreaForm.tsx";
 import ButtonForm from "../../../../../Components/Forms/Button/ButtonForm.tsx";
 import VerticalSeparator from "../../../../../Components/Shared/VerticalSeparator/VerticalSeparator.tsx";
+import ICategory from "../../../../../../Domain/Category/Category.ts";
+import SelectCategoryForm from "../../../../../Components/Forms/SelectCategory/SelectCategoryForm.tsx";
+import ISelectCategoryItem from "../../../../../Components/Forms/SelectCategory/SelectCategoryItem.ts";
 
 type props = {
     addOperationFormBehaviour: AddOperationFormBehaviour,
-    accounts: ISelectItem[]
+    accounts: ISelectItem[],
+    categories: ISelectCategoryItem[],
 }
-const AddOperationForm = ({addOperationFormBehaviour, accounts}: props) => {
+const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: props) => {
     const {form, onSubmit, loadingState} = addOperationFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
     return <View style={{flexDirection: 'column'}}>
@@ -28,10 +32,24 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts}: props) => {
                 <SelectForm
                     icon={Icons.walletOutline}
                     errorMessage={errors.accountId?.message}
-                    label={'Sélection du compte'}
+                    label={'Compte'}
                     field={field}
                     placeholder={'Sélectionnez le compte correspondant'}
                     list={accounts}
+                />
+            )}
+        />
+        <Controller
+            control={control}
+            name={'categoryId'}
+            render={({field}) => (
+                <SelectCategoryForm
+                    icon={Icons.category}
+                    errorMessage={errors.categoryId?.message}
+                    label={'Catégorie'}
+                    field={field}
+                    placeholder={'Sélectionnez la catégorie de l\'opération'}
+                    list={categories}
                 />
             )}
         />

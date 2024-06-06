@@ -1,9 +1,9 @@
 import IOperationApiGateway from "../../../Domain/Operation/OperationApiGateway.ts";
-import {HttpProvider} from "../../Shared/gateways/Axios/HttpProvider.ts";
+import {HttpProvider} from "../../Shared/Gateways/Axios/HttpProvider.ts";
 import IFilterOperationsCommand from "../../../Feature/Operations/Thunks/Filter/FilterOperationsCommand.ts";
 import IFilterOperationsResponse from "../../../Feature/Operations/Thunks/Filter/FilterOperationsResponse.ts";
 import {ApiRoutes} from "../../Api/routes";
-import gatewayMessages from "../../Shared/gateways/constants/gatewayMessages.ts";
+import gatewayMessages from "../../Shared/Gateways/constants/gatewayMessages.ts";
 import FilterOperationsResponseFactory from "../Factories/FilterOperationsResponseFactory.ts";
 
 export default class OperationsApiGatewayHttp extends HttpProvider implements IOperationApiGateway {

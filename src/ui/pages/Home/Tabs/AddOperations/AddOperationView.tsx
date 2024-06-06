@@ -9,12 +9,13 @@ const AddOperationView = () => {
     const {
         addOperationFormBehaviour,
         accounts,
+        categories
     } = UseAddOperationView();
     return (
         <SafeAreaView style={[styles.pageContainer, {backgroundColor: Theme.light}]}>
             <ScrollView>
                 <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp}>
-                    <AddOperationForm accounts={accounts} addOperationFormBehaviour={addOperationFormBehaviour}/>
+                    <AddOperationForm categories={categories} accounts={accounts} addOperationFormBehaviour={addOperationFormBehaviour}/>
                 </Animated.View>
             </ScrollView>
         </SafeAreaView>

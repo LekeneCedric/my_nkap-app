@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     color: Theme.dark,
-    width: wp(90),
+    width: '90%',
     alignSelf: 'center',
     fontSize: FontSize.normal
   },
   inputContainer: {
-    width: wp(90),
+    width: '90%',
     padding: wp(1),
     height: hp(6),
     backgroundColor: Theme.primaryLight,

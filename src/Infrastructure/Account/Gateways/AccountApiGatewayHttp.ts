@@ -2,7 +2,7 @@ import IAccountApiGateway from "../../../Domain/Account/AccountApiGateway";
 import { IGetAllAccountCommand } from "../../../Feature/Account/Thunks/GetAll/GetAllAccountCommand";
 import { IGetAllAccountResponse } from "../../../Feature/Account/Thunks/GetAll/GetAllAccountResponse";
 import { ApiRoutes } from "../../Api/routes";
-import { HttpProvider } from "../../Shared/gateways/Axios/HttpProvider";
+import { HttpProvider } from "../../Shared/Gateways/Axios/HttpProvider";
 import GetAllAccountCommandFactory from "../Factories/GetAllAccountCommandFactory";
 
 export default class AccountApiGatewayHttp extends HttpProvider implements IAccountApiGateway {
