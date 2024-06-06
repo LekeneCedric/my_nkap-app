@@ -4,6 +4,7 @@ export const FontSize = {
 	small: RFPercentage(1.4),
 	normal: RFPercentage(1.8),
 	medium: RFPercentage(2.2),
+	mediumHigh: RFPercentage(2.9),
 	high: RFPercentage(4),
 	extraLarge: RFPercentage(5.5)
 }

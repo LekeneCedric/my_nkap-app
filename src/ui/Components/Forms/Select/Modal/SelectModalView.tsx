@@ -32,14 +32,14 @@ const SelectModalView = ({
                            style={styles.container}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={closeModal} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.back} size={IconSizes.normal} color={Theme.primary}/>
+                        <Icon name={Icons.back} size={IconSizes.medium} color={Theme.primary}/>
                     </TouchableOpacity>
                     <SeachInput value={inputSearch} onChange={(text: string) => {
                         setInputSearch(text);
                         sortList(text)
                     }}/>
                     <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.close} size={IconSizes.normal} color={Theme.primary}/>
+                        <Icon name={Icons.close} size={IconSizes.medium} color={Theme.primary}/>
                     </TouchableOpacity>
                 </View>
                 <FlatList

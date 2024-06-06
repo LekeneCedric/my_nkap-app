@@ -24,7 +24,8 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
         filterList,
         sortList,
         form,
-        onSubmit
+        onSubmit,
+        loading,
     } = useSelectCategoryModalView(list);
     const clearSearch = () => {
         setInputSearch('');
@@ -37,20 +38,20 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
         setAddCategoryModalIsVisible(false);
     }
     return <>
-        <AddCategoryModal form={form} onClose={closeAddCategoryModal} onSubmit={onSubmit} isVisible={addCategoryModalIsVisible} />
+        <AddCategoryModal form={form} loading={loading} onClose={closeAddCategoryModal} onSubmit={onSubmit} isVisible={addCategoryModalIsVisible} />
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={closeModal} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.back} size={IconSizes.normal} color={Theme.primary}/>
+                        <Icon name={Icons.back} size={IconSizes.medium} color={Theme.primary}/>
                     </TouchableOpacity>
                     <SeachInput value={inputSearch} onChange={(text: string) => {
                         setInputSearch(text);
                         sortList(text)
                     }}/>
                     <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.close} size={IconSizes.normal} color={Theme.primary}/>
+                        <Icon name={Icons.close} size={IconSizes.medium} color={Theme.primary}/>
                     </TouchableOpacity>
                 </View>
 

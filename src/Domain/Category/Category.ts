@@ -3,5 +3,5 @@ export default interface ICategory {
     icon: string,
     name: string,
     color: string,
-    description: string
+    description?: string
 }

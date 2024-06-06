@@ -15,14 +15,16 @@ import {Theme} from "../../../../../Global/Theme.ts";
 import {FontSize} from "../../../../../Global/FontSize.ts";
 import AllColors from "../../../../../../Infrastructure/Shared/Data/colors.ts";
 import {useState} from "react";
+import loading from "../../../../Loading/Loading.tsx";
 
 type AddCategoryModalProps = {
     isVisible: boolean,
     form: UseFormReturn<IAddCategoryForm>,
     onSubmit: (data: IAddCategoryForm) => void,
     onClose: () => void,
+    loading: LoadingState,
 }
-const AddCategoryModal = ({isVisible, form, onSubmit, onClose}: AddCategoryModalProps) => {
+const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCategoryModalProps) => {
     const [selectedColor, setSelectedColor] = useState<string | null>(null)
     const {formState: {errors}, control, handleSubmit} = form;
     return <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
@@ -30,17 +32,16 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose}: AddCategoryModal
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>
                 <View style={{flexDirection: 'column'}}>
-                    <View style={{flexDirection: 'row', position: 'relative', marginBottom: 10}}>
-                        <TouchableOpacity onPress={onClose} style={{flex: 1, alignItems: 'flex-start'}}>
-                            <Icon name={Icons.back} size={IconSizes.normal} color={Theme.primary}/>
+                    <View style={{flexDirection: 'row', position: 'relative', marginBottom: 10, alignItems: 'center'}}>
+                        <TouchableOpacity onPress={onClose} style={{flex: 1, alignItems: 'flex-start', position: 'absolute', zIndex: 10000}}>
+                            <Icon name={Icons.back} size={IconSizes.medium} color={Theme.primary}/>
                         </TouchableOpacity>
                         <Text style={{
                             flex: 10,
-                            position: 'absolute',
                             top: 0,
                             width: '100%',
                             textAlign: 'center',
-                            fontSize: FontSize.medium,
+                            fontSize: FontSize.mediumHigh,
                             color: Theme.primary,
                         }}>
                             Ajouter une Catégorie
@@ -120,7 +121,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose}: AddCategoryModal
                             />
                         )}
                     />
-                    <ButtonForm loading={LoadingState.idle} loadingLabel={'Enregistrement de la catégorie ...'}
+                    <ButtonForm loading={loading} loadingLabel={'Enregistrement de la catégorie ...'}
                                 label={'Enregistrer'} handleClick={handleSubmit(onSubmit)}/>
                 </View>
             </Animated.View>
