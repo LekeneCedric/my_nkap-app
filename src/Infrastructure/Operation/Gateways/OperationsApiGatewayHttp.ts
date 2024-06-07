@@ -5,6 +5,9 @@ import IFilterOperationsResponse from "../../../Feature/Operations/Thunks/Filter
 import {ApiRoutes} from "../../Api/routes";
 import gatewayMessages from "../../Shared/Gateways/constants/gatewayMessages.ts";
 import FilterOperationsResponseFactory from "../Factories/FilterOperationsResponseFactory.ts";
+import ISaveOperationCommand from "../../../Feature/Operations/Thunks/Save/SaveOperationCommand.ts";
+import ISaveOperationResponse from "../../../Feature/Operations/Thunks/Save/SaveOperationResponse.ts";
+import SaveOperationsResponseFactory from "../Factories/SaveOperationsResponseFactory.ts";
 
 export default class OperationsApiGatewayHttp extends HttpProvider implements IOperationApiGateway {
 
@@ -15,7 +18,6 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
             const response = await this.post(ApiRoutes.operations.filter, command);
             //@ts-ignore
             result = response.data;
-            console.warn('result',result);
             if (!result.status) {
                 throw new Error(result.message);
             }
@@ -25,5 +27,20 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
         }
 
         return FilterOperationsResponseFactory.buildFromApiResponse(result);
+    }
+
+    async save(command: ISaveOperationCommand): Promise<ISaveOperationResponse> {
+        let result: any;
+        try {
+            const response = await this.post(ApiRoutes.operations.save, command);
+            //@ts-ignore
+            result = response.data;
+            if (!result.status || !result.operationSaved) {
+                throw new Error(result.message);
+            }
+        } catch (e: any) {
+            throw new Error(e.message ? e.message : gatewayMessages.technicalError);
+        }
+        return SaveOperationsResponseFactory.buildFromApiResponse(result);
     }
 }

@@ -9,6 +9,7 @@ export const AddOperationFormSchemaValidate = yup.object({
         .required('Veuillez sélectionner le compte liée à cette opération !'),
     type: yup
         .number()
+        //@ts-ignore
         .oneOf(Object.values(IOperationTypeEnum), 'Type d\'opération invalide')
         .required('Veuillez sélectionner le type de l\'opération !'),
     amount: yup

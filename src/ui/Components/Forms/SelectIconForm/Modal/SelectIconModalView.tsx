@@ -20,13 +20,8 @@ type SelectIconModalViewProps = {
 }
 const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconModalViewProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
-    const [inputSearch, setInputSearch] = useState<string>('');
-    const clearSearch = () => {
-        setInputSearch('');
-    }
-    useEffect(() => {
-
-    },[color])
+    const [iconsList,] = useState<any>(AllIcons)
+    useEffect(() => {},[color])
     return <>
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
@@ -44,7 +39,7 @@ const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconM
                 {/*</View>*/}
                 <ScrollView>
                     {
-                        Object.keys(AllIcons).map((category: string) => (
+                        Object.keys(iconsList).map((category: string) => (
                             <View key={category} style={{
                                 alignSelf: 'center',
                                 width: '95%',
@@ -60,7 +55,7 @@ const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconM
                                 }}>{category}</Text>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                                     {
-                                        AllIcons[category].map((item: string) => {
+                                        iconsList[category].map((item: string) => {
                                             return (
                                                 <TouchableOpacity onPress={() => {
                                                     action(item);

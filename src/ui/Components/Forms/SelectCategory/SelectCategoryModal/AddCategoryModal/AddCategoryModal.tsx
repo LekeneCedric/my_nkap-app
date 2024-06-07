@@ -26,7 +26,9 @@ type AddCategoryModalProps = {
 }
 const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCategoryModalProps) => {
     const [selectedColor, setSelectedColor] = useState<string | null>(null)
+    const [colorsList,] = useState<string[]>(AllColors);
     const {formState: {errors}, control, handleSubmit} = form;
+
     return <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
         <ScrollView>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
@@ -70,7 +72,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                                 <Text style={styles.colorSelectTitle}>Choisissez une couleur</Text>
                                 <View style={styles.colorSelectIconsContainer}>
                                     {
-                                        AllColors.map((color: string) => {
+                                        colorsList.map((color: string) => {
                                             const isSelectedColor = selectedColor === color;
                                             return (
                                                 <TouchableOpacity

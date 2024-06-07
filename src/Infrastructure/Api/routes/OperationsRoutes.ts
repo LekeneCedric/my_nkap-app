@@ -1,4 +1,5 @@
 const OperationsRoutes = {
-    filter: '/operation/filter'
+    filter: '/operation/filter',
+    save: '/operation/add'
 };
 export default OperationsRoutes;
