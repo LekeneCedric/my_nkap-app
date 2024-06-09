@@ -6,12 +6,13 @@ import { FontSize } from "../../Global/FontSize";
 type LoadingProps = {
     message: string,
     color?: string,
+    textColor?: string,
 }
-const Loading = ({message, color}: LoadingProps) => {
+const Loading = ({message, color, textColor}: LoadingProps) => {
     return (
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-            <ActivityIndicator color={color ? color : Theme.primary} size={IconSizes.normal} />
-            <Text style={{color: color ? color : Theme.dark, fontSize: FontSize.normal}}>{message}</Text>
+            <ActivityIndicator color={color } size={IconSizes.normal} />
+            <Text style={{color: textColor ? textColor : color, fontSize: FontSize.normal}}>{message}</Text>
         </View>
     )
 }

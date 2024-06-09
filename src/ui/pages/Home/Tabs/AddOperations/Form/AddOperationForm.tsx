@@ -12,9 +12,9 @@ import InputBirthDateForm from "../../../../../Components/Forms/InputBirthDate/I
 import InputTextAreaForm from "../../../../../Components/Forms/InputTextArea/InputTextAreaForm.tsx";
 import ButtonForm from "../../../../../Components/Forms/Button/ButtonForm.tsx";
 import VerticalSeparator from "../../../../../Components/Shared/VerticalSeparator/VerticalSeparator.tsx";
-import ICategory from "../../../../../../Domain/Category/Category.ts";
 import SelectCategoryForm from "../../../../../Components/Forms/SelectCategory/SelectCategoryForm.tsx";
 import ISelectCategoryItem from "../../../../../Components/Forms/SelectCategory/SelectCategoryItem.ts";
+import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
 
 type props = {
     addOperationFormBehaviour: AddOperationFormBehaviour,
@@ -24,7 +24,8 @@ type props = {
 const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: props) => {
     const {form, onSubmit, loadingState} = addOperationFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
-    return <View style={{flexDirection: 'column'}}>
+    const {colorPalette: {pageBackground, containerBackground, text, action1, red, green}} = useTheme();
+    return <View style={{flexDirection: 'column', backgroundColor: containerBackground}}>
         <Controller
             control={control}
             name={"accountId"}
@@ -111,7 +112,7 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: pro
             )}
         />
         <VerticalSeparator percent={3} />
-        <ButtonForm loading={loadingState} loadingLabel={'Enregistrement de l\'operation...'} label={'Enregistrer'} handleClick={handleSubmit(onSubmit)} />
+        <ButtonForm loading={loadingState} loadingLabel={'Enregistrement ...'} label={'Enregistrer'} handleClick={handleSubmit(onSubmit)} />
         <VerticalSeparator percent={10} />
     </View>
 };

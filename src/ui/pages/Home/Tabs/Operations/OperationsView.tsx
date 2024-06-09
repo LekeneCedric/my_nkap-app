@@ -11,6 +11,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../../Global/Icons.ts";
 import {IconSizes} from "../../../../Global/IconSizes.ts";
 import {Theme} from "../../../../Global/Theme.ts";
+import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import OperationViewStyles from "./OperationsView.styles.ts";
 
 const Transactions = () => {
     const {
@@ -19,6 +21,8 @@ const Transactions = () => {
         operationsLoadingState,
         operations,
     } = useOperationsView();
+    const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme();
+    const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
         <SafeAreaView
             style={[styles.pageContainer, {padding: pageStylesConstant.padding}]}
@@ -61,7 +65,7 @@ const Transactions = () => {
                             Opérations récentes
                         </Text>
                         <TouchableOpacity>
-                            <Icon name={Icons.calendar} size={IconSizes.normal} color={Theme.light}/>
+                            <Icon name={Icons.calendar} size={IconSizes.normal} color={action1}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.transactionBodyContainer}>
@@ -78,7 +82,7 @@ const Transactions = () => {
                                     <>
                                         {
                                             operations.map(op =>
-                                                <TransactionItem/>
+                                                <TransactionItem data={op}/>
                                             )
                                         }
                                     </>
@@ -87,8 +91,6 @@ const Transactions = () => {
                             {
                                 operationsLoadingState !== LoadingState.pending && operations.length === 0 && (
                                     <View style={styles.notFoundContainer}>
-                                        <Image style={styles.notFoundImage}
-                                               source={require('../../../../../assets/icons/Home/transactions/not-found.png')}/>
                                         <Text style={styles.notFoundText}>Aucune opération éffectuée pour le moment !</Text>
                                     </View>
                                 )

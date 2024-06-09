@@ -8,6 +8,8 @@ import {useState} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
+import CheckedFormStyle from "./CheckedForm.style.ts";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
 
 type props = {
     label: string;
@@ -21,6 +23,8 @@ const CheckedForm = ({label, field, values, errorMessage}: props) => {
         setSelectItem(item);
         field.onChange(item.id);
     }
+    const {colorPalette: {text}} = useTheme();
+    const styles = CheckedFormStyle(text)
     return <Animated.View entering={LightSpeedInLeft.duration(1500)}
                           exiting={LightSpeedOutRight.duration(1500)}
                           style={styles.container}>

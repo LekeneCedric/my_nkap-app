@@ -9,6 +9,8 @@ import {useState} from "react";
 import ISelectCategoryItem from "./SelectCategoryItem.ts";
 import {ControllerRenderProps} from "react-hook-form";
 import SelectCategoryModalView from "./SelectCategoryModal/SelectCategoryModalView.tsx";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import SelectCategoryFormStyle from "./SelectCategoryForm.style.ts";
 
 type SelectCategoryFormProps = {
     icon: string;
@@ -28,6 +30,8 @@ const SelectCategoryForm = ({
                             }: SelectCategoryFormProps) => {
     const [selectedCategoryItem, setSelectedCategoryItem] = useState<ISelectCategoryItem|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState(false);
+    const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
+    const styles = SelectCategoryFormStyle(pageBackground, text)
     return <>
         <SelectCategoryModalView
             action={(item: ISelectCategoryItem) => {
@@ -54,21 +58,21 @@ const SelectCategoryForm = ({
                     selectedCategoryItem && selectedCategoryItem.icon && selectedCategoryItem.color ? (
                         <Icon name={selectedCategoryItem.icon!} size={IconSizes.normal} color={selectedCategoryItem.color}/>
                     ) : (
-                        <Icon name={icon} size={IconSizes.normal} color={Theme.dark}/>
+                        <Icon name={icon} size={IconSizes.normal} color={action1}/>
 
                     )
                 }
                 {
                     selectedCategoryItem ?
-                        <Text style={styles.professionLabel}>{selectedCategoryItem.name}</Text>
+                        <Text style={styles.professionLabel} numberOfLines={1}>{selectedCategoryItem.name}</Text>
                         :
-                        <Text style={styles.professionLabel}>{placeholder}</Text>
+                        <Text style={styles.professionLabel} numberOfLines={1}>{placeholder}</Text>
                 }
                 <Icon
                     style={{flex: 1}}
                     name={Icons.dropDown}
                     size={IconSizes.normal}
-                    color={Theme.dark}
+                    color={action1}
                 />
             </TouchableOpacity>
             {errorMessage ? (

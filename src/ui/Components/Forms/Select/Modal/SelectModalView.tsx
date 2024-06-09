@@ -9,6 +9,8 @@ import {Theme} from "../../../../Global/Theme";
 import {useSelectModalView} from "./useSelectModalView";
 import {useState} from "react";
 import ISelectItem from "../SelectItem.ts";
+import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import SelectModalViewStyle from "./SelectModalView.style";
 
 type selectModalViewProps = {
     action: (item: ISelectItem) => void,
@@ -26,20 +28,22 @@ const SelectModalView = ({
         setInputSearch('');
         sortList('')
     }
+    const {colorPalette: {pageBackground, containerBackground, text, gray}} = useTheme();
+    const styles = SelectModalViewStyle(pageBackground, containerBackground, text, gray);
     return (
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 5}}>
                     <TouchableOpacity onPress={closeModal} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.back} size={IconSizes.medium} color={Theme.primary}/>
+                        <Icon name={Icons.back} size={IconSizes.normal} color={text}/>
                     </TouchableOpacity>
                     <SeachInput value={inputSearch} onChange={(text: string) => {
                         setInputSearch(text);
                         sortList(text)
                     }}/>
                     <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.close} size={IconSizes.medium} color={Theme.primary}/>
+                        <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                     </TouchableOpacity>
                 </View>
                 <FlatList

@@ -17,4 +17,5 @@ const SaveOperationAsync = createAsyncThunk<ISaveOperationResponse, ISaveOperati
             return thunkAPI.rejectWithValue(errorResult);
         }
     }
-)
+);
+export default SaveOperationAsync;

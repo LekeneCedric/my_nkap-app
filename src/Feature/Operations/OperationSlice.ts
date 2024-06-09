@@ -1,12 +1,13 @@
 import {LoadingState} from "../../Domain/Enums/LoadingState.ts";
-import IOperation from "../../Domain/Operation/Operation.ts";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import FilterOperationsAsync from "./Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsResponse from "./Thunks/Filter/FilterOperationsResponse.ts";
+import SaveCategoryAsync from "../Category/Thunks/Save/SaveCategoryAsync.ts";
+import IOperationDto from "../../Domain/Operation/IOperationDto.ts";
 
 interface IOperationState {
     loadingState: LoadingState,
-    operations: IOperation[],
+    operations: IOperationDto[],
     total: number,
     page: number,
     limit: number,
@@ -23,7 +24,14 @@ const initialState: IOperationState = {
 const OperationSlice = createSlice({
     name: "operations",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        AddOperation: (state, {payload}:PayloadAction<IOperationDto>) => {
+            state.total = state.total+1;
+            let operations = state.operations;
+            operations.unshift(payload);
+            state.operations = operations;
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(FilterOperationsAsync.pending, (state) => {
@@ -38,8 +46,18 @@ const OperationSlice = createSlice({
             .addCase(FilterOperationsAsync.rejected, (state) => {
                 state.loadingState = LoadingState.failed;
             });
+        builder
+            .addCase(SaveCategoryAsync.pending, state => {
+                state.loadingState = LoadingState.pending;
+            })
+            .addCase(SaveCategoryAsync.rejected, state => {
+                state.loadingState = LoadingState.failed;
+            })
+            .addCase(SaveCategoryAsync.fulfilled, (state) => {
+                state.loadingState = LoadingState.success;
+            });
     }
 })
 
-export const {} = OperationSlice.actions;
+export const {AddOperation} = OperationSlice.actions;
 export default OperationSlice.reducer;

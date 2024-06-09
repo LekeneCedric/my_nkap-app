@@ -3,30 +3,32 @@ import { hp, wp } from "../../../Global/Percentage.ts";
 import { Theme } from "../../../Global/Theme.ts";
 import { FontSize } from "../../../Global/FontSize.ts";
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-  },
-  inputLabel: {
-    color: Theme.dark,
-    width: wp(90),
-    alignSelf: 'center',
-    fontSize: FontSize.normal
-  },
-  inputContainer: {
-    width: wp(90),
-    padding: wp(1),
-    height: hp(6),
-    backgroundColor: Theme.primaryLight,
-    borderRadius: 10,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  info: {
-    width: wp(90),
-    alignSelf: 'center',
-    fontSize: FontSize.normal
-  }
-});
-export default styles;
+const InputPasswordStyles = (pageContainerColor: string, containerColor: string, textColor: string, grayColor: string) => {
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'column',
+    },
+    inputLabel: {
+      color: textColor,
+      width: wp(90),
+      alignSelf: 'center',
+      fontSize: FontSize.normal
+    },
+    inputContainer: {
+      width: wp(90),
+      padding: wp(1),
+      height: hp(6),
+      backgroundColor: pageContainerColor,
+      borderRadius: 10,
+      alignSelf: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    info: {
+      width: wp(90),
+      alignSelf: 'center',
+      fontSize: FontSize.normal
+    }
+  });
+}
+export default InputPasswordStyles;

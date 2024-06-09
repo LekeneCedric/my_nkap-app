@@ -6,6 +6,7 @@ import VerticalSeparator from "../../../../Components/Shared/VerticalSeparator/V
 import ButtonForm from "../../../../Components/Forms/Button/ButtonForm.tsx";
 import InputPasswordForm from "../../../../Components/Forms/InputPassword/InputPasswordForm.tsx";
 import { Icons } from "../../../../Global/Icons.ts";
+import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 
 export const LoginForm = (
   {loginFormBehaviour}: {loginFormBehaviour: LoginFormBehaviour}

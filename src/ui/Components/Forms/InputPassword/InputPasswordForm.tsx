@@ -11,6 +11,8 @@ import {Theme} from "../../../Global/Theme";
 import {FontSize} from "../../../Global/FontSize";
 import {ControllerRenderProps} from "react-hook-form";
 import {useState} from "react";
+import InputPasswordStyles from "./InputPasswordForm.style";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
 
 type inputFormPasswordProps = {
   label: string;
@@ -19,6 +21,8 @@ type inputFormPasswordProps = {
 };
 const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps) => {
   const [canSee, setCanSee] = useState<boolean>(false);
+  const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme()
+  const styles = InputPasswordStyles(pageBackground, containerBackground, text, gray)
   return (
     <Animated.View
       entering={LightSpeedInLeft.duration(1500)}
@@ -27,11 +31,11 @@ const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps)
     >
       <Text style={styles.inputLabel}>{label}</Text>
       <View style={styles.inputContainer}>
-        <Icon name={Icons.secure} size={IconSizes.normal} color={Theme.dark} />
+        <Icon name={Icons.secure} size={IconSizes.normal} color={action1} />
         <TextInput
           secureTextEntry={!canSee}
           placeholder={"Entrez votre adresse e-mail"}
-          placeholderTextColor={Theme.gray}
+          placeholderTextColor={text}
           cursorColor={Theme.primary}
           onBlur={field.onBlur}
           value={field.value}
@@ -53,7 +57,7 @@ const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps)
           <Icon
             name={ canSee ? Icons.eyeOpen : Icons.eyeClose}
             size={IconSizes.normal}
-            color={Theme.dark}
+            color={action1}
           />
         </TouchableOpacity>
       </View>

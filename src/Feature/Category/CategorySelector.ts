@@ -7,3 +7,6 @@ export const selectCategories = (state: RootState) => {
 export const selectCategoryLoadingState = (state: RootState) => {
     return state.categoryReducer.loadingState;
 }
+export const selectCategory = (state: RootState, id: string) => {
+    return state.categoryReducer.categories.find(c => c.id = id);
+}

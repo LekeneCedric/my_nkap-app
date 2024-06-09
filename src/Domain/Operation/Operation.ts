@@ -1,10 +1,10 @@
 export default interface IOperation {
-    id: string,
+    id?: string,
     accountId: string,
     type: IOperationTypeEnum,
+    categoryId: string,
     date: string,
-    details: string,
-    category: string,
+    detail: string,
     amount: number,
 }
 

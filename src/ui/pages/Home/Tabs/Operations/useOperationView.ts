@@ -16,11 +16,12 @@ import IOperation from "../../../../../Domain/Operation/Operation.ts";
 import FilterOperationsAsync from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsCommand from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsCommand.ts";
 import gatewayMessages from "../../../../../Infrastructure/Shared/Gateways/constants/gatewayMessages.ts";
+import IOperationDto from "../../../../../Domain/Operation/IOperationDto.ts";
 
 interface UseTransactionViewBehaviour {
     accounts: IAccount[],
     accountLoadingState: LoadingState,
-    operations: IOperation[],
+    operations: IOperationDto[],
     operationsLoadingState: LoadingState,
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
@@ -36,7 +37,6 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     const currentOperationsLimit = useAppSelector(selectCurrentOperationsLimit);
 
     const getAllAccounts = async () => {
-        if (accounts.length < 1) {
             const response = await dispatch(GetAllAccountAsync({userId: userId!}));
             if (GetAllAccountAsync.rejected.match(response)) {
                 //@ts-ignore
@@ -47,13 +47,12 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
                     animationType: "slide-in",
                 });
             }
-        }
     }
 
-    const getOperations = async () => {
+    const getOperations = async (page?: number) => {
         const command: IFilterOperationsCommand = {
             userId: userId!,
-            page: currentOperationsPage!,
+            page: page ? page : currentOperationsPage!,
             limit: currentOperationsLimit!,
         }
         console.warn(currentOperationsPage, currentOperationsLimit, userId);
@@ -70,7 +69,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     }
     useEffect(() => {
         getAllAccounts();
-        getOperations();
+        getOperations(1);
     },[])
 
     return {

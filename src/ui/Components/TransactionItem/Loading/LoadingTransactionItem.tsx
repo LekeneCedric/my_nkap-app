@@ -3,15 +3,17 @@ import {hp, wp} from "../../../Global/Percentage.ts";
 import {Text, View} from "react-native";
 import {useEffect, useState} from "react";
 import {Node} from "@babel/core";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
 
 type props = {
     count: number,
 }
 const LoadingTransactionItem = ({count}: props) => {
+    const {colorPalette: {pageBackground, gray}} = useTheme();
     const [items, setItems] = useState<Node[]>([]);
     useEffect(() => {
         for(let i=0; i<count; i++){
-            let newItem: Node = <SkeletonPlaceholder borderRadius={4}>
+            let newItem: Node = <SkeletonPlaceholder backgroundColor={gray} borderRadius={4}>
                 <View style={{ width: 'auto', height: hp(5), margin: 5}}>
                 </View>
             </SkeletonPlaceholder>;

@@ -11,6 +11,8 @@ import {KeyboardType, Text, TextInput, View} from "react-native";
 import { ControllerRenderProps } from "react-hook-form";
 import { FontSize } from "../../../Global/FontSize.ts";
 import {useState} from "react";
+import InputFormStyles from "./InputForm.style.ts";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
 
 type inputFormProps = {
   type?: 'amount'
@@ -22,6 +24,8 @@ type inputFormProps = {
   placeholder: string
 }
 export const InputForm = ({type, icon, label, errorMessage, field, keyboardType, placeholder}: inputFormProps) => {
+  const {colorPalette: {pageBackground, containerBackground, gray, text, red, action1}} = useTheme();
+  const styles = InputFormStyles(pageBackground, containerBackground, text, gray);
   const initialValue = type === 'amount' ? '0' : '';
   const [currentValue, setCurrentValue] = useState<string>(initialValue);
   const formatNumberToMoney = (number: number) => {
@@ -35,12 +39,13 @@ export const InputForm = ({type, icon, label, errorMessage, field, keyboardType,
     >
       <Text style={styles.inputLabel}>{label}</Text>
       <View style={styles.inputContainer}>
-        <Icon name={icon} size={IconSizes.normal} color={Theme.dark} />
+        <Icon name={icon} size={IconSizes.normal} color={action1} />
         <TextInput
           keyboardType={keyboardType}
           placeholder={placeholder}
-          placeholderTextColor={Theme.gray}
-          cursorColor={Theme.primary}
+          placeholderTextColor={text}
+          numberOfLines={1}
+          cursorColor={text}
           onBlur={field.onBlur}
           value={currentValue}
           onChangeText={(text: string) => {
@@ -58,18 +63,18 @@ export const InputForm = ({type, icon, label, errorMessage, field, keyboardType,
             }
             field.onChange(text)
           }}
-          style={{color: Theme.dark, textDecorationLine: "none", fontSize: FontSize.normal,width: '100%'}}
+          style={{color: text, textDecorationLine: "none", fontSize: FontSize.normal, width: '80%', height: 100, flexWrap: 'wrap', overflow: 'hidden'}}
         />
         {
           type == 'amount' && (
-              <Text style={{color: Theme.dark, fontSize: FontSize.normal, position: 'absolute', right: 10, top: 10}}>
+              <Text style={{color: text, fontSize: FontSize.normal, position: 'absolute', right: 10, top: 10}}>
                 XAF
               </Text>
             )
         }
       </View>
       {errorMessage ? (
-        <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+        <Text style={[styles.info, {color: red}]}>{errorMessage}</Text>
       ) : (
         <Text style={[styles.info, {color: Theme.gray}]} />
       )}

@@ -3,6 +3,8 @@ import Animated, {LightSpeedInLeft, LightSpeedOutRight} from "react-native-reani
 import styles from './InputTextAreaForm.style.ts';
 import {Text, TextInput, View} from "react-native";
 import {Theme} from "../../../Global/Theme.ts";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import InputTextAreaStyles from "./InputTextAreaForm.style.ts";
 
 type props = {
     label: string,
@@ -11,6 +13,8 @@ type props = {
     placeholder: string
 }
 const InputTextAreaForm = ({label, errorMessage, field, placeholder}: props) => {
+    const {colorPalette: {pageBackground, text, action1}} = useTheme();
+    const styles = InputTextAreaStyles(pageBackground, text);
     return (
         <Animated.View
             entering={LightSpeedInLeft.duration(1500)}
@@ -22,8 +26,8 @@ const InputTextAreaForm = ({label, errorMessage, field, placeholder}: props) => 
                 <TextInput
                     keyboardType={'default'}
                     placeholder={placeholder}
-                    placeholderTextColor={Theme.gray}
-                    cursorColor={Theme.primary}
+                    placeholderTextColor={text}
+                    cursorColor={text}
                     onBlur={field.onBlur}
                     value={field.value}
                     onChangeText={field.onChange}

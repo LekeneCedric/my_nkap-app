@@ -4,6 +4,7 @@ import AuthenticationSlice from '../../Feature/Authentication/AuthenticationSlic
 import AccountSlice from '../../Feature/Account/AccountSlice';
 import OperationSlice from "../../Feature/Operations/OperationSlice.ts";
 import CategorySlice from "../../Feature/Category/CategorySlice.ts";
+import ConfigurationSlice from "../../Feature/Configuration/ConfigurationSlice.ts";
 
 export const rootReducer = combineReducers({
     professionReducer: ProfessionSlice,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
     accountReducer: AccountSlice,
     operationReducer: OperationSlice,
     categoryReducer: CategorySlice,
+    configurationReducer: ConfigurationSlice,
 });
