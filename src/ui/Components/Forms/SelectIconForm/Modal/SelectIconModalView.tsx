@@ -2,15 +2,12 @@ import {useEffect, useState} from "react";
 import {FlatList, Modal, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import Animated, {BounceInDown, BounceInUp} from "react-native-reanimated";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import styles from './SelectIconModalView.style.ts';
-import {Icons} from "../../../../Global/Icons.ts";
 import {IconSizes} from "../../../../Global/IconSizes.ts";
-import {Theme} from "../../../../Global/Theme.ts";
-import SeachInput from "../../../SeachInput/SearchInput.tsx";
-import useSelectIconModalView from "./useSelectIconModalView.ts";
 import {FontSize} from "../../../../Global/FontSize.ts";
-import AllIcons from "../../../../../Infrastructure/Shared/Data/icons.ts";
 import VerticalSeparator from "../../../Shared/VerticalSeparator/VerticalSeparator.tsx";
+import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import SelectIconModalViewStyle from "./SelectIconModalView.style.ts";
+import {wp} from "../../../../Global/Percentage.ts";
 
 type SelectIconModalViewProps = {
     action: (item: string) => void,
@@ -20,7 +17,20 @@ type SelectIconModalViewProps = {
 }
 const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconModalViewProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
-    const [iconsList,] = useState<any>(AllIcons)
+    const [iconsList,] = useState<any>({
+        "Voyage": ["airplane", "car", "train", "bus", "suitcase", "map", "hotel"],
+        "Sport": ["soccer", "basketball", "football", "tennis", "golf", "run", "dumbbell"],
+        "Alimentation": ["food", "silverware", "pizza", "coffee", "beer", "glass-wine"],
+        "Shopping": ["cart", "tag", "shopping", "cash-register", "store"],
+        "Divertissement": ["movie", "music", "gamepad", "theater"],
+        "Sante": ["hospital", "heart", "medical-bag", "stethoscope", "pill"],
+        "Education": ["book", "school", "laptop"],
+        "Utilitaires": ["lightbulb", "water", "gas-cylinder"],
+        "Maison": ["home", "bed", "chair"],
+        "Soins personnels": ["shower", "hair-dryer", "toothbrush"]
+    });
+    const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
+    const styles= SelectIconModalViewStyle(pageBackground, containerBackground, text, action1);
     useEffect(() => {},[color])
     return <>
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
@@ -45,8 +55,8 @@ const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconM
                                 width: '95%',
                             }}>
                                 <Text style={{
-                                    color: Theme.gray,
-                                    fontWeight: 'bold',
+                                    color: text,
+                                    fontWeight: '600',
                                     fontSize: FontSize.medium,
                                     width: '95%',
                                     paddingBottom: 5,
@@ -60,8 +70,16 @@ const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconM
                                                 <TouchableOpacity onPress={() => {
                                                     action(item);
                                                     setSelectedIcon(item)
-                                                }} style={[styles.iconItem, {backgroundColor: selectedIcon === item ? Theme.primary: Theme.light}]}>
-                                                    <Icon name={item} size={IconSizes.normal} color={selectedIcon === item ? color ? color : Theme.light : color ? color : Theme.primary}/>
+                                                }} style={[styles.iconItem, {
+                                                    backgroundColor: selectedIcon === item ? containerBackground: pageBackground,
+                                                    borderColor: selectedIcon === item ? text: pageBackground
+                                                }, selectedIcon === item ? {shadowColor: "#171717",
+                                                    shadowOffset: {width: 5, height: 5},
+                                                    shadowOpacity: 0.2,
+                                                    shadowRadius: wp(10),
+                                                    elevation: 10,
+                                                    borderRadius: 50,} : {}]}>
+                                                    <Icon name={item} size={IconSizes.normal} color={selectedIcon === item ? color ? color : text : color ? color : text}/>
                                                 </TouchableOpacity>
                                             )
                                         })

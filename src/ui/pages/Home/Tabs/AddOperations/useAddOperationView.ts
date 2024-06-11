@@ -24,12 +24,15 @@ import SaveCategoryAsync from "../../../../../Feature/Category/Thunks/Save/SaveC
 import IOperationDto from "../../../../../Domain/Operation/IOperationDto.ts";
 import {AddOperation} from "../../../../../Feature/Operations/OperationSlice.ts";
 import {UpdateAccountBalance} from "../../../../../Feature/Account/AccountSlice.ts";
+import useNavigation from "../../../../utils/useNavigation.ts";
+import {routes} from "../../../routes";
 
 export interface AddOperationFormBehaviour {
     form: UseFormReturn<AddOperationForm>,
     onSubmit: (operation: AddOperationForm) => void,
     loadingState: LoadingState,
 }
+
 interface UseAddOperationViewBehaviour {
     addOperationFormBehaviour: AddOperationFormBehaviour,
     accounts: ISelectItem[],
@@ -46,15 +49,16 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
     const form = useForm<AddOperationForm>({
         resolver: yupResolver(AddOperationFormSchemaValidate),
     });
+    const {navigateByPath} = useNavigation();
     const onSubmit = async (data: AddOperationForm) => {
         const operation: IOperation = {
             accountId: data.accountId,
             type: data.type,
             amount: data.amount,
             categoryId: data.categoryId,
-            date: data.date+':00',
+            date: data.date + ':00',
             detail: data.details ? data.details : `
-            ${data.type == IOperationTypeEnum.EXPENSE ? 'Dépense': 'Revenu'} de ${data.amount} XAF
+            ${data.type == IOperationTypeEnum.EXPENSE ? 'Dépense' : 'Revenu'} de ${data.amount} XAF
             `,
         }
         console.warn(operation);
@@ -68,9 +72,11 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
                 animationType: "slide-in",
             });
         }
-        if (SaveCategoryAsync.fulfilled.match(response)) {
-            const operationId = response.payload.categoryId;
-            const category = useAppSelector(state => selectCategory(state, data.categoryId));
+        if (SaveOperationAsync.fulfilled.match(response)) {
+            const operationId = response.payload.operationId;
+            const category = categories.find(c => c.id == data.categoryId);
+            console.warn('category')
+            console.warn(category);
             const newOperation: IOperationDto = {
                 type: data.type,
                 id: operationId,
@@ -83,12 +89,13 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
                 categoryIcon: category?.icon!,
                 categoryColor: category?.color!,
             }
+            navigateByPath('transactions');
             dispatch(AddOperation(newOperation));
             dispatch(UpdateAccountBalance({
                 accountId: data.accountId,
                 type: data.type,
                 amount: data.amount
-            }))
+            }));
         }
     }
     const accountsSelectItems = accounts.map((ac: IAccount): ISelectItem => {
@@ -119,6 +126,7 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
         if (categories.length == 0) {
             getAllCategories();
         }
+
     }, [])
     return {
         addOperationFormBehaviour: {

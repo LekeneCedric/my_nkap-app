@@ -40,7 +40,8 @@ const TransactionItem = ({data}: props) => {
                     <Text numberOfLines={1} style={styles.transactionTitle}>
                         {data.details}
                     </Text>
-                    <Text style={[styles.transactionType, {color: data.type === IOperationTypeEnum.EXPENSE ? red : green }]}>
+                    <Text
+                        style={[styles.transactionType, {color: data.type === IOperationTypeEnum.EXPENSE ? red : green}]}>
                         {data.type === IOperationTypeEnum.EXPENSE && 'Dépense'}
                         {data.type === IOperationTypeEnum.INCOME && 'Revenu'}
                     </Text>
@@ -49,7 +50,9 @@ const TransactionItem = ({data}: props) => {
             <View style={[styles.transactionDetailAmountContainer, {flex: 3}]}>
                 <Text numberOfLines={1}
                       style={[styles.transactionAmountTitle, {color: data.type === IOperationTypeEnum.EXPENSE ? red : green}]}>
-                    + XAF {data.amount}
+                    {data.type === IOperationTypeEnum.EXPENSE && '-'}
+                    {data.type === IOperationTypeEnum.INCOME && '+'}
+                    XAF {data.amount}
                 </Text>
                 <Text style={styles.transactionTime}>{date}</Text>
             </View>

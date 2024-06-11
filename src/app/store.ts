@@ -11,7 +11,7 @@ import OperationsApiGatewayHttp from "../Infrastructure/Operation/Gateways/Opera
 import CategoryApiGatewayHttp from "../Infrastructure/Category/Gateways/CategoryApiGatewayHttp.ts";
 
 const persistConfig = {
-  key: 'my_nkap',
+  key: 'my_nkap_app',
   storage: AsyncStorage,
 };
 
@@ -20,6 +20,8 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
+      immutableCheck: false, // Disable the immutable state invariant middleware
+      serializableCheck: false, // You might also want to disable this if dealing with non-serializable data
       thunk: {
         extraArgument: {
           professionApiGatewayHttp: new ProfessionApiGatewayHttp(),

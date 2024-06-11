@@ -36,13 +36,13 @@ const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps)
           secureTextEntry={!canSee}
           placeholder={"Entrez votre adresse e-mail"}
           placeholderTextColor={text}
-          cursorColor={Theme.primary}
+          cursorColor={text}
           onBlur={field.onBlur}
           value={field.value}
           onChangeText={field.onChange}
           style={{
             flex: 8,
-            color: Theme.dark,
+            color: text,
             textDecorationLine: "none",
             fontSize: FontSize.normal,
             width: '100%'

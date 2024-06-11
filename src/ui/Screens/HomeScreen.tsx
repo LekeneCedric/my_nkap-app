@@ -19,7 +19,7 @@ const HomeScreen = () => {
             screenOptions={{
                 tabBarActiveTintColor: Theme.light,
                 tabBarStyle: {backgroundColor: pageBackground, borderWidth: 0, borderColor: pageBackground},
-                header: (props) => <HomeScreenHeader userName={username} props={props}/>
+                header: (props) => <HomeScreenHeader userName={username} props={props}/>,
             }}
         >
             <Tab.Screen

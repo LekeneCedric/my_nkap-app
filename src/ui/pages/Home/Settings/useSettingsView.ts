@@ -1,17 +1,19 @@
 import { useAppDispatch } from "../../../../app/hook";
 import { Logout } from "../../../../Feature/Authentication/AuthenticationSlice";
 
+interface IMenuItem {
+
+}
 interface UseSettingsView {
-    logout: () => void,
+    menuItems: IMenuItem[]
 }
 const useSettingsView = ():UseSettingsView => {
     const dispatch = useAppDispatch();
+    const menuItems: IMenuItem[] = [
 
-    const logout = () => {
-        dispatch(Logout())
-    }
+    ];
     return {
-        logout: logout,
+        menuItems: menuItems
     };
 }
 export default useSettingsView;

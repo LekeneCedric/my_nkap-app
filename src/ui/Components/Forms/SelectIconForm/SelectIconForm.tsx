@@ -9,6 +9,8 @@ import {IconSizes} from "../../../Global/IconSizes.ts";
 import {Theme} from "../../../Global/Theme.ts";
 import {Icons} from "../../../Global/Icons.ts";
 import SelectIconModalView from "./Modal/SelectIconModalView.tsx";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import SelectIconFormStyle from "./SelectIconForm.style.ts";
 
 type SelectCategoryFormProps = {
     icon: string;
@@ -21,6 +23,8 @@ type SelectCategoryFormProps = {
 const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: SelectCategoryFormProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+    const {colorPalette: {pageBackground, containerBackground, text, red, action1, gray}} = useTheme();
+    const styles = SelectIconFormStyle(pageBackground, containerBackground, text, action1, gray);
     useEffect(() => {}, [color])
     return <>
         <SelectIconModalView
@@ -46,29 +50,29 @@ const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: 
             }}>
                 {
                     selectedIcon  ? (
-                        <Icon name={selectedIcon} size={IconSizes.normal} color={ color ? color :Theme.dark}/>
+                        <Icon name={selectedIcon} size={IconSizes.normal} color={ color ? color : text}/>
                     ) : (
-                        <Icon name={icon} size={IconSizes.normal} color={color ? color : Theme.dark}/>
+                        <Icon name={icon} size={IconSizes.normal} color={color ? color :text}/>
 
                     )
                 }
                 {
                     selectedIcon ?
-                        <Text style={styles.professionLabel}>{selectedIcon}</Text>
+                        <Text style={styles.professionLabel} numberOfLines={1}>{selectedIcon}</Text>
                         :
-                        <Text style={styles.professionLabel}>{placeholder}</Text>
+                        <Text style={styles.professionLabel} numberOfLines={1}>{placeholder}</Text>
                 }
                 <Icon
                     style={{flex: 1}}
                     name={Icons.dropDown}
                     size={IconSizes.normal}
-                    color={Theme.dark}
+                    color={action1}
                 />
             </TouchableOpacity>
             {errorMessage ? (
-                <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+                <Text style={[styles.info, {color: red}]}>{errorMessage}</Text>
             ) : (
-                <Text style={[styles.info, {color: Theme.gray}]}/>
+                <Text style={[styles.info, {color: text}]}/>
             )}
         </Animated.View>
     </>

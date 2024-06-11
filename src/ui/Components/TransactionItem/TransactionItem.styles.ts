@@ -43,7 +43,8 @@ const TransactionItemStyles = (pageContainerColor: string, textColor: string) =>
         transactionAmountTitle: {
             fontWeight: 'bold',
             color: textColor,
-            fontSize: FontSize.normal
+            fontSize: FontSize.normal,
+            alignSelf: 'flex-end',
         }
     });
 };

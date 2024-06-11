@@ -23,26 +23,26 @@ export const  AccountSlice = createSlice({
     initialState: initialState,
     reducers: {
         UpdateAccountBalance: (state, {payload}: PayloadAction<OperationAction>) => {
-            let updatedAccount = state.accounts.find(a => a.id = payload.accountId)!;
-            if (!updatedAccount) return ;
-            if (payload.type == IOperationTypeEnum.INCOME) {
-                updatedAccount.balance = updatedAccount.balance + payload.amount;
-                updatedAccount.totalIncomes = updatedAccount.totalIncomes + payload.amount;
-            }
-            if (payload.type == IOperationTypeEnum.EXPENSE) {
-                updatedAccount.balance = updatedAccount.balance - payload.amount;
-                updatedAccount.totalExpenses = updatedAccount.totalExpenses + payload.amount;
-            }
-            let updatedAccounts: IAccount[] = [];
-            state.accounts.map((account: IAccount) => {
-                if (account.id !== payload.accountId){
-                    updatedAccounts.push(account)
-                };
-                if (account.id === payload.accountId){
-                    updatedAccounts.push(updatedAccount);
+            console.warn(payload);
+            state.accounts = state.accounts.map(a => {
+                if (a.id === payload.accountId) {
+                    if (payload.type === IOperationTypeEnum.INCOME) {
+                        return {
+                            ...a,
+                            totalIncomes: a.totalIncomes + payload.amount,
+                            balance: a.balance + payload.amount,
+                        }
+                    }
+                    if (payload.type === IOperationTypeEnum.EXPENSE) {
+                        return {
+                            ...a,
+                            totalExpenses: a.totalExpenses + payload.amount,
+                            balance: a.balance - payload.amount,
+                        }
+                    }
                 }
+                return a;
             });
-            state.accounts = updatedAccounts;
         }
     },
     extraReducers: builder => {

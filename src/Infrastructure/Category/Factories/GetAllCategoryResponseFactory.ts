@@ -7,7 +7,7 @@ export default class GetAllCategoryResponseFactory {
             status: result.status,
             categories: result.categories.map((category: any): ICategory => {
                 return {
-                    id: category.id,
+                    id: category.categoryId,
                     name: category.name,
                     color: category.color,
                     description: category.description,

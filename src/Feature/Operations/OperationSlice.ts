@@ -2,8 +2,8 @@ import {LoadingState} from "../../Domain/Enums/LoadingState.ts";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import FilterOperationsAsync from "./Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsResponse from "./Thunks/Filter/FilterOperationsResponse.ts";
-import SaveCategoryAsync from "../Category/Thunks/Save/SaveCategoryAsync.ts";
 import IOperationDto from "../../Domain/Operation/IOperationDto.ts";
+import SaveOperationAsync from "./Thunks/Save/SaveOperationAsync.ts";
 
 interface IOperationState {
     loadingState: LoadingState,
@@ -26,10 +26,9 @@ const OperationSlice = createSlice({
     initialState: initialState,
     reducers: {
         AddOperation: (state, {payload}:PayloadAction<IOperationDto>) => {
+            console.warn(payload);
             state.total = state.total+1;
-            let operations = state.operations;
-            operations.unshift(payload);
-            state.operations = operations;
+            state.operations = [payload, ...state.operations];
         }
     },
     extraReducers: builder => {
@@ -47,13 +46,13 @@ const OperationSlice = createSlice({
                 state.loadingState = LoadingState.failed;
             });
         builder
-            .addCase(SaveCategoryAsync.pending, state => {
+            .addCase(SaveOperationAsync.pending, state => {
                 state.loadingState = LoadingState.pending;
             })
-            .addCase(SaveCategoryAsync.rejected, state => {
+            .addCase(SaveOperationAsync.rejected, state => {
                 state.loadingState = LoadingState.failed;
             })
-            .addCase(SaveCategoryAsync.fulfilled, (state) => {
+            .addCase(SaveOperationAsync.fulfilled, (state) => {
                 state.loadingState = LoadingState.success;
             });
     }

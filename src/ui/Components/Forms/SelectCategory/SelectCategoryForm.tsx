@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../Global/IconSizes.ts";
 import {Theme} from "../../../Global/Theme.ts";
 import {Icons} from "../../../Global/Icons.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ISelectCategoryItem from "./SelectCategoryItem.ts";
 import {ControllerRenderProps} from "react-hook-form";
 import SelectCategoryModalView from "./SelectCategoryModal/SelectCategoryModalView.tsx";
@@ -31,7 +31,7 @@ const SelectCategoryForm = ({
     const [selectedCategoryItem, setSelectedCategoryItem] = useState<ISelectCategoryItem|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
-    const styles = SelectCategoryFormStyle(pageBackground, text)
+    const styles = SelectCategoryFormStyle(pageBackground, text);
     return <>
         <SelectCategoryModalView
             action={(item: ISelectCategoryItem) => {
@@ -51,7 +51,7 @@ const SelectCategoryForm = ({
             style={styles.container}
         >
             <Text style={styles.inputLabel}>{label}</Text>
-            <TouchableOpacity style={styles.inputContainer} onPress={() => {
+            <TouchableOpacity style={[styles.inputContainer]} onPress={() => {
                 setModalIsVisible(true)
             }}>
                 {

@@ -5,17 +5,20 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import styles from "./SettingsView.style";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons";
 import {IconSizes} from "../../../Global/IconSizes";
 import {Theme} from "../../../Global/Theme";
 import useSettingsView from "./useSettingsView";
 import useCustomNavigation from "../../../utils/useNavigation";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import SettingsViewStyles from "./SettingsView.style";
 
 const SettingsView = () => {
-  const {logout} = useSettingsView();
+  const {menuItems} = useSettingsView();
   const {goBack} = useCustomNavigation();
+  const {colorPalette: {pageBackground, containerBackground, text, gray, action1}}= useTheme();
+  const styles = SettingsViewStyles(pageBackground, containerBackground, text, gray, action1);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -30,19 +33,7 @@ const SettingsView = () => {
       </View>
       <View>
         <ScrollView>
-          <View style={styles.menuItem}>
-            <Text style={styles.menuItemTitle}>Appareil</Text>
-            <TouchableOpacity onPress={logout} style={styles.itemContainer}>
-              <Text style={[styles.itemText, {color: Theme.red}]}>
-                Deconnexion
-              </Text>
-              <Icon
-                name={Icons.logout}
-                color={Theme.red}
-                size={IconSizes.medium}
-              />
-            </TouchableOpacity>
-          </View>
+          <Menu items={menuItems}/>
         </ScrollView>
       </View>
     </SafeAreaView>

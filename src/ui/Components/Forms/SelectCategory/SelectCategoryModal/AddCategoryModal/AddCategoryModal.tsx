@@ -13,9 +13,9 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../../../Global/IconSizes.ts";
 import {Theme} from "../../../../../Global/Theme.ts";
 import {FontSize} from "../../../../../Global/FontSize.ts";
-import AllColors from "../../../../../../Infrastructure/Shared/Data/colors.ts";
 import {useState} from "react";
-import loading from "../../../../Loading/Loading.tsx";
+import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
+import AddCategoryModalStyles from "./AddCategoryModal.styles.ts";
 
 type AddCategoryModalProps = {
     isVisible: boolean,
@@ -26,9 +26,31 @@ type AddCategoryModalProps = {
 }
 const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCategoryModalProps) => {
     const [selectedColor, setSelectedColor] = useState<string | null>(null)
-    const [colorsList,] = useState<string[]>(AllColors);
+    const [colorsList,] = useState<string[]>([
+        "#4CAF50", // Green
+        "#03A9F4", // Light Blue
+        "#FFC107", // Amber
+        "#9C27B0", // Purple
+        "#FF5722", // Deep Orange
+        "#00BCD4", // Cyan
+        "#673AB7", // Deep Purple
+        "#FFEB3B", // Yellow
+        "#03DAC5", // Turquoise
+        "#E91E63", // Pink
+        "#8BC34A", // Light Green
+        "#2196F3", // Blue
+        "#FF9800", // Orange
+        "#3F51B5", // Indigo
+        "#FFA726", // Orange Light
+        "#009688", // Teal
+        "#FF5252", // Red Light
+        "#CDDC39", // Lime
+        "#9E9E9E", // Grey
+        "#795548"  // Brown
+    ]);
     const {formState: {errors}, control, handleSubmit} = form;
-
+    const {colorPalette: {pageBackground, containerBackground, text, red, action1, gray}} = useTheme();
+    const styles = AddCategoryModalStyles(pageBackground, containerBackground, text, action1, gray);
     return <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
         <ScrollView>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
@@ -36,7 +58,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                 <View style={{flexDirection: 'column'}}>
                     <View style={{flexDirection: 'row', position: 'relative', marginBottom: 10, alignItems: 'center'}}>
                         <TouchableOpacity onPress={onClose} style={{flex: 1, alignItems: 'flex-start', position: 'absolute', zIndex: 10000}}>
-                            <Icon name={Icons.back} size={IconSizes.medium} color={Theme.primary}/>
+                            <Icon name={Icons.back} size={IconSizes.medium} color={text}/>
                         </TouchableOpacity>
                         <Text style={{
                             flex: 10,
@@ -44,7 +66,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                             width: '100%',
                             textAlign: 'center',
                             fontSize: FontSize.mediumHigh,
-                            color: Theme.primary,
+                            color: text,
                         }}>
                             Ajouter une Catégorie
                         </Text>
@@ -83,15 +105,16 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                                                     style={[styles.colorSelectIconsContainerItem, {
                                                         backgroundColor: color,
                                                         borderWidth: isSelectedColor ? 3 : 0.3,
+                                                        borderColor: text
                                                     }]}>
                                                 </TouchableOpacity>
                                             )
                                         })
                                     }
                                     {errors.color?.message ? (
-                                        <Text style={[styles.info, {color: Theme.red}]}>{errors.color?.message}</Text>
+                                        <Text style={[styles.info, {color: red}]}>{errors.color?.message}</Text>
                                     ) : (
-                                        <Text style={[styles.info, {color: Theme.gray}]}/>
+                                        <Text style={[styles.info, {color: text}]}/>
                                     )}
                                 </View>
                             </View>

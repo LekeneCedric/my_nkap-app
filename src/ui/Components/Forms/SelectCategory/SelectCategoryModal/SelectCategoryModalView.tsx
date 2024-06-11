@@ -1,4 +1,3 @@
-import styles from "./selectCategoryModalView.style.ts";
 import Animated, {BounceInDown, BounceInUp} from "react-native-reanimated";
 import {FlatList, Modal, Text, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -10,6 +9,8 @@ import {useState} from "react";
 import {useSelectCategoryModalView} from "./useSelectCategoryModalView.ts";
 import ISelectCategoryItem from "../SelectCategoryItem.ts";
 import AddCategoryModal from "./AddCategoryModal/AddCategoryModal.tsx";
+import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import SelectCategoryModalViewStyle from "./selectCategoryModalView.style.ts";
 
 type selectCategoryModalViewProps = {
     action: (item: ISelectCategoryItem) => void,
@@ -18,6 +19,8 @@ type selectCategoryModalViewProps = {
     list: any[]
 }
 const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCategoryModalViewProps) => {
+    const {colorPalette: {pageBackground, containerBackground, action1, text }} = useTheme();
+    const styles = SelectCategoryModalViewStyle(pageBackground, containerBackground, text, action1);
     const [addCategoryModalIsVisible, setAddCategoryModalIsVisible] = useState(false);
     const [inputSearch, setInputSearch] = useState<string>('');
     const {
@@ -44,14 +47,14 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                            style={styles.container}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={closeModal} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.back} size={IconSizes.medium} color={Theme.primary}/>
+                        <Icon name={Icons.back} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
                     <SeachInput value={inputSearch} onChange={(text: string) => {
                         setInputSearch(text);
                         sortList(text)
                     }}/>
                     <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name={Icons.close} size={IconSizes.medium} color={Theme.primary}/>
+                        <Icon name={Icons.close} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
                 </View>
 
@@ -75,9 +78,9 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                 }
                 {
                     filterList.length == 0 && <View style={styles.listAddCategoryContainer}>
-                        <TouchableOpacity onPress={showAddCategoryModal} style={styles.itemContainer}>
-                            <Icon name={Icons.add} size={IconSizes.normal} color={Theme.gray}/>
-                            <Text style={styles.itemText} numberOfLines={1}>Ajouter une nouvelle catégorie</Text>
+                        <TouchableOpacity onPress={showAddCategoryModal} style={[styles.itemContainer,{borderBottomColor: text, borderBottomWidth: 0.3}]}>
+                            <Icon name={Icons.add} size={IconSizes.normal} color={action1}/>
+                            <Text style={[styles.itemText]} numberOfLines={1}>Ajouter une nouvelle catégorie</Text>
                         </TouchableOpacity>
                     </View>
                 }
