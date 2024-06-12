@@ -31,7 +31,12 @@ const SelectModalView = ({
     const {colorPalette: {pageBackground, containerBackground, text, gray}} = useTheme();
     const styles = SelectModalViewStyle(pageBackground, containerBackground, text, gray);
     return (
-        <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
+        <Modal
+            transparent={true}
+            style={styles.modalContainer}
+            animationType={'slide'}
+            visible={isVisible}
+        >
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 5}}>

@@ -18,7 +18,7 @@ type props = {
 const TransactionItem = ({data}: props) => {
     const [date, setDate] = useState<string | null>(null);
     const {colorPalette: {pageBackground, containerBackground, text, green, red, action1}} = useTheme();
-    const styles = TransactionItemStyles(pageBackground, text);
+    const styles = TransactionItemStyles(containerBackground, text);
     useEffect(() => {
         moment.locale('fr');
         const date = moment(data.date);
@@ -27,6 +27,7 @@ const TransactionItem = ({data}: props) => {
     }, [data]);
     return (
         <View style={styles.transactionContainer}>
+
             <View style={{flexDirection: 'row', flex: 5}}>
                 <View style={styles.transactionIconContainer}>
                     <Icon

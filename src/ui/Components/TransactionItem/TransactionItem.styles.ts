@@ -6,14 +6,14 @@ const TransactionItemStyles = (pageContainerColor: string, textColor: string) =>
     return StyleSheet.create({
         transactionContainer: {
             flexDirection: 'row',
-            padding: 8,
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 8,
         },
         transactionIconContainer: {
             backgroundColor: pageContainerColor,
-            borderRadius: 100
+            borderRadius: 100,
+            justifyContent: 'flex-start'
         },
         transactionIcon: {
             padding: 8,

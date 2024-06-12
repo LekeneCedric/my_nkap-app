@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hook";
 import { selectAccountLoadingState, selectAccounts } from "../../../../../Feature/Account/AccountSelector";
 import { GetAllAccountAsync } from "../../../../../Feature/Account/Thunks/GetAll/GetAllAccountAsync";
@@ -23,9 +23,11 @@ interface UseTransactionViewBehaviour {
     accountLoadingState: LoadingState,
     operations: IOperationDto[],
     operationsLoadingState: LoadingState,
+    onRefresh: () => void,
+    refreshing: boolean,
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
-
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const toast = useToast();
     const dispatch = useAppDispatch();
     const userId = useAppSelector(selectUser)?.userId;
@@ -67,9 +69,18 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
             });
         }
     }
+    const onRefresh = async () => {
+        setRefreshing(true);
+        await getAllAccounts();
+        await getOperations(1);
+        setRefreshing(false);
+    }
     useEffect(() => {
-        getAllAccounts();
-        getOperations(1);
+        const getData = async () => {
+            await getAllAccounts();
+            await getOperations(1);
+        };
+        getData();
     },[])
 
     return {
@@ -77,6 +88,8 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         accountLoadingState: accountLoadingState,
         operations: operations,
         operationsLoadingState: operationsLoadingState,
+        refreshing: refreshing,
+        onRefresh: onRefresh,
     };
 };
 export default useOperationsView;

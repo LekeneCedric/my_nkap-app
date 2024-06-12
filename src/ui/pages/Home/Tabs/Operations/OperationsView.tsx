@@ -1,4 +1,4 @@
-import {Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "./OperationsView.styles.ts";
 import {pageStylesConstant} from "../../../../Global/Styles/constants";
 import AccountCard from "../../../../Components/Card/AccountCard/AccountCard";
@@ -20,14 +20,20 @@ const Transactions = () => {
         accountLoadingState,
         operationsLoadingState,
         operations,
+        refreshing,
+        onRefresh
     } = useOperationsView();
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme();
     const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
         <SafeAreaView
             style={[styles.pageContainer, {padding: pageStylesConstant.padding}]}
+
         >
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            >
                 <View style={styles.accountsContainer}>
                     <Text style={styles.title}>Montant totale</Text>
                     <Text style={styles.accountBalance}>XAF 25.002.250</Text>
@@ -47,7 +53,7 @@ const Transactions = () => {
                                 )
                             }
                             {
-                                accountLoadingState == LoadingState.success && (
+                                accountLoadingState != LoadingState.pending && (
                                     <>
                                         {
                                             accounts.map(ac => <AccountCard type={ac.type} name={ac.name}
@@ -59,46 +65,47 @@ const Transactions = () => {
                         </ScrollView>
                     </View>
                 </View>
-                <View style={styles.transactionContainer}>
-                    <View style={styles.transactionHeaderBar}>
-                        <Text style={styles.transactionHeaderBarTitle}>
-                            Opérations récentes
-                        </Text>
-                        <TouchableOpacity>
-                            <Icon name={Icons.calendar} size={IconSizes.normal} color={action1}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.transactionBodyContainer}>
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            {
-                                operationsLoadingState == LoadingState.pending && (
-                                    <>
-                                        <LoadingTransactionItem count={10}/>
-                                    </>
-                                )
-                            }
-                            {
-                                operationsLoadingState == LoadingState.success && (
-                                    <>
-                                        {
-                                            operations.map(op =>
-                                                <TransactionItem data={op}/>
-                                            )
-                                        }
-                                    </>
-                                )
-                            }
-                            {
-                                operationsLoadingState !== LoadingState.pending && operations.length === 0 && (
-                                    <View style={styles.notFoundContainer}>
-                                        <Text style={styles.notFoundText}>Aucune opération éffectuée pour le moment !</Text>
-                                    </View>
-                                )
-                            }
+                <View style={styles.transactionBodyContainer}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        {
+                            operationsLoadingState == LoadingState.pending && (
+                                <>
+                                    <LoadingTransactionItem count={10}/>
+                                </>
+                            )
+                        }
+                        {
+                            operationsLoadingState != LoadingState.pending && (
+                                <>
+                                    {
+                                        operations.map(op =>
+                                            <TransactionItem data={op}/>
+                                        )
+                                    }
+                                </>
+                            )
+                        }
+                        {
+                            operationsLoadingState !== LoadingState.pending && operations.length === 0 && (
+                                <View style={styles.notFoundContainer}>
+                                    <Text style={styles.notFoundText}>Aucune opération éffectuée pour le moment !</Text>
+                                </View>
+                            )
+                        }
 
-                        </ScrollView>
-                    </View>
+                    </ScrollView>
                 </View>
+                {/*<View style={styles.transactionContainer}>*/}
+                {/*    <View style={styles.transactionHeaderBar}>*/}
+                {/*        <Text style={styles.transactionHeaderBarTitle}>*/}
+                {/*            Opérations récentes*/}
+                {/*        </Text>*/}
+                {/*        <TouchableOpacity>*/}
+                {/*            <Icon name={Icons.calendar} size={IconSizes.normal} color={action1}/>*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    </View>*/}
+                {/*    */}
+                {/*</View>*/}
             </ScrollView>
         </SafeAreaView>
     );

@@ -52,7 +52,6 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
       color: text,
     },
     transactionBodyContainer: {
-      height: hp(40),
     },
     notFoundContainer: {
       flexDirection: 'column',
