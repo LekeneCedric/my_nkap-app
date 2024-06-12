@@ -4,13 +4,14 @@ import {FontSize} from "../../../Global/FontSize";
 import {Theme} from "../../../Global/Theme";
 import { hp } from "../../../Global/Percentage";
 
-const SettingsViewStyles = (pageBackground: string, containerBackground: string, text: string, gray: string, action1: string) => {
+const SettingsViewStyles = (pageContainerColor: string, text: string) => {
   return StyleSheet.create({
-    container: PageStyles.container,
+    container: {...PageStyles.container, backgroundColor: pageContainerColor},
     headerContainer: {
       flexDirection: "row",
       alignItems: "center",
       width: "100%",
+      padding: 10,
     },
     headerTitle: {
       fontSize: FontSize.medium,

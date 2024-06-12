@@ -7,13 +7,13 @@ const HomeScreenHeaderStyle = (pageContainerColor: string, cardContainerColor: s
     return StyleSheet.create({
         container: {
             width: '100%',
-            height: hp(8),
             backgroundColor: pageContainerColor,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingLeft: wp(4),
-            paddingRight: wp(4)
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10
         },
         iconContainer: {
             alignItems: 'center',

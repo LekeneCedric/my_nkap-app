@@ -3,10 +3,11 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Welcome from "./pages/Welcome/welcomeView.tsx";
 import Login from "./pages/Authentication/Login/LoginView.tsx";
 import RegisterView from "./pages/Authentication/Register/RegisterView.tsx";
-import {routes} from "./pages/routes/index.ts";
+import {routes} from "./pages/routes";
 import useRootView from "./useRootView.ts";
 import HomeScreen from "./Screens/HomeScreen.tsx";
 import SettingsView from "./pages/Home/Settings/SettingsView.tsx";
+import PreferencesView from "./pages/Home/Settings/Menus/Preferences/PreferencesView.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {
@@ -26,7 +27,8 @@ const Root = () => {
         isAuthenticated && (
           <>
             <Stack.Screen name={routes.home.main} component={HomeScreen} />
-            <Stack.Screen name={routes.home.settings} component={SettingsView} />
+            <Stack.Screen name={routes.home.settings.main} component={SettingsView} />
+            <Stack.Screen name={routes.home.settings.preferences} component={PreferencesView} />
           </>
         )
       }

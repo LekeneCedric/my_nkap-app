@@ -8,7 +8,7 @@ const TransactionItemStyles = (pageContainerColor: string, textColor: string) =>
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 8,
+            marginTop: 10,
         },
         transactionIconContainer: {
             backgroundColor: pageContainerColor,
@@ -38,7 +38,6 @@ const TransactionItemStyles = (pageContainerColor: string, textColor: string) =>
         },
         transactionDetailAmountContainer: {
             flexDirection: "column",
-            marginLeft: 10
         },
         transactionAmountTitle: {
             fontWeight: 'bold',

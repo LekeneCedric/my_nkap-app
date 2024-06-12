@@ -52,6 +52,7 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
       color: text,
     },
     transactionBodyContainer: {
+      marginRight: 5
     },
     notFoundContainer: {
       flexDirection: 'column',
@@ -68,6 +69,31 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
       alignSelf: 'center',
       textAlign: 'center',
       color: text
+    },
+    transactionFilterContainer: {
+      flexDirection: 'row',
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    transactionFilterCategories: {
+      flexDirection: 'row',
+    },
+    transactionFilterCalendar: {
+    },
+    transactionFilterCategoriesItem: {
+      backgroundColor: cardContainerColor,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 5,
+      borderRadius: 8,
+      marginRight: 5
+    },
+    transactionFilterCategoriesItemText: {
+      fontSize: FontSize.normal,
+      color: text,
+      fontWeight: 'bold'
     }
   });
 }

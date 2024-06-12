@@ -23,20 +23,25 @@ const Transactions = () => {
         refreshing,
         onRefresh
     } = useOperationsView();
-    const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme();
+    const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
         <SafeAreaView
-            style={[styles.pageContainer, {padding: pageStylesConstant.padding}]}
-
-        >
+            style={[styles.pageContainer, {padding: pageStylesConstant.padding}]}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        progressBackgroundColor={action1}
+                        colors={[action1Text]}
+                        tintColor={action1Text}
+                        titleColor={action1Text}
+                        onRefresh={onRefresh}/>}
             >
                 <View style={styles.accountsContainer}>
-                    <Text style={styles.title}>Montant totale</Text>
-                    <Text style={styles.accountBalance}>XAF 25.002.250</Text>
+                    {/*<Text style={styles.title}>Montant totale</Text>*/}
+                    {/*<Text style={styles.accountBalance}>XAF 25.002.250</Text>*/}
                     <View style={{width: "100%"}}>
                         <ScrollView
                             horizontal={true}
@@ -64,6 +69,27 @@ const Transactions = () => {
                             }
                         </ScrollView>
                     </View>
+                </View>
+                <View style={styles.transactionFilterContainer}>
+                    <ScrollView horizontal={true}>
+                        <View style={styles.transactionFilterCategories}>
+                            <TouchableOpacity style={styles.transactionFilterCategoriesItem}>
+                                <Text style={styles.transactionFilterCategoriesItemText}
+                                      numberOfLines={1}>Catégories</Text>
+                                <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.transactionFilterCategoriesItem}>
+                                <Text style={styles.transactionFilterCategoriesItemText} numberOfLines={1}>Types</Text>
+                                <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
+                            </TouchableOpacity>
+
+
+                        </View>
+                    </ScrollView>
+
+                    <TouchableOpacity style={styles.transactionFilterCalendar}>
+                        <Icon name={Icons.calendar} size={IconSizes.medium} color={action1}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.transactionBodyContainer}>
                     <ScrollView showsVerticalScrollIndicator={false}>

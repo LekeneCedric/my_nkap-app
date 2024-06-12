@@ -32,5 +32,11 @@ export const Icons = {
     },
     money: 'money',
     category: 'dots-grid',
-    icon: 'crosshairs-question'
+    icon: 'crosshairs-question',
+    tools: 'tools',
+    help: 'help-circle-outline',
+    info: 'information',
+    notification: 'bell-ring',
+    theme: 'format-paint',
+    internationalisation: 'blur-radial',
 }

@@ -1,4 +1,7 @@
 export const HomeRoutes = {
     main: 'home',
-    settings: 'settings',
+    settings: {
+        main: 'settings',
+        preferences: 'preferences'
+    },
 }

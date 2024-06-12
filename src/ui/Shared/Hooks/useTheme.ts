@@ -33,7 +33,7 @@ const useTheme = (): useThemeBehaviour => {
         text: '#FEFEFE',
         green: '#1FA398',
         red: '#A94856',
-        gray: '#A9A9AF',
+        gray: '#a1a1a1',
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',
@@ -48,7 +48,7 @@ const useTheme = (): useThemeBehaviour => {
         text: '#030303',
         green: '#1DA193',
         red: '#AF3C24',
-        gray: '#C2C3C2',
+        gray: '#a1a1a1',
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',
@@ -58,9 +58,6 @@ const useTheme = (): useThemeBehaviour => {
         action3: '#030303',
         action3Text: '#030303',
     }
-    useEffect(() => {
-        dispatch(SwitchTheme('light'))
-    }, []);
     return {
         colorPalette: colorPalette!,
     }

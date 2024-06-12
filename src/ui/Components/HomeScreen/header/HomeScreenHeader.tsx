@@ -21,7 +21,7 @@ const HomeScreenHeader = ({props}: props) => {
   const styles = HomeScreenHeaderStyle(pageBackground, containerBackground, text);
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={()=>{navigateByPath(routes.home.settings)}} style={styles.iconContainer}>
+      <TouchableOpacity onPress={()=>{navigateByPath(routes.home.settings.main)}} style={styles.iconContainer}>
           <Icon style={styles.icon} name={Icons.settings} size={IconSizes.normal} color={action1} />
       </TouchableOpacity>
       {/*<Text style={styles.title}>{props.route.name}</Text>*/}

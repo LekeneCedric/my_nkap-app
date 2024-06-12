@@ -25,7 +25,7 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: pro
     const {form, onSubmit, loadingState} = addOperationFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {pageBackground, containerBackground, text, action1, red, green}} = useTheme();
-    return <View style={{flexDirection: 'column', backgroundColor: containerBackground}}>
+    return <View style={{flexDirection: 'column', backgroundColor: containerBackground, paddingTop: 10}}>
         <Controller
             control={control}
             name={"accountId"}

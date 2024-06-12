@@ -13,12 +13,14 @@ import useSettingsView from "./useSettingsView";
 import useCustomNavigation from "../../../utils/useNavigation";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SettingsViewStyles from "./SettingsView.style";
+import MenuView from "./Components/Menu/MenuView.tsx";
 
 const SettingsView = () => {
   const {menuItems} = useSettingsView();
   const {goBack} = useCustomNavigation();
   const {colorPalette: {pageBackground, containerBackground, text, gray, action1}}= useTheme();
-  const styles = SettingsViewStyles(pageBackground, containerBackground, text, gray, action1);
+  const styles= SettingsViewStyles(pageBackground, text);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -26,14 +28,14 @@ const SettingsView = () => {
           <Icon
             name={Icons.back}
             size={IconSizes.medium}
-            color={Theme.primary}
+            color={text}
           />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Paramètres</Text>
       </View>
-      <View>
+      <View style={{padding: 10}}>
         <ScrollView>
-          <Menu items={menuItems}/>
+          <MenuView menus={menuItems}/>
         </ScrollView>
       </View>
     </SafeAreaView>
