@@ -3,6 +3,7 @@ import { Logout } from "../../../../Feature/Authentication/AuthenticationSlice";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import {Icons} from "../../../Global/Icons.ts";
 import {routes} from "../../routes";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface IMenuItem {
     title: string,
@@ -43,6 +44,12 @@ const useSettingsView = ():UseSettingsView => {
             title: 'Plus',
             end: true,
             section: [
+                {
+                    title: 'Stockage & Exportation',
+                    route: '',
+                    icon: Icons.database,
+                    color: text
+                },
                 {
                     title: 'App Info',
                     route: '',

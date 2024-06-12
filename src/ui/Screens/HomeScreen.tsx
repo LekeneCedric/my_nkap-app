@@ -7,7 +7,7 @@ import {Platform, View} from "react-native";
 import {wp} from "../Global/Percentage";
 import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
-import AddOperationView from "../pages/Home/Tabs/AddOperations/AddOperationView.tsx";
+import AddOperationView from "../pages/Home/AddOperations/AddOperationView.tsx";
 import useTheme from "../Shared/Hooks/useTheme.ts";
 
 const Tab = createBottomTabNavigator();
@@ -18,7 +18,13 @@ const HomeScreen = () => {
         <Tab.Navigator
             screenOptions={{
                 tabBarActiveTintColor: Theme.light,
-                tabBarStyle: {backgroundColor: pageBackground, borderWidth: 0, borderColor: pageBackground},
+                tabBarStyle: {
+                    backgroundColor: pageBackground,
+                    borderWidth: 0,
+                    borderColor: pageBackground,
+                    elevation: 0,
+                    shadowOpacity: 0,
+                },
                 header: (props) => <HomeScreenHeader userName={username} props={props}/>,
             }}
         >
@@ -53,35 +59,35 @@ const HomeScreen = () => {
                     ),
                 }}
             />
-            <Tab.Screen
-                name={"add-transaction"}
-                component={AddOperationView}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: "",
-                    tabBarIcon: ({size, focused}) => (
-                        <View
-                            style={{
-                                top: Platform.OS == "ios" ? -10 : -20,
-                                width: Platform.OS == "ios" ? wp(16) : wp(18),
-                                height: Platform.OS == "ios" ? wp(16) : wp(18),
-                                borderRadius: wp(10),
-                                alignItems: "center",
-                                justifyContent: "center",
-                                backgroundColor: focused ? action1 : gray,
-                                borderColor: focused ? pageBackground: pageBackground,
-                                borderWidth: 5,
-                            }}
-                        >
-                            <Icon
-                                name={Icons.add}
-                                size={size}
-                                color={focused ? action1Text : containerBackground}
-                            />
-                        </View>
-                    ),
-                }}
-            />
+            {/*<Tab.Screen*/}
+            {/*    name={"add-transaction"}*/}
+            {/*    component={AddOperationView}*/}
+            {/*    options={{*/}
+            {/*        headerShown: false,*/}
+            {/*        tabBarLabel: "",*/}
+            {/*        tabBarIcon: ({size, focused}) => (*/}
+            {/*            <View*/}
+            {/*                style={{*/}
+            {/*                    top: Platform.OS == "ios" ? -10 : -20,*/}
+            {/*                    width: Platform.OS == "ios" ? wp(16) : wp(18),*/}
+            {/*                    height: Platform.OS == "ios" ? wp(16) : wp(18),*/}
+            {/*                    borderRadius: wp(10),*/}
+            {/*                    alignItems: "center",*/}
+            {/*                    justifyContent: "center",*/}
+            {/*                    backgroundColor: focused ? action1 : gray,*/}
+            {/*                    borderColor: focused ? pageBackground: pageBackground,*/}
+            {/*                    borderWidth: 5,*/}
+            {/*                }}*/}
+            {/*            >*/}
+            {/*                <Icon*/}
+            {/*                    name={Icons.add}*/}
+            {/*                    size={size}*/}
+            {/*                    color={focused ? action1Text : containerBackground}*/}
+            {/*                />*/}
+            {/*            </View>*/}
+            {/*        ),*/}
+            {/*    }}*/}
+            {/*/>*/}
             <Tab.Screen
                 name={'statistiques'}
                 component={() => <></>}

@@ -1,31 +1,31 @@
 import {useForm, UseFormReturn} from "react-hook-form";
-import AddOperationForm from "../../../../../Infrastructure/Validators/Forms/operations/AddOperationForm.ts";
-import {LoadingState} from "../../../../../Domain/Enums/LoadingState.ts";
+import AddOperationForm from "../../../../Infrastructure/Validators/Forms/operations/AddOperationForm.ts";
+import {LoadingState} from "../../../../Domain/Enums/LoadingState.ts";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
     AddOperationFormSchemaValidate
-} from "../../../../../Infrastructure/Validators/Forms/operations/AddOperationFormSchemaValidate.ts";
-import {useAppDispatch, useAppSelector} from "../../../../../app/hook.ts";
-import {selectOperationLoadingState} from "../../../../../Feature/Operations/OperationsSelector.ts";
-import ISelectItem from "../../../../Components/Forms/Select/SelectItem.ts";
-import {selectAccounts} from "../../../../../Feature/Account/AccountSelector.ts";
-import IAccount from "../../../../../Domain/Account/Account.ts";
+} from "../../../../Infrastructure/Validators/Forms/operations/AddOperationFormSchemaValidate.ts";
+import {useAppDispatch, useAppSelector} from "../../../../app/hook.ts";
+import {selectOperationLoadingState} from "../../../../Feature/Operations/OperationsSelector.ts";
+import ISelectItem from "../../../Components/Forms/Select/SelectItem.ts";
+import {selectAccounts} from "../../../../Feature/Account/AccountSelector.ts";
+import IAccount from "../../../../Domain/Account/Account.ts";
 import {useEffect} from "react";
-import {selectCategories, selectCategory} from "../../../../../Feature/Category/CategorySelector.ts";
-import {selectUser} from "../../../../../Feature/Authentication/AuthenticationSelector.ts";
-import IGetAllCategoryCommand from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
-import GetAllCategoryAsync from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
-import ISelectCategoryItem from "../../../../Components/Forms/SelectCategory/SelectCategoryItem.ts";
-import ICategory from "../../../../../Domain/Category/Category.ts";
-import SaveOperationAsync from "../../../../../Feature/Operations/Thunks/Save/SaveOperationAsync.ts";
+import {selectCategories, selectCategory} from "../../../../Feature/Category/CategorySelector.ts";
+import {selectUser} from "../../../../Feature/Authentication/AuthenticationSelector.ts";
+import IGetAllCategoryCommand from "../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
+import GetAllCategoryAsync from "../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
+import ISelectCategoryItem from "../../../Components/Forms/SelectCategory/SelectCategoryItem.ts";
+import ICategory from "../../../../Domain/Category/Category.ts";
+import SaveOperationAsync from "../../../../Feature/Operations/Thunks/Save/SaveOperationAsync.ts";
 import {useToast} from "react-native-toast-notifications";
-import IOperation, {IOperationTypeEnum} from "../../../../../Domain/Operation/Operation.ts";
-import SaveCategoryAsync from "../../../../../Feature/Category/Thunks/Save/SaveCategoryAsync.ts";
-import IOperationDto from "../../../../../Domain/Operation/IOperationDto.ts";
-import {AddOperation} from "../../../../../Feature/Operations/OperationSlice.ts";
-import {UpdateAccountBalance} from "../../../../../Feature/Account/AccountSlice.ts";
-import useNavigation from "../../../../utils/useNavigation.ts";
-import {routes} from "../../../routes";
+import IOperation, {IOperationTypeEnum} from "../../../../Domain/Operation/Operation.ts";
+import SaveCategoryAsync from "../../../../Feature/Category/Thunks/Save/SaveCategoryAsync.ts";
+import IOperationDto from "../../../../Domain/Operation/IOperationDto.ts";
+import {AddOperation} from "../../../../Feature/Operations/OperationSlice.ts";
+import {UpdateAccountBalance} from "../../../../Feature/Account/AccountSlice.ts";
+import useNavigation from "../../../utils/useNavigation.ts";
+import {routes} from "../../routes";
 
 export interface AddOperationFormBehaviour {
     form: UseFormReturn<AddOperationForm>,

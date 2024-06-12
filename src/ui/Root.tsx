@@ -8,6 +8,7 @@ import useRootView from "./useRootView.ts";
 import HomeScreen from "./Screens/HomeScreen.tsx";
 import SettingsView from "./pages/Home/Settings/SettingsView.tsx";
 import PreferencesView from "./pages/Home/Settings/Menus/Preferences/PreferencesView.tsx";
+import AddOperationView from "./pages/Home/AddOperations/AddOperationView.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {
@@ -29,6 +30,7 @@ const Root = () => {
             <Stack.Screen name={routes.home.main} component={HomeScreen} />
             <Stack.Screen name={routes.home.settings.main} component={SettingsView} />
             <Stack.Screen name={routes.home.settings.preferences} component={PreferencesView} />
+            <Stack.Screen name={routes.home.addOperation} component={AddOperationView} />
           </>
         )
       }

@@ -5,7 +5,7 @@ export const Icons = {
     eyeOpen: 'eye-outline',
     eyeClose: 'eye-off-outline',
     user: 'account-outline',
-    calendar: 'calendar-month',
+    calendar: 'calendar-blank-outline',
     work: 'briefcase-account-outline',
     dropDown: 'chevron-down',
     back: 'chevron-left',
@@ -21,7 +21,7 @@ export const Icons = {
     financialGoal: 'trophy-variant',
     settings: 'cog-outline',
     logout: 'logout',
-    filter: '',
+    filter: 'filter-outline',
     stats: {
         up: 'arrow-top-right',
         down: 'arrow-bottom-right-thin'
@@ -39,4 +39,11 @@ export const Icons = {
     notification: 'bell-ring',
     theme: 'format-paint',
     internationalisation: 'blur-radial',
+    chevron: {
+        left: 'chevron-left',
+        right: 'chevron-right',
+        doubleLeft: 'chevron-double-left',
+        doubleRight: 'chevron-double-right',
+    },
+    database: 'database-outline'
 }

@@ -3,10 +3,18 @@ import {PageStyles} from "../../../../Global/Styles/page.styles";
 import {FontSize} from "../../../../Global/FontSize";
 import {Theme} from "../../../../Global/Theme";
 import {hp, wp} from "../../../../Global/Percentage";
+import {pageStylesConstant} from "../../../../Global/Styles/constants.ts";
 
 const OperationViewStyles = (pageContainerColor: string, cardContainerColor: string, text: string, gray: string) => {
   return StyleSheet.create({
-    pageContainer: {...PageStyles.container, backgroundColor: pageContainerColor},
+    pageContainer: {
+      ...PageStyles.container,
+      backgroundColor: pageContainerColor,
+      paddingTop: pageStylesConstant.padding,
+      paddingLeft: pageStylesConstant.padding,
+      paddingRight: pageStylesConstant.padding,
+      paddingBottom: 50
+    },
     accountsContainer: {
       width: "100%",
       flexDirection: "column",

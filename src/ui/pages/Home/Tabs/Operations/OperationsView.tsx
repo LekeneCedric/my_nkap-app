@@ -1,4 +1,4 @@
-import {Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Animated} from "react-native";
 import styles from "./OperationsView.styles.ts";
 import {pageStylesConstant} from "../../../../Global/Styles/constants";
 import AccountCard from "../../../../Components/Card/AccountCard/AccountCard";
@@ -13,6 +13,8 @@ import {IconSizes} from "../../../../Global/IconSizes.ts";
 import {Theme} from "../../../../Global/Theme.ts";
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 import OperationViewStyles from "./OperationsView.styles.ts";
+import {hp, wp} from "../../../../Global/Percentage.ts";
+import {FontSize} from "../../../../Global/FontSize.ts";
 
 const Transactions = () => {
     const {
@@ -21,13 +23,15 @@ const Transactions = () => {
         operationsLoadingState,
         operations,
         refreshing,
-        onRefresh
+        onRefresh,
+        bounceValue,
+        navigateToAddOperation
     } = useOperationsView();
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
         <SafeAreaView
-            style={[styles.pageContainer, {padding: pageStylesConstant.padding}]}>
+            style={styles.pageContainer}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 refreshControl={
@@ -82,13 +86,11 @@ const Transactions = () => {
                                 <Text style={styles.transactionFilterCategoriesItemText} numberOfLines={1}>Types</Text>
                                 <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
                             </TouchableOpacity>
-
-
                         </View>
                     </ScrollView>
 
                     <TouchableOpacity style={styles.transactionFilterCalendar}>
-                        <Icon name={Icons.calendar} size={IconSizes.medium} color={action1}/>
+                        <Icon name={Icons.filter} size={IconSizes.medium} color={action1}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.transactionBodyContainer}>
@@ -133,6 +135,56 @@ const Transactions = () => {
                 {/*    */}
                 {/*</View>*/}
             </ScrollView>
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                backgroundColor: pageBackground,
+                padding: 10,
+                position: 'absolute',
+                bottom: 0,
+                height: 50,
+                width: wp(100)
+            }}>
+                <TouchableOpacity>
+                    <Icon name={Icons.chevron.doubleLeft} color={text} size={IconSizes.normMed} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Icon name={Icons.chevron.left} color={text} size={IconSizes.normMed} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text numberOfLines={1} style={{color: action1, fontSize: FontSize.normal, marginRight: 5}}>Aujourd'hui</Text>
+                    <Icon name={Icons.calendar} color={action1} size={IconSizes.normMed} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Icon name={Icons.chevron.right} color={text} size={IconSizes.normMed} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Icon name={Icons.chevron.doubleRight} color={text} size={IconSizes.normMed} />
+                </TouchableOpacity>
+            </View>
+            <Animated.View style={{
+                translateY: bounceValue,
+                position: 'absolute',
+                width: 60,
+                height: 60,
+                borderRadius: 30,
+                backgroundColor: action1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                right: 20,
+                bottom: hp(10),
+                elevation: 8, // Add shadow for Android
+                shadowColor: text, // Add shadow for iOS
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.8,
+                shadowRadius: 2,
+            }}
+            >
+                <TouchableOpacity onPress={navigateToAddOperation}>
+                    <Icon name={Icons.add} size={IconSizes.medium} color={action1Text} />
+                </TouchableOpacity>
+            </Animated.View>
         </SafeAreaView>
     );
 };

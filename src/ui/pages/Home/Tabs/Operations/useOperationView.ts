@@ -1,4 +1,5 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import { Animated, Easing } from 'react-native';
 import { useAppDispatch, useAppSelector } from "../../../../../app/hook";
 import { selectAccountLoadingState, selectAccounts } from "../../../../../Feature/Account/AccountSelector";
 import { GetAllAccountAsync } from "../../../../../Feature/Account/Thunks/GetAll/GetAllAccountAsync";
@@ -17,6 +18,8 @@ import FilterOperationsAsync from "../../../../../Feature/Operations/Thunks/Filt
 import IFilterOperationsCommand from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsCommand.ts";
 import gatewayMessages from "../../../../../Infrastructure/Shared/Gateways/constants/gatewayMessages.ts";
 import IOperationDto from "../../../../../Domain/Operation/IOperationDto.ts";
+import useNavigation from "../../../../utils/useNavigation.ts";
+import {routes} from "../../../routes";
 
 interface UseTransactionViewBehaviour {
     accounts: IAccount[],
@@ -25,9 +28,13 @@ interface UseTransactionViewBehaviour {
     operationsLoadingState: LoadingState,
     onRefresh: () => void,
     refreshing: boolean,
+    bounceValue: Animated.Value,
+    navigateToAddOperation: () => void,
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
     const [refreshing, setRefreshing] = useState<boolean>(false);
+    const bounceValue = useRef(new Animated.Value(0)).current;
+    const {navigateByPath} = useNavigation();
     const toast = useToast();
     const dispatch = useAppDispatch();
     const userId = useAppSelector(selectUser)?.userId;
@@ -38,6 +45,9 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     const currentOperationsPage = useAppSelector(selectCurrentOperationsPage);
     const currentOperationsLimit = useAppSelector(selectCurrentOperationsLimit);
 
+    const navigateToAddOperation = () => {
+        navigateByPath(routes.home.addOperation)
+    }
     const getAllAccounts = async () => {
             const response = await dispatch(GetAllAccountAsync({userId: userId!}));
             if (GetAllAccountAsync.rejected.match(response)) {
@@ -76,11 +86,27 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         setRefreshing(false);
     }
     useEffect(() => {
-        const getData = async () => {
-            await getAllAccounts();
-            await getOperations(1);
+        const startBouncing = () => {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(bounceValue, {
+                        toValue: 4,
+                        duration: 500,
+                        easing: Easing.linear,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(bounceValue, {
+                        toValue: 0,
+                        duration: 500,
+                        easing: Easing.linear,
+                        useNativeDriver: true,
+                    }),
+                ])
+            ).start();
         };
-        getData();
+
+        startBouncing();
+
     },[])
 
     return {
@@ -90,6 +116,8 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         operationsLoadingState: operationsLoadingState,
         refreshing: refreshing,
         onRefresh: onRefresh,
+        bounceValue: bounceValue,
+        navigateToAddOperation: navigateToAddOperation,
     };
 };
 export default useOperationsView;

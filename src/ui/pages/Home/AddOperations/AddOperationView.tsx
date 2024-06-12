@@ -1,13 +1,13 @@
 import {SafeAreaView, ScrollView, View} from "react-native";
 import styles from "./AddOperationView.styles.ts";
 import UseAddOperationView from "./useAddOperationView.ts";
-import {Theme} from "../../../../Global/Theme.ts";
+import {Theme} from "../../../Global/Theme.ts";
 import Animated, {BounceInDown, BounceInUp} from "react-native-reanimated";
 import AddOperationForm from "./Form/AddOperationForm.tsx";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {Icons} from "../../../../Global/Icons.ts";
-import {IconSizes} from "../../../../Global/IconSizes.ts";
-import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import {Icons} from "../../../Global/Icons.ts";
+import {IconSizes} from "../../../Global/IconSizes.ts";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
 
 const AddOperationView = () => {
     const {
