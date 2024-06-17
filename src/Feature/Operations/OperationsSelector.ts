@@ -15,4 +15,8 @@ export const selectCurrentOperationsPage = (state: RootState) => {
 
 export const selectCurrentOperationsLimit = (state: RootState) => {
     return state.operationReducer.limit;
+};
+
+export const selectOperationsFilterParams = (state: RootState) => {
+    return state.operationReducer.filterParam;
 }

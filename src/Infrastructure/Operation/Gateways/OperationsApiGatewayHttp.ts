@@ -8,14 +8,24 @@ import FilterOperationsResponseFactory from "../Factories/FilterOperationsRespon
 import ISaveOperationCommand from "../../../Feature/Operations/Thunks/Save/SaveOperationCommand.ts";
 import ISaveOperationResponse from "../../../Feature/Operations/Thunks/Save/SaveOperationResponse.ts";
 import SaveOperationsResponseFactory from "../Factories/SaveOperationsResponseFactory.ts";
+import FilterOperationCommandBuilder from "../Builder/FilterOperationCommandBuilder.ts";
 
 export default class OperationsApiGatewayHttp extends HttpProvider implements IOperationApiGateway {
 
     async filter (command: IFilterOperationsCommand) : Promise<IFilterOperationsResponse> {
         let result: any;
-        console.warn(command);
+        const finalCommand = FilterOperationCommandBuilder.asCommand()
+            .withPage(command.page)
+            .withLimit(command.limit)
+            .withUserId(command.userId)
+            .withDate(command.filterParams.date)
+            .withCategoryId(command.filterParams.categoryId)
+            .withType(command.filterParams.type)
+            .build();
+        console.warn(finalCommand);
+
         try {
-            const response = await this.post(ApiRoutes.operations.filter, command);
+            const response = await this.post(ApiRoutes.operations.filter, finalCommand);
             //@ts-ignore
             result = response.data;
             if (!result.status) {

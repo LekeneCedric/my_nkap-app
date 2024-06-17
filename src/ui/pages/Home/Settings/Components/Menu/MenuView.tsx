@@ -5,14 +5,24 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../../../Global/IconSizes.ts";
 import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
 import useNavigation from "../../../../../utils/useNavigation.ts";
+import {act} from "react-test-renderer";
 
 type props = {
     menus: IMenu[]
 }
 const MenuView = ({menus}: props) => {
-    const {colorPalette: {pageBackground, containerBackground, action1, text, gray}} = useTheme();
+    const {colorPalette: {text, gray}} = useTheme();
     const styles = MenuViewStyles(text, gray);
     const {navigateByPath} = useNavigation();
+    const action = (route?: string, action?: ()=>void) => {
+        if (route) {
+            navigateByPath(route);
+            return;
+        }
+        if (action) {
+            action();
+        }
+    }
     return <View>
         <ScrollView>
             {
@@ -21,9 +31,9 @@ const MenuView = ({menus}: props) => {
                         <Text style={styles.sectionTitle}>{menu.title}</Text>
                         {
                             menu.section.map(section => {
-                                return <TouchableOpacity onPress={()=>{navigateByPath(section.route)}} style={styles.itemContainer}>
+                                return <TouchableOpacity onPress={() => {action(section.route, section.action)}} style={styles.itemContainer}>
                                     <Icon style={styles.icon} name={section.icon} size={IconSizes.normal} color={section.color} />
-                                    <Text style={styles.itemText}>{section.title}</Text>
+                                    <Text style={[styles.itemText, {color: section.color}]}>{section.title}</Text>
                                 </TouchableOpacity>
                             })
                         }

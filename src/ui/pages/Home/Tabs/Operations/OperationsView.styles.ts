@@ -80,7 +80,6 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
     },
     transactionFilterContainer: {
       flexDirection: 'row',
-      margin: 10,
       alignItems: 'center',
       justifyContent: 'space-between'
     },

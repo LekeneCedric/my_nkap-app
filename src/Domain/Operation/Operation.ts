@@ -12,3 +12,14 @@ export enum IOperationTypeEnum {
     INCOME = 1,
     EXPENSE = 2
 }
+
+export interface IOperationFilterParam {
+    selectedDate?: Date,
+    date?: string,
+    formattedDate?: string,
+    categoryId?: string,
+    categoryLabel?: string,
+    categoryIcon?: string,
+    type?: IOperationTypeEnum,
+    typeLabel?: string,
+}

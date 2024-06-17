@@ -24,8 +24,7 @@ const MenuViewStyles = (textColor: string, gray: string,) => {
             flex: 1,
         },
         itemText: {
-            fontSize: FontSize.medium
-            ,
+            fontSize: FontSize.medium,
             color: textColor,
             flex: 8
         }

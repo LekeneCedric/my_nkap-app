@@ -11,7 +11,7 @@ import OperationsApiGatewayHttp from "../Infrastructure/Operation/Gateways/Opera
 import CategoryApiGatewayHttp from "../Infrastructure/Category/Gateways/CategoryApiGatewayHttp.ts";
 
 const persistConfig = {
-  key: 'my_nkap_app',
+  key: 'my_nkap_app_',
   storage: AsyncStorage,
 };
 

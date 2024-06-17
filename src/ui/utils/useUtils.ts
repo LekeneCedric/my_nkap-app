@@ -7,8 +7,13 @@ interface IUseUtilsBehaviour {
 const useUtils = (): IUseUtilsBehaviour => {
 
     const formatDateToYYYYMMDD = (date: Date) => {
-        const toLocalStringDate = date.toLocaleDateString();    
-        return toLocalStringDate.replace(/\//g, "-");
+        const pad = (num: number) => String(num).padStart(2, '0');
+
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1); // Months are zero-based
+        const day = pad(date.getDate());
+
+        return `${year}-${month}-${day}`;
     }
 
     const formatDateToYYYYMMDDHIS = (date: Date) => {

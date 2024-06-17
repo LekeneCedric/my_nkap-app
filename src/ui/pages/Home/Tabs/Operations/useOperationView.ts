@@ -11,15 +11,22 @@ import {
     selectCurrentOperationsLimit,
     selectCurrentOperationsPage,
     selectOperationLoadingState,
-    selectOperations
+    selectOperations, selectOperationsFilterParams
 } from "../../../../../Feature/Operations/OperationsSelector.ts";
-import IOperation from "../../../../../Domain/Operation/Operation.ts";
+import {IOperationFilterParam} from "../../../../../Domain/Operation/Operation.ts";
 import FilterOperationsAsync from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsCommand from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsCommand.ts";
 import gatewayMessages from "../../../../../Infrastructure/Shared/Gateways/constants/gatewayMessages.ts";
 import IOperationDto from "../../../../../Domain/Operation/IOperationDto.ts";
 import useNavigation from "../../../../utils/useNavigation.ts";
 import {routes} from "../../../routes";
+import {ChangeOperationFilterParam, ResetFilter} from "../../../../../Feature/Operations/OperationSlice.ts";
+import {formatDateToReadable, formatDateToYYYYMMDD} from "../../../../../Infrastructure/Shared/Utils/DateOperations.ts";
+import {selectCategories} from "../../../../../Feature/Category/CategorySelector.ts";
+import ICategory from "../../../../../Domain/Category/Category.ts";
+import ISelectCategoryItem from "../../../../Components/Forms/SelectCategory/SelectCategoryItem.ts";
+import IGetAllCategoryCommand from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
+import GetAllCategoryAsync from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
 
 interface UseTransactionViewBehaviour {
     accounts: IAccount[],
@@ -30,9 +37,16 @@ interface UseTransactionViewBehaviour {
     refreshing: boolean,
     bounceValue: Animated.Value,
     navigateToAddOperation: () => void,
+    operationFilterParams: IOperationFilterParam,
+    handlePreviousDay: (pageNumber: number) => void,
+    handleNextDay: (pageNumber: number) => void,
+    categories: ICategory[],
+    selectCategory: (category: ICategory) => void,
+    resetFilter: () => void,
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
     const [refreshing, setRefreshing] = useState<boolean>(false);
+    const operationFilterParams = useAppSelector(selectOperationsFilterParams);
     const bounceValue = useRef(new Animated.Value(0)).current;
     const {navigateByPath} = useNavigation();
     const toast = useToast();
@@ -41,6 +55,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     const accounts = useAppSelector(selectAccounts);
     const accountLoadingState = useAppSelector(selectAccountLoadingState)
     const operations = useAppSelector(selectOperations);
+    const categories = useAppSelector(selectCategories);
     const operationsLoadingState = useAppSelector(selectOperationLoadingState);
     const currentOperationsPage = useAppSelector(selectCurrentOperationsPage);
     const currentOperationsLimit = useAppSelector(selectCurrentOperationsLimit);
@@ -61,13 +76,23 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
             }
     }
 
-    const getOperations = async (page?: number) => {
+    type getOperations = {
+        page?: number, date?: string, categoryId?: string,
+    }
+    const getOperations = async (params: getOperations) => {
+        const page = params.page;
+        const date = params.date;
+        const categoryId = params.categoryId;
         const command: IFilterOperationsCommand = {
             userId: userId!,
             page: page ? page : currentOperationsPage!,
             limit: currentOperationsLimit!,
+            filterParams: {
+                ...operationFilterParams,
+                date: date ? date : operationFilterParams.date,
+                categoryId: categoryId ? categoryId : operationFilterParams.categoryId,
+            }
         }
-        console.warn(currentOperationsPage, currentOperationsLimit, userId);
 
         const response = await dispatch(FilterOperationsAsync(command));
         if (FilterOperationsAsync.rejected.match(response)) {
@@ -79,13 +104,68 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
             });
         }
     }
+    const selectCategory = async (category: ICategory) => {
+        dispatch(ChangeOperationFilterParam({
+            ...operationFilterParams,
+            categoryId: category.id,
+            categoryIcon: category.icon,
+            categoryLabel: category.name,
+        }));
+        await getOperations({categoryId: category.id});
+    }
     const onRefresh = async () => {
         setRefreshing(true);
         await getAllAccounts();
-        await getOperations(1);
+        await getOperations({page: 1});
         setRefreshing(false);
     }
+    const resetFilter =  async () => {
+        dispatch(ResetFilter());
+        await getOperations({});
+    }
+
+    const handlePreviousDay = async (numberOfDay: number) => {
+        const previousDay = new Date(operationFilterParams.selectedDate!);
+        previousDay.setDate(previousDay.getDate() - numberOfDay);
+        const formattedDateToYYYMMDD = formatDateToYYYYMMDD(previousDay);
+        const formattedDate = formatDateToReadable(previousDay);
+        dispatch(ChangeOperationFilterParam({
+            ...operationFilterParams,
+            selectedDate: previousDay,
+            formattedDate: formattedDate,
+            date: formattedDateToYYYMMDD,
+        }));
+        await getOperations({date: formattedDateToYYYMMDD});
+    }
+
+    const handleNextDay = async (numberOfDay: number) => {
+        const today = new Date();
+        const nextDay = new Date(operationFilterParams.selectedDate!);
+        nextDay.setDate(nextDay.getDate() + numberOfDay);
+        const formattedDateToYYYMMDD = formatDateToYYYYMMDD(nextDay);
+        const formattedDate = formatDateToReadable(nextDay);
+        if (nextDay < today) {
+            dispatch(ChangeOperationFilterParam({
+                ...operationFilterParams,
+                selectedDate: nextDay,
+                formattedDate: formattedDate,
+                date: formattedDateToYYYMMDD,
+            }));
+            await getOperations({date: formattedDateToYYYMMDD});
+        }
+    }
+    const categoriesSelectItems = categories.map((ca: ICategory): ISelectCategoryItem => {
+        return {
+            id: ca.id,
+            icon: ca.icon,
+            name: ca.name,
+            color: ca.color,
+            description: ca.description
+        }
+    });
+
     useEffect(() => {
+        // dispatch(ResetFilter());
         const startBouncing = () => {
             Animated.loop(
                 Animated.sequence([
@@ -107,6 +187,15 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
 
         startBouncing();
 
+        const getAllCategories = async () => {
+            const command = {
+                userId: userId ? userId : '',
+            } as IGetAllCategoryCommand;
+            await dispatch(GetAllCategoryAsync(command));
+        }
+        if (categories.length == 0) {
+            getAllCategories();
+        }
     },[])
 
     return {
@@ -118,6 +207,12 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         onRefresh: onRefresh,
         bounceValue: bounceValue,
         navigateToAddOperation: navigateToAddOperation,
+        operationFilterParams: operationFilterParams,
+        handlePreviousDay: handlePreviousDay,
+        handleNextDay: handleNextDay,
+        categories: categoriesSelectItems,
+        selectCategory: selectCategory,
+        resetFilter: resetFilter,
     };
 };
 export default useOperationsView;

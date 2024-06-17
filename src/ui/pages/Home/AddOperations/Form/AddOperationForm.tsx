@@ -8,7 +8,7 @@ import {IOperationTypeEnum} from "../../../../../Domain/Operation/Operation.ts";
 import {Theme} from "../../../../Global/Theme.ts";
 import CheckedForm from "../../../../Components/Forms/Checked/CheckedForm.tsx";
 import {InputForm} from "../../../../Components/Forms/Input/InputForm.tsx";
-import InputBirthDateForm from "../../../../Components/Forms/InputBirthDate/InputBirthDateForm.tsx";
+import InputDateForm from "../../../../Components/Forms/InputBirthDate/InputBirthDateForm.tsx";
 import InputTextAreaForm from "../../../../Components/Forms/InputTextArea/InputTextAreaForm.tsx";
 import ButtonForm from "../../../../Components/Forms/Button/ButtonForm.tsx";
 import VerticalSeparator from "../../../../Components/Shared/VerticalSeparator/VerticalSeparator.tsx";
@@ -89,7 +89,7 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: pro
             control={control}
             name={'date'}
             render={({field}) => (
-                <InputBirthDateForm
+                <InputDateForm
                     mode={'datetime'}
                     errorMessage={errors.date?.message}
                     label={'Date de l\'opération'}

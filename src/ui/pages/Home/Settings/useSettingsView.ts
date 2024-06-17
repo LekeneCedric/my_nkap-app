@@ -9,7 +9,8 @@ interface IMenuItem {
     title: string,
     route: string,
     icon: string,
-    color: string
+    color: string,
+    action?: () => void,
 }
 export interface IMenu {
     title: string,
@@ -21,7 +22,10 @@ interface UseSettingsView {
 }
 const useSettingsView = ():UseSettingsView => {
     const dispatch = useAppDispatch();
-    const {colorPalette: {text, gray}} = useTheme();
+    const {colorPalette: {text, red}} = useTheme();
+    const logout = () => {
+        dispatch(Logout())
+    }
     const menuItems: IMenu[] = [
         {
             title: 'Personalisations',
@@ -42,7 +46,6 @@ const useSettingsView = ():UseSettingsView => {
         },
         {
             title: 'Plus',
-            end: true,
             section: [
                 {
                     title: 'Stockage & Exportation',
@@ -61,6 +64,19 @@ const useSettingsView = ():UseSettingsView => {
                     route: '',
                     icon: Icons.help,
                     color: text
+                }
+            ]
+        },
+        {
+            title: 'Compte',
+            end: true,
+            section: [
+                {
+                    title: 'Deconnexion',
+                    route: '',
+                    icon: Icons.logout,
+                    color: red,
+                    action: logout
                 }
             ]
         }
