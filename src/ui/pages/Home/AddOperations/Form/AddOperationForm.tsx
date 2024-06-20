@@ -20,8 +20,9 @@ type props = {
     addOperationFormBehaviour: AddOperationFormBehaviour,
     accounts: ISelectItem[],
     categories: ISelectCategoryItem[],
+    isUpdate?: boolean,
 }
-const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: props) => {
+const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUpdate}: props) => {
     const {form, onSubmit, loadingState} = addOperationFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {pageBackground, containerBackground, text, action1, red, green}} = useTheme();
@@ -112,7 +113,20 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories}: pro
             )}
         />
         <VerticalSeparator percent={3} />
-        <ButtonForm loading={loadingState} loadingLabel={'Enregistrement ...'} label={'Enregistrer'} handleClick={handleSubmit(onSubmit)} />
+        {/*{*/}
+        {/*    isUpdate && (*/}
+        {/*        <View style={{flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'space-evenly'}}>*/}
+        {/*            <ButtonForm color={red} loading={loadingState} loadingLabel={'Suppression ...'} label={'Supprimer'} handleClick={handleSubmit(onSubmit)} />*/}
+        {/*            <ButtonForm loading={loadingState} loadingLabel={'Enregistrement ...'} label={'Enregistrer'} handleClick={handleSubmit(onSubmit)} />*/}
+        {/*        </View>*/}
+        {/*    )*/}
+        {/*}*/}
+        {/*{*/}
+        {/*    !isUpdate && (*/}
+                <ButtonForm loading={loadingState} loadingLabel={'Enregistrement ...'} label={'Enregistrer'} handleClick={handleSubmit(onSubmit)} />
+        {/*    )*/}
+        {/*}*/}
+
         <VerticalSeparator percent={10} />
     </View>
 };

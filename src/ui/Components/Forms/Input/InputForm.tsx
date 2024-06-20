@@ -10,7 +10,7 @@ import {Theme} from "../../../Global/Theme.ts";
 import {KeyboardType, Text, TextInput, View} from "react-native";
 import { ControllerRenderProps } from "react-hook-form";
 import { FontSize } from "../../../Global/FontSize.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import InputFormStyles from "./InputForm.style.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 
@@ -26,11 +26,17 @@ type inputFormProps = {
 export const InputForm = ({type, icon, label, errorMessage, field, keyboardType, placeholder}: inputFormProps) => {
   const {colorPalette: {pageBackground, containerBackground, gray, text, red, action1}} = useTheme();
   const styles = InputFormStyles(pageBackground, containerBackground, text, gray);
-  const initialValue = type === 'amount' ? '0' : '';
+  const [initialValue, setInitialValue] = useState(type === 'amount' ? '0' : '')
   const [currentValue, setCurrentValue] = useState<string>(initialValue);
   const formatNumberToMoney = (number: number) => {
     return new Intl.NumberFormat('fr-FR').format(number);
   }
+  useEffect(() => {
+    if (field.value) {
+      setInitialValue(String(field.value));
+      setCurrentValue(String(field.value));
+    }
+  }, []);
   return (
     <Animated.View
       entering={LightSpeedInLeft.duration(1500)}

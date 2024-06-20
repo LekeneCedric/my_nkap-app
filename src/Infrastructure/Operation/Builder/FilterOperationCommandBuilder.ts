@@ -5,7 +5,7 @@ type FilterOperationCommand = {
     accountId?: string,
     date?: string,
     categoryId?: string,
-    type?: IOperationTypeEnum,
+    operationType?: IOperationTypeEnum,
     page?: number,
     limit?: number,
 }
@@ -40,8 +40,8 @@ export default class FilterOperationCommandBuilder {
         return this;
     }
 
-    withType(type: IOperationTypeEnum | undefined) {
-        this.#command.type = type;
+    withOperationType(type: IOperationTypeEnum | undefined) {
+        this.#command.operationType = type;
         return this;
     }
 

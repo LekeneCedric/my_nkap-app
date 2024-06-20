@@ -28,6 +28,15 @@ const SelectCategoryForm = ({
                                 placeholder,
                                 list,
                             }: SelectCategoryFormProps) => {
+    useEffect(() => {
+        console.warn(field.value)
+        if (field.value) {
+            const selectedItem = list.find(elt => elt.id == field.value);
+            if (selectedItem !== undefined) {
+                setSelectedCategoryItem(selectedItem);
+            }
+        }
+    }, []);
     const [selectedCategoryItem, setSelectedCategoryItem] = useState<ISelectCategoryItem|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();

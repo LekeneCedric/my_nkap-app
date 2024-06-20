@@ -39,6 +39,14 @@ const OperationSlice = createSlice({
             state.total = state.total+1;
             state.operations = [payload, ...state.operations];
         },
+        UpdateOperation: (state, {payload}:PayloadAction<IOperationDto>) => {
+            state.operations = state.operations.map(op => {
+                if (op.id === payload.id) {
+                    return payload;
+                }
+                return op;
+            })
+        },
         ResetFilter: (state) => {
           state.total = initialState.total;
           state.page = initialState.page;
@@ -83,6 +91,7 @@ const OperationSlice = createSlice({
 
 export const {
     AddOperation,
+    UpdateOperation,
     ChangeOperationFilterParam,
     ResetFilter
 } = OperationSlice.actions;

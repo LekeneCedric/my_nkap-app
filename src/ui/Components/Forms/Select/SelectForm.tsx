@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../Global/IconSizes";
 import {Theme} from "../../../Global/Theme";
 import {Icons} from "../../../Global/Icons";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import SelectModalView from "./Modal/SelectModalView";
 import ISelectItem from "./SelectItem.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
@@ -31,6 +31,14 @@ const SelectForm = ({
                         placeholder,
                         list,
                     }: SelectFormProps) => {
+    useEffect(() => {
+        if (field.value) {
+            const selectedItem = list.find(elt => elt.id == field.value);
+            if (selectedItem !== undefined) {
+                setSelectedItem(selectedItem);
+            }
+        }
+    }, []);
     const [selectedItem, setSelectedItem] = useState<ISelectItem | null>(null);
     const [modalIsVisible, setModalIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, red, gray, action1}} = useTheme();

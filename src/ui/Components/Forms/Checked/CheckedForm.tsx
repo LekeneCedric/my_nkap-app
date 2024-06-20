@@ -4,7 +4,7 @@ import {ControllerRenderProps} from "react-hook-form";
 import ICheckedItem from "./CheckedItem.ts";
 import Animated, {LightSpeedInLeft, LightSpeedOutRight} from "react-native-reanimated";
 import {Theme} from "../../../Global/Theme.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
@@ -24,7 +24,15 @@ const CheckedForm = ({label, field, values, errorMessage}: props) => {
         field.onChange(item.id);
     }
     const {colorPalette: {text}} = useTheme();
-    const styles = CheckedFormStyle(text)
+    const styles = CheckedFormStyle(text);
+    useEffect(() => {
+        if (field.value) {
+            const selectedItem = values.find(elt => elt.id == field.value);
+            if (selectedItem !== undefined) {
+                setSelectItem(selectedItem)
+            }
+        }
+    }, []);
     return <Animated.View entering={LightSpeedInLeft.duration(1500)}
                           exiting={LightSpeedOutRight.duration(1500)}
                           style={styles.container}>

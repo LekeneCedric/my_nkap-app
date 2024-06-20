@@ -9,7 +9,7 @@ import {Icons} from "../../../Global/Icons";
 import {IconSizes} from "../../../Global/IconSizes";
 import {Theme} from "../../../Global/Theme";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DatePicker from "react-native-date-picker";
 import useUtils from "../../../utils/useUtils";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
@@ -35,6 +35,14 @@ const InputBirthdayForm = ({
     const {formatDateToYYYYMMDD, formatDateToYYYYMMDDHIS} = useUtils();
     const {colorPalette: {pageBackground, containerBackground, text, gray, red, action1}} = useTheme();
     const styles = InputBirthDateFormStyle(pageBackground, containerBackground, text, gray, action1);
+    useEffect(() => {
+        if (field.value) {
+            const formatedDate = mode && mode == 'date' ?
+                formatDateToYYYYMMDD(new Date(field.value)) : formatDateToYYYYMMDDHIS(new Date(field.value));
+            field.onChange(formatedDate);
+            setFormattedDate(formatedDate);
+        }
+    }, []);
     return (
         <>
             <DatePicker

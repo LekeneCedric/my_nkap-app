@@ -18,7 +18,7 @@ export default class FilterOperationsResponseFactory {
                     categoryName: operation.categoryName,
                     categoryIcon: operation.categoryIcon,
                     categoryColor: operation.categoryColor,
-                    amount: operation.amount,
+                    amount: parseInt(operation.amount),
                 }
             }),
             total: response.total,

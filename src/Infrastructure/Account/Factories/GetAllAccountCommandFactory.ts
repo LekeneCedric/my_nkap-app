@@ -10,9 +10,9 @@ export default class GetAllAccountCommandFactory {
                     id: a.accountId,
                     name: a.accountName,
                     type: a.accountType,
-                    totalIncomes: a.totalIncomes,
-                    totalExpenses: a.totalExpenses,
-                    balance: a.accountBalance,
+                    totalIncomes: parseInt(a.totalIncomes),
+                    totalExpenses: parseInt(a.totalExpenses),
+                    balance: parseInt(a.accountBalance),
                     isIncludeInTotalBalance: a.isIncludeInTotalBalance,
                     color: a.accountColor,
                     icon: a.accountIcon

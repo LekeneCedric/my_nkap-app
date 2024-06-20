@@ -12,15 +12,16 @@ type props = {
   handleClick: () => void;
   loading: LoadingState;
   loadingLabel: string,
+    color?: string,
 };
-const ButtonForm = ({label, handleClick, loading, loadingLabel}: props) => {
+const ButtonForm = ({label, handleClick, loading, loadingLabel, color}: props) => {
     const {colorPalette: {pageBackground, text, action1, action1Text}} = useTheme();
   const styles = ButtonFormStyle(pageBackground, text, action1, action1Text)
   return (
     <Animated.View
       entering={LightSpeedInLeft.duration(1500)}
       exiting={LightSpeedOutRight.duration(1500)}>
-      <TouchableOpacity onPress={handleClick} style={styles.container}>
+      <TouchableOpacity onPress={handleClick} style={[styles.container, color ? {backgroundColor: color} : {}]}>
         {
           loading === LoadingState.pending && <Loading color={action1Text} textColor={action1Text} message={loadingLabel}/>
         }

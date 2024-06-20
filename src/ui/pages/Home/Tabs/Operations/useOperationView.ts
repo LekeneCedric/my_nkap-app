@@ -1,19 +1,20 @@
 import {useEffect, useRef, useState} from "react";
-import { Animated, Easing } from 'react-native';
-import { useAppDispatch, useAppSelector } from "../../../../../app/hook";
-import { selectAccountLoadingState, selectAccounts } from "../../../../../Feature/Account/AccountSelector";
-import { GetAllAccountAsync } from "../../../../../Feature/Account/Thunks/GetAll/GetAllAccountAsync";
-import { selectUser } from "../../../../../Feature/Authentication/AuthenticationSelector";
+import {Animated, Easing} from 'react-native';
+import {useAppDispatch, useAppSelector} from "../../../../../app/hook";
+import {selectAccountLoadingState, selectAccounts} from "../../../../../Feature/Account/AccountSelector";
+import {GetAllAccountAsync} from "../../../../../Feature/Account/Thunks/GetAll/GetAllAccountAsync";
+import {selectUser} from "../../../../../Feature/Authentication/AuthenticationSelector";
 import IAccount from "../../../../../Domain/Account/Account";
-import { LoadingState } from "../../../../../Domain/Enums/LoadingState";
-import { useToast } from "react-native-toast-notifications";
+import {LoadingState} from "../../../../../Domain/Enums/LoadingState";
+import {useToast} from "react-native-toast-notifications";
 import {
     selectCurrentOperationsLimit,
     selectCurrentOperationsPage,
     selectOperationLoadingState,
-    selectOperations, selectOperationsFilterParams
+    selectOperations,
+    selectOperationsFilterParams
 } from "../../../../../Feature/Operations/OperationsSelector.ts";
-import {IOperationFilterParam} from "../../../../../Domain/Operation/Operation.ts";
+import {IOperationFilterParam, IOperationTypeEnum} from "../../../../../Domain/Operation/Operation.ts";
 import FilterOperationsAsync from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsCommand from "../../../../../Feature/Operations/Thunks/Filter/FilterOperationsCommand.ts";
 import gatewayMessages from "../../../../../Infrastructure/Shared/Gateways/constants/gatewayMessages.ts";
@@ -43,6 +44,7 @@ interface UseTransactionViewBehaviour {
     categories: ICategory[],
     selectCategory: (category: ICategory) => void,
     resetFilter: () => void,
+    selectOperationType: (operationType: IOperationTypeEnum) => void,
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
     const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -77,12 +79,13 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     }
 
     type getOperations = {
-        page?: number, date?: string, categoryId?: string,
+        page?: number, date?: string, categoryId?: string, type?: IOperationTypeEnum
     }
     const getOperations = async (params: getOperations) => {
         const page = params.page;
         const date = params.date;
         const categoryId = params.categoryId;
+        const type = params.type;
         const command: IFilterOperationsCommand = {
             userId: userId!,
             page: page ? page : currentOperationsPage!,
@@ -91,6 +94,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
                 ...operationFilterParams,
                 date: date ? date : operationFilterParams.date,
                 categoryId: categoryId ? categoryId : operationFilterParams.categoryId,
+                operationType: type ? type : operationFilterParams.operationType,
             }
         }
 
@@ -113,12 +117,21 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         }));
         await getOperations({categoryId: category.id});
     }
+    const selectOperationType = async (operationType: IOperationTypeEnum) => {
+        dispatch(ChangeOperationFilterParam({
+            ...operationFilterParams,
+            operationType: operationType,
+            typeLabel: operationType == IOperationTypeEnum.EXPENSE ? 'Dépenses': 'Revenus',
+        }));
+        await getOperations({type: operationType})
+    }
     const onRefresh = async () => {
         setRefreshing(true);
         await getAllAccounts();
         await getOperations({page: 1});
         setRefreshing(false);
     }
+
     const resetFilter =  async () => {
         dispatch(ResetFilter());
         await getOperations({});
@@ -137,14 +150,14 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         }));
         await getOperations({date: formattedDateToYYYMMDD});
     }
-
     const handleNextDay = async (numberOfDay: number) => {
         const today = new Date();
+        const currentDay = new Date(operationFilterParams.selectedDate!);
         const nextDay = new Date(operationFilterParams.selectedDate!);
         nextDay.setDate(nextDay.getDate() + numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(nextDay);
         const formattedDate = formatDateToReadable(nextDay);
-        if (nextDay < today) {
+        if (currentDay < today) {
             dispatch(ChangeOperationFilterParam({
                 ...operationFilterParams,
                 selectedDate: nextDay,
@@ -154,6 +167,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
             await getOperations({date: formattedDateToYYYMMDD});
         }
     }
+
     const categoriesSelectItems = categories.map((ca: ICategory): ISelectCategoryItem => {
         return {
             id: ca.id,
@@ -213,6 +227,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         categories: categoriesSelectItems,
         selectCategory: selectCategory,
         resetFilter: resetFilter,
+        selectOperationType: selectOperationType
     };
 };
 export default useOperationsView;

@@ -22,8 +22,28 @@ export const  AccountSlice = createSlice({
     name: 'accountSlice',
     initialState: initialState,
     reducers: {
-        UpdateAccountBalance: (state, {payload}: PayloadAction<OperationAction>) => {
-            console.warn(payload);
+        UpdateAccountByRemovingOperation: (state, {payload}: PayloadAction<OperationAction>) => {
+            state.accounts = state.accounts.map(a => {
+                if (a.id === payload.accountId) {
+                    if (payload.type === IOperationTypeEnum.INCOME) {
+                        return {
+                            ...a,
+                            totalIncomes: a.totalIncomes - payload.amount,
+                            balance: a.balance - payload.amount
+                        }
+                    }
+                    if (payload.type === IOperationTypeEnum.EXPENSE) {
+                        return {
+                            ...a,
+                            totalExpenses: a.totalExpenses - payload.amount,
+                            balance: a.balance + payload.amount
+                        }
+                    }
+                }
+                return a;
+            });
+        },
+        UpdateAccountByAddingOperation: (state, {payload}: PayloadAction<OperationAction>) => {
             state.accounts = state.accounts.map(a => {
                 if (a.id === payload.accountId) {
                     if (payload.type === IOperationTypeEnum.INCOME) {
@@ -60,5 +80,8 @@ export const  AccountSlice = createSlice({
     }
 });
 
-export const {UpdateAccountBalance} = AccountSlice.actions;
+export const {
+    UpdateAccountByAddingOperation,
+    UpdateAccountByRemovingOperation,
+} = AccountSlice.actions;
 export default AccountSlice.reducer;

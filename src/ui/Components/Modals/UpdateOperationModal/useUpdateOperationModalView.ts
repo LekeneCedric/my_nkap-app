@@ -1,60 +1,63 @@
-import {useForm, UseFormReturn} from "react-hook-form";
+import IOperationDto from "../../../../Domain/Operation/IOperationDto.ts";
+import {useAppDispatch, useAppSelector} from "../../../../app/hook.ts";
+import {useToast} from "react-native-toast-notifications";
+import {selectUser} from "../../../../Feature/Authentication/AuthenticationSelector.ts";
+import {selectAccounts} from "../../../../Feature/Account/AccountSelector.ts";
+import {selectCategories} from "../../../../Feature/Category/CategorySelector.ts";
+import {selectOperationLoadingState} from "../../../../Feature/Operations/OperationsSelector.ts";
+import {useForm} from "react-hook-form";
 import AddOperationForm from "../../../../Infrastructure/Validators/Forms/operations/AddOperationForm.ts";
-import {LoadingState} from "../../../../Domain/Enums/LoadingState.ts";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
     AddOperationFormSchemaValidate
 } from "../../../../Infrastructure/Validators/Forms/operations/AddOperationFormSchemaValidate.ts";
-import {useAppDispatch, useAppSelector} from "../../../../app/hook.ts";
-import {selectOperationLoadingState} from "../../../../Feature/Operations/OperationsSelector.ts";
-import ISelectItem from "../../../Components/Forms/Select/SelectItem.ts";
-import {selectAccounts} from "../../../../Feature/Account/AccountSelector.ts";
 import IAccount from "../../../../Domain/Account/Account.ts";
+import ISelectItem from "../../Forms/Select/SelectItem.ts";
+import ICategory from "../../../../Domain/Category/Category.ts";
+import ISelectCategoryItem from "../../Forms/SelectCategory/SelectCategoryItem.ts";
 import {useEffect} from "react";
-import {selectCategories, selectCategory} from "../../../../Feature/Category/CategorySelector.ts";
-import {selectUser} from "../../../../Feature/Authentication/AuthenticationSelector.ts";
 import IGetAllCategoryCommand from "../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
 import GetAllCategoryAsync from "../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
-import ISelectCategoryItem from "../../../Components/Forms/SelectCategory/SelectCategoryItem.ts";
-import ICategory from "../../../../Domain/Category/Category.ts";
-import SaveOperationAsync from "../../../../Feature/Operations/Thunks/Save/SaveOperationAsync.ts";
-import {useToast} from "react-native-toast-notifications";
+import {AddOperationFormBehaviour} from "../../../pages/Home/AddOperations/useAddOperationView.ts";
 import IOperation, {IOperationTypeEnum} from "../../../../Domain/Operation/Operation.ts";
-import SaveCategoryAsync from "../../../../Feature/Category/Thunks/Save/SaveCategoryAsync.ts";
-import IOperationDto from "../../../../Domain/Operation/IOperationDto.ts";
-import {AddOperation} from "../../../../Feature/Operations/OperationSlice.ts";
-import {UpdateAccountByAddingOperation} from "../../../../Feature/Account/AccountSlice.ts";
+import SaveOperationAsync from "../../../../Feature/Operations/Thunks/Save/SaveOperationAsync.ts";
 import useNavigation from "../../../utils/useNavigation.ts";
-import {routes} from "../../routes";
+import {UpdateOperation} from "../../../../Feature/Operations/OperationSlice.ts";
+import {
+    UpdateAccountByAddingOperation, UpdateAccountByRemovingOperation
+} from "../../../../Feature/Account/AccountSlice.ts";
 
-export interface AddOperationFormBehaviour {
-    form: UseFormReturn<AddOperationForm>,
-    onSubmit: (operation: AddOperationForm) => void,
-    loadingState: LoadingState,
-}
-
-interface UseAddOperationViewBehaviour {
+interface useUpdateOperationModalViewBehaviour{
     addOperationFormBehaviour: AddOperationFormBehaviour,
     accounts: ISelectItem[],
     categories: ISelectCategoryItem[],
 }
-
-const useAddOperationView = (): UseAddOperationViewBehaviour => {
+const useUpdateOperationModalView = (operation: IOperationDto): useUpdateOperationModalViewBehaviour => {
     const dispatch = useAppDispatch();
     const toast = useToast();
     const userId = useAppSelector(selectUser)?.userId;
     const accounts = useAppSelector(selectAccounts);
     const categories = useAppSelector(selectCategories);
     const loadingState = useAppSelector(selectOperationLoadingState);
+    const {goBack} = useNavigation();
     const form = useForm<AddOperationForm>({
         resolver: yupResolver(AddOperationFormSchemaValidate),
+        values: {
+            operationId: operation.id,
+            accountId: operation.accountId,
+            type: operation.type,
+            amount: operation.amount,
+            categoryId: operation.categoryId,
+            details: operation.details,
+            date: operation.date
+        }
     });
-    const {navigateByPath} = useNavigation();
     const onSubmit = async (data: AddOperationForm) => {
         const operationDetails = data.details ? data.details : `
             ${data.type == IOperationTypeEnum.EXPENSE ? 'Dépense' : 'Revenu'} de ${data.amount} XAF
             `;
         const operation: IOperation = {
+            id: data.operationId,
             accountId: data.accountId,
             type: data.type,
             amount: data.amount,
@@ -62,8 +65,7 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
             date: data.date + ':00',
             detail: operationDetails,
         }
-        console.warn(operation);
-        const response = await dispatch(SaveOperationAsync(operation));
+        const response = await dispatch(SaveOperationAsync({...operation, operationId: data.operationId}));
         if (SaveOperationAsync.rejected.match(response)) {
             // @ts-ignore
             toast.show(response.payload.message, {
@@ -88,13 +90,18 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
                 categoryIcon: category?.icon!,
                 categoryColor: category?.color!,
             }
-            navigateByPath('transactions');
-            dispatch(AddOperation(newOperation));
+            dispatch(UpdateOperation(newOperation));
+            dispatch(UpdateAccountByRemovingOperation({
+                accountId: data.accountId,
+                type: operation.type,
+                amount: operation.amount,
+            }));
             dispatch(UpdateAccountByAddingOperation({
                 accountId: data.accountId,
                 type: data.type,
-                amount: data.amount
+                amount: data.amount,
             }));
+            goBack();
         }
     }
     const accountsSelectItems = accounts.map((ac: IAccount): ISelectItem => {
@@ -114,7 +121,8 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
             color: ca.color,
             description: ca.description
         }
-    })
+    });
+
     useEffect(() => {
         const getAllCategories = async () => {
             const command = {
@@ -123,9 +131,8 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
             await dispatch(GetAllCategoryAsync(command));
         }
         if (categories.length == 0) {
-            getAllCategories();
+            getAllCategories().then(() => null);
         }
-
     }, [])
     return {
         addOperationFormBehaviour: {
@@ -137,4 +144,5 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
         categories: categoriesSelectItems,
     }
 };
-export default useAddOperationView;
+
+export default useUpdateOperationModalView;

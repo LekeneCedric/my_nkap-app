@@ -20,6 +20,6 @@ export interface IOperationFilterParam {
     categoryId?: string,
     categoryLabel?: string,
     categoryIcon?: string,
-    type?: IOperationTypeEnum,
+    operationType?: IOperationTypeEnum,
     typeLabel?: string,
 }

@@ -20,7 +20,7 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
             .withUserId(command.userId)
             .withDate(command.filterParams.date)
             .withCategoryId(command.filterParams.categoryId)
-            .withType(command.filterParams.type)
+            .withOperationType(command.filterParams.operationType)
             .build();
         console.warn(finalCommand);
 

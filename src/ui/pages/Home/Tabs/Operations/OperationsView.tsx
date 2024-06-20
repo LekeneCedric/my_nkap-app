@@ -17,6 +17,8 @@ import ISelectCategoryItem from "../../../../Components/Forms/SelectCategory/Sel
 import SelectCategoryModalView
     from "../../../../Components/Forms/SelectCategory/SelectCategoryModal/SelectCategoryModalView.tsx";
 import {useState} from "react";
+import {IOperationTypeEnum} from "../../../../../Domain/Operation/Operation.ts";
+import SelectOperationTypeModalView from "../../../../Components/Modals/SelectTypeModal/SelectOperationTypeModalView.tsx";
 
 const Transactions = () => {
     const {
@@ -33,10 +35,14 @@ const Transactions = () => {
         handleNextDay,
         categories,
         selectCategory,
-        resetFilter
+        resetFilter,
+        selectOperationType
     } = useOperationsView();
-    const showSelectCategoryModal = ()=>{setModalSelectCategoryIsVisible(true)}
+    const showSelectCategoryModal = () => {
+        setModalSelectCategoryIsVisible(true)
+    }
     const [modalSelectCategoryIsVisible, setModalSelectCategoryIsVisible] = useState(false);
+    const [modalSelectTypeIsVisible, setModalSelectTypeIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
@@ -52,7 +58,17 @@ const Transactions = () => {
                 isVisible={modalSelectCategoryIsVisible}
                 list={categories}
             />
-
+            <SelectOperationTypeModalView
+                action={(type: IOperationTypeEnum) => {
+                    selectOperationType(type);
+                    setModalSelectTypeIsVisible(false);
+                }}
+                closeModal={() => {
+                    setModalSelectTypeIsVisible(false);
+                }}
+                isVisible={modalSelectTypeIsVisible}
+                selectedOperationTypeValue={operationFilterParams.operationType}
+            />
             <SafeAreaView
                 style={styles.pageContainer}>
                 <ScrollView
@@ -64,8 +80,7 @@ const Transactions = () => {
                             colors={[action1Text]}
                             tintColor={action1Text}
                             titleColor={action1Text}
-                            onRefresh={onRefresh}/>}
-                >
+                            onRefresh={onRefresh}/>}>
                     <View style={styles.accountsContainer}>
                         {/*<Text style={styles.title}>Montant totale</Text>*/}
                         {/*<Text style={styles.accountBalance}>XAF 25.002.250</Text>*/}
@@ -99,7 +114,7 @@ const Transactions = () => {
                     </View>
                     <View style={{margin: 10}}>
                         {
-                            (operationFilterParams.categoryId || operationFilterParams.type) && (
+                            (operationFilterParams.categoryId || operationFilterParams.operationType) && (
                                 <TouchableOpacity onPress={resetFilter} style={{
                                     marginBottom: 3,
                                     flexDirection: 'row',
@@ -108,7 +123,8 @@ const Transactions = () => {
                                     backgroundColor: gray,
                                     borderRadius: 8
                                 }}>
-                                    <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text}}> Réinitialiser le filtre</Text>
+                                    <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text}}> Réinitialiser
+                                        le filtre</Text>
                                     <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                                 </TouchableOpacity>
                             )
@@ -118,26 +134,44 @@ const Transactions = () => {
                                 <View style={styles.transactionFilterCategories}>
                                     {
                                         operationFilterParams.categoryId ? (
-                                            <TouchableOpacity onPress={showSelectCategoryModal} style={[styles.transactionFilterCategoriesItem,{
-                                                backgroundColor: action1
-                                            }]}>
-                                                <Text style={[styles.transactionFilterCategoriesItemText, {color: action1Text}]}
-                                                      numberOfLines={1}>{operationFilterParams.categoryLabel}</Text>
-                                                <Icon name={operationFilterParams.categoryIcon!} size={IconSizes.normal} color={action1Text}/>
+                                            <TouchableOpacity onPress={showSelectCategoryModal}
+                                                              style={[styles.transactionFilterCategoriesItem, {
+                                                                  backgroundColor: action1
+                                                              }]}>
+                                                <Text
+                                                    style={[styles.transactionFilterCategoriesItemText, {color: action1Text}]}
+                                                    numberOfLines={1}>{operationFilterParams.categoryLabel}</Text>
+                                                <Icon name={operationFilterParams.categoryIcon!} size={IconSizes.normal}
+                                                      color={action1Text}/>
                                             </TouchableOpacity>
                                         ) : (
-                                            <TouchableOpacity onPress={showSelectCategoryModal} style={styles.transactionFilterCategoriesItem}>
+                                            <TouchableOpacity onPress={showSelectCategoryModal}
+                                                              style={styles.transactionFilterCategoriesItem}>
                                                 <Text style={styles.transactionFilterCategoriesItemText}
                                                       numberOfLines={1}>Catégories</Text>
                                                 <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
                                             </TouchableOpacity>
                                         )
                                     }
+                                    {
+                                        operationFilterParams.operationType ? (
+                                            <TouchableOpacity onPress={()=>{setModalSelectTypeIsVisible(true)}}
+                                                              style={[styles.transactionFilterCategoriesItem, {
+                                                                  backgroundColor: action1
+                                                              }]}>
+                                                <Text
+                                                    style={[styles.transactionFilterCategoriesItemText, {color: action1Text}]}
+                                                    numberOfLines={1}>{operationFilterParams.typeLabel}</Text>
+                                            </TouchableOpacity>
+                                        ) : (
+                                            <TouchableOpacity onPress={()=>{setModalSelectTypeIsVisible(true)}} style={styles.transactionFilterCategoriesItem}>
+                                                <Text style={styles.transactionFilterCategoriesItemText}
+                                                      numberOfLines={1}>Types</Text>
+                                                <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
+                                            </TouchableOpacity>
+                                        )
+                                    }
 
-                                    <TouchableOpacity style={styles.transactionFilterCategoriesItem}>
-                                        <Text style={styles.transactionFilterCategoriesItemText} numberOfLines={1}>Types</Text>
-                                        <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
-                                    </TouchableOpacity>
                                 </View>
                             </ScrollView>
 
@@ -200,23 +234,31 @@ const Transactions = () => {
                     height: 50,
                     width: wp(100)
                 }}>
-                    <TouchableOpacity onPress={() => {handlePreviousDay(4)}}>
-                        <Icon name={Icons.chevron.doubleLeft} color={text} size={IconSizes.normMed} />
+                    <TouchableOpacity onPress={() => {
+                        handlePreviousDay(4)
+                    }}>
+                        <Icon name={Icons.chevron.doubleLeft} color={text} size={IconSizes.normMed}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {handlePreviousDay(1)}}>
-                        <Icon name={Icons.chevron.left} color={text} size={IconSizes.normMed} />
+                    <TouchableOpacity onPress={() => {
+                        handlePreviousDay(1)
+                    }}>
+                        <Icon name={Icons.chevron.left} color={text} size={IconSizes.normMed}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Text numberOfLines={1} style={{color: action1, fontSize: FontSize.normal, marginRight: 5}}>
                             {operationFilterParams.formattedDate}
                         </Text>
-                        <Icon name={Icons.calendar} color={action1} size={IconSizes.normMed} />
+                        <Icon name={Icons.calendar} color={action1} size={IconSizes.normMed}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {handleNextDay(1)}}>
-                        <Icon name={Icons.chevron.right} color={text} size={IconSizes.normMed} />
+                    <TouchableOpacity onPress={() => {
+                        handleNextDay(1)
+                    }}>
+                        <Icon name={Icons.chevron.right} color={text} size={IconSizes.normMed}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {handleNextDay(4)}}>
-                        <Icon name={Icons.chevron.doubleRight} color={text} size={IconSizes.normMed} />
+                    <TouchableOpacity onPress={() => {
+                        handleNextDay(4)
+                    }}>
+                        <Icon name={Icons.chevron.doubleRight} color={text} size={IconSizes.normMed}/>
                     </TouchableOpacity>
                 </View>
                 <Animated.View style={{
@@ -232,13 +274,13 @@ const Transactions = () => {
                     bottom: hp(10),
                     elevation: 8, // Add shadow for Android
                     shadowColor: text, // Add shadow for iOS
-                    shadowOffset: { width: 0, height: 2 },
+                    shadowOffset: {width: 0, height: 2},
                     shadowOpacity: 0.8,
                     shadowRadius: 2,
                 }}
                 >
                     <TouchableOpacity onPress={navigateToAddOperation}>
-                        <Icon name={Icons.add} size={IconSizes.medium} color={action1Text} />
+                        <Icon name={Icons.add} size={IconSizes.medium} color={action1Text}/>
                     </TouchableOpacity>
                 </Animated.View>
             </SafeAreaView>
