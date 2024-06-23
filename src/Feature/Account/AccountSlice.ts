@@ -6,9 +6,11 @@ import {IGetAllAccountResponse} from "./Thunks/GetAll/GetAllAccountResponse";
 import {IOperationTypeEnum} from "../../Domain/Operation/Operation.ts";
 
 interface IAccountState {
-   loadingState: LoadingState,
-   accounts: IAccount[], 
+    loadingState: LoadingState,
+    totalBalance: number,
+    accounts: IAccount[],
 }
+
 type OperationAction = {
     accountId: string,
     type: IOperationTypeEnum,
@@ -16,9 +18,10 @@ type OperationAction = {
 }
 const initialState: IAccountState = {
     loadingState: LoadingState.idle,
+    totalBalance: 0,
     accounts: [],
 }
-export const  AccountSlice = createSlice({
+export const AccountSlice = createSlice({
     name: 'accountSlice',
     initialState: initialState,
     reducers: {
@@ -42,6 +45,12 @@ export const  AccountSlice = createSlice({
                 }
                 return a;
             });
+            state.totalBalance = 0;
+            state.accounts.map(ac => {
+                if (ac.isIncludeInTotalBalance == 1) {
+                    state.totalBalance += ac.balance;
+                }
+            })
         },
         UpdateAccountByAddingOperation: (state, {payload}: PayloadAction<OperationAction>) => {
             state.accounts = state.accounts.map(a => {
@@ -63,20 +72,31 @@ export const  AccountSlice = createSlice({
                 }
                 return a;
             });
-        }
+            state.totalBalance = 0;
+            state.accounts.map(ac => {
+                if (ac.isIncludeInTotalBalance == 1) {
+                    state.totalBalance += ac.balance;
+                }
+            })
+        },
     },
     extraReducers: builder => {
         builder
-        .addCase(GetAllAccountAsync.pending, state => {
-            state.loadingState = LoadingState.pending;
-        })
-        .addCase(GetAllAccountAsync.fulfilled, (state, {payload}: PayloadAction<IGetAllAccountResponse>) => {
-            state.loadingState = LoadingState.success;
-            state.accounts = payload.accounts;
-        })
-        .addCase(GetAllAccountAsync.rejected, state => {
-            state.loadingState = LoadingState.failed;
-        })
+            .addCase(GetAllAccountAsync.pending, state => {
+                state.loadingState = LoadingState.pending;
+            })
+            .addCase(GetAllAccountAsync.fulfilled, (state, {payload}: PayloadAction<IGetAllAccountResponse>) => {
+                state.loadingState = LoadingState.success;
+                state.accounts = payload.accounts;
+                payload.accounts.map(ac => {
+                   if (ac.isIncludeInTotalBalance == 1) {
+                       state.totalBalance = state.totalBalance + ac.balance;
+                   }
+                });
+            })
+            .addCase(GetAllAccountAsync.rejected, state => {
+                state.loadingState = LoadingState.failed;
+            })
     }
 });
 

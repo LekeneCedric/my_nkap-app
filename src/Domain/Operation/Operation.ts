@@ -1,3 +1,5 @@
+import IOperationDto from "./IOperationDto.ts";
+
 export default interface IOperation {
     id?: string,
     accountId: string,
@@ -13,6 +15,13 @@ export enum IOperationTypeEnum {
     EXPENSE = 2
 }
 
+export type OperationDateItem = {
+    totalExpense: number,
+    totalIncomes: number,
+    date: string,
+    operations: IOperationDto[]
+}
+
 export interface IOperationFilterParam {
     selectedDate?: Date,
     date?: string,
@@ -22,4 +31,7 @@ export interface IOperationFilterParam {
     categoryIcon?: string,
     operationType?: IOperationTypeEnum,
     typeLabel?: string,
+    monthLabel?: string,
+    month?: number,
+    year?: number,
 }

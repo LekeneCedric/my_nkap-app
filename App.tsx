@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ToastProvider} from 'react-native-toast-notifications';
-import Root from './src/ui/Root.tsx';
+import Root from "./src/ui/React-native/Root.tsx";
 
 function App(): React.JSX.Element {
   const persistor = persistStore(store);

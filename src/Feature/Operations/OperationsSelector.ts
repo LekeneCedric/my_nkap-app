@@ -5,6 +5,10 @@ export const selectOperations = (state: RootState) => {
     return state.operationReducer.operations;
 };
 
+export const selectOperationsByDate = (state: RootState) => {
+    return state.operationReducer.operationsByDate;
+};
+
 export const selectOperationLoadingState = (state: RootState) => {
     return state.operationReducer.loadingState;
 };

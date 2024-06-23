@@ -10,7 +10,7 @@ export const formatDateToYYYYMMDD = (date: Date) => {
 
 export const formatDateToReadable = (date: Date): string => {
     const today = new Date();
-    if (today == date) {
+    if (today.getDate() == date.getDate()) {
         return "Aujourd'hui";
     }
     return date.toLocaleDateString('fr-FR', {

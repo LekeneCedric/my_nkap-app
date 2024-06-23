@@ -9,15 +9,20 @@ import ISaveOperationCommand from "../../../Feature/Operations/Thunks/Save/SaveO
 import ISaveOperationResponse from "../../../Feature/Operations/Thunks/Save/SaveOperationResponse.ts";
 import SaveOperationsResponseFactory from "../Factories/SaveOperationsResponseFactory.ts";
 import FilterOperationCommandBuilder from "../Builder/FilterOperationCommandBuilder.ts";
+import IDeleteOperationCommand from "../../../Feature/Operations/Thunks/Delete/IDeleteOperationCommand.ts";
+import IDeleteOperationResponse from "../../../Feature/Operations/Thunks/Delete/IDeleteOperationResponse.ts";
+import DeleteOperationsResponseFactory from "../Factories/DeleteOperationsResponseFactory.ts";
 
 export default class OperationsApiGatewayHttp extends HttpProvider implements IOperationApiGateway {
 
-    async filter (command: IFilterOperationsCommand) : Promise<IFilterOperationsResponse> {
+    async filter(command: IFilterOperationsCommand): Promise<IFilterOperationsResponse> {
         let result: any;
         const finalCommand = FilterOperationCommandBuilder.asCommand()
             .withPage(command.page)
             .withLimit(command.limit)
             .withUserId(command.userId)
+            .withMonth(command.filterParams.month)
+            .withYear(command.filterParams.year)
             .withDate(command.filterParams.date)
             .withCategoryId(command.filterParams.categoryId)
             .withOperationType(command.filterParams.operationType)
@@ -32,10 +37,9 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
                 throw new Error(result.message);
             }
         } catch (e: any) {
-            console.warn('error',e.message);
+            console.warn('error', e.message);
             throw new Error(e.message ? e.message : gatewayMessages.technicalError);
         }
-
         return FilterOperationsResponseFactory.buildFromApiResponse(result);
     }
 
@@ -52,5 +56,20 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
             throw new Error(e.message ? e.message : gatewayMessages.technicalError);
         }
         return SaveOperationsResponseFactory.buildFromApiResponse(result);
+    }
+
+    async deleteOperation(command: IDeleteOperationCommand): Promise<IDeleteOperationResponse> {
+        let result: any;
+        try {
+            const response = await this.post(ApiRoutes.operations.delete, command);
+            //@ts-ignore
+            result = response.data;
+            if (!result.status || !result.isDeleted) {
+                throw new Error(result.message);
+            }
+        } catch (e: any) {
+            throw new Error(e.message ? e.message : gatewayMessages.technicalError);
+        }
+        return DeleteOperationsResponseFactory.buildFromApiResponse(result);
     }
 }

@@ -2,6 +2,8 @@ import {IOperationTypeEnum} from "../../../Domain/Operation/Operation.ts";
 
 type FilterOperationCommand = {
     userId?: string,
+    month?: number,
+    year?: number,
     accountId?: string,
     date?: string,
     categoryId?: string,
@@ -11,6 +13,7 @@ type FilterOperationCommand = {
 }
 export default class FilterOperationCommandBuilder {
     #command: FilterOperationCommand = {}
+
     static asCommand() {
         return new FilterOperationCommandBuilder();
     }
@@ -31,7 +34,9 @@ export default class FilterOperationCommandBuilder {
     }
 
     withDate(date: string | undefined) {
-        this.#command.date = date;
+        if (!this.#command.month) {
+            this.#command.date = date;
+        }
         return this;
     }
 
@@ -42,6 +47,17 @@ export default class FilterOperationCommandBuilder {
 
     withOperationType(type: IOperationTypeEnum | undefined) {
         this.#command.operationType = type;
+        return this;
+    }
+
+    withMonth(month: number | undefined) {
+        this.#command.date = undefined;
+        this.#command.month = month;
+        return this;
+    }
+
+    withYear(year: number | undefined) {
+        this.#command.year = year;
         return this;
     }
 
