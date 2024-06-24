@@ -6,14 +6,14 @@ const OperationByDateItemStyles = (pageBackground: string, containerBackground: 
         container: {
             flexDirection: 'column',
             backgroundColor: containerBackground,
-            padding: 10,
             borderRadius: 10,
-            marginBottom: 10,
-            marginTop: 10
+            marginBottom: 5,
+            marginTop: 5
         },
         container1: {
             flexDirection: 'row',
             alignItems: 'center',
+            padding: 10,
         },
         day: {
             fontSize: FontSize.mediumHigh,
@@ -22,12 +22,12 @@ const OperationByDateItemStyles = (pageBackground: string, containerBackground: 
             marginRight: 5
         },
         week: {
-            fontSize: FontSize.normal,
-            color: gray,
-            fontWeight: 'normal',
+            fontSize: FontSize.medium,
+            color: text,
+            fontWeight: '100',
         },
         month: {
-            fontSize: FontSize.normal,
+            fontSize: FontSize.medium,
             color: text,
             fontWeight: 'bold'
         },
@@ -43,6 +43,8 @@ const OperationByDateItemStyles = (pageBackground: string, containerBackground: 
         },
         container2: {
             flexDirection: 'column',
+            paddingRight: 10,
+            paddingBottom: 10
         }
     });
 };

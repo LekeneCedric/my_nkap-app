@@ -32,7 +32,7 @@ const MenuView = ({menus}: props) => {
                         {
                             menu.section.map(section => {
                                 return <TouchableOpacity onPress={() => {action(section.route, section.action)}} style={styles.itemContainer}>
-                                    <Icon style={styles.icon} name={section.icon} size={IconSizes.normal} color={section.color} />
+                                    <Icon style={styles.icon} name={section.icon} size={IconSizes.normal} color={section.iconColor} />
                                     <Text style={[styles.itemText, {color: section.color}]}>{section.title}</Text>
                                 </TouchableOpacity>
                             })

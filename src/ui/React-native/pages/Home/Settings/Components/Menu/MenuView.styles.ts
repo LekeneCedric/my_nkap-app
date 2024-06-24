@@ -11,8 +11,8 @@ const MenuViewStyles = (textColor: string, gray: string,) => {
         },
         sectionTitle: {
             fontSize: FontSize.medium,
-            color: gray,
-            fontWeight: '100'
+            color: textColor,
+            fontWeight: 'bold'
         },
         itemContainer: {
             flexDirection: 'row',

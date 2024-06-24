@@ -18,7 +18,7 @@ import MenuView from "./Components/Menu/MenuView.tsx";
 const SettingsView = () => {
   const {menuItems} = useSettingsView();
   const {goBack} = useCustomNavigation();
-  const {colorPalette: {pageBackground, containerBackground, text, gray, action1}}= useTheme();
+  const {colorPalette: {pageBackground, containerBackground, text}}= useTheme();
   const styles= SettingsViewStyles(pageBackground, text);
 
   return (

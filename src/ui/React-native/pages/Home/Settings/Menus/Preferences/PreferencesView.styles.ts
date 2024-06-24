@@ -15,7 +15,7 @@ const PreferencesViewStyles = (backgroundColor: string, text: string) => {
         },
         headerTitle: {
             fontSize: FontSize.medium,
-            fontWeight: "400",
+            fontWeight: "bold",
             color: text
         },
         menuItem: {

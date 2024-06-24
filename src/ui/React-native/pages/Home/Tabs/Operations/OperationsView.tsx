@@ -126,19 +126,18 @@ const Transactions = () => {
                             </ScrollView>
                         </View>
                     </View>
-                    <View style={{margin: 10}}>
+                    <View style={{margin: 0}}>
                         {
                             (operationFilterParams.categoryId || operationFilterParams.operationType || operationFilterParams.month) && (
                                 <TouchableOpacity onPress={()=>{resetFilter()}} style={{
                                     marginBottom: 3,
                                     flexDirection: 'row',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: gray,
-                                    borderRadius: 8
+                                    padding: 2,
+                                    borderRadius: 8,
+                                    width: '60%'
                                 }}>
-                                    <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text}}> Réinitialiser
-                                        le filtre</Text>
+                                    <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text}}> Réinitialiser </Text>
                                     <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                                 </TouchableOpacity>
                             )
@@ -155,6 +154,7 @@ const Transactions = () => {
                                                 <Text
                                                     style={[styles.transactionFilterCategoriesItemText, {color: action1Text}]}
                                                     numberOfLines={1}>{operationFilterParams.monthLabel}</Text>
+                                                <Icon name={Icons.calendar} size={IconSizes.normal} color={action1Text}/>
                                             </TouchableOpacity>
                                         ): (
                                             <TouchableOpacity onPress={()=>{setModalSelectMonthIsVisible(true)}} style={styles.transactionFilterCategoriesItem}>

@@ -30,20 +30,20 @@ const OperationByDateItem = ({data}: props) => {
             <Text style={styles.day}>{day}</Text>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flex: 1}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flex: 1}}>
-                    <View style={{flexDirection: 'column'}}>
-                        <Text style={styles.week}>
+                    <View style={{flexDirection: 'column', paddingLeft: 5}}>
+                        <Text numberOfLines={1} style={styles.week}>
                             {week}
                         </Text>
-                        <Text style={styles.month}>
-                            {month}.{year}
+                        <Text numberOfLines={1} style={styles.month}>
+                            {month} {year}
                         </Text>
                     </View>
                     <View style={{flexDirection: 'column'}}>
-                        <Text style={styles.incomes}>
-                            {data.totalIncomes} XAF
+                        <Text numberOfLines={1} style={styles.incomes}>
+                            +XAF {data.totalIncomes}
                         </Text>
-                        <Text style={styles.expenses}>
-                            {data.totalExpense} XAF
+                        <Text numberOfLines={1} style={styles.expenses}>
+                            -XAF {data.totalExpense}
                         </Text>
                     </View>
                 </View>

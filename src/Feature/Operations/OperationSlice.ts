@@ -4,7 +4,7 @@ import FilterOperationsAsync from "./Thunks/Filter/FilterOperationsAsync.ts";
 import IFilterOperationsResponse from "./Thunks/Filter/FilterOperationsResponse.ts";
 import IOperationDto from "../../Domain/Operation/IOperationDto.ts";
 import SaveOperationAsync from "./Thunks/Save/SaveOperationAsync.ts";
-import {IOperationFilterParam, OperationDateItem} from "../../Domain/Operation/Operation.ts";
+import {IOperationFilterParam, IOperationTypeEnum, OperationDateItem} from "../../Domain/Operation/Operation.ts";
 import {formatDateToYYYYMMDD} from "../../Infrastructure/Shared/Utils/DateOperations.ts";
 import DeleteOperationAsync from "./Thunks/Delete/DeleteOperationAsync.ts";
 import IDeleteOperationResponse from "./Thunks/Delete/IDeleteOperationResponse.ts";
@@ -13,7 +13,7 @@ import IDeleteOperationResponse from "./Thunks/Delete/IDeleteOperationResponse.t
 interface IOperationState {
     loadingState: LoadingState,
     operations: IOperationDto[],
-    operationsByDate:OperationDateItem[],
+    operationsByDate: OperationDateItem[],
     filterParam: IOperationFilterParam,
     total: number,
     page: number,
@@ -40,18 +40,79 @@ const OperationSlice = createSlice({
     reducers: {
         AddOperation: (state, {payload}: PayloadAction<IOperationDto>) => {
             const today = new Date();
+            const operationDate = payload.date;
             if (today.getDate() == new Date(state.filterParam.selectedDate!).getDate()) {
                 state.total = state.total + 1;
                 state.operations = [payload, ...state.operations];
+                let isNewDate = true;
+                state.operationsByDate = state.operationsByDate.map(opDate => {
+                    if (operationDate.includes(opDate.date)) {
+                        isNewDate = false;
+                        return {
+                            ...opDate,
+                            totalIncomes: opDate.totalIncomes + payload.type === IOperationTypeEnum.INCOME ? payload.amount : 0,
+                            totalExpense: opDate.totalExpense + payload.type === IOperationTypeEnum.EXPENSE ? payload.amount : 0,
+                            operations: [
+                                payload,
+                                ...opDate.operations,
+                            ]
+                        }
+                    }
+                    return opDate;
+                });
+                if (isNewDate) {
+                    state.operationsByDate = [
+                        {
+                            date: payload.date,
+                            totalExpense: payload.type == IOperationTypeEnum.EXPENSE ? payload.amount : 0,
+                            totalIncomes: payload.type == IOperationTypeEnum.INCOME ? payload.amount : 0,
+                            operations: [
+                                payload
+                            ]
+                        },
+                        ...state.operationsByDate,
+                    ];
+                }
+                state.operationsByDate.sort((a, b) => new Date(b.date).getDate() - new Date(a.date).getDate())
             }
         },
         UpdateOperation: (state, {payload}: PayloadAction<IOperationDto>) => {
+            const operationDate = payload.date;
             state.operations = state.operations.map(op => {
                 if (op.id === payload.id) {
                     return payload;
                 }
                 return op;
-            })
+            });
+            let previousOperation: IOperationDto|null = null;
+            state.operationsByDate = state.operationsByDate.map(opDate => {
+                if (operationDate.includes(opDate.date)) {
+                    return {
+                        ...opDate,
+                        operations: opDate.operations.map(op => {
+                            if (op.id == payload.id) {
+                                previousOperation = op;
+                                return payload;
+                            }
+                            return op;
+                        }),
+                    }
+                }
+                return opDate;
+            });
+            state.operationsByDate = state.operationsByDate.map(opDate => {
+                if (operationDate.includes(opDate.date)) {
+                    const newAmount = payload.type === IOperationTypeEnum.INCOME ?
+                        opDate.totalIncomes - previousOperation!.amount + payload.amount :
+                        opDate.totalExpense - previousOperation!.amount + payload.amount;
+                    return {
+                        ...opDate,
+                        totalIncomes: payload.type === IOperationTypeEnum.INCOME ? newAmount : opDate.totalIncomes,
+                        totalExpense: payload.type === IOperationTypeEnum.EXPENSE ? newAmount : opDate.totalExpense,
+                    }
+                }
+                return opDate;
+            });
         },
         ResetFilter: (state) => {
             state.total = initialState.total;
