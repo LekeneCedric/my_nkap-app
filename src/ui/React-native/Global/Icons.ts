@@ -16,7 +16,7 @@ export const Icons = {
     add: 'plus',
     wallet: 'wallet',
     walletOutline: 'wallet-outline',
-    statistics: 'triangle-wave',
+    statistics: 'chart-box-outline',
     financialGoalOutline: 'trophy-outline',
     financialGoal: 'trophy-variant',
     settings: 'cog-outline',
@@ -47,5 +47,6 @@ export const Icons = {
         down: 'chevron-down',
         up: 'chevron-up'
     },
+    edit: 'pencil-outline',
     database: 'database-outline'
 }

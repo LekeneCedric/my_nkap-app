@@ -23,7 +23,7 @@ const HomeScreenHeader = ({props}: props) => {
         displayAmount
     } = useConfiguration();
     const {navigateByPath} = useCustomNavigation();
-    const {colorPalette: {pageBackground, containerBackground, text, action1, action1Text, action1Container}} = useTheme();
+    const {colorPalette: {pageBackground, containerBackground, text, action1, action1Text, action1Container, light}} = useTheme();
     const styles = HomeScreenHeaderStyle(pageBackground, containerBackground, text);
     return (
         <View style={styles.container}>
@@ -37,10 +37,8 @@ const HomeScreenHeader = ({props}: props) => {
                     {displayAmount(`XAF ${totalBalance}`)}
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconContainer, {backgroundColor: action1}]}>
-                <Text style={{fontSize: FontSize.normal, fontWeight: 'bold', color: action1Text, margin:7}}>
-                    Pro
-                </Text>
+            <TouchableOpacity style={[styles.iconContainer, {backgroundColor: containerBackground, padding: 8}]}>
+                <Icon name={Icons.user} size={IconSizes.normal} color={action1} />
             </TouchableOpacity>
         </View>
     );

@@ -6,6 +6,7 @@ import OperationsView from "../pages/Home/Tabs/Operations/OperationsView.tsx";
 import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
 import useTheme from "../Shared/Hooks/useTheme.ts";
+import AccountsView from "../pages/Home/Tabs/Accounts/AccountsView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
@@ -41,21 +42,21 @@ const HomeScreen = () => {
                     ),
                 }}
             />
-            <Tab.Screen
-                name={"comptes"}
-                component={() => <></>}
-                options={{
-                    headerShown: true,
-                    tabBarLabel: "",
-                    tabBarIcon: ({size, focused}) => (
-                        <Icon
-                            name={focused ? Icons.wallet : Icons.walletOutline}
-                            size={size}
-                            color={focused ? action1 : gray}
-                        />
-                    ),
-                }}
-            />
+            {/*<Tab.Screen*/}
+            {/*    name={"comptes"}*/}
+            {/*    component={AccountsView}*/}
+            {/*    options={{*/}
+            {/*        headerShown: false,*/}
+            {/*        tabBarLabel: "",*/}
+            {/*        tabBarIcon: ({size, focused}) => (*/}
+            {/*            <Icon*/}
+            {/*                name={focused ? Icons.wallet : Icons.walletOutline}*/}
+            {/*                size={size}*/}
+            {/*                color={focused ? action1 : gray}*/}
+            {/*            />*/}
+            {/*        ),*/}
+            {/*    }}*/}
+            {/*/>*/}
             {/*<Tab.Screen*/}
             {/*    name={"add-transaction"}*/}
             {/*    component={AddOperationView}*/}

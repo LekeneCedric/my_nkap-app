@@ -23,6 +23,8 @@ import SelectMonthModalView from "../../../../Components/Modals/SelectMonthModal
 import OperationByDateItem from "../../../../Components/OperationByDateItem/OperationByDateItem.tsx";
 import ISelectItem from "../../../../Components/Forms/Select/SelectItem.ts";
 import SelectModalView from "../../../../Components/Forms/Select/Modal/SelectModalView.tsx";
+import useNavigation from "../../../../utils/useNavigation.ts";
+import {routes} from "../../../routes";
 
 const Transactions = () => {
     const {
@@ -46,6 +48,9 @@ const Transactions = () => {
         selectAccount,
         accountsList,
     } = useOperationsView();
+    const {
+        navigateByPath
+    } = useNavigation();
     const showSelectCategoryModal = () => {
         setModalSelectCategoryIsVisible(true)
     }
@@ -53,7 +58,7 @@ const Transactions = () => {
     const [modalSelectTypeIsVisible, setModalSelectTypeIsVisible] = useState(false);
     const [modalSelectMonthIsVisible, setModalSelectMonthIsVisible] = useState(false);
     const [modalSelectAccountIsVisible, setModalSelectAccountIsVisible] = useState(false);
-    const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
+    const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text, light}} = useTheme();
     const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
         <>
@@ -145,6 +150,26 @@ const Transactions = () => {
                                     )
                                 }
                             </ScrollView>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigateByPath(routes.home.accounts)
+                                }}
+                                style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '80%',
+                                    alignSelf: 'center',
+                                    backgroundColor: action1,
+                                    padding: 10,
+                                    borderRadius: 8,
+                                    marginBottom: 8,
+                                    marginTop: 5
+                                }}
+                            >
+                                <Icon name={Icons.wallet} size={IconSizes.normal} color={light} />
+                                <Text style={{color: action1Text, paddingLeft: 5}}>Gérer mes comptes</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{margin: 0}}>

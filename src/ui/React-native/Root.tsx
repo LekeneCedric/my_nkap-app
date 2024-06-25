@@ -9,6 +9,7 @@ import HomeScreen from "./Screens/HomeScreen.tsx";
 import SettingsView from "./pages/Home/Settings/SettingsView.tsx";
 import PreferencesView from "./pages/Home/Settings/Menus/Preferences/PreferencesView.tsx";
 import AddOperationView from "./pages/Home/AddOperations/AddOperationView.tsx";
+import AccountsView from "./pages/Home/Tabs/Accounts/AccountsView.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {
@@ -28,6 +29,7 @@ const Root = () => {
         isAuthenticated && (
           <>
             <Stack.Screen name={routes.home.main} component={HomeScreen} />
+            <Stack.Screen name={routes.home.accounts} component={AccountsView} />
             <Stack.Screen name={routes.home.settings.main} component={SettingsView} />
             <Stack.Screen name={routes.home.settings.preferences} component={PreferencesView} />
             <Stack.Screen name={routes.home.addOperation} component={AddOperationView} />
