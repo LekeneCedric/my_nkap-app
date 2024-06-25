@@ -21,13 +21,13 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
             .withPage(command.page)
             .withLimit(command.limit)
             .withUserId(command.userId)
+            .withAccountId(command.filterParams.accountId)
             .withMonth(command.filterParams.month)
             .withYear(command.filterParams.year)
             .withDate(command.filterParams.date)
             .withCategoryId(command.filterParams.categoryId)
             .withOperationType(command.filterParams.operationType)
             .build();
-        console.warn(finalCommand);
 
         try {
             const response = await this.post(ApiRoutes.operations.filter, finalCommand);
@@ -37,7 +37,6 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
                 throw new Error(result.message);
             }
         } catch (e: any) {
-            console.warn('error', e.message);
             throw new Error(e.message ? e.message : gatewayMessages.technicalError);
         }
         return FilterOperationsResponseFactory.buildFromApiResponse(result);

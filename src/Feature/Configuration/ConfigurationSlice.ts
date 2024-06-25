@@ -1,10 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 type initialState = {
-    theme: 'light'|'dark'
+    theme: 'light'|'dark',
+    canSeeAmount: boolean,
 }
 const initialState: initialState = {
     theme: 'dark',
+    canSeeAmount: true,
 }
 
 const ConfigurationSlice = createSlice({
@@ -13,9 +15,12 @@ const ConfigurationSlice = createSlice({
     reducers: {
         SwitchTheme: (state, {payload}: PayloadAction<'light'|'dark'>) => {
             state.theme = payload;
+        },
+        SwitchCanSeeAmount: (state, {payload}: PayloadAction<boolean>) => {
+            state.canSeeAmount = payload;
         }
     },
 });
 
-export const {SwitchTheme} = ConfigurationSlice.actions;
+export const {SwitchTheme, SwitchCanSeeAmount} = ConfigurationSlice.actions;
 export default ConfigurationSlice.reducer;

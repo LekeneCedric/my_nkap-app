@@ -9,3 +9,7 @@ export const selectAccountLoadingState = (state: RootState): LoadingState => {
 export const selectAccounts = (state: RootState): IAccount[] => {
     return state.accountReducer.accounts;
 }
+
+export const selectTotalBalance = (state: RootState) => {
+    return state.accountReducer.totalBalance;
+}

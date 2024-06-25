@@ -62,7 +62,6 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
             date: data.date + ':00',
             detail: operationDetails,
         }
-        console.warn(operation);
         const response = await dispatch(SaveOperationAsync(operation));
         if (SaveOperationAsync.rejected.match(response)) {
             // @ts-ignore

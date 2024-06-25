@@ -30,7 +30,7 @@ const ValidateActionModalView = ({title, description, action, close, isVisible}:
                         <TouchableOpacity onPress={close}>
                             <Text style={{
                                 fontSize: FontSize.normal,
-                                color: gray,
+                                color: text,
                                 fontWeight: 'bold',
                                 borderBottomWidth: 1,
                                 borderBottomColor: gray

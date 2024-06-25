@@ -34,7 +34,6 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
       password: data.password,
     } as ILoginCommand;
     const response = await dispatch(LoginAsync(command));
-    console.warn(response);
     if (LoginAsync.fulfilled.match(response)) {
       toast.show(response.payload.message, {
         type: "success",

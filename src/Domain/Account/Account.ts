@@ -9,3 +9,9 @@ export default interface IAccount {
     color: string,
     icon: string,
 }
+
+export interface IAccountItem {
+    id: string,
+    label: string,
+    icon: string,
+}

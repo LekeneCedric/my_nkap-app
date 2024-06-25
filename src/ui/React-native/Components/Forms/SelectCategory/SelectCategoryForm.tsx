@@ -28,7 +28,6 @@ const SelectCategoryForm = ({
                                 list,
                             }: SelectCategoryFormProps) => {
     useEffect(() => {
-        console.warn(field.value)
         if (field.value) {
             const selectedItem = list.find(elt => elt.id == field.value);
             if (selectedItem !== undefined) {

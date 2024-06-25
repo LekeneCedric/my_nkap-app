@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../../../../../app/hook";
 import {selectAccountLoadingState, selectAccounts} from "../../../../../../Feature/Account/AccountSelector";
 import {GetAllAccountAsync} from "../../../../../../Feature/Account/Thunks/GetAll/GetAllAccountAsync";
 import {selectUser} from "../../../../../../Feature/Authentication/AuthenticationSelector";
-import IAccount from "../../../../../../Domain/Account/Account";
+import IAccount, {IAccountItem} from "../../../../../../Domain/Account/Account";
 import {LoadingState} from "../../../../../../Domain/Enums/LoadingState";
 import {useToast} from "react-native-toast-notifications";
 import {
@@ -33,6 +33,7 @@ import ISelectCategoryItem from "../../../../Components/Forms/SelectCategory/Sel
 import IGetAllCategoryCommand from "../../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
 import GetAllCategoryAsync from "../../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
 import {MonthItem} from "../../../../../../Domain/Shared/Months.ts";
+import ISelectItem from "../../../../Components/Forms/Select/SelectItem.ts";
 
 interface UseTransactionViewBehaviour {
     accounts: IAccount[],
@@ -51,7 +52,9 @@ interface UseTransactionViewBehaviour {
     resetFilter: () => void,
     selectOperationType: (operationType: IOperationTypeEnum) => void,
     selectMonth: (month: MonthItem) => void,
-    operationsByDate: OperationDateItem[]
+    operationsByDate: OperationDateItem[],
+    selectAccount: (account: IAccountItem) => void,
+    accountsList: ISelectItem[],
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
     const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -91,7 +94,8 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         page?: number,
         date?: string,
         categoryId?: string,
-        type?: IOperationTypeEnum
+        type?: IOperationTypeEnum,
+        accountId?: string,
     }
     const getOperations = async (params: getOperations) => {
         const page = params.page;
@@ -100,17 +104,19 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         const type = params.type;
         const month = params.month;
         const year = params.year;
+        const accountId = params.accountId;
         const command: IFilterOperationsCommand = {
             userId: userId!,
-            page: page ? page : currentOperationsPage!,
+            page: page ?? currentOperationsPage!,
             limit: currentOperationsLimit!,
             filterParams: {
                 ...operationFilterParams,
-                date: date ? date : operationFilterParams.date,
-                categoryId: categoryId ? categoryId : operationFilterParams.categoryId,
-                operationType: type ? type : operationFilterParams.operationType,
-                year: year ? year : operationFilterParams.year,
-                month: month ? month : operationFilterParams.month
+                date: date ?? operationFilterParams.date,
+                categoryId: categoryId ?? operationFilterParams.categoryId,
+                operationType: type ?? operationFilterParams.operationType,
+                year: year ?? operationFilterParams.year,
+                month: month ?? operationFilterParams.month,
+                accountId: accountId ?? operationFilterParams.accountId,
             }
         }
 
@@ -123,7 +129,6 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
                 animationType: "slide-in",
             });
         }
-        console.warn(response.payload);
     }
     const selectCategory = async (category: ICategory) => {
         dispatch(ChangeOperationFilterParam({
@@ -153,6 +158,23 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         }));
         await getOperations({month: month.value, year: year})
     }
+    const selectAccount = async (account: IAccountItem) => {
+        dispatch(ChangeOperationFilterParam({
+            ...operationFilterParams,
+            accountId: account.id,
+            accountIcon: account.icon,
+            accountLabel: account.label,
+        }));
+        await getOperations({accountId: account.id})
+    }
+    const accountsSelectItems = accounts.map((ac: IAccount): ISelectItem => {
+        return {
+            id: ac.id,
+            icon: ac.icon,
+            name: ac.name,
+            color: ac.color,
+        }
+    });
     const onRefresh = async () => {
         setRefreshing(true);
         await getAllAccounts();
@@ -259,6 +281,8 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         selectOperationType: selectOperationType,
         selectMonth: selectMonth,
         operationsByDate: operationsByDate,
+        selectAccount: selectAccount,
+        accountsList: accountsSelectItems,
     };
 };
 export default useOperationsView;

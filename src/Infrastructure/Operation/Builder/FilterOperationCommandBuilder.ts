@@ -33,6 +33,10 @@ export default class FilterOperationCommandBuilder {
         return this;
     }
 
+    withAccountId(accountId: string|undefined) {
+        this.#command.accountId  = accountId;
+        return this;
+    }
     withDate(date: string | undefined) {
         if (!this.#command.month) {
             this.#command.date = date;

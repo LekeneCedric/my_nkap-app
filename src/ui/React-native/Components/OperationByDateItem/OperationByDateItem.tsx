@@ -48,7 +48,7 @@ const OperationByDateItem = ({data}: props) => {
                     </View>
                 </View>
                 <TouchableOpacity onPress={()=>setShowDetails(!showDetails)}>
-                    <Icon name={Icons.chevron.down} size={IconSizes.medium} color={action1} />
+                    <Icon name={!showDetails ? Icons.chevron.down : Icons.chevron.up} size={IconSizes.medium} color={action1} />
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>

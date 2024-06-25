@@ -32,7 +32,6 @@ export default class CategoryApiGatewayHttp extends HttpProvider implements ICat
             const response = await this.post(ApiRoutes.category.save, command);
             //@ts-ignore
             result = response.data;
-            console.warn(result);
             if (!result.status) {
                 throw new Error(result.message);
             }

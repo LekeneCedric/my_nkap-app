@@ -21,6 +21,8 @@ import SelectOperationTypeModalView from "../../../../Components/Modals/SelectTy
 import {MonthItem} from "../../../../../../Domain/Shared/Months.ts";
 import SelectMonthModalView from "../../../../Components/Modals/SelectMonthModal/SelectMonthModalView.tsx";
 import OperationByDateItem from "../../../../Components/OperationByDateItem/OperationByDateItem.tsx";
+import ISelectItem from "../../../../Components/Forms/Select/SelectItem.ts";
+import SelectModalView from "../../../../Components/Forms/Select/Modal/SelectModalView.tsx";
 
 const Transactions = () => {
     const {
@@ -41,6 +43,8 @@ const Transactions = () => {
         selectOperationType,
         selectMonth,
         operationsByDate,
+        selectAccount,
+        accountsList,
     } = useOperationsView();
     const showSelectCategoryModal = () => {
         setModalSelectCategoryIsVisible(true)
@@ -48,6 +52,7 @@ const Transactions = () => {
     const [modalSelectCategoryIsVisible, setModalSelectCategoryIsVisible] = useState(false);
     const [modalSelectTypeIsVisible, setModalSelectTypeIsVisible] = useState(false);
     const [modalSelectMonthIsVisible, setModalSelectMonthIsVisible] = useState(false);
+    const [modalSelectAccountIsVisible, setModalSelectAccountIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = OperationViewStyles(pageBackground, containerBackground, text, gray);
     return (
@@ -60,6 +65,21 @@ const Transactions = () => {
                 }}
                 closeModal={()=>setModalSelectMonthIsVisible(false)}
                 isVisible={modalSelectMonthIsVisible}
+            />
+            <SelectModalView
+                action={(item: ISelectItem) => {
+                    selectAccount({
+                        icon: item.icon!,
+                        label: item.name!,
+                        id: item.id!
+                    });
+                    setModalSelectAccountIsVisible(false)
+                }}
+                closeModal={() => {
+                    setModalSelectAccountIsVisible(false);
+                }}
+                isVisible={modalSelectAccountIsVisible}
+                list={accountsList}
             />
             <SelectCategoryModalView
                 action={(item: ISelectCategoryItem) => {
@@ -86,6 +106,7 @@ const Transactions = () => {
             <SafeAreaView
                 style={[styles.pageContainer, !operationFilterParams.month && {paddingBottom: 50}]}>
                 <ScrollView
+                    showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     refreshControl={
                         <RefreshControl
@@ -102,6 +123,7 @@ const Transactions = () => {
                             <ScrollView
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
+                                showsVerticalScrollIndicator={false}
                             >
                                 {
                                     accountLoadingState == LoadingState.pending && (
@@ -117,8 +139,7 @@ const Transactions = () => {
                                     accountLoadingState != LoadingState.pending && (
                                         <>
                                             {
-                                                accounts.map(ac => <AccountCard type={ac.type} name={ac.name}
-                                                                                amount={ac.balance}/>)
+                                                accounts.map(ac => <AccountCard data={ac}/>)
                                             }
                                         </>
                                     )
@@ -128,7 +149,12 @@ const Transactions = () => {
                     </View>
                     <View style={{margin: 0}}>
                         {
-                            (operationFilterParams.categoryId || operationFilterParams.operationType || operationFilterParams.month) && (
+                            (
+                                operationFilterParams.categoryId ||
+                                operationFilterParams.operationType ||
+                                operationFilterParams.month ||
+                                operationFilterParams.accountId
+                            ) && (
                                 <TouchableOpacity onPress={()=>{resetFilter()}} style={{
                                     marginBottom: 3,
                                     flexDirection: 'row',
@@ -145,6 +171,25 @@ const Transactions = () => {
                         <View style={styles.transactionFilterContainer}>
                             <ScrollView horizontal={true}>
                                 <View style={styles.transactionFilterCategories}>
+                                    {
+                                        operationFilterParams.accountId ? (
+                                            <TouchableOpacity onPress={()=>{setModalSelectAccountIsVisible(true)}}
+                                                              style={[styles.transactionFilterCategoriesItem, {
+                                                                  backgroundColor: action1
+                                                              }]}>
+                                                <Text
+                                                    style={[styles.transactionFilterCategoriesItemText, {color: action1Text}]}
+                                                    numberOfLines={1}>{operationFilterParams.accountLabel}</Text>
+                                                <Icon name={operationFilterParams.accountIcon!} size={IconSizes.normal} color={action1Text}/>
+                                            </TouchableOpacity>
+                                        ): (
+                                            <TouchableOpacity onPress={()=>{setModalSelectAccountIsVisible(true)}} style={styles.transactionFilterCategoriesItem}>
+                                                <Text style={styles.transactionFilterCategoriesItemText}
+                                                      numberOfLines={1}>Compte</Text>
+                                                <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
+                                            </TouchableOpacity>
+                                        )
+                                    }
                                     {
                                         operationFilterParams.month ? (
                                             <TouchableOpacity onPress={()=>{setModalSelectMonthIsVisible(true)}}

@@ -33,7 +33,6 @@ export default class AuthenticationApiGatewayHttp extends HttpProvider implement
             const response = await this.post(ApiRoutes.authentication.login, command);
             //@ts-ignore
             result = response.data;
-            console.warn(result)
             if (!result.status) {
                 throw new Error(result.message);
             } 

@@ -11,11 +11,13 @@ type colorPalette = {
     primaryLight: string,
     primary: string,
     action1: string,
+    action1Container: string,
     action1Text: string,
     action2: string,
     action2Text: string,
     action3: string
-    action3Text: string
+    action3Text: string,
+    light: string
 }
 
 interface useThemeBehaviour {
@@ -35,11 +37,13 @@ const useTheme = (): useThemeBehaviour => {
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',
+        action1Container: '#cfc3ea',
         action1Text: '#FEFEFE',
         action2: '#FEFEFE',
         action2Text: '#FEFEFE',
         action3: '#FEFEFE',
         action3Text: '#FEFEFE',
+        light: '#FFFFFF'
     } : {
         pageBackground: '#F2F2F2',
         containerBackground: '#FFFFFF',
@@ -50,11 +54,13 @@ const useTheme = (): useThemeBehaviour => {
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',
+        action1Container: '#cfc3ea',
         action1Text: '#FEFEFE',
         action2: '#030303',
         action2Text: '#030303',
         action3: '#030303',
         action3Text: '#030303',
+        light: '#FFFFFF'
     }
     return {
         colorPalette: colorPalette!,

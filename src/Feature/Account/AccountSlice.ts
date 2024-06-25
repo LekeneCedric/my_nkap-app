@@ -86,6 +86,7 @@ export const AccountSlice = createSlice({
                 state.loadingState = LoadingState.pending;
             })
             .addCase(GetAllAccountAsync.fulfilled, (state, {payload}: PayloadAction<IGetAllAccountResponse>) => {
+                state.totalBalance = 0;
                 state.loadingState = LoadingState.success;
                 state.accounts = payload.accounts;
                 payload.accounts.map(ac => {

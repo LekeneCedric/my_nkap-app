@@ -157,7 +157,6 @@ const OperationSlice = createSlice({
         // },
         ChangeOperationFilterParam: (state, {payload}: PayloadAction<IOperationFilterParam>) => {
             state.filterParam = payload;
-            console.warn(payload);
         }
     },
     extraReducers: builder => {

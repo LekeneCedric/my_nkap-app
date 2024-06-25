@@ -32,13 +32,7 @@ export const useSelectCategoryModalView = (initialList : any[]): useSelectCatego
     });
     const onSubmit = async (data: IAddCategoryForm) => {
         data.userId = userId;
-        console.warn({
-            userId: userId!,
-            name: data.name,
-            icon: data.icon,
-            color: data.color,
-            description: data.description,
-        })
+
         const response = await dispatch(SaveCategoryAsync({
             userId: userId!,
             name: data.name,
@@ -48,7 +42,6 @@ export const useSelectCategoryModalView = (initialList : any[]): useSelectCatego
         }));
         if (SaveCategoryAsync.fulfilled.match(response)) {
             const categoryId = response.payload.categoryId;
-            console.warn(response.payload);
             dispatch(AddCategory({
                 id: categoryId,
                 name: data.name,

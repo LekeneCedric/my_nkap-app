@@ -35,7 +35,7 @@ interface useUpdateOperationModalViewBehaviour{
     categories: ISelectCategoryItem[],
     deleteOperation: () => void,
 }
-const useUpdateOperationModalView = (operation: IOperationDto): useUpdateOperationModalViewBehaviour => {
+const useUpdateOperationModalView = (toUpdateOperation: IOperationDto): useUpdateOperationModalViewBehaviour => {
     const dispatch = useAppDispatch();
     const toast = useToast();
     const userId = useAppSelector(selectUser)?.userId;
@@ -46,13 +46,13 @@ const useUpdateOperationModalView = (operation: IOperationDto): useUpdateOperati
     const form = useForm<AddOperationForm>({
         resolver: yupResolver(AddOperationFormSchemaValidate),
         values: {
-            operationId: operation.id,
-            accountId: operation.accountId,
-            type: operation.type,
-            amount: operation.amount,
-            categoryId: operation.categoryId,
-            details: operation.details,
-            date: operation.date
+            operationId: toUpdateOperation.id,
+            accountId: toUpdateOperation.accountId,
+            type: toUpdateOperation.type,
+            amount: toUpdateOperation.amount,
+            categoryId: toUpdateOperation.categoryId,
+            details: toUpdateOperation.details,
+            date: toUpdateOperation.date
         }
     });
     const onSubmit = async (data: AddOperationForm) => {
@@ -95,9 +95,9 @@ const useUpdateOperationModalView = (operation: IOperationDto): useUpdateOperati
             }
             dispatch(UpdateOperation(newOperation));
             dispatch(UpdateAccountByRemovingOperation({
-                accountId: data.accountId,
-                type: operation.type,
-                amount: operation.amount,
+                accountId: toUpdateOperation.accountId,
+                type: toUpdateOperation.type,
+                amount: toUpdateOperation.amount,
             }));
             dispatch(UpdateAccountByAddingOperation({
                 accountId: data.accountId,
@@ -110,10 +110,9 @@ const useUpdateOperationModalView = (operation: IOperationDto): useUpdateOperati
     const deleteOperation = async () => {
         
         const command: IDeleteOperationCommand = {
-            accountId: operation.accountId,
-            operationId: operation.id,
+            accountId: toUpdateOperation.accountId,
+            operationId: toUpdateOperation.id,
         }
-        console.warn(command);
         const response = await dispatch(DeleteOperationAsync(command));
         if (DeleteOperationAsync.rejected.match(response)) {
             // @ts-ignore
@@ -125,11 +124,10 @@ const useUpdateOperationModalView = (operation: IOperationDto): useUpdateOperati
             });
         }
         if (DeleteOperationAsync.fulfilled.match(response)) {
-            console.warn('delete-ok')
             dispatch(UpdateAccountByRemovingOperation({
-                accountId: operation.accountId,
-                type: operation.type,
-                amount: operation.amount,
+                accountId: toUpdateOperation.accountId,
+                type: toUpdateOperation.type,
+                amount: toUpdateOperation.amount,
             }));
             goBack();
         }

@@ -1,4 +1,5 @@
 import IOperationDto from "./IOperationDto.ts";
+import {IAccountItem} from "../Account/Account.ts";
 
 export default interface IOperation {
     id?: string,
@@ -34,4 +35,7 @@ export interface IOperationFilterParam {
     monthLabel?: string,
     month?: number,
     year?: number,
+    accountId?: string,
+    accountLabel?: string,
+    accountIcon?: string,
 }

@@ -68,6 +68,15 @@ const AccountCardStyles = (pageColor: string, containerColor: string, textColor:
       color: action1Text,
       fontSize: FontSize.normal,
       padding: 8
+    },
+    iconContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 100,
+      marginRight: 5,
+    },
+    icon: {
+      margin: 7
     }
   });
 };
