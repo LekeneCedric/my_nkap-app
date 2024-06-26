@@ -30,8 +30,12 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
         loading,
     } = useSelectCategoryModalView(list);
     const clearSearch = () => {
-        setInputSearch('');
-        sortList('')
+        if (inputSearch.length > 0) {
+            setInputSearch('');
+            sortList('');
+            return;
+        }
+        closeModal();
     }
     const showAddCategoryModal = () => {
         setAddCategoryModalIsVisible(true);

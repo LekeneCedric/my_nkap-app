@@ -23,8 +23,12 @@ const SelectModalView = ({
     const [inputSearch, setInputSearch] = useState<string>('');
     const {filterList, sortList} = useSelectModalView(list);
     const clearSearch = () => {
-        setInputSearch('');
-        sortList('')
+        if (inputSearch.length > 0) {
+            setInputSearch('');
+            sortList('')
+            return;
+        }
+        closeModal()
     }
     const {colorPalette: {pageBackground, containerBackground, text, gray}} = useTheme();
     const styles = SelectModalViewStyle(pageBackground, containerBackground, text, gray);
