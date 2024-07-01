@@ -12,12 +12,12 @@ const styles = (textColor: string) => {
         },
         inputLabel: {
             color: textColor,
-            width: wp(90),
+            width: '100%',
             alignSelf: 'center',
             fontSize: FontSize.normal
         },
         info: {
-            width: wp(90),
+            width: '100%',
             alignSelf: 'center',
             fontSize: FontSize.normal
         },

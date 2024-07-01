@@ -1,7 +1,7 @@
 import {StyleSheet} from "react-native";
-import {PageStyles} from "../../../../Global/Styles/page.styles.ts";
-import {pageStylesConstant} from "../../../../Global/Styles/constants.ts";
-import {FontSize} from "../../../../Global/FontSize.ts";
+import {PageStyles} from "../../../Global/Styles/page.styles.ts";
+import {pageStylesConstant} from "../../../Global/Styles/constants.ts";
+import {FontSize} from "../../../Global/FontSize.ts";
 
 const AccountsViewStyles = (pageContainerColor: string, cardContainerColor: string, text: string, gray: string, action1: string) => {
     return StyleSheet.create({

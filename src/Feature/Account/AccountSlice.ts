@@ -4,6 +4,10 @@ import IAccount from "../../Domain/Account/Account";
 import {GetAllAccountAsync} from "./Thunks/GetAll/GetAllAccountAsync";
 import {IGetAllAccountResponse} from "./Thunks/GetAll/GetAllAccountResponse";
 import {IOperationTypeEnum} from "../../Domain/Operation/Operation.ts";
+import {SaveAccountAsync} from "./Thunks/Save/SaveAccountAsync.ts";
+import ISaveAccountResponse from "./Thunks/Save/SaveAccountResponse.ts";
+import DeleteAccountAsync from "./Thunks/Delete/DeleteAccountAsync.ts";
+import DeleteAccountResponse from "./Thunks/Delete/DeleteAccountResponse.ts";
 
 interface IAccountState {
     loadingState: LoadingState,
@@ -25,6 +29,33 @@ export const AccountSlice = createSlice({
     name: 'accountSlice',
     initialState: initialState,
     reducers: {
+        UpdateAccount: (state, {payload}: PayloadAction<IAccount>) => {
+            state.accounts = state.accounts.map(ac => {
+                if (ac.id === payload.id) {
+                    return {
+                        ...payload,
+                        totalIncomes: ac.totalIncomes,
+                        totalExpenses: ac.totalExpenses,
+                    };
+                }
+                return ac;
+            });
+            state.totalBalance = 0;
+            state.accounts.map(ac => {
+                if (ac.isIncludeInTotalBalance == 1) {
+                    state.totalBalance += ac.balance;
+                }
+            })
+        },
+        AddAccount: (state, {payload}: PayloadAction<IAccount>) => {
+            state.accounts = [
+                ...state.accounts,
+                payload,
+            ];
+            if (payload.isIncludeInTotalBalance) {
+                state.totalBalance = state.totalBalance + payload.balance;
+            }
+        },
         UpdateAccountByRemovingOperation: (state, {payload}: PayloadAction<OperationAction>) => {
             state.accounts = state.accounts.map(a => {
                 if (a.id === payload.accountId) {
@@ -41,6 +72,7 @@ export const AccountSlice = createSlice({
                             totalExpenses: a.totalExpenses - payload.amount,
                             balance: a.balance + payload.amount
                         }
+
                     }
                 }
                 return a;
@@ -90,18 +122,47 @@ export const AccountSlice = createSlice({
                 state.loadingState = LoadingState.success;
                 state.accounts = payload.accounts;
                 payload.accounts.map(ac => {
-                   if (ac.isIncludeInTotalBalance == 1) {
-                       state.totalBalance = state.totalBalance + ac.balance;
-                   }
+                    if (ac.isIncludeInTotalBalance == 1) {
+                        state.totalBalance = state.totalBalance + ac.balance;
+                    }
                 });
             })
             .addCase(GetAllAccountAsync.rejected, state => {
                 state.loadingState = LoadingState.failed;
+            });
+        builder
+            .addCase(SaveAccountAsync.pending, state => {
+                state.loadingState = LoadingState.pending;
             })
+            .addCase(SaveAccountAsync.fulfilled, (state, {payload}: PayloadAction<ISaveAccountResponse>) => {
+                state.loadingState = LoadingState.success;
+            })
+            .addCase(SaveAccountAsync.rejected, state => {
+                state.loadingState = LoadingState.failed;
+            });
+        builder
+            .addCase(DeleteAccountAsync.pending, state => {
+                state.loadingState = LoadingState.pending;
+            })
+            .addCase(DeleteAccountAsync.fulfilled, (state, {payload}: PayloadAction<DeleteAccountResponse>) => {
+                state.loadingState = LoadingState.success;
+                state.accounts = state.accounts.filter((ac) => ac.id != payload.accountId);
+                state.totalBalance = 0;
+                state.accounts.map(ac => {
+                    if (ac.isIncludeInTotalBalance == 1) {
+                        state.totalBalance += ac.balance;
+                    }
+                })
+            })
+            .addCase(DeleteAccountAsync.rejected, state => {
+                state.loadingState = LoadingState.failed;
+            });
     }
 });
 
 export const {
+    UpdateAccount,
+    AddAccount,
     UpdateAccountByAddingOperation,
     UpdateAccountByRemovingOperation,
 } = AccountSlice.actions;

@@ -15,14 +15,19 @@ type SelectCategoryFormProps = {
     errorMessage?: string;
     field: ControllerRenderProps<any, any>;
     placeholder: string;
-    color: string|null,
+    color?: string,
 };
 const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: SelectCategoryFormProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
     const {colorPalette: {pageBackground, containerBackground, text, red, action1, gray}} = useTheme();
     const styles = SelectIconFormStyle(pageBackground, containerBackground, text, action1, gray);
-    useEffect(() => {}, [color])
+    useEffect(() => {}, [color]);
+    useEffect(() => {
+        if (field.value) {
+            setSelectedIcon(field.value);
+        }
+    }, []);
     return <>
         <SelectIconModalView
             color={color}

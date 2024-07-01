@@ -13,21 +13,21 @@ type SelectIconModalViewProps = {
     action: (item: string) => void,
     closeModal: () => void,
     isVisible: boolean,
-    color: string|null,
+    color?: string,
 }
 const SelectIconModalView = ({action, closeModal, isVisible, color}: SelectIconModalViewProps) => {
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
     const [iconsList,] = useState<any>({
-        "Voyage": ["airplane", "car", "train", "bus", "suitcase", "map", "hotel"],
-        "Sport": ["soccer", "basketball", "football", "tennis", "golf", "run", "dumbbell"],
-        "Alimentation": ["food", "silverware", "pizza", "coffee", "beer", "glass-wine"],
-        "Shopping": ["cart", "tag", "shopping", "cash-register", "store"],
-        "Divertissement": ["movie", "music", "gamepad", "theater"],
-        "Sante": ["hospital", "heart", "medical-bag", "stethoscope", "pill"],
-        "Education": ["book", "school", "laptop"],
-        "Utilitaires": ["lightbulb", "water", "gas-cylinder"],
-        "Maison": ["home", "bed", "chair"],
-        "Soins personnels": ["shower", "hair-dryer", "toothbrush"]
+        "Voyage": ["airplane", "car", "train", "bus", "map", "sail-boat", "beach"],
+        "Sport": ["soccer", "basketball", "football", "tennis", "golf", "run", "dumbbell", "swim", "volleyball", "ski"],
+        "Alimentation": ["food", "silverware", "pizza", "coffee", "beer", "glass-wine", "cake", "ice-cream"],
+        "Shopping": ["cart", "tag", "shopping", "cash-register", "store", "credit-card", "wallet"],
+        "Divertissement": ["movie", "music", "gamepad", "theater", "headphones", "television"],
+        "Sante": ["hospital", "heart", "medical-bag", "stethoscope", "pill", "bandage", "thermometer", "doctor"],
+        "Education": ["book", "school", "laptop", "pencil"],
+        "Utilitaires": ["lightbulb", "water", "gas-cylinder", "wrench", "hammer", "toolbox"],
+        "Maison": ["home", "bed", "sofa", "door", "lamp"],
+        "Soins personnels": ["shower", "hair-dryer", "toothbrush", "mirror", "spa"],
     });
     const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
     const styles= SelectIconModalViewStyle(pageBackground, containerBackground, text, action1);

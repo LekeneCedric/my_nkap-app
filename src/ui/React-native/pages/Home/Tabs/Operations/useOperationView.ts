@@ -205,7 +205,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         nextDay.setDate(nextDay.getDate() + numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(nextDay);
         const formattedDate = formatDateToReadable(nextDay);
-        if (nextDay.getDate() <= today.getDate()) {
+        if (nextDay.getTime() <= today.getTime()) {
             dispatch(ChangeOperationFilterParam({
                 ...operationFilterParams,
                 selectedDate: nextDay,

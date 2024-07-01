@@ -1,15 +1,17 @@
 import {Animated, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import AccountsViewStyles from "./AccountsView.styles.ts";
 import useAccountView from "./useAccountView.ts";
-import useConfiguration from "../../../../Shared/Hooks/useConfiguration.ts";
+import useConfiguration from "../../../Shared/Hooks/useConfiguration.ts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {IconSizes} from "../../../../Global/IconSizes.ts";
-import {Icons} from "../../../../Global/Icons.ts";
-import AccountCard from "../../../../Components/Card/AccountCard/AccountCard.tsx";
+import {IconSizes} from "../../../Global/IconSizes.ts";
+import {Icons} from "../../../Global/Icons.ts";
+import AccountCard from "../../../Components/Card/AccountCard/AccountCard.tsx";
 import AccountItem from "./components/AccountItem/AccountItem.tsx";
-import useNavigation from "../../../../utils/useNavigation.ts";
-import {hp} from "../../../../Global/Percentage.ts";
+import useNavigation from "../../../utils/useNavigation.ts";
+import {hp} from "../../../Global/Percentage.ts";
+import {useState} from "react";
+import AddAccountModalView from "./components/Modals/AddAccountModal/AddAccountModalView.tsx";
 
 const AccountsView = () => {
     const {
@@ -27,7 +29,12 @@ const AccountsView = () => {
     } = useNavigation();
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = AccountsViewStyles(pageBackground, containerBackground, text, gray, action1);
+    const [showAddAccountModalView, setShowAddAccountModalView] = useState<boolean>(false)
     return <>
+        <AddAccountModalView
+            closeModal = {() => setShowAddAccountModalView(false)}
+            isVisible={showAddAccountModalView}
+        />
         <View style={styles.headerContainer}>
             <TouchableOpacity onPress={goBack}>
                 <Icon
@@ -77,7 +84,7 @@ const AccountsView = () => {
                 shadowRadius: 2,
             }}
             >
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>setShowAddAccountModalView(true)}>
                     <Icon name={Icons.add} size={IconSizes.medium} color={action1Text}/>
                 </TouchableOpacity>
             </Animated.View>

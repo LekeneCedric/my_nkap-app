@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {FontSize} from "../../../../../../Global/FontSize.ts";
+import {FontSize} from "../../../../../Global/FontSize.ts";
 
 const AccountItemStyles = (pageBackground: string, containerBackground: string, text: string, action1: string, gray: string) => {
     return StyleSheet.create({

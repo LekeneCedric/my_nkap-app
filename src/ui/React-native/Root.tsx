@@ -9,7 +9,7 @@ import HomeScreen from "./Screens/HomeScreen.tsx";
 import SettingsView from "./pages/Home/Settings/SettingsView.tsx";
 import PreferencesView from "./pages/Home/Settings/Menus/Preferences/PreferencesView.tsx";
 import AddOperationView from "./pages/Home/AddOperations/AddOperationView.tsx";
-import AccountsView from "./pages/Home/Tabs/Accounts/AccountsView.tsx";
+import AccountsView from "./pages/Home/Accounts/AccountsView.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {

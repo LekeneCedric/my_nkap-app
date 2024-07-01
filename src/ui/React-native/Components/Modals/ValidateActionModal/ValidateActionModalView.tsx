@@ -21,7 +21,7 @@ const ValidateActionModalView = ({title, description, action, close, isVisible}:
                        style={styles.container}>
             <View style={{flexDirection: 'column', justifyContent: 'space-between', height: '100%'}}>
                 <Text numberOfLines={1} style={{fontSize: FontSize.medium, color: text, fontWeight: 'bold', marginLeft: 10}}>{title}</Text>
-                <Text style={{fontSize: FontSize.normal, fontWeight: '100', color: text, marginLeft: 10}}>{description}</Text>
+                <Text style={{fontSize: FontSize.normal, fontWeight: '100', color: text, textAlign: 'center', marginLeft: 10}}>{description}</Text>
                 <View style={{flexDirection: 'column', justifyContent: 'space-evenly', marginBottom: 10}}>
                     <ButtonForm noAnimation={true} color={red} loading={LoadingState.success} loadingLabel={'Enregistrement ...'}
                                 label={'Enregistrer'}

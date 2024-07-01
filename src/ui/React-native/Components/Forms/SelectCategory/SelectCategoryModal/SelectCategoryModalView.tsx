@@ -3,7 +3,7 @@ import {FlatList, Modal, Text, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../../Global/Icons.ts";
 import {IconSizes} from "../../../../Global/IconSizes.ts";
-import SeachInput from "../../../SeachInput/SearchInput.tsx";
+import SearchInput from "../../../SeachInput/SearchInput.tsx";
 import {useState} from "react";
 import {useSelectCategoryModalView} from "./useSelectCategoryModalView.ts";
 import ISelectCategoryItem from "../SelectCategoryItem.ts";
@@ -52,7 +52,7 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                     <TouchableOpacity onPress={closeModal} style={{flex: 1, alignItems: 'center'}}>
                         <Icon name={Icons.back} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
-                    <SeachInput value={inputSearch} onChange={(text: string) => {
+                    <SearchInput value={inputSearch} onChange={(text: string) => {
                         setInputSearch(text);
                         sortList(text)
                     }}/>
@@ -60,7 +60,6 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                         <Icon name={Icons.close} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
                 </View>
-
                 {
                     filterList.length > 0 && <FlatList
                         data={filterList}

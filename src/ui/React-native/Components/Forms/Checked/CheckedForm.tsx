@@ -25,7 +25,7 @@ const CheckedForm = ({label, field, values, errorMessage}: props) => {
     const {colorPalette: {text}} = useTheme();
     const styles = CheckedFormStyle(text);
     useEffect(() => {
-        if (field.value) {
+        if (field.value !== undefined) {
             const selectedItem = values.find(elt => elt.id == field.value);
             if (selectedItem !== undefined) {
                 setSelectItem(selectedItem)

@@ -14,6 +14,8 @@ import {FontSize} from "../../../../../Global/FontSize.ts";
 import {useState} from "react";
 import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
 import AddCategoryModalStyles from "./AddCategoryModal.styles.ts";
+import SelectColorForm from "../../../SelectColorForm/SelectColorForm.tsx";
+import {ColorsList} from "../../../../../Shared/Constants/Colors.ts";
 
 type AddCategoryModalProps = {
     isVisible: boolean,
@@ -23,29 +25,8 @@ type AddCategoryModalProps = {
     loading: LoadingState,
 }
 const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCategoryModalProps) => {
-    const [selectedColor, setSelectedColor] = useState<string | null>(null)
-    const [colorsList,] = useState<string[]>([
-        "#4CAF50", // Green
-        "#03A9F4", // Light Blue
-        "#FFC107", // Amber
-        "#9C27B0", // Purple
-        "#FF5722", // Deep Orange
-        "#00BCD4", // Cyan
-        "#673AB7", // Deep Purple
-        "#FFEB3B", // Yellow
-        "#03DAC5", // Turquoise
-        "#E91E63", // Pink
-        "#8BC34A", // Light Green
-        "#2196F3", // Blue
-        "#FF9800", // Orange
-        "#3F51B5", // Indigo
-        "#FFA726", // Orange Light
-        "#009688", // Teal
-        "#FF5252", // Red Light
-        "#CDDC39", // Lime
-        "#9E9E9E", // Grey
-        "#795548"  // Brown
-    ]);
+    const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
+    const colorsList = ColorsList;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {pageBackground, containerBackground, text, red, action1, gray}} = useTheme();
     const styles = AddCategoryModalStyles(pageBackground, containerBackground, text, action1, gray);
@@ -88,34 +69,13 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                         control={control}
                         name={'color'}
                         render={({field}) => (
-                            <View style={styles.colorSelectContainer}>
-                                <Text style={styles.colorSelectTitle}>Choisissez une couleur</Text>
-                                <View style={styles.colorSelectIconsContainer}>
-                                    {
-                                        colorsList.map((color: string) => {
-                                            const isSelectedColor = selectedColor === color;
-                                            return (
-                                                <TouchableOpacity
-                                                    onPress={() => {
-                                                        field.onChange(color);
-                                                        setSelectedColor(color)
-                                                    }}
-                                                    style={[styles.colorSelectIconsContainerItem, {
-                                                        backgroundColor: color,
-                                                        borderWidth: isSelectedColor ? 3 : 0.3,
-                                                        borderColor: text
-                                                    }]}>
-                                                </TouchableOpacity>
-                                            )
-                                        })
-                                    }
-                                    {errors.color?.message ? (
-                                        <Text style={[styles.info, {color: red}]}>{errors.color?.message}</Text>
-                                    ) : (
-                                        <Text style={[styles.info, {color: text}]}/>
-                                    )}
-                                </View>
-                            </View>
+                            <SelectColorForm
+                                colors={colorsList}
+                                errorMessages={errors.color?.message}
+                                currentSelectedColor={selectedColor}
+                                field={field}
+                                setSelectedColor={(selectedColor: string) => setSelectedColor(selectedColor)}
+                            />
                         )}
                     />
                     <Controller

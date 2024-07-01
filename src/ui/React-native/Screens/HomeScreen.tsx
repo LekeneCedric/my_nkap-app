@@ -6,7 +6,7 @@ import OperationsView from "../pages/Home/Tabs/Operations/OperationsView.tsx";
 import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
 import useTheme from "../Shared/Hooks/useTheme.ts";
-import AccountsView from "../pages/Home/Tabs/Accounts/AccountsView.tsx";
+import AccountsView from "../pages/Home/Accounts/AccountsView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {

@@ -36,7 +36,7 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
     return <View style={{flexDirection: 'column', backgroundColor: containerBackground, paddingTop: 10}}>
         <ValidateActionModalView
             title={'Suppréssion'}
-            description={'La suppréssion de cette opération est irreversible, voulez vous continuer ?'}
+            description={'La suppréssion de cette opération est irreversible \n Continuer ?'}
             action={onDeleteOperation!}
             close={()=>{setValidateActionIsVisibleModal(false)}}
             isVisible={validateActionIsVisibleModal}

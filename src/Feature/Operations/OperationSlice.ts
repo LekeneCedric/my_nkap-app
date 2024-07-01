@@ -38,6 +38,15 @@ const OperationSlice = createSlice({
     name: "operations",
     initialState: initialState,
     reducers: {
+        DeleteOperationsRelatedToAccount: (state, {payload}: PayloadAction<{accountId: string}>) => {
+          state.operations = state.operations.filter(op => op.accountId !== payload.accountId);
+          state.operationsByDate = state.operationsByDate.map(container => {
+              return {
+                  ...container,
+                  operations: container.operations.filter(op => op.accountId !== payload.accountId),
+              }
+          })
+        },
         AddOperation: (state, {payload}: PayloadAction<IOperationDto>) => {
             const today = new Date();
             const operationDate = payload.date;
@@ -198,6 +207,7 @@ const OperationSlice = createSlice({
 })
 
 export const {
+    DeleteOperationsRelatedToAccount,
     AddOperation,
     UpdateOperation,
     ChangeOperationFilterParam,
