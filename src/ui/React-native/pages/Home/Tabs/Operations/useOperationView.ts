@@ -248,6 +248,9 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         };
 
         startBouncing();
+        const getAccounts = async() => {
+            await getAllAccounts();
+        }
         const getOperationsData = async() => {
             await getOperations({page: 1});
         }
@@ -260,6 +263,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         if (categories.length == 0) {
             getAllCategories();
         }
+        getAccounts();
         getOperationsData();
     },[operationFilterParams])
 

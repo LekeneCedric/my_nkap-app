@@ -3,8 +3,9 @@ import AuthenticationRoutes from "./AuthenticationRoutes";
 import ProfessionApiRoutes from "./ProfessionApiRoutes";
 import OperationsRoutes from "./OperationsRoutes.ts";
 import CategoryRoutes from "./CategoryRoutes.ts";
+import FinancialGoalRoutes from "./FinancialGoalRoutes.ts";
 
-export const BASE_API_ROUTES = 'http://192.168.1.101:8001/api';
+export const BASE_API_ROUTES = 'https://2d1d-102-244-45-102.ngrok-free.app/api';
 
 export const ApiRoutes = {
     professions: ProfessionApiRoutes,
@@ -12,4 +13,5 @@ export const ApiRoutes = {
     account: AccountRoutes,
     operations: OperationsRoutes,
     category: CategoryRoutes,
+    financialGoal: FinancialGoalRoutes,
 }

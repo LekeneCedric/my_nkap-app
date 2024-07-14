@@ -9,6 +9,8 @@ import {useState} from "react";
 import ISelectItem from "../SelectItem.ts";
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 import SelectModalViewStyle from "./SelectModalView.style";
+import {FontSize} from "../../../../Global/FontSize.ts";
+import {hp} from "../../../../Global/Percentage.ts";
 
 type selectModalViewProps = {
     action: (item: ISelectItem) => void,
@@ -53,22 +55,32 @@ const SelectModalView = ({
                         <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                     </TouchableOpacity>
                 </View>
-                <FlatList
-                    data={filterList}
-                    renderItem={({item}) =>
-                        <TouchableOpacity onPress={() => {
-                            action(item)
-                        }} style={styles.itemContainer}>
-                            {
-                                item.icon && (
-                                    <Icon name={item.icon} size={IconSizes.normal} color={item.color}/>
-                                )
-                            }
-                            <Text style={styles.itemText}>{item.name}</Text>
-                        </TouchableOpacity>}
-                    keyExtractor={item => item.id}
-                    style={styles.listContainer}
-                />
+                {
+                    filterList.length > 0 && <FlatList
+                        data={filterList}
+                        renderItem={({item}) =>
+                            <TouchableOpacity onPress={() => {
+                                action(item)
+                            }} style={styles.itemContainer}>
+                                {
+                                    item.icon && (
+                                        <Icon name={item.icon} size={IconSizes.normal} color={item.color}/>
+                                    )
+                                }
+                                <Text style={styles.itemText}>{item.name}</Text>
+                            </TouchableOpacity>}
+                        keyExtractor={item => item.id}
+                        style={styles.listContainer}
+                    />
+                }
+                {
+                    filterList.length === 0 && (
+                        <View style={{alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: hp(10)}}>
+                            <Text style={{fontSize: FontSize.normal, color: text}}>Aucun élément trouvé !</Text>
+                        </View>
+                    )
+                }
+
             </Animated.View>
         </Modal>
     );
