@@ -1,13 +1,13 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import IErrorResult from "../../../IErrorResult.ts";
-import ISaveFinancialGoalResponse from "./ISaveFinancialGoalResponse.ts";
-import ISaveFinancialGoalCommand from "./ISaveFinancialGoalCommand.ts";
+import ISaveFinancialGoalResponse from "./SaveFinancialGoalResponse.ts";
+import ISaveFinancialGoalCommand from "./SaveFinancialGoalCommand.ts";
 import IFinancialGoalApiGateway from "../../../../Domain/FinancialGoal/FinancialGoalApiGateway.ts";
 
 const SaveFinancialGoalAsync = createAsyncThunk<ISaveFinancialGoalResponse, ISaveFinancialGoalCommand>(
     'financialGoal/save',
     async (command: ISaveFinancialGoalCommand, thunkAPI: any) => {
-        const financialGoalApiGateway: IFinancialGoalApiGateway = thunkAPI.extra.financialGoalApiGatewayHttp();
+        const financialGoalApiGateway: IFinancialGoalApiGateway = thunkAPI.extra.financialGoalApiGatewayHttp;
 
         try {
             return await financialGoalApiGateway.save(command);

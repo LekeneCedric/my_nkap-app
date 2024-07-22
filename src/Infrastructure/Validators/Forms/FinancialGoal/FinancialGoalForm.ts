@@ -4,6 +4,6 @@ export default interface FinancialGoalForm {
     accountId: string,
     startDate: string,
     endDate: string,
-    desiredAmount: string,
+    desiredAmount: number,
     details: string,
 }

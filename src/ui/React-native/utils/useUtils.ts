@@ -13,7 +13,7 @@ const useUtils = (): IUseUtilsBehaviour => {
         const month = pad(date.getMonth() + 1); // Months are zero-based
         const day = pad(date.getDate());
 
-        return `${year}-${month}-${day}`;
+        return `${year}-${month}-${day} 00:00:00`;
     }
 
     const formatDateToYYYYMMDDHIS = (date: Date) => {

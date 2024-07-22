@@ -1,4 +1,4 @@
-import {Modal, ScrollView, TouchableOpacity, View} from "react-native";
+import {Modal, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import UpdateOperationModalViewStyles from "./UpdateOperationModalView.styles.ts";
 import IOperationDto from "../../../../../Domain/Operation/IOperationDto.ts";
@@ -8,6 +8,7 @@ import useUpdateOperationModalView from "./useUpdateOperationModalView.ts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
+import {FontSize} from "../../../Global/FontSize.ts";
 
 type props = {
     closeModal: () => void,
@@ -30,7 +31,6 @@ const UpdateOperationModalView = ({closeModal, isVisible, operation}: props) => 
                     <TouchableOpacity onPress={closeModal} style={{position: 'absolute', right: 10, top: 10}}>
                         <Icon name={Icons.close} size={IconSizes.normal} color={text} />
                     </TouchableOpacity>
-
                 </View>
                 <ScrollView>
                     <AddOperationForm onDeleteOperation={deleteOperation} isUpdate={true} categories={categories} accounts={accounts}

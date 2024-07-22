@@ -201,11 +201,12 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     }
     const handleNextDay = async (numberOfDay: number) => {
         const today = new Date();
+        const nextDayBeforeComparison = operationFilterParams.selectedDate ? new Date(operationFilterParams.selectedDate) : new Date();
         const nextDay = operationFilterParams.selectedDate ? new Date(operationFilterParams.selectedDate) : new Date();
         nextDay.setDate(nextDay.getDate() + numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(nextDay);
         const formattedDate = formatDateToReadable(nextDay);
-        if (nextDay.getTime() <= today.getTime()) {
+        if (today.getTime() >= nextDayBeforeComparison.getTime()) {
             dispatch(ChangeOperationFilterParam({
                 ...operationFilterParams,
                 selectedDate: nextDay,
@@ -251,9 +252,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         const getAccounts = async() => {
             await getAllAccounts();
         }
-        const getOperationsData = async() => {
-            await getOperations({page: 1});
-        }
+
         const getAllCategories = async () => {
             const command = {
                 userId: userId ? userId : '',
@@ -264,8 +263,13 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
             getAllCategories();
         }
         getAccounts();
+    },[])
+    useEffect(() => {
+        const getOperationsData = async() => {
+            await getOperations({page: 1});
+        }
         getOperationsData();
-    },[operationFilterParams])
+    }, [operationFilterParams]);
 
     return {
         accounts: accounts,

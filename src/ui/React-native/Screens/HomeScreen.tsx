@@ -7,6 +7,7 @@ import HomeScreenHeader from "../Components/HomeScreen/header/HomeScreenHeader";
 import useHomeScreenView from "./useHomeScreenview";
 import useTheme from "../Shared/Hooks/useTheme.ts";
 import AccountsView from "../pages/Home/Accounts/AccountsView.tsx";
+import FinancialGoalsView from "../pages/Home/Tabs/FinancialGoals/FinancialGoalsView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
@@ -103,7 +104,7 @@ const HomeScreen = () => {
             />
             <Tab.Screen
                 name={'objectifs'}
-                component={() => <></>}
+                component={FinancialGoalsView}
                 options={{
                     headerShown: true,
                     tabBarLabel: "",

@@ -49,12 +49,17 @@ export const useSelectCategoryModalView = (initialList : any[]): useSelectCatego
                 color: data.color,
                 description: data.description,
             }));
-
+            toast.show('Nouvelle catégorie ajouté avec succès !', {
+                type: "success",
+                placement: "top",
+                duration: 3000,
+                animationType: "slide-in",
+            });
         }
         if (SaveCategoryAsync.rejected.match(response)) {
             // @ts-ignore
             toast.show(response.payload.message, {
-                type: "success",
+                type: "danger",
                 placement: "top",
                 duration: 3000,
                 animationType: "slide-in",

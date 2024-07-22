@@ -1,9 +1,11 @@
 import * as yup from 'yup';
 import FinancialGoalForm from "./FinancialGoalForm.ts";
 
-const dateFormatRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
+const dateFormatRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
 
 const FinancialGoalFormSchemaValidate = yup.object({
+    financialGoalId: yup
+        .string(),
     userId: yup
         .string()
         .required(),

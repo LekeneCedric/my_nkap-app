@@ -5,6 +5,13 @@ export interface IFinancialGoal {
     endDate: string,
     currentAmount: number,
     desiredAmount: number,
-    details?: string,
-    createdAt?: string,
+    title?: string,
+    createdAt?: Date,
+    isComplete?: boolean
+}
+
+export enum FinancialGoalStatus {
+    PENDING = 'En cours',
+    COMPLETE = 'Accompli',
+    FAILED = 'Non accompli'
 }

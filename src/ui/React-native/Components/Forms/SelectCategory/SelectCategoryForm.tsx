@@ -19,14 +19,7 @@ type SelectCategoryFormProps = {
     placeholder: string;
     list: ISelectCategoryItem[],
 };
-const SelectCategoryForm = ({
-                                icon,
-                                label,
-                                errorMessage,
-                                field,
-                                placeholder,
-                                list,
-                            }: SelectCategoryFormProps) => {
+const SelectCategoryForm = ({icon, label, errorMessage, field, placeholder, list}: SelectCategoryFormProps) => {
     useEffect(() => {
         if (field.value) {
             const selectedItem = list.find(elt => elt.id == field.value);

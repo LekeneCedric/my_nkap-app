@@ -5,7 +5,7 @@ import OperationsRoutes from "./OperationsRoutes.ts";
 import CategoryRoutes from "./CategoryRoutes.ts";
 import FinancialGoalRoutes from "./FinancialGoalRoutes.ts";
 
-export const BASE_API_ROUTES = 'https://2d1d-102-244-45-102.ngrok-free.app/api';
+export const BASE_API_ROUTES = 'http://192.168.43.31:80/api';
 
 export const ApiRoutes = {
     professions: ProfessionApiRoutes,

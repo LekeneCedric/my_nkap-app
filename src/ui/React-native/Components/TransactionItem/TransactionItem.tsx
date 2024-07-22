@@ -51,9 +51,10 @@ const TransactionItem = ({data}: props) => {
                             {data.details}
                         </Text>
                         <Text
-                            style={[styles.transactionType, {color: data.type === IOperationTypeEnum.EXPENSE ? red : green}]}>
-                            {data.type === IOperationTypeEnum.EXPENSE && 'Dépense'}
-                            {data.type === IOperationTypeEnum.INCOME && 'Revenu'}
+                            style={[styles.transactionType, {color: data.categoryColor}]}>
+                            {data.categoryName}
+                            {/*{data.type === IOperationTypeEnum.EXPENSE && 'Dépense'}*/}
+                            {/*{data.type === IOperationTypeEnum.INCOME && 'Revenu'}*/}
                         </Text>
                     </View>
                 </View>

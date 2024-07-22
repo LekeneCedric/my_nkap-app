@@ -1,4 +1,7 @@
+const baseFinancialGoalPath = 'financial-goals';
 const FinancialGoalRoutes = {
-    save: 'financial-goals/save',
+    getAll: baseFinancialGoalPath + '/all',
+    save: baseFinancialGoalPath + '/save',
+    delete: baseFinancialGoalPath + '/delete'
 };
 export default FinancialGoalRoutes;

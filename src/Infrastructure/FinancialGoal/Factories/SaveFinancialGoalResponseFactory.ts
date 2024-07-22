@@ -1,4 +1,4 @@
-import ISaveFinancialGoalResponse from "../../../Feature/FinancialGoal/Thunks/Save/ISaveFinancialGoalResponse.ts";
+import ISaveFinancialGoalResponse from "../../../Feature/FinancialGoal/Thunks/Save/SaveFinancialGoalResponse.ts";
 
 export default class SaveFinancialGoalResponseFactory {
 static fromApi(result: any): ISaveFinancialGoalResponse {

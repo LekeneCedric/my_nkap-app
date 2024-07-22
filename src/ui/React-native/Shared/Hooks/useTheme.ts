@@ -50,7 +50,7 @@ const useTheme = (): useThemeBehaviour => {
         text: '#030303',
         green: '#1DA193',
         red: '#AF3C24',
-        gray: '#a1a1a1',
+        gray: '#818181',
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',

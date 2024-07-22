@@ -28,6 +28,7 @@ import {
 } from "../../../../../Feature/Account/AccountSlice.ts";
 import DeleteOperationAsync from "../../../../../Feature/Operations/Thunks/Delete/DeleteOperationAsync.ts";
 import IDeleteOperationCommand from "../../../../../Feature/Operations/Thunks/Delete/IDeleteOperationCommand.ts";
+import {UpdateFinancialGoalAfterSaveOperation} from "../../../../../Feature/FinancialGoal/FinancialGoalSlice.ts";
 
 interface useUpdateOperationModalViewBehaviour{
     addOperationFormBehaviour: AddOperationFormBehaviour,
@@ -104,6 +105,14 @@ const useUpdateOperationModalView = (toUpdateOperation: IOperationDto): useUpdat
                 type: data.type,
                 amount: data.amount,
             }));
+            dispatch(UpdateFinancialGoalAfterSaveOperation({
+                accountId: data.accountId,
+                amount: data.amount,
+                type: data.type,
+                date: data.date,
+                isUpdate: true,
+                previousAmount: toUpdateOperation.amount,
+            }));
             goBack();
         }
     }
@@ -129,6 +138,15 @@ const useUpdateOperationModalView = (toUpdateOperation: IOperationDto): useUpdat
                 type: toUpdateOperation.type,
                 amount: toUpdateOperation.amount,
             }));
+            dispatch(UpdateFinancialGoalAfterSaveOperation({
+                accountId: toUpdateOperation.accountId,
+                amount: toUpdateOperation.amount,
+                type: toUpdateOperation.type,
+                date: toUpdateOperation.date,
+                isUpdate: false,
+                isDelete: true,
+                previousAmount: toUpdateOperation.amount,
+            }))
             goBack();
         }
 

@@ -1,26 +1,24 @@
-import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import styles from "./AddOperationView.styles.ts";
-import UseAddOperationView from "./useAddOperationView.ts";
-import {Theme} from "../../../Global/Theme.ts";
+import useAddFinancialGoalsView from "./useAddFinancialGoalsView.ts";
+import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import useNavigation from "../../../utils/useNavigation.ts";
+import {SafeAreaView, ScrollView, TouchableOpacity, View} from "react-native";
+import AddFinancialGoalsViewStyles from "./AddFinancialGoalsView.styles.ts";
 import Animated, {BounceInDown, BounceInUp} from "react-native-reanimated";
-import AddOperationForm from "./Form/AddOperationForm.tsx";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
-import useTheme from "../../../Shared/Hooks/useTheme.ts";
-import useNavigation from "../../../utils/useNavigation.ts";
+import AddFinancialGoalsForm from "./Form/AddFinancialGoalsForm.tsx";
 
-const AddOperationView = () => {
+const AddFinancialGoalsView = () => {
     const {
-        addOperationFormBehaviour,
-        accounts,
-        categories
-    } = UseAddOperationView();
+        addFinancialGoalFormBehaviour,
+        accounts
+    } = useAddFinancialGoalsView();
     const {goBack} = useNavigation();
     const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
+    const styles = AddFinancialGoalsViewStyles(pageBackground, containerBackground);
     return (
         <SafeAreaView style={[styles.pageContainer, {backgroundColor: pageBackground}]}>
-
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp}>
                 <View style={[styles.headerContainer, {backgroundColor: pageBackground, alignItems: 'center'}]}>
                     <TouchableOpacity style={{position: 'absolute', left: 15}} onPress={goBack}>
@@ -31,18 +29,15 @@ const AddOperationView = () => {
                         />
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <Animated.Text style={[styles.title, {color: text}]}>Nouvelle Opération </Animated.Text>
-                        <Icon name={Icons.transactions} size={IconSizes.medium} color={action1}/>
+                        <Animated.Text style={[styles.title, {color: text}]}>Nouvel Objectif</Animated.Text>
+                        <Icon name={Icons.financialGoal} size={IconSizes.medium} color={action1}/>
                     </View>
                 </View>
-
                 <ScrollView>
-                    <AddOperationForm categories={categories} accounts={accounts}
-                                      addOperationFormBehaviour={addOperationFormBehaviour}/>
+                    <AddFinancialGoalsForm accounts={accounts} addFinancialGoalsFormBehaviour={addFinancialGoalFormBehaviour}/>
                 </ScrollView>
-
             </Animated.View>
         </SafeAreaView>
     )
 };
-export default AddOperationView;
+export default AddFinancialGoalsView;

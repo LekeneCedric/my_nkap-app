@@ -40,7 +40,7 @@ const SelectForm = ({
     const [selectedItem, setSelectedItem] = useState<ISelectItem | null>(null);
     const [modalIsVisible, setModalIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, red, gray, action1}} = useTheme();
-    const styles = selectFormStyle(pageBackground, text, gray)
+    const styles = selectFormStyle(pageBackground, text)
     return (
         <>
             <SelectModalView

@@ -2,7 +2,7 @@ import {StyleSheet} from "react-native";
 import {hp, wp} from "../../../Global/Percentage";
 import {FontSize} from "../../../Global/FontSize";
 
-const SelectFormStyles = (pageContainerColor: string, text: string, gray: string) => {
+const SelectFormStyles = (pageContainerColor: string, text: string) => {
     return StyleSheet.create({
         container: {
             flexDirection: 'column',

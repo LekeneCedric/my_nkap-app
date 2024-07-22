@@ -26,6 +26,10 @@ import {AddOperation} from "../../../../../Feature/Operations/OperationSlice.ts"
 import {UpdateAccountByAddingOperation} from "../../../../../Feature/Account/AccountSlice.ts";
 import useNavigation from "../../../utils/useNavigation.ts";
 import {routes} from "../../routes";
+import {
+    UpdateFinancialGoal,
+    UpdateFinancialGoalAfterSaveOperation
+} from "../../../../../Feature/FinancialGoal/FinancialGoalSlice.ts";
 
 export interface AddOperationFormBehaviour {
     form: UseFormReturn<AddOperationForm>,
@@ -93,6 +97,14 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
                 accountId: data.accountId,
                 type: data.type,
                 amount: data.amount
+            }));
+            dispatch(UpdateFinancialGoalAfterSaveOperation({
+                accountId: data.accountId,
+                amount: data.amount,
+                type: data.type,
+                date: data.date,
+                isUpdate: false,
+                previousAmount: 0,
             }));
         }
     }
