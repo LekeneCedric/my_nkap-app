@@ -10,6 +10,7 @@ import AccountApiGatewayHttp from '../Infrastructure/Account/Gateways/AccountApi
 import OperationsApiGatewayHttp from "../Infrastructure/Operation/Gateways/OperationsApiGatewayHttp.ts";
 import CategoryApiGatewayHttp from "../Infrastructure/Category/Gateways/CategoryApiGatewayHttp.ts";
 import FinancialGoalApiGatewayHttp from "../Infrastructure/FinancialGoal/Gateways/FinancialGoalApiGatewayHttp.ts";
+import StatisticsApiGatewayHttp from "../Infrastructure/Statistics/Gateways/StatisticsApiGatewayHttp.ts";
 
 const persistConfig = {
     key: 'my_nkap_app_',
@@ -31,6 +32,7 @@ export const store = configureStore({
                     operationsApiGatewayHttp: new OperationsApiGatewayHttp(),
                     categoryApiGatewayHttp: new CategoryApiGatewayHttp(),
                     financialGoalApiGatewayHttp: new FinancialGoalApiGatewayHttp(),
+                    statisticsApiGatewayHttp: new StatisticsApiGatewayHttp(),
                 },
             },
         }).prepend(listenerMiddleware.middleware),

@@ -44,7 +44,14 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
         setAddCategoryModalIsVisible(false);
     }
     return <>
-        <AddCategoryModal form={form} loading={loading} onClose={closeAddCategoryModal} onSubmit={onSubmit} isVisible={addCategoryModalIsVisible} />
+        <AddCategoryModal
+            defaultName={inputSearch}
+            form={form}
+            loading={loading}
+            onClose={closeAddCategoryModal}
+            onSubmit={onSubmit}
+            isVisible={addCategoryModalIsVisible}
+        />
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>

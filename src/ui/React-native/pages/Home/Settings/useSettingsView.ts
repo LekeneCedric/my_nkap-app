@@ -28,7 +28,10 @@ const useSettingsView = (): UseSettingsView => {
     const dispatch = useAppDispatch();
     const {colorPalette: {text, red, gray}} = useTheme();
     const logout = () => {
-        dispatch(Logout())
+        dispatch(Logout());
+        // dispatch(CleanCategories());
+        // dispatch(CleanTransactions());
+        // dispatch(CleanAccounts());
     }
     const menuItems: IMenu[] = [
         {

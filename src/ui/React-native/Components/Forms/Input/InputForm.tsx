@@ -34,6 +34,9 @@ export const InputForm = ({type, icon, label, errorMessage, field, keyboardType,
       setInitialValue(String(field.value));
       setCurrentValue(String(field.value));
     }
+    if (!field.value && type === 'amount') {
+      field.onChange(0)
+    }
   }, []);
   return (
     <Animated.View
@@ -52,20 +55,20 @@ export const InputForm = ({type, icon, label, errorMessage, field, keyboardType,
           cursorColor={text}
           onBlur={field.onBlur}
           value={currentValue}
-          onChangeText={(text: string) => {
+          onChangeText={(fieldText: string) => {
             switch (type) {
               case 'amount': {
                 setCurrentValue(formatNumberToMoney(Number(
-                    text.length == 0 ? 0 : text.replace(/[^0-9]/g, '')
+                    fieldText.length == 0 ? 0 : fieldText.replace(/[^0-9]/g, '')
                 )));
                 break;
               }
               default : {
-                setCurrentValue(text);
+                setCurrentValue(fieldText);
                 break;
               }
             }
-            field.onChange(text)
+            field.onChange(fieldText)
           }}
           style={{color: text, textDecorationLine: "none", fontSize: FontSize.normal, width: '80%', height: 100, flexWrap: 'wrap', overflow: 'hidden'}}
         />

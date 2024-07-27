@@ -6,6 +6,7 @@ import OperationSlice from "../../Feature/Operations/OperationSlice.ts";
 import CategorySlice from "../../Feature/Category/CategorySlice.ts";
 import ConfigurationSlice from "../../Feature/Configuration/ConfigurationSlice.ts";
 import FinancialGoalSlice from "../../Feature/FinancialGoal/FinancialGoalSlice.ts";
+import StatisticsSlice from "../../Feature/Statistics/Thunks/StatisticsSlice.ts";
 
 export const rootReducer = combineReducers({
     professionReducer: ProfessionSlice,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
     categoryReducer: CategorySlice,
     configurationReducer: ConfigurationSlice,
     financialGoalReducer: FinancialGoalSlice,
+    statisticsReducer: StatisticsSlice
 });

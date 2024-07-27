@@ -23,8 +23,9 @@ type AddCategoryModalProps = {
     onSubmit: (data: IAddCategoryForm) => void,
     onClose: () => void,
     loading: LoadingState,
+    defaultName: string,
 }
-const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCategoryModalProps) => {
+const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultName}: AddCategoryModalProps) => {
     const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
     const colorsList = ColorsList;
     const {formState: {errors}, control, handleSubmit} = form;
@@ -53,16 +54,19 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                     <Controller
                         control={control}
                         name={'name'}
-                        render={({field}) => (
-                            <InputForm
-                                icon={Icons.category}
-                                errorMessage={errors.name?.message}
-                                label={'Nom'}
-                                field={field}
-                                keyboardType={'default'}
-                                placeholder={'Entrez le nom de la catégorie'}
-                            />
-                        )}
+                        render={({field}) => {
+                            field.value = defaultName;
+                            return (
+                                <InputForm
+                                    icon={Icons.category}
+                                    errorMessage={errors.name?.message}
+                                    label={'Nom'}
+                                    field={field}
+                                    keyboardType={'default'}
+                                    placeholder={'Entrez le nom de la catégorie'}
+                                />
+                            )
+                        }}
                     />
 
                     <Controller
@@ -105,7 +109,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading}: AddCate
                         )}
                     />
                     <ButtonForm loading={loading} loadingLabel={'Enregistrement de la catégorie ...'}
-                                label={'Enregistrer'} handleClick={handleSubmit(onSubmit)}/>
+                                label={'Enregistrer'} handleClick={() => {handleSubmit(onSubmit)}}/>
                 </View>
             </Animated.View>
         </ScrollView>

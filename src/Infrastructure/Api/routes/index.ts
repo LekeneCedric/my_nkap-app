@@ -4,8 +4,9 @@ import ProfessionApiRoutes from "./ProfessionApiRoutes";
 import OperationsRoutes from "./OperationsRoutes.ts";
 import CategoryRoutes from "./CategoryRoutes.ts";
 import FinancialGoalRoutes from "./FinancialGoalRoutes.ts";
-
-export const BASE_API_ROUTES = 'http://192.168.43.31:80/api';
+import Config from "react-native-config";
+import StatisticsRoutes from "./StatisticsRoutes.ts";
+export const BASE_API_ROUTES = 'http://192.168.43.31:81/api';
 
 export const ApiRoutes = {
     professions: ProfessionApiRoutes,
@@ -14,4 +15,5 @@ export const ApiRoutes = {
     operations: OperationsRoutes,
     category: CategoryRoutes,
     financialGoal: FinancialGoalRoutes,
+    statistics: StatisticsRoutes,
 }

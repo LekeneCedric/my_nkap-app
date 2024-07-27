@@ -8,6 +8,7 @@ import useHomeScreenView from "./useHomeScreenview";
 import useTheme from "../Shared/Hooks/useTheme.ts";
 import AccountsView from "../pages/Home/Accounts/AccountsView.tsx";
 import FinancialGoalsView from "../pages/Home/Tabs/FinancialGoals/FinancialGoalsView.tsx";
+import StatisticsView from "../pages/Home/Tabs/Statistics/StatisticsView.tsx";
 
 const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
@@ -89,7 +90,7 @@ const HomeScreen = () => {
             {/*/>*/}
             <Tab.Screen
                 name={'statistiques'}
-                component={() => <></>}
+                component={StatisticsView}
                 options={{
                     headerShown: true,
                     tabBarLabel: "",
