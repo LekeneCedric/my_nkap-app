@@ -1,27 +1,39 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {LoadingState} from "../../../Domain/Enums/LoadingState.ts";
-import {IMonthlyCategoryStatistic, IMonthlyStatistic} from "../../../Domain/Statistics/Statistic.ts";
-import GetAllMonthlyStatisticAsync from "./GetAllMonthly/GetAllMonthlyStatisticAsync.ts";
-import GetAllMonthlyStatisticsAsync from "./GetAllMonthly/GetAllMonthlyStatisticAsync.ts";
-import GetAllMonthlyStatisticsResponse from "./GetAllMonthly/GetAllMonthlyStatisticsResponse.ts";
-import GetAllMonthlyByCategoryStatisticsAsync from "./GetAllMonthlyByCategory/GetAllMonthlyBycategoryStatisticAsync.ts";
-import GetAllMonthlyByCategoryStatisticAsync from "./GetAllMonthlyByCategory/GetAllMonthlyBycategoryStatisticAsync.ts";
+import {LoadingState} from "../../Domain/Enums/LoadingState.ts";
+import {IMonthlyCategoryStatistic, IMonthlyStatistic} from "../../Domain/Statistics/Statistic.ts";
+import GetAllMonthlyStatisticAsync from "./Thunks/GetAllMonthly/GetAllMonthlyStatisticAsync.ts";
+import GetAllMonthlyStatisticsAsync from "./Thunks/GetAllMonthly/GetAllMonthlyStatisticAsync.ts";
+import GetAllMonthlyStatisticsResponse from "./Thunks/GetAllMonthly/GetAllMonthlyStatisticsResponse.ts";
+import GetAllMonthlyByCategoryStatisticsAsync from "./Thunks/GetAllMonthlyByCategory/GetAllMonthlyBycategoryStatisticAsync.ts";
+import GetAllMonthlyByCategoryStatisticAsync from "./Thunks/GetAllMonthlyByCategory/GetAllMonthlyBycategoryStatisticAsync.ts";
 import GetAllMonthlyByCategoryStatisticsResponse
-    from "./GetAllMonthlyByCategory/GetAllMonthlyByCategoryStatisticsResponse.ts";
+    from "./Thunks/GetAllMonthlyByCategory/GetAllMonthlyByCategoryStatisticsResponse.ts";
 
 type initialStateType = {
     loading: LoadingState,
     monthlyStats?: IMonthlyStatistic,
     monthlyCategoryStats?: IMonthlyCategoryStatistic,
+    currentMonth: number,
 }
 const initialState: initialStateType = {
     loading: LoadingState.idle,
-
+    currentMonth: new Date().getMonth() + 1,
 }
 export const StatisticsSlice = createSlice({
     name: 'statistics',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        handleNextMonth: (state) => {
+            if (state.currentMonth < 12) {
+                state.currentMonth = state.currentMonth + 1;
+            }
+        },
+        handlePreviousMonth: (state) => {
+            if (state.currentMonth > 1) {
+                state.currentMonth = state.currentMonth - 1;
+            }
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(GetAllMonthlyStatisticAsync.pending, state => {
@@ -48,5 +60,7 @@ export const StatisticsSlice = createSlice({
     }
 });
 
-export const {} = StatisticsSlice.actions;
+export const {
+    handleNextMonth, handlePreviousMonth
+} = StatisticsSlice.actions;
 export default StatisticsSlice.reducer;

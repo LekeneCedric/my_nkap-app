@@ -20,6 +20,9 @@ type SelectFormProps = {
     field: ControllerRenderProps<any, any>;
     placeholder: string;
     list: ISelectItem[],
+    notFoundMessage?: string,
+    notFoundLinkName?: string,
+    notFoundLinkAction?: () => void
 };
 const SelectForm = ({
                         icon,
@@ -28,6 +31,9 @@ const SelectForm = ({
                         field,
                         placeholder,
                         list,
+                        notFoundMessage,
+                        notFoundLinkName,
+                        notFoundLinkAction,
                     }: SelectFormProps) => {
     useEffect(() => {
         if (field.value) {
@@ -54,6 +60,9 @@ const SelectForm = ({
                 }}
                 isVisible={modalIsVisible}
                 list={list}
+                notFoundMessage={notFoundMessage}
+                notFoundLinkName={notFoundLinkName}
+                notFoundLinkAction={notFoundLinkAction}
             />
             <Animated.View
                 entering={LightSpeedInLeft.duration(1500)}

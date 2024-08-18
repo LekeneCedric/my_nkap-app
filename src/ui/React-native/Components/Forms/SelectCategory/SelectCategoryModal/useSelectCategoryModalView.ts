@@ -9,7 +9,6 @@ import {useAppDispatch, useAppSelector} from "../../../../../../app/hook.ts";
 import {selectUser} from "../../../../../../Feature/Authentication/AuthenticationSelector.ts";
 import SaveCategoryAsync from "../../../../../../Feature/Category/Thunks/Save/SaveCategoryAsync.ts";
 import {useToast} from "react-native-toast-notifications";
-import gatewayMessages from "../../../../../../Infrastructure/Shared/Gateways/constants/gatewayMessages.ts";
 import {AddCategory} from "../../../../../../Feature/Category/CategorySlice.ts";
 import {selectCategoryLoadingState} from "../../../../../../Feature/Category/CategorySelector.ts";
 import {LoadingState} from "../../../../../../Domain/Enums/LoadingState.ts";
@@ -21,7 +20,7 @@ type useSelectCategoryModalViewBehaviour = {
     onSubmit: (data: IAddCategoryForm) => void,
     loading: LoadingState,
 }
-export const useSelectCategoryModalView = (initialList : any[]): useSelectCategoryModalViewBehaviour =>
+export const useSelectCategoryModalView = (initialList : any[], closeAddCategoryModal: () => void): useSelectCategoryModalViewBehaviour =>
 {
     const userId = useAppSelector(selectUser)?.userId;
     const dispatch = useAppDispatch();
@@ -31,6 +30,7 @@ export const useSelectCategoryModalView = (initialList : any[]): useSelectCatego
         resolver: yupResolver(AddCategoryFormSchemaValidate)
     });
     const onSubmit = async (data: IAddCategoryForm) => {
+        console.log('save category');
         data.userId = userId;
 
         const response = await dispatch(SaveCategoryAsync({
@@ -55,15 +55,19 @@ export const useSelectCategoryModalView = (initialList : any[]): useSelectCatego
                 duration: 3000,
                 animationType: "slide-in",
             });
+            closeAddCategoryModal();
         }
         if (SaveCategoryAsync.rejected.match(response)) {
             // @ts-ignore
             toast.show(response.payload.message, {
                 type: "danger",
-                placement: "top",
+                placement: "bottom",
                 duration: 3000,
                 animationType: "slide-in",
+                swipeEnabled: true,
+
             });
+
         }
     }
     const [filterList, setFilterList] = useState<any[]>(initialList);

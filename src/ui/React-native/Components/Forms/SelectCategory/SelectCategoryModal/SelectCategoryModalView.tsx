@@ -22,13 +22,19 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
     const styles = SelectCategoryModalViewStyle(pageBackground, containerBackground, text, action1);
     const [addCategoryModalIsVisible, setAddCategoryModalIsVisible] = useState(false);
     const [inputSearch, setInputSearch] = useState<string>('');
+    const showAddCategoryModal = () => {
+        setAddCategoryModalIsVisible(true);
+    }
+    const closeAddCategoryModal = () => {
+        setAddCategoryModalIsVisible(false);
+    }
     const {
         filterList,
         sortList,
         form,
         onSubmit,
         loading,
-    } = useSelectCategoryModalView(list);
+    } = useSelectCategoryModalView(list, closeAddCategoryModal);
     const clearSearch = () => {
         if (inputSearch.length > 0) {
             setInputSearch('');
@@ -36,12 +42,6 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
             return;
         }
         closeModal();
-    }
-    const showAddCategoryModal = () => {
-        setAddCategoryModalIsVisible(true);
-    }
-    const closeAddCategoryModal = () => {
-        setAddCategoryModalIsVisible(false);
     }
     return <>
         <AddCategoryModal

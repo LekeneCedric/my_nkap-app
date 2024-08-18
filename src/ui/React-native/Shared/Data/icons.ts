@@ -1,4 +1,3 @@
-import ISelectItem from "../../../ui/Components/Forms/Select/SelectItem.ts";
 
 const AllIcons = {
     "Voyage": ["airplane", "car", "train", "bus", "suitcase", "map", "hotel"],

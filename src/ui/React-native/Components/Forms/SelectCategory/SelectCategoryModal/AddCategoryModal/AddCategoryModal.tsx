@@ -108,8 +108,12 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                             />
                         )}
                     />
-                    <ButtonForm loading={loading} loadingLabel={'Enregistrement de la catégorie ...'}
-                                label={'Enregistrer'} handleClick={() => {handleSubmit(onSubmit)}}/>
+                    <ButtonForm
+                        loading={loading}
+                        loadingLabel={'Enregistrement de la catégorie ...'}
+                        label={'Enregistrer'}
+                        handleClick={handleSubmit(onSubmit)}
+                    />
                 </View>
             </Animated.View>
         </ScrollView>

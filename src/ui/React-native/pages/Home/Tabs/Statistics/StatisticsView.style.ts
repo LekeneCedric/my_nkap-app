@@ -10,7 +10,6 @@ const StatisticsViewStyle = ({pageContainerColor}: props) => {
         pageContainer: {
             ...PageStyles.container,
             backgroundColor: pageContainerColor,
-            paddingTop: pageStylesConstant.padding,
             paddingLeft: pageStylesConstant.padding,
             paddingRight: pageStylesConstant.padding,
         },

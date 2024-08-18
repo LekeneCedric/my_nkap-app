@@ -10,7 +10,7 @@ import {selectOperationLoadingState} from "../../../../../Feature/Operations/Ope
 import ISelectItem from "../../../Components/Forms/Select/SelectItem.ts";
 import {selectAccounts} from "../../../../../Feature/Account/AccountSelector.ts";
 import IAccount from "../../../../../Domain/Account/Account.ts";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {selectCategories, selectCategory} from "../../../../../Feature/Category/CategorySelector.ts";
 import {selectUser} from "../../../../../Feature/Authentication/AuthenticationSelector.ts";
 import IGetAllCategoryCommand from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
@@ -47,8 +47,24 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
     const dispatch = useAppDispatch();
     const toast = useToast();
     const userId = useAppSelector(selectUser)?.userId;
-    const accounts = useAppSelector(selectAccounts);
+    const accountsSelectItems = useAppSelector(selectAccounts).map((ac: IAccount): ISelectItem => {
+        return {
+            id: ac.id,
+            icon: ac.icon,
+            name: ac.name,
+            color: ac.color,
+        }
+    });
     const categories = useAppSelector(selectCategories);
+    const categoriesSelectItems = useAppSelector(selectCategories).map((ca: ICategory): ISelectCategoryItem => {
+        return {
+            id: ca.id,
+            icon: ca.icon,
+            name: ca.name,
+            color: ca.color,
+            description: ca.description
+        }
+    })
     const loadingState = useAppSelector(selectOperationLoadingState);
     const form = useForm<AddOperationForm>({
         resolver: yupResolver(AddOperationFormSchemaValidate),
@@ -108,24 +124,7 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
             }));
         }
     }
-    const accountsSelectItems = accounts.map((ac: IAccount): ISelectItem => {
-        return {
-            id: ac.id,
-            icon: ac.icon,
-            name: ac.name,
-            color: ac.color,
-        }
-    });
 
-    const categoriesSelectItems = categories.map((ca: ICategory): ISelectCategoryItem => {
-        return {
-            id: ca.id,
-            icon: ca.icon,
-            name: ca.name,
-            color: ca.color,
-            description: ca.description
-        }
-    })
     useEffect(() => {
         const getAllCategories = async () => {
             const command = {

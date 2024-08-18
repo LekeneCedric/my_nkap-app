@@ -8,6 +8,7 @@ const AccountCardStyles = (pageColor: string, containerColor: string, textColor:
     container: {
       borderRadius: 10,
       padding: 10,
+      overflow: 'hidden',
       backgroundColor: containerColor,
       width: wp(42),
       margin: 5,

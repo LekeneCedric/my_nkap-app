@@ -19,8 +19,12 @@ export default class StatisticsApiGatewayHttp extends HttpProvider implements IS
     async getAllMonthly(command: GetAllMonthlyStatisticsCommand): Promise<GetAllMonthlyStatisticsResponse> {
         let result: any;
         let query = QueryBuilder.fromCommand(command);
+
+        console.warn(query);
+        console.warn(ApiRoutes.statistics.allMonthly+query);
         try {
             const response = await this.get(ApiRoutes.statistics.allMonthly+query);
+            console.warn(response);
             //@ts-ignore
             result = response.data;
             if (!result.status) {
@@ -44,6 +48,7 @@ export default class StatisticsApiGatewayHttp extends HttpProvider implements IS
         let query = QueryBuilder.fromCommand(command);
         try {
             const response = await this.get(ApiRoutes.statistics.allMonthlyCategory+query);
+            console.warn(response);
             //@ts-ignore
             result = response.data;
             if (!result.status) {

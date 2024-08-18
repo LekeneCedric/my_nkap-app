@@ -8,9 +8,22 @@ type props = {
     value: FinancialGoalStatus,
 }
 export const Widget = ({backgroundColor, value}: props) => {
-    const {colorPalette: {action1, light}} = useTheme();
+    const {colorPalette: {light}} = useTheme();
     const styles = WidgetStyles();
     return <View style={[styles.statusContainer, {backgroundColor: backgroundColor}]}>
+        <Text style={[styles.statusText, {color: light}]}>{value}</Text>
+    </View>
+}
+
+type customWidProps = {
+    backgroundColor: string,
+    value: string,
+    isSelected: boolean
+}
+export const CustomWidget = ({backgroundColor, value, isSelected}: customWidProps) => {
+    const {colorPalette: {light, gray}} = useTheme();
+    const styles = WidgetStyles();
+    return <View style={[styles.statusContainer, {backgroundColor: isSelected ? backgroundColor: gray}]}>
         <Text style={[styles.statusText, {color: light}]}>{value}</Text>
     </View>
 }

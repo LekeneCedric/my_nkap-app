@@ -4,6 +4,9 @@ import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import {Icons} from "../../../Global/Icons.ts";
 import {routes} from "../../routes";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {persistStore} from "redux-persist";
+import {store} from "../../../../../app/store.ts";
+import {useToast} from "react-native-toast-notifications";
 
 interface IMenuItem {
     title: string,
@@ -27,11 +30,19 @@ interface UseSettingsView {
 const useSettingsView = (): UseSettingsView => {
     const dispatch = useAppDispatch();
     const {colorPalette: {text, red, gray}} = useTheme();
+    const toast = useToast();
     const logout = () => {
         dispatch(Logout());
-        // dispatch(CleanCategories());
-        // dispatch(CleanTransactions());
-        // dispatch(CleanAccounts());
+        const persist = persistStore(store);
+        persist.flush().then(() => {
+            persist.purge().then(()=>{
+                toast.show('Vous avez été déconnecté', {
+                    type: 'warning',
+                    placement: 'top',
+                    duration: 3000
+                });
+            });
+        });
     }
     const menuItems: IMenu[] = [
         {

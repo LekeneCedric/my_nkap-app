@@ -8,7 +8,7 @@ const WidgetStyles = () => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
-            marginRight: 3
+            marginRight: 5
         },
         statusText: {
             fontSize: FontSize.normal,

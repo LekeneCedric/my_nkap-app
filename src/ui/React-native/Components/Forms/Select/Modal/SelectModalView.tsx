@@ -16,11 +16,14 @@ type selectModalViewProps = {
     action: (item: ISelectItem) => void,
     closeModal: () => void,
     isVisible: boolean,
-    list: any[]
+    list: any[],
+    notFoundMessage?: string,
+    notFoundLinkName?: string,
+    notFoundLinkAction?: () => void,
 }
 
 const SelectModalView = ({
-    action, closeModal, isVisible, list
+    action, closeModal, isVisible, list, notFoundMessage, notFoundLinkName, notFoundLinkAction
 }: selectModalViewProps) => {
     const [inputSearch, setInputSearch] = useState<string>('');
     const {filterList, sortList} = useSelectModalView(list);
@@ -32,7 +35,7 @@ const SelectModalView = ({
         }
         closeModal()
     }
-    const {colorPalette: {pageBackground, containerBackground, text, gray}} = useTheme();
+    const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme();
     const styles = SelectModalViewStyle(pageBackground, containerBackground, text, gray);
     return (
         <Modal
@@ -76,7 +79,21 @@ const SelectModalView = ({
                 {
                     filterList.length === 0 && (
                         <View style={{alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginTop: hp(10)}}>
-                            <Text style={{fontSize: FontSize.normal, color: text}}>Aucun élément trouvé !</Text>
+                            <Text style={{fontSize: FontSize.normal, color: text}}>
+                                {notFoundMessage ? notFoundMessage : 'Aucun élément trouvé !' }
+                            </Text>
+                            {
+                                notFoundLinkName && notFoundLinkAction && (
+                                    <TouchableOpacity style={{marginTop: 15, borderBottomWidth: 1, borderBottomColor: action1}}>
+                                        <Text style={{fontSize: FontSize.normal, color: action1}} onPress={()=>{
+                                            notFoundLinkAction();
+                                            closeModal();
+                                        }}>
+                                            {notFoundLinkName}
+                                        </Text>
+                                    </TouchableOpacity>
+                                )
+                            }
                         </View>
                     )
                 }

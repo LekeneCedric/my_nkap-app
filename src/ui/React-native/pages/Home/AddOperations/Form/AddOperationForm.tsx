@@ -20,6 +20,8 @@ import {LoadingState} from "../../../../../../Domain/Enums/LoadingState.ts";
 import {IconSizes} from "../../../../Global/IconSizes.ts";
 import {useState} from "react";
 import ValidateActionModalView from "../../../../Components/Modals/ValidateActionModal/ValidateActionModalView.tsx";
+import useNavigation from "../../../../utils/useNavigation.ts";
+import {HomeRoutes} from "../../../routes/HomeRoutes.ts";
 
 type props = {
     addOperationFormBehaviour: AddOperationFormBehaviour,
@@ -29,6 +31,7 @@ type props = {
     onDeleteOperation?: () => void
 }
 const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUpdate, onDeleteOperation}: props) => {
+    const navigation = useNavigation();
     const {form, onSubmit, loadingState} = addOperationFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {pageBackground, containerBackground, text, action1, red, green}} = useTheme();
@@ -52,6 +55,11 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
                     field={field}
                     placeholder={'Sélectionnez le compte correspondant'}
                     list={accounts}
+                    notFoundMessage={'Aucun compte trouvé'}
+                    notFoundLinkName={'Ajouter un compte'}
+                    notFoundLinkAction={() => {
+                        navigation.navigateByPath(HomeRoutes.accounts)
+                    }}
                 />
             )}
         />

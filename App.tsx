@@ -12,7 +12,11 @@ function App(): React.JSX.Element {
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <NavigationContainer>
-          <ToastProvider>
+          <ToastProvider
+            placement={'top'}
+            animationType={'slide-in'}
+            style={{zIndex: 99999999999}}
+          >
             <Root />
           </ToastProvider>
         </NavigationContainer>
