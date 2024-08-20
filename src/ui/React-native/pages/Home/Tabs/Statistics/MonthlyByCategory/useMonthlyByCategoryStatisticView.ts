@@ -35,8 +35,6 @@ interface IMonthlyByCategoryStatisticView {
     expensesStatsData: StatsDataItem[];
     isShowIncomes: boolean;
     switchIsShowIncomes: (value: boolean) => void;
-    month: string,
-    year: number,
 }
 
 const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView => {
@@ -123,8 +121,6 @@ const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView =>
         expensesStatsData: expensesStatsData,
         isShowIncomes: isShowIncomes,
         switchIsShowIncomes: switchIsShowIncomes,
-        month: formatMonthToMonthName(currentMonth),
-        year: currentYear,
     }
 };
 

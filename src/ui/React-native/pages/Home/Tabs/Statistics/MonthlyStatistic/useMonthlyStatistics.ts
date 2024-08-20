@@ -23,6 +23,7 @@ type monthlyStatistics = {
 
 interface useMonthlyStatisticsBehaviour {
     monthlyStatistics: monthlyStatistics,
+    month: string,
 }
 
 const monthlyStatistics = (): useMonthlyStatisticsBehaviour => {
@@ -89,7 +90,8 @@ const monthlyStatistics = (): useMonthlyStatisticsBehaviour => {
         }
     }, [monthlyStatistics]);
     return {
-        monthlyStatistics: formattedMonthlyStatistics
+        monthlyStatistics: formattedMonthlyStatistics,
+        month: formatMonthToMonthName(currentMonth)
     };
 }
 

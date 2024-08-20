@@ -1,6 +1,6 @@
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 import FinancialGoalViewStyles from "./FinancialGoalView.styles.ts";
-import {Animated, RefreshControl, SafeAreaView, ScrollView, TouchableOpacity, View} from "react-native";
+import {Animated as RNAnimated, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {hp} from "../../../../Global/Percentage.ts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../../Global/Icons.ts";
@@ -9,9 +9,10 @@ import useFinancialGoalsView from "./useFinancialGoalsView.ts";
 import {IFinancialGoal} from "../../../../../../Domain/FinancialGoal/FinancialGoal.ts";
 import FinancialGoalItem from "./Components/FinancialGoalItem/FinancialGoalItem.tsx";
 import {LoadingState} from "../../../../../../Domain/Enums/LoadingState.ts";
-import Loading from "../../../../Components/Loading/Loading.tsx";
 import LoadingTransactionItem from "../../../../Components/TransactionItem/Loading/LoadingTransactionItem.tsx";
 import {Widget} from "../../../../Components/Widget/Widget.tsx";
+import {FontSize} from "../../../../Global/FontSize.ts";
+import Animated, {LightSpeedInLeft, LightSpeedOutRight} from "react-native-reanimated";
 
 const FinancialGoalsView = () => {
     const {
@@ -22,7 +23,8 @@ const FinancialGoalsView = () => {
         financialGoalsIsPendingRefreshing,
         onRefresh,
         financialGoalsFilterProps,
-        filterFinancialGoalByStatus,
+        updateSelectedStatus,
+        currentSelectedStatus,
         filteredFinancialGoals
     } = useFinancialGoalsView();
 
@@ -35,8 +37,8 @@ const FinancialGoalsView = () => {
                 <ScrollView horizontal={true}>
                     {
                         financialGoalsFilterProps.map((filter) => {
-                            return <TouchableOpacity onPress={()=>{filterFinancialGoalByStatus(filter.value)}}>
-                                <Widget backgroundColor={filter.backgroundColor} value={filter.value} />
+                            return <TouchableOpacity onPress={()=>{updateSelectedStatus(filter.value)}}>
+                                <Widget isSelected={currentSelectedStatus === filter.value} backgroundColor={filter.backgroundColor} value={filter.value} />
                             </TouchableOpacity>
                         })
                     }
@@ -60,14 +62,24 @@ const FinancialGoalsView = () => {
                                 onRefresh={onRefresh}/>
                         }>
                         {
+                            filteredFinancialGoals.length === 0 && (
+                                <View style={{flex: 1,alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: hp(2)}}>
+                                    <Text style={{fontSize: FontSize.normal, color: text}}>{`Aucun objectif financier !`}</Text>
+                                </View>
+                            )
+                        }
+                        {
                             filteredFinancialGoals.map((financialGoal: IFinancialGoal) =>
-                                <FinancialGoalItem data={financialGoal}/>
+                                <Animated.View entering={LightSpeedInLeft.duration(500)}
+                                               exiting={LightSpeedOutRight.duration(50)}>
+                                    <FinancialGoalItem data={financialGoal}/>
+                                </Animated.View>
                             )
                         }
                     </ScrollView>
                 )
             }
-            <Animated.View style={{
+            <RNAnimated.View style={{
                 translateY: bounceValue,
                 position: 'absolute',
                 width: 60,
@@ -88,7 +100,7 @@ const FinancialGoalsView = () => {
                 <TouchableOpacity onPress={navigateToAddFinancialGoals}>
                     <Icon name={Icons.add} size={IconSizes.medium} color={action1Text}/>
                 </TouchableOpacity>
-            </Animated.View>
+            </RNAnimated.View>
         </SafeAreaView>
     )
 };

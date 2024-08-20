@@ -14,7 +14,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Text} from "react-native";
 import {IconSizes} from "../../../../Global/IconSizes";
 import Loading from "../../../../Components/Loading/Loading";
-import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 
 export const RegisterForm = ({
                                  registerFormBehaviour,

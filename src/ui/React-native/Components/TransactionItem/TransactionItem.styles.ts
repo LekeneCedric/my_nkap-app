@@ -23,12 +23,13 @@ const TransactionItemStyles = (pageContainerColor: string, textColor: string) =>
             overflow: 'hidden'
         },
         transactionTitle: {
-            fontWeight: 'bold',
+            fontWeight: 'normal',
             color: textColor,
             fontSize: FontSize.normal
         },
         transactionType: {
             fontSize: FontSize.small,
+            fontWeight: 'bold'
         },
         transactionTime: {
             color: textColor,

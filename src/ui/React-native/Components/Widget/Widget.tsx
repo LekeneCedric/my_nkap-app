@@ -6,12 +6,22 @@ import WidgetStyles from "./Widget.styles.ts";
 type props = {
     backgroundColor: string,
     value: FinancialGoalStatus,
+    isSelected?: boolean,
 }
-export const Widget = ({backgroundColor, value}: props) => {
+export const Widget = ({backgroundColor, value, isSelected}: props) => {
     const {colorPalette: {light}} = useTheme();
     const styles = WidgetStyles();
-    return <View style={[styles.statusContainer, {backgroundColor: backgroundColor}]}>
-        <Text style={[styles.statusText, {color: light}]}>{value}</Text>
+    return <View style={[
+        styles.statusContainer,
+        isSelected === undefined && {backgroundColor: backgroundColor},
+        isSelected && {backgroundColor: backgroundColor}
+    ]}>
+        <Text style={[
+            styles.statusText,
+            isSelected === undefined && {color: light},
+            isSelected !== undefined && !isSelected && {color: backgroundColor},
+            isSelected && {color: light}
+        ]}>{value}</Text>
     </View>
 }
 

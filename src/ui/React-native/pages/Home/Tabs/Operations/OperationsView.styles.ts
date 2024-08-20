@@ -95,7 +95,12 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
       justifyContent: 'space-between',
       padding: 5,
       borderRadius: 8,
-      marginRight: 5
+      margin: 5,
+      shadowColor: "#171717",
+      shadowOffset: {width: 5, height: 5},
+      shadowOpacity: 0.2,
+      shadowRadius: 10,
+      elevation: 3,
     },
     transactionFilterCategoriesItemText: {
       fontSize: FontSize.normal,

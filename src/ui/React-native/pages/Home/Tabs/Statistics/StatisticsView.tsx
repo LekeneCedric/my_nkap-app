@@ -45,11 +45,11 @@ const StatisticsView = () => {
             )}
         >
             <Tab.Screen
-                name={'Bilan mensuel'}
+                name={'mensuel'}
                 component={MonthlyStatisticsView}
             />
             <Tab.Screen
-                name={'Bilan par catégorie'}
+                name={'par catégorie'}
                 component={MonthlyByCategoryStatisticView} />
         </Tab.Navigator>
         <View style={{

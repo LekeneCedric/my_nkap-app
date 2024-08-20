@@ -37,8 +37,6 @@ const MonthlyByCategoryStatisticStyles = ({pageBackground, containerBackground, 
             flexDirection: 'row',
             alignItems: 'center',
             marginTop: 15,
-            marginBottom: 15,
-
         },
         tableColTitle: {
             color: text,

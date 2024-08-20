@@ -12,6 +12,7 @@ import useMonthlyStatistics from "./useMonthlyStatistics.ts";
 const MonthlyStatisticsView = () => {
     const {
         monthlyStatistics,
+        month
     } = useMonthlyStatistics();
     const {colorPalette: {pageBackground, containerBackground, gray, red, text, action1, green}} = useTheme();
     const styles = MonthlyStatisticsStyles(
@@ -39,9 +40,9 @@ const MonthlyStatisticsView = () => {
     }
     return (
         <View style={styles.container}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-                    <Text style={styles.subjectTitle}>Dépenses du mois de mai</Text>
+                    <Text style={styles.subjectTitle}>Dépenses du mois de {month}</Text>
                     <Text style={[styles.subjectTitle, {color: action1}]}>Voir plus</Text>
                 </View>
                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
@@ -56,7 +57,7 @@ const MonthlyStatisticsView = () => {
                     <Text style={{fontSize: FontSize.normal, color: text, marginLeft: 10}}>du mois passé</Text>
                 </View>
                 <View style={styles.statContainer}>
-                    <ScrollView horizontal={true}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         <BarChart
                             data={expensesData}
                             width={wp(100)}
@@ -65,7 +66,6 @@ const MonthlyStatisticsView = () => {
                             withHorizontalLabels={true}
                             withInnerLines={true}
                             fromZero={true}
-
                             style={{
                                 marginVertical: 8,
                                 borderRadius: 16,
@@ -75,11 +75,12 @@ const MonthlyStatisticsView = () => {
                                 margin: 0
                             }}
                             chartConfig={{
-                                backgroundGradientFrom: pageBackground,
+                                backgroundGradientFrom: containerBackground,
                                 backgroundGradientFromOpacity: 1,
-                                backgroundGradientTo: pageBackground,
+                                backgroundGradientTo: containerBackground,
                                 backgroundGradientToOpacity: 1,
-                                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                                color: (opacity = 1) => text,
+                                labelColor: (opacity = 1) => text,
                                 strokeWidth: 2, // optional, default 3
                                 barPercentage: 1.5,
                                 propsForDots: {
@@ -94,14 +95,9 @@ const MonthlyStatisticsView = () => {
                         />
                     </ScrollView>
                 </View>
-                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={styles.info}>Comment les dépenses sont calculés ? </Text>
-                    <Icon name={Icons.info} size={IconSizes.normal} color={action1}/>
-                </TouchableOpacity>
-                <View style={{width: '100%', padding: 3, backgroundColor: gray, borderRadius: 10, marginTop: 10}}/>
 
                 <View style={styles.header}>
-                    <Text style={styles.subjectTitle}>Épargne du mois de mai</Text>
+                    <Text style={styles.subjectTitle}>Épargne du mois de {month}</Text>
                     <Text style={[styles.subjectTitle, {color: action1}]}>Voir plus</Text>
                 </View>
                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
@@ -112,7 +108,7 @@ const MonthlyStatisticsView = () => {
                     <Text style={{fontSize: FontSize.normal, color: text, marginLeft: 10}}>du mois passé</Text>
                 </View>
                 <View style={styles.statContainer}>
-                    <ScrollView horizontal={true}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         <BarChart
                             data={incomesData}
                             width={wp(100)}
@@ -128,14 +124,15 @@ const MonthlyStatisticsView = () => {
                                 paddingRight: 0,
                                 paddingLeft: 0,
                                 paddingBottom: 0,
-                                margin: 0
+                                margin: 0,
                             }}
                             chartConfig={{
-                                backgroundGradientFrom: pageBackground,
+                                backgroundGradientFrom: containerBackground,
                                 backgroundGradientFromOpacity: 1,
-                                backgroundGradientTo: pageBackground,
+                                backgroundGradientTo: containerBackground,
                                 backgroundGradientToOpacity: 1,
-                                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                                color: (opacity = 1) => text,
+                                labelColor: (opacity = 1) => text,
                                 strokeWidth: 2, // optional, default 3
                                 barPercentage: 1.5,
                                 propsForDots: {
@@ -150,11 +147,6 @@ const MonthlyStatisticsView = () => {
                         />
                     </ScrollView>
                 </View>
-                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={styles.info}>Comment mon épargne est calculé ? </Text>
-                    <Icon name={Icons.info} size={IconSizes.normal} color={action1}/>
-                </TouchableOpacity>
-                <View style={{width: '100%', padding: 3, backgroundColor: gray, borderRadius: 10, marginTop: 10}}/>
             </ScrollView>
         </View>)
 };

@@ -4,10 +4,10 @@ import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
 import {PieChart} from "react-native-chart-kit";
 import {wp} from "../../../../../Global/Percentage.ts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {Icons} from "../../../../../Global/Icons.ts";
 import {IconSizes} from "../../../../../Global/IconSizes.ts";
 import useMonthlyByCategoryStatisticView from "./useMonthlyByCategoryStatisticView.ts";
 import {CustomWidget} from "../../../../../Components/Widget/Widget.tsx";
+import useMoneyParser from "../../../../../Shared/useMoneyParser.ts";
 
 const MonthlyByCategoryStatisticView = () => {
     const {
@@ -17,9 +17,10 @@ const MonthlyByCategoryStatisticView = () => {
         expensesStatsData,
         isShowIncomes,
         switchIsShowIncomes,
-        month,
-        year,
     } = useMonthlyByCategoryStatisticView();
+    const {
+        parseThousand,
+    } = useMoneyParser();
     const {colorPalette: {pageBackground, containerBackground, gray, red, text, action1, green}} = useTheme();
     const styles = MonthlyByCategoryStatisticStyles({pageBackground: pageBackground, containerBackground: containerBackground, text: text});
 
@@ -52,12 +53,21 @@ const MonthlyByCategoryStatisticView = () => {
                     accessor={"population"}
                     backgroundColor={"transparent"}
                     paddingLeft={"15"}
+                    style={{
+                        marginVertical: 8,
+                        borderRadius: 16,
+                        paddingRight: 0,
+                        paddingLeft: 0,
+                        paddingBottom: 0,
+                        margin: 0
+                    }}
                     chartConfig={{
-                        backgroundGradientFrom: pageBackground,
+                        backgroundColor: containerBackground,
+                        backgroundGradientFrom: containerBackground,
                         backgroundGradientFromOpacity: 1,
-                        backgroundGradientTo: pageBackground,
+                        backgroundGradientTo: containerBackground,
                         backgroundGradientToOpacity: 1,
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        color: (opacity = 1) => text,
                         strokeWidth: 2, // optional, default 3
                         propsForDots: {
                             r: "6",
@@ -69,26 +79,23 @@ const MonthlyByCategoryStatisticView = () => {
                     }}
                 />
             </ScrollView>
-            <TouchableOpacity style={styles.infoContainer}>
-                <Text style={styles.info}>Comment les dépenses sont calculés ? </Text>
-                <Icon name={Icons.info} size={IconSizes.normal} color={action1}/>
-            </TouchableOpacity>
-            
-            <View style={styles.tableRowContainer}>
-                <Text style={[styles.tableColTitle, {flex: 4}]}>Catégorie</Text>
-                <Text style={[styles.tableColTitle, {flex: 1}]}>%</Text>
-                <Text style={[styles.tableColTitle, {flex: 2}]}>Montant</Text>
+
+
+            <View style={[styles.tableRowContainer]}>
+                <Text style={[styles.tableColTitle, {flex: 4, color: action1}]}>Catégorie</Text>
+                {/*<Text style={[styles.tableColTitle, {flex: 1}]}>%</Text>*/}
+                <Text style={[styles.tableColTitle, {flex: 2, textAlign: 'center', color: action1}]}>Montant (XAF)</Text>
             </View>
             {
                 (isShowIncomes ? incomesStatsData : expensesStatsData).map((item) => {
                     return (
-                        <View style={[styles.tableRowContainer,{marginTop: 4}]}>
-                            <View style={[styles.tableColCategory, {flex: 4}]}>
+                        <View style={[styles.tableRowContainer,{marginTop: 4, paddingBottom: 10}]}>
+                            <View style={[styles.tableColCategory, {flex: 4, padding: 10}]}>
                                 <Icon name={item.icon} color={item.color} size={IconSizes.normal} />
-                                <Text style={[styles.tableColItem]} numberOfLines={1}>{item.label}</Text>
+                                <Text style={[styles.tableColItem, {paddingLeft: 2}]} numberOfLines={1}>{item.label}</Text>
                             </View>
-                            <Text style={[styles.tableColItem, {flex: 1}]} numberOfLines={1}>{item.percentage}</Text>
-                            <Text style={[styles.tableColItem, {flex: 2}]} numberOfLines={1}>{item.amount}</Text>
+                            {/*<Text style={[styles.tableColItem, {flex: 1}]} numberOfLines={1}>{item.percentage}</Text>*/}
+                            <Text style={[styles.tableColItem, {flex: 2, textAlign: 'center', padding: 10}]} numberOfLines={1}>{parseThousand(item.amount)}</Text>
                         </View>
                     )
                 })

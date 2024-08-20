@@ -24,7 +24,8 @@ interface IUseFinancialGoalViewBehaviour {
     financialGoalsIsPendingRefreshing: boolean,
     onRefresh: () => void,
     financialGoalsFilterProps: FinancialGoalFilterParam[],
-    filterFinancialGoalByStatus: (value: FinancialGoalStatus) => void,
+    currentSelectedStatus: FinancialGoalStatus|null,
+    updateSelectedStatus: (status: FinancialGoalStatus) => void
 }
 
 type FinancialGoalFilterParam = {
@@ -40,8 +41,9 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
     const [financialGoalsIsPendingRefreshing, setFinancialGoalsIsPendingRefreshing] = useState<boolean>(false);
     const bounceValue = useRef(new Animated.Value(0)).current;
     const financialGoals = useAppSelector(selectFinancialGoals);
-    const [filteredFinancialGoal, setFilteredFinancialGoal] = useState<IFinancialGoal[]>([]);
     const {colorPalette: {red, action1, green}} = useTheme();
+    const [selectedStatus, setSelectedStatus] = useState<FinancialGoalStatus|null>(null)
+
     const financialGoalsFilterProps: FinancialGoalFilterParam[] = [
         {
             backgroundColor: red,
@@ -56,28 +58,7 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
             value: FinancialGoalStatus.PENDING,
         }
     ];
-    const financialGoalStatus = (f: IFinancialGoal) => {
-        const today = new Date();
-        const endDate = new Date(f.endDate);
-        let financialGoalDateHasPassed = today.getTime() > endDate.getTime();
-        let financialGoalHasNotBeenReached = f.currentAmount < f.desiredAmount;
-        if (financialGoalDateHasPassed && financialGoalHasNotBeenReached) {
-            return FinancialGoalStatus.FAILED;
-        }
-        if (f.isComplete) {
-            return FinancialGoalStatus.COMPLETE;
-        }
-        return FinancialGoalStatus.PENDING;
-    }
-    const filterFinancialGoalByStatus = (status: FinancialGoalStatus) => {
-        let result: IFinancialGoal[] = [];
-        financialGoals.map(f => {
-            let fStatus = financialGoalStatus(f);
-            if (status == fStatus)
-                result.push(f);
-        });
-        setFilteredFinancialGoal(result);
-    }
+
     const navigateToAddFinancialGoals = () => {
         navigateByPath(routes.home.addFinancialGoals);
     }
@@ -97,8 +78,31 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
             });
         }
     }
+    const financialGoalStatus = (f: IFinancialGoal) => {
+        const today = new Date();
+        const endDate = new Date(f.endDate);
+        let financialGoalDateHasPassed = today.getTime() > endDate.getTime();
+        let financialGoalHasNotBeenReached = f.currentAmount < f.desiredAmount;
+        if (financialGoalDateHasPassed && financialGoalHasNotBeenReached) {
+            return FinancialGoalStatus.FAILED;
+        }
+        if (f.isComplete) {
+            return FinancialGoalStatus.COMPLETE;
+        }
+        return FinancialGoalStatus.PENDING;
+    }
+
+    const filteredFinancialGoalByStatus = financialGoals.filter(f => {
+        if (!selectedStatus) return true;
+        return financialGoalStatus(f) === selectedStatus;
+    })
+    const updateSelectedStatus = (status: FinancialGoalStatus) => {
+        setSelectedStatus(status);
+    }
+
+
     useEffect(() => {
-        setFilteredFinancialGoal(financialGoals);
+        // setFilteredFinancialGoal(financialGoals);
         const startBouncing = () => {
             Animated.loop(
                 Animated.sequence([
@@ -118,9 +122,10 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
             ).start();
         };
         startBouncing();
-        loadFinancialGoals();
-        setFinancialGoalsIsPendingRefreshing(false);
-    }, [financialGoalsIsPendingRefreshing])
+        loadFinancialGoals().then(() => {
+            setFinancialGoalsIsPendingRefreshing(false);
+        });
+    }, [financialGoalsIsPendingRefreshing]);
     return {
         loadingState: loadingState,
         financialGoals: financialGoals,
@@ -129,8 +134,9 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
         financialGoalsIsPendingRefreshing: financialGoalsIsPendingRefreshing,
         onRefresh: onRefresh,
         financialGoalsFilterProps: financialGoalsFilterProps,
-        filterFinancialGoalByStatus: filterFinancialGoalByStatus,
-        filteredFinancialGoals: filteredFinancialGoal,
+        updateSelectedStatus: updateSelectedStatus,
+        currentSelectedStatus: selectedStatus,
+        filteredFinancialGoals: filteredFinancialGoalByStatus,
     }
 };
 export default useFinancialGoalsView;

@@ -194,7 +194,7 @@ const Transactions = () => {
                             )
                         }
                         <View style={styles.transactionFilterContainer}>
-                            <ScrollView horizontal={true}>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 <View style={styles.transactionFilterCategories}>
                                     {
                                         operationFilterParams.accountId ? (
