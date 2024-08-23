@@ -29,7 +29,7 @@ const useUtils = (): IUseUtilsBehaviour => {
 
     const formatMonthToMonthName = (month: number, currentLanguage: "en"|"fr"): string => {
         const months = {
-            en: [
+            "en": [
                 'January',
                 'February',
                 'March',
@@ -43,7 +43,7 @@ const useUtils = (): IUseUtilsBehaviour => {
                 'November',
                 'December'
             ],
-            fr: [
+            "fr": [
                 'Janvier',
                 'Février',
                 'Mars',
@@ -58,7 +58,9 @@ const useUtils = (): IUseUtilsBehaviour => {
                 'Décembre'
             ]
         }
-        return months["en"][month]
+        if (!months[currentLanguage])
+            return months["en"][month-1];
+        return months[currentLanguage][month-1]
     }
     return {
         formatDateToYYYYMMDD: formatDateToYYYYMMDD,

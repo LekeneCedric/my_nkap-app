@@ -52,7 +52,6 @@ export default class OperationsApiGatewayHttp extends HttpProvider implements IO
                 throw new Error(result.message);
             }
         } catch (e: any) {
-            console.warn('err', e);
             throw new Error(e.message ? e.message : gatewayMessages.technicalError);
         }
         return SaveOperationsResponseFactory.buildFromApiResponse(result);

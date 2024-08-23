@@ -50,7 +50,7 @@ const PreferencesView = () => {
                             <Icon style={{flex: 1}} name={Icons.theme} size={IconSizes.normMed} color={gray} />
                             <View style={{flex: 9, flexDirection: 'column', marginLeft: 10}}>
                                 <Text style={{color: text, fontSize: FontSize.normal}}>Theme</Text>
-                                <Text style={{color: text, fontWeight: '100', fontSize: FontSize.normal}}>{currentTheme}</Text>
+                                <Text style={{color: text, fontWeight: '100', fontSize: FontSize.normal}}>{translate(currentTheme)}</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={switchLanguage} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 15}}>

@@ -9,6 +9,7 @@ import {IconSizes} from "../../Global/IconSizes.ts";
 import {useState} from "react";
 import Animated, {BounceInDown, BounceInUp, LightSpeedInLeft, LightSpeedOutRight} from "react-native-reanimated";
 import TransactionItem from "../TransactionItem/TransactionItem.tsx";
+import useMoneyParser from "../../Shared/useMoneyParser.ts";
 
 type props = {
     data: OperationDateItem
@@ -20,6 +21,9 @@ const OperationByDateItem = ({data}: props) => {
         year,
         week,
     } = useDateParser(data.date);
+    const {
+        parseThousand,
+    } = useMoneyParser();
     const {colorPalette: {pageBackground, containerBackground, text, action1, action1Text, gray, red, green}} = useTheme();
     const styles = OperationByDateItemStyles(pageBackground, containerBackground, text, action1, action1Text, gray, red, green);
     const [showDetails, setShowDetails] = useState<boolean>(false);
@@ -40,10 +44,10 @@ const OperationByDateItem = ({data}: props) => {
                     </View>
                     <View style={{flexDirection: 'column'}}>
                         <Text numberOfLines={1} style={styles.incomes}>
-                            +XAF {data.totalIncomes}
+                            +XAF {parseThousand(data.totalIncomes)}
                         </Text>
                         <Text numberOfLines={1} style={styles.expenses}>
-                            -XAF {data.totalExpense}
+                            -XAF {parseThousand(data.totalExpense)}
                         </Text>
                     </View>
                 </View>

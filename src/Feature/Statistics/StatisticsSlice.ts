@@ -24,11 +24,13 @@ export const StatisticsSlice = createSlice({
     initialState: initialState,
     reducers: {
         handleNextMonth: (state) => {
+            console.warn(state.currentMonth);
             if (state.currentMonth < 12) {
                 state.currentMonth = state.currentMonth + 1;
             }
         },
         handlePreviousMonth: (state) => {
+            console.warn(state.currentMonth);
             if (state.currentMonth > 1) {
                 state.currentMonth = state.currentMonth - 1;
             }

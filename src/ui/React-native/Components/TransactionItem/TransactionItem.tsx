@@ -11,6 +11,7 @@ import useTheme from "../../Shared/Hooks/useTheme.ts";
 import TransactionItemStyles from "./TransactionItem.styles";
 import UpdateOperationModalView from "../Modals/UpdateOperationModal/UpdateOperationModalView.tsx";
 import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
+import useMoneyParser from "../../Shared/useMoneyParser.ts";
 
 type props = {
     data: IOperationDto
@@ -23,6 +24,9 @@ const TransactionItem = ({data}: props) => {
     const {
         currentLanguage
     } = useCustomTranslation();
+    const {
+        parseThousand,
+    } = useMoneyParser();
     useEffect(() => {
         moment.locale(currentLanguage);
         const date = moment(data.date);
@@ -68,7 +72,7 @@ const TransactionItem = ({data}: props) => {
                           style={[styles.transactionAmountTitle, {color: data.type === IOperationTypeEnum.EXPENSE ? red : green}]}>
                         {data.type === IOperationTypeEnum.EXPENSE && '-'}
                         {data.type === IOperationTypeEnum.INCOME && '+'}
-                        XAF {data.amount}
+                        XAF {parseThousand(data.amount)}
                     </Text>
                     <Text style={styles.transactionTime}>{date}</Text>
                 </View>

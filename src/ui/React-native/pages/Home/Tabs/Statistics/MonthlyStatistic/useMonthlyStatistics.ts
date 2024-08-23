@@ -28,14 +28,12 @@ interface useMonthlyStatisticsBehaviour {
     month: string,
 }
 
-const monthlyStatistics = (): useMonthlyStatisticsBehaviour => {
+const monthlyStatistics = (currentLanguage: string): useMonthlyStatisticsBehaviour => {
     const dispatch = useAppDispatch();
-    const {currentLanguage} = useCustomTranslation();
-    const {formatMonthToMonthName} = useUtils();
-    const {parseThousand} = useMoneyParser();
     const userId = useAppSelector(selectUser)!.userId;
     const currentYear = new Date().getFullYear();
     const currentMonth = useAppSelector(selectStatisticsCurrentMonth);
+    const {formatMonthToMonthName} = useUtils();
     const monthlyStatistics = useAppSelector(selectMonthlyStatistics);
     const [formattedMonthlyStatistics, setFormattedMonthlyStatistics] = useState<monthlyStatistics>({});
 
@@ -46,14 +44,13 @@ const monthlyStatistics = (): useMonthlyStatisticsBehaviour => {
             month: currentMonth,
         }
         const response = await dispatch(GetAllMonthlyStatisticAsync(command));
-        console.warn(response)
     }
 
     useEffect(() => {
             getStatistics();
         }, [currentMonth]);
     useEffect(() => {
-        if (monthlyStatistics) {
+        if (monthlyStatistics && currentLanguage) {
             const formattedMonthlyStatistics: monthlyStatistics = {
                 incomes: {
                     difference: monthlyStatistics.incomes.difference,

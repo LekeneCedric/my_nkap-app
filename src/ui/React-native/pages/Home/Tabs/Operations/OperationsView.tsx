@@ -391,6 +391,7 @@ const Transactions = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     right: 20,
+                    opacity: 0.7,
                     bottom: hp(operationFilterParams.month ? 2 : 10),
                     elevation: 8, // Add shadow for Android
                     shadowColor: text, // Add shadow for iOS

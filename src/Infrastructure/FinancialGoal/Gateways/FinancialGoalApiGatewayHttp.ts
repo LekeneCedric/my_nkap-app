@@ -40,7 +40,6 @@ export default class FinancialGoalApiGatewayHttp extends HttpProvider implements
                 throw new Error(result.message);
             }
         } catch (e: any) {
-            console.warn(e)
             throw new Error(e.message ? e.message : GatewayMessages.technicalError);
         }
         return DeleteFinancialGoalResponseFactory.fromApi(result);

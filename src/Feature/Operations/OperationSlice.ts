@@ -48,9 +48,9 @@ const OperationSlice = createSlice({
           })
         },
         AddOperation: (state, {payload}: PayloadAction<IOperationDto>) => {
-            const today = new Date();
             const operationDate = payload.date;
-            if (today.getDate() == new Date(state.filterParam.selectedDate!).getDate()) {
+            const opDate = new Date(operationDate);
+            if (opDate.getDate() == new Date(state.filterParam.selectedDate!).getDate()) {
                 state.total = state.total + 1;
                 state.operations = [payload, ...state.operations];
                 let isNewDate = true;

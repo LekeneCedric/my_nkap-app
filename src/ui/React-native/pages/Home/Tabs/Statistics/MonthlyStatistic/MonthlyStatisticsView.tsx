@@ -13,6 +13,9 @@ import useMoneyParser from "../../../../../Shared/useMoneyParser.ts";
 
 const MonthlyStatisticsView = () => {
     const {
+        currentLanguage
+    } = useCustomTranslation();
+    const {
         translate
     } = useCustomTranslation();
     const {
@@ -21,7 +24,7 @@ const MonthlyStatisticsView = () => {
     const {
         monthlyStatistics,
         month
-    } = useMonthlyStatistics();
+    } = useMonthlyStatistics(currentLanguage);
     const {colorPalette: {pageBackground, containerBackground, gray, red, text, action1, green}} = useTheme();
     const styles = MonthlyStatisticsStyles(
         {
@@ -50,8 +53,8 @@ const MonthlyStatisticsView = () => {
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-                    <Text style={styles.subjectTitle}> {translate('expense_for_month_of')}{month}</Text>
-                    <Text style={[styles.subjectTitle, {color: action1}]}>{translate('see_more')}</Text>
+                    <Text numberOfLines={1} style={[styles.subjectTitle, {flex: 4}]}> {translate('expense')}s</Text>
+                    <Text numberOfLines={1} style={[styles.subjectTitle, {color: action1, flex: 2, textAlign: 'right'}]}>{translate('see_more')}</Text>
                 </View>
                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -68,7 +71,7 @@ const MonthlyStatisticsView = () => {
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         <BarChart
                             data={expensesData}
-                            width={wp(90)}
+                            width={wp(92)}
                             height={300}
                             showValuesOnTopOfBars={true}
                             withHorizontalLabels={true}
@@ -108,8 +111,8 @@ const MonthlyStatisticsView = () => {
                 </View>
 
                 <View style={styles.header}>
-                    <Text style={styles.subjectTitle}>{translate('income_for_month_of')} {month}</Text>
-                    <Text style={[styles.subjectTitle, {color: action1}]}>{translate('see_more')}</Text>
+                    <Text numberOfLines={1} style={[styles.subjectTitle, {flex:4}]}>{translate('income')}s</Text>
+                    <Text numberOfLines={1} style={[styles.subjectTitle, {color: action1, flex: 2, textAlign: "right"}]}>{translate('see_more')}</Text>
                 </View>
                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -122,7 +125,7 @@ const MonthlyStatisticsView = () => {
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         <BarChart
                             data={incomesData}
-                            width={wp(90)}
+                            width={wp(92)}
                             height={300}
                             showValuesOnTopOfBars={true}
                             withHorizontalLabels={true}

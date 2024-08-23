@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../../../../Global/IconSizes.ts";
 import {Icons} from "../../../../../../Global/Icons.ts";
 import {SwitchTheme} from "../../../../../../../../Feature/Configuration/ConfigurationSlice.ts";
+import useCustomTranslation from "../../../../../../Shared/Hooks/useCustomTranslation.ts";
 
 export type theme = 'light'|'dark';
 type props = {
@@ -16,6 +17,9 @@ type props = {
     currentTheme: theme,
 }
 const ThemeModalView = ({closeModal, isVisible, currentTheme}: props) => {
+    const {
+        translate
+    } = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, action1, text, gray }} = useTheme();
     const styles = ThemeModalViewStyles(pageBackground, containerBackground, text, action1);
     const dispatch = useAppDispatch();
@@ -48,14 +52,14 @@ const ThemeModalView = ({closeModal, isVisible, currentTheme}: props) => {
                                     fontSize: FontSize.normal,
                                     color: text,
                                     marginLeft: 10
-                                }}>{theme}</Text>
+                                }}>{translate(theme)}</Text>
                             </TouchableOpacity>
                         })
                     }
                 </View>
                 <View style={{borderTopWidth: 0.3, bottom: 0, position: 'absolute', width: '100%', borderTopColor: gray, flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TouchableOpacity onPress={closeModal} style={{padding: 10}}>
-                        <Text style={{fontWeight: 'bold', color: text, alignSelf: 'flex-end'}}>Annuler</Text>
+                        <Text style={{fontWeight: 'bold', color: text, alignSelf: 'flex-end'}}>{translate('cancel')}</Text>
                     </TouchableOpacity>
                 </View>
             </Animated.View>

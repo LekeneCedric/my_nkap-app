@@ -2,6 +2,7 @@ import {useAppDispatch, useAppSelector} from "../../../../../../app/hook.ts";
 import {selectStatisticsCurrentMonth} from "../../../../../../Feature/Statistics/StatisticsSelectors.ts";
 import useUtils from "../../../../utils/useUtils.ts";
 import {handleNextMonth, handlePreviousMonth} from "../../../../../../Feature/Statistics/StatisticsSlice.ts";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 interface useStatistics {
     handlePreviousMonth: () => void,
@@ -9,6 +10,7 @@ interface useStatistics {
     currentMonth: () => string,
 }
 const useStatistics = (): useStatistics => {
+    const {currentLanguage} = useCustomTranslation();
     const dispatch = useAppDispatch();
     const{
         formatMonthToMonthName
@@ -23,7 +25,7 @@ const useStatistics = (): useStatistics => {
     }
 
     const currentMonthFormatted = () => {
-        return formatMonthToMonthName(currentMonth);
+        return formatMonthToMonthName(currentMonth, currentLanguage);
     }
 
     return {

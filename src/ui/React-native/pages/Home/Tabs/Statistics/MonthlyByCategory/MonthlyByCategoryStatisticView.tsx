@@ -35,14 +35,14 @@ const MonthlyByCategoryStatisticView = () => {
                 <TouchableOpacity onPress={()=>{switchIsShowIncomes(false)}}>
                     <CustomWidget
                         backgroundColor={red}
-                        value={translate('expense')}
+                        value={`${translate('expense')}s`}
                         isSelected={!isShowIncomes}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{switchIsShowIncomes(true)}}>
                     <CustomWidget
                         backgroundColor={green}
-                        value={translate('income')}
+                        value={`${translate('income')}s`}
                         isSelected={isShowIncomes}
                     />
                 </TouchableOpacity>

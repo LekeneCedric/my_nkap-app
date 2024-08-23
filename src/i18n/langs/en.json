@@ -116,8 +116,8 @@
   "category_name_required": "Category name is required!",
   "monthly_report": "Monthly report",
   "by_category_report": "By category report",
-  "expense_for_month_of": "Expense for the month of ",
-  "income_for_month_of": "Income for the month of ",
+  "expense_for_month_of": "Expenses for the month of ",
+  "income_for_month_of": "Incomes for the month of ",
   "see_more": "See more",
   "from_previous_month": "From the previous month",
   "no_financial_goal": "No financial goal!",
@@ -155,5 +155,8 @@
   "logout": "Logout",
   "language": "Language",
   "english": "English",
-  "french": "French"
+  "french": "French",
+  "light": "Light",
+  "dark": "Dark",
+  "of": "of"
 }

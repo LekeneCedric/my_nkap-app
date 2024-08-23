@@ -156,4 +156,7 @@
   "language": "Langue",
   "english": "Anglais",
   "french": "Français",
+  "light": "Blanc",
+  "dark": "Sombre",
+  "of": "de"
 }

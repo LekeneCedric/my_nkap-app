@@ -64,9 +64,6 @@ const FinancialGoalSlice = createSlice({
                 let financialGoalAndOperationIsFromSameAccount = f.accountId === accountId;
                 let updatedFinancialGoalCurrentAmount = f.currentAmount;
                 if (financialGoalAndOperationIsFromSameAccount && operationDateIsInFinancialGoalInterval) {
-                    console.warn(isUpdate);
-                    console.warn(type);
-                    console.warn(IOperationTypeEnum.INCOME)
                     if (!isUpdate) {
                         if (type === IOperationTypeEnum.INCOME) {
                             updatedFinancialGoalCurrentAmount += amount;
@@ -121,7 +118,6 @@ const FinancialGoalSlice = createSlice({
             .addCase(GetAllFinancialGoalAsync.fulfilled, (state, {payload}: PayloadAction<IGetAllFinancialGoalResponse>) => {
                 state.loadingState = LoadingState.success;
                 state.financialGoals = payload.financialGoals;
-                console.warn(state.financialGoals);
             })
             .addCase(GetAllFinancialGoalAsync.rejected, state => {
                 state.loadingState = LoadingState.failed;
