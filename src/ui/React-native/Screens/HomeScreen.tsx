@@ -103,7 +103,7 @@ const HomeScreen = () => {
                     ),
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name={'objectifs'}
                 component={FinancialGoalsView}
                 options={{
@@ -117,7 +117,7 @@ const HomeScreen = () => {
                         />
                     ),
                 }}
-            />
+            /> */}
         </Tab.Navigator>
     );
 };

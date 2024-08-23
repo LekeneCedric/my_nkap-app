@@ -50,13 +50,13 @@ const useSettingsView = (): UseSettingsView => {
         {
             title: translate('customizations'),
             section: [
-                {
-                    title: translate('notifications'),
-                    route: '',
-                    icon: Icons.notification,
-                    iconColor: gray,
-                    color: text
-                },
+                // {
+                //     title: translate('notifications'),
+                //     route: '',
+                //     icon: Icons.notification,
+                //     iconColor: gray,
+                //     color: text
+                // },
                 {
                     title: translate('preferences'),
                     route: routes.home.settings.preferences,
@@ -69,13 +69,13 @@ const useSettingsView = (): UseSettingsView => {
         {
             title: translate('more'),
             section: [
-                {
-                    title: translate('storage_and_exports'),
-                    route: '',
-                    icon: Icons.database,
-                    iconColor: gray,
-                    color: text
-                },
+                // {
+                //     title: translate('storage_and_exports'),
+                //     route: '',
+                //     icon: Icons.database,
+                //     iconColor: gray,
+                //     color: text
+                // },
                 // {
                 //     title: 'App Info',
                 //     route: '',
