@@ -12,6 +12,7 @@ import SelectModalView from "./Modal/SelectModalView";
 import ISelectItem from "./SelectItem.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import selectFormStyle from "./SelectForm.style";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type SelectFormProps = {
     icon: string;
@@ -43,6 +44,7 @@ const SelectForm = ({
             }
         }
     }, []);
+    const {translate} = useCustomTranslation();
     const [selectedItem, setSelectedItem] = useState<ISelectItem | null>(null);
     const [modalIsVisible, setModalIsVisible] = useState(false);
     const {colorPalette: {pageBackground, containerBackground, text, red, gray, action1}} = useTheme();
@@ -95,7 +97,7 @@ const SelectForm = ({
                     />
                 </TouchableOpacity>
                 {errorMessage ? (
-                    <Text style={[styles.info, {color: red}]}>{errorMessage}</Text>
+                    <Text style={[styles.info, {color: red}]}>{translate(errorMessage)}</Text>
                 ) : (
                     <Text style={[styles.info, {color: gray}]}/>
                 )}

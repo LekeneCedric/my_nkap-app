@@ -11,8 +11,10 @@ import RegisterViewStyle from "./RegisterView.style";
 import {hp, wp} from "../../../Global/Percentage.ts";
 import {FontSize} from "../../../Global/FontSize.ts";
 import {routes} from "../../routes";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 const RegisterView = () => {
+    const {translate} = useCustomTranslation();
     const registerFormBehaviour = useRegisterView();
     const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
     const styles = RegisterViewStyle(pageBackground, containerBackground, text);
@@ -25,14 +27,14 @@ const RegisterView = () => {
                         entering={LightSpeedInLeft.duration(1500)}
                         exiting={LightSpeedInRight.duration(1500)}
                         style={[TextStyles.title, {textAlign: 'center', color: action1}]}>
-                        Inscription
+                        {translate('register_title')}
                     </Animated.Text>
 
                     <Animated.Text
                         entering={LightSpeedInLeft.duration(1500)}
                         exiting={LightSpeedInRight.duration(1500)}
                         style={[TextStyles.description, {textAlign: 'center', color: text}]}>
-                        Renseigner en quelques clics les informations nous permettant de créer votre compte
+                        {translate('register_description')}
                     </Animated.Text>
                 </View>
             </Animated.View>
@@ -48,9 +50,9 @@ const RegisterView = () => {
                         marginBottom: hp(5),
                         position: 'relative'
                     }}>
-                        <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> Vous avez deja un compte ? </Text>
+                        <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('already_account')} </Text>
                         <TouchableOpacity onPress={() => {navigateByPath(routes.auth.login)}}>
-                            <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> Connectez vous </Text>
+                            <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> {translate('connexion_title')} </Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>

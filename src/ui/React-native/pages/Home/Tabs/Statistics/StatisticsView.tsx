@@ -11,9 +11,11 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../../Global/Icons.ts";
 import {IconSizes} from "../../../../Global/IconSizes.ts";
 import useStatistics from "./useStatistics.ts";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 const Tab = createMaterialTopTabNavigator();
 const StatisticsView = () => {
+    const {translate} = useCustomTranslation();
     const {
         handlePreviousMonth,
         handleNextMonth,
@@ -45,11 +47,11 @@ const StatisticsView = () => {
             )}
         >
             <Tab.Screen
-                name={'mensuel'}
+                name={translate('monthly_report')}
                 component={MonthlyStatisticsView}
             />
             <Tab.Screen
-                name={'par catégorie'}
+                name={translate('by_category_report')}
                 component={MonthlyByCategoryStatisticView} />
         </Tab.Navigator>
         <View style={{

@@ -3,6 +3,7 @@ import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SelectColorFormStyles from "./SelectColorForm.styles.ts";
 import {ControllerRenderProps} from "react-hook-form";
 import {useEffect} from "react";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     colors: string[],
@@ -12,6 +13,7 @@ type props = {
     setSelectedColor: (selectedColor: string) => void,
 }
 const SelectColorForm = ({colors, currentSelectedColor, errorMessages, field, setSelectedColor}: props) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {text, red,}} = useTheme();
     const styles = SelectColorFormStyles(text);
     useEffect(() => {
@@ -20,7 +22,7 @@ const SelectColorForm = ({colors, currentSelectedColor, errorMessages, field, se
         }
     }, []);
     return <View style={styles.colorSelectContainer}>
-        <Text style={styles.colorSelectTitle}>Choisissez une couleur</Text>
+        <Text style={styles.colorSelectTitle}>{translate('select_a_color')}</Text>
         <View style={styles.colorSelectIconsContainer}>
             {
                 colors.map((color: string) => {
@@ -41,7 +43,7 @@ const SelectColorForm = ({colors, currentSelectedColor, errorMessages, field, se
                 })
             }
             {errorMessages ? (
-                <Text style={[styles.info, {color: red}]}>{errorMessages}</Text>
+                <Text style={[styles.info, {color: red}]}>{translate(errorMessages)}</Text>
             ) : (
                 <Text style={[styles.info, {color: text}]}/>
             )}

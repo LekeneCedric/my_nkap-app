@@ -6,9 +6,11 @@ import {useEffect, useState} from "react";
 import {IOperationTypeEnum} from "../../../../Domain/Operation/Operation.ts";
 import moment from "moment";
 import 'moment/locale/fr';
+import 'moment/locale/en-gb';
 import useTheme from "../../Shared/Hooks/useTheme.ts";
 import TransactionItemStyles from "./TransactionItem.styles";
 import UpdateOperationModalView from "../Modals/UpdateOperationModal/UpdateOperationModalView.tsx";
+import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     data: IOperationDto
@@ -18,8 +20,11 @@ const TransactionItem = ({data}: props) => {
     const {colorPalette: {pageBackground, containerBackground, text, green, red, action1}} = useTheme();
     const [modalUpdateOperationIsVisible, setModalUpdateOperationIsVisible] = useState(false);
     const styles = TransactionItemStyles(containerBackground, text);
+    const {
+        currentLanguage
+    } = useCustomTranslation();
     useEffect(() => {
-        moment.locale('fr');
+        moment.locale(currentLanguage);
         const date = moment(data.date);
         const formattedDate = date.format('dddd HH:mm');
         setDate(formattedDate);

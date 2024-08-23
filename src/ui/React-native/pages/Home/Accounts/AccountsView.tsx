@@ -12,13 +12,21 @@ import useNavigation from "../../../utils/useNavigation.ts";
 import {hp} from "../../../Global/Percentage.ts";
 import {useState} from "react";
 import AddAccountModalView from "./components/Modals/AddAccountModal/AddAccountModalView.tsx";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import useMoneyParser from "../../../Shared/useMoneyParser.ts";
 
 const AccountsView = () => {
+    const {
+        translate
+    } = useCustomTranslation();
     const {
         totalBalance,
         accounts,
         bounceValue
     } = useAccountView();
+    const {
+        parseThousand
+    } = useMoneyParser();
     const {
         displayAmount,
         canSeeAmount,
@@ -27,6 +35,7 @@ const AccountsView = () => {
     const {
         goBack
     } = useNavigation();
+
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = AccountsViewStyles(pageBackground, containerBackground, text, gray, action1);
     const [showAddAccountModalView, setShowAddAccountModalView] = useState<boolean>(false)
@@ -43,15 +52,15 @@ const AccountsView = () => {
                     color={text}
                 />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Gérer mes comptes</Text>
+            <Text style={styles.headerTitle}>{translate('manage_my_accounts')}</Text>
         </View>
         <SafeAreaView
             style={[styles.pageContainer]}>
             <View style={styles.balanceContainer}>
                 <View style={{flexDirection: 'column'}}>
 
-                    <Text style={styles.balanceContainerTitle}>Solde total</Text>
-                    <Text style={styles.balanceContainerAmount}>{displayAmount(`XAF ${totalBalance}`)}</Text>
+                    <Text style={styles.balanceContainerTitle}>{translate('total_balance')}</Text>
+                    <Text style={styles.balanceContainerAmount}>{displayAmount(`XAF ${parseThousand(totalBalance)}`)}</Text>
                 </View>
                 <TouchableOpacity onPress={switchCanSeeAmount}>
                     <Icon name={canSeeAmount ? Icons.eyeClose : Icons.eyeOpen} size={IconSizes.normMed} color={action1} />

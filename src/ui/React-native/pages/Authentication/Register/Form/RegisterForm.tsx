@@ -14,12 +14,12 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Text} from "react-native";
 import {IconSizes} from "../../../../Global/IconSizes";
 import Loading from "../../../../Components/Loading/Loading";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
-export const RegisterForm = ({
-                                 registerFormBehaviour,
-                             }: {
+export const RegisterForm = ({registerFormBehaviour,}: {
     registerFormBehaviour: RegisterViewBehaviour;
 }) => {
+    const {translate} = useCustomTranslation();
     const {form, onSubmit, loadingState} = registerFormBehaviour;
     const {refresh, professions, loadingState: professionLoadingState} = useRegisterFormView();
     const {
@@ -35,11 +35,11 @@ export const RegisterForm = ({
                 render={({field}) => (
                     <InputForm
                         icon={Icons.user}
-                        label={"Nom d'utilisateur"}
+                        label={translate('user_name')}
                         errorMessage={errors.username?.message}
                         field={field}
                         keyboardType={"default"}
-                        placeholder={"Entrez votre nom d'utilisateur"}
+                        placeholder={translate('user_name_placeholder')}
                     />
                 )}
             />
@@ -49,11 +49,11 @@ export const RegisterForm = ({
                 render={({field}) => (
                     <InputForm
                         icon={Icons.email}
-                        label={"Adresse e-mail"}
+                        label={translate('email')}
                         errorMessage={errors.email?.message}
                         field={field}
                         keyboardType={"email-address"}
-                        placeholder={"Entrez votre adresse e-mail"}
+                        placeholder={translate('email_placeholder')}
                     />
                 )}
             />
@@ -63,16 +63,16 @@ export const RegisterForm = ({
                 render={({field}) => (
                     <InputBirthdayForm
                         mode={'date'}
-                        label={"Date de naissance"}
+                        label={translate('date_of_birth')}
                         errorMessage={errors.birthday?.message}
                         field={field}
-                        placeholder={"Selectionnez votre date de naissance"}
+                        placeholder={translate('date_of_birth_placeholder')}
                     />
                 )}
             />
             {
                 professionLoadingState === LoadingState.pending && (
-                    <Loading message={'chargement des professions'}/>
+                    <Loading message={translate('professions_loading')}/>
                 )
             }
             {
@@ -83,10 +83,10 @@ export const RegisterForm = ({
                         render={({field}) => (
                             <SelectForm
                                 icon={Icons.work}
-                                label={"Profession"}
+                                label={translate('profession')}
                                 errorMessage={errors.professionId?.message}
                                 field={field}
-                                placeholder={"Selectionnez votre profession"}
+                                placeholder={translate('profession_placeholder')}
                                 list={professions}
                             />
                         )}
@@ -100,7 +100,7 @@ export const RegisterForm = ({
                     <TouchableOpacity onPress={refresh}
                                       style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                         <Icon name={Icons.refresh} size={IconSizes.normal}/>
-                        <Text>Reessayer</Text>
+                        <Text>{translate('try')}</Text>
                     </TouchableOpacity>
                 )
             }
@@ -111,9 +111,10 @@ export const RegisterForm = ({
                 name={"password"}
                 render={({field}) => (
                     <InputPasswordForm
-                        label={"Mot de passe"}
+                        label={translate('password')}
                         errorMessage={errors.password?.message}
                         field={field}
+                        placeholder={translate('password_placeholder')}
                     />
                 )}
             />
@@ -123,16 +124,17 @@ export const RegisterForm = ({
                 name={"passwordConfirmation"}
                 render={({field}) => (
                     <InputPasswordForm
-                        label={"Confirmation mot de passe"}
+                        label={translate('confirm_password')}
                         errorMessage={errors.passwordConfirmation?.message}
                         field={field}
+                        placeholder={translate('confirm_password_placeholder')}
                     />
                 )}
             />
             <VerticalSeparator percent={2}/>
             <ButtonForm
-                label={"Inscription"}
-                loadingLabel={'Inscription en cours...'}
+                label={translate('register_title')}
+                loadingLabel={translate('pending_register')}
                 handleClick={handleSubmit(onSubmit)}
                 loading={loadingState}
             />

@@ -8,8 +8,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
 import AddFinancialGoalsForm from "./Form/AddFinancialGoalsForm.tsx";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 const AddFinancialGoalsView = () => {
+    const {translate} = useCustomTranslation();
     const {
         addFinancialGoalFormBehaviour,
         accounts
@@ -29,7 +31,7 @@ const AddFinancialGoalsView = () => {
                         />
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <Animated.Text style={[styles.title, {color: text}]}>Nouvel Objectif</Animated.Text>
+                        <Animated.Text style={[styles.title, {color: text}]}>{translate('new_financial_goal')}</Animated.Text>
                         <Icon name={Icons.financialGoal} size={IconSizes.medium} color={action1}/>
                     </View>
                 </View>

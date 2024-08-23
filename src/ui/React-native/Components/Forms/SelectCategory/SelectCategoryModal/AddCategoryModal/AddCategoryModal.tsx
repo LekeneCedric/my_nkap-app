@@ -16,6 +16,7 @@ import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
 import AddCategoryModalStyles from "./AddCategoryModal.styles.ts";
 import SelectColorForm from "../../../SelectColorForm/SelectColorForm.tsx";
 import {ColorsList} from "../../../../../Shared/Constants/Colors.ts";
+import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type AddCategoryModalProps = {
     isVisible: boolean,
@@ -26,6 +27,7 @@ type AddCategoryModalProps = {
     defaultName: string,
 }
 const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultName}: AddCategoryModalProps) => {
+    const {translate} = useCustomTranslation();
     const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
     const colorsList = ColorsList;
     const {formState: {errors}, control, handleSubmit} = form;
@@ -48,7 +50,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                             fontSize: FontSize.mediumHigh,
                             color: text,
                         }}>
-                            Ajouter une Catégorie
+                            {translate('add_new_category')}
                         </Text>
                     </View>
                     <Controller
@@ -60,10 +62,10 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                                 <InputForm
                                     icon={Icons.category}
                                     errorMessage={errors.name?.message}
-                                    label={'Nom'}
+                                    label={translate('category_name')}
                                     field={field}
                                     keyboardType={'default'}
-                                    placeholder={'Entrez le nom de la catégorie'}
+                                    placeholder={translate('category_name_placeholder')}
                                 />
                             )
                         }}
@@ -89,9 +91,9 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                             <SelectIconForm
                                 icon={Icons.icon}
                                 errorMessage={errors.icon?.message}
-                                label={'Icône'}
+                                label={translate('category_icon')}
                                 field={field}
-                                placeholder={'Sélectionnez une icône'}
+                                placeholder={translate('category_icon_placeholder')}
                                 color={selectedColor}
                             />
                         )}
@@ -101,17 +103,17 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                         name={'description'}
                         render={({field}) => (
                             <InputTextAreaForm
-                                label={'Description'}
+                                label={translate('category_description')}
                                 errorMessage={errors.description?.message}
                                 field={field}
-                                placeholder={'Entrez une description'}
+                                placeholder={translate('category_description_placeholder')}
                             />
                         )}
                     />
                     <ButtonForm
                         loading={loading}
-                        loadingLabel={'Enregistrement de la catégorie ...'}
-                        label={'Enregistrer'}
+                        loadingLabel={translate('pending_add_new_category')}
+                        label={translate('add_new_category')}
                         handleClick={handleSubmit(onSubmit)}
                     />
                 </View>

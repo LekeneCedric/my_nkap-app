@@ -12,6 +12,7 @@ import DatePicker from "react-native-date-picker";
 import useUtils from "../../../utils/useUtils";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import InputBirthDateFormStyle from "./InputBirthDateForm.style";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type InputBirthDateFormProps = {
     mode?: 'date' | 'time' | 'datetime',
@@ -27,6 +28,7 @@ const InputBirthdayForm = ({
                                field,
                                placeholder,
                            }: InputBirthDateFormProps) => {
+    const {translate} = useCustomTranslation();
     const [date, setDate] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState<string>('');
     const [open, setOpen] = useState<boolean>(false);
@@ -44,6 +46,9 @@ const InputBirthdayForm = ({
     return (
         <>
             <DatePicker
+                title={translate('select_date')}
+                confirmText={translate('confirm')}
+                cancelText={translate('cancel')}
                 modal
                 locale={'fr'}
                 open={open}
@@ -90,7 +95,7 @@ const InputBirthdayForm = ({
 
                 </TouchableOpacity>
                 {errorMessage ? (
-                    <Text style={[styles.info, {color: red}]}>{errorMessage}</Text>
+                    <Text style={[styles.info, {color: red}]}>{translate(errorMessage)}</Text>
                 ) : (
                     <Text style={[styles.info, {color: gray}]}/>
                 )}

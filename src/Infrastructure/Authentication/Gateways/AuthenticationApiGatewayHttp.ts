@@ -20,7 +20,7 @@ export default class AuthenticationApiGatewayHttp extends HttpProvider implement
                 throw new Error(result.message);
             }
         } catch (e: any) {
-            throw new Error(e.message ? e.message : 'Une erreur technique est survenue , veuillez reessayer plus-tard');
+            throw new Error(e.message ? e.message : 'technical_error_message');
         }
 
         return RegisterResponseFactory.fromApi(result);
@@ -37,7 +37,7 @@ export default class AuthenticationApiGatewayHttp extends HttpProvider implement
                 throw new Error(result.message);
             } 
         } catch (e: any) {
-            throw new Error(e.message ? e.message : 'Une erreur technique est survenue , veuillez reessayer plus-tard');
+            throw new Error(e.message ? e.message : 'technical_error_message');
         }
 
         return LoginResponseFactory.fromApi(result);

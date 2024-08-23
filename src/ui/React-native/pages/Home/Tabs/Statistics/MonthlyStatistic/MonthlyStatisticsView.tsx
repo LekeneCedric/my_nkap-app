@@ -8,8 +8,16 @@ import {FontSize} from "../../../../../Global/FontSize.ts";
 import {BarChart} from "react-native-chart-kit";
 import {wp} from "../../../../../Global/Percentage.ts";
 import useMonthlyStatistics from "./useMonthlyStatistics.ts";
+import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
+import useMoneyParser from "../../../../../Shared/useMoneyParser.ts";
 
 const MonthlyStatisticsView = () => {
+    const {
+        translate
+    } = useCustomTranslation();
+    const {
+        parseThousand
+    } = useMoneyParser();
     const {
         monthlyStatistics,
         month
@@ -42,8 +50,8 @@ const MonthlyStatisticsView = () => {
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-                    <Text style={styles.subjectTitle}>Dépenses du mois de {month}</Text>
-                    <Text style={[styles.subjectTitle, {color: action1}]}>Voir plus</Text>
+                    <Text style={styles.subjectTitle}> {translate('expense_for_month_of')}{month}</Text>
+                    <Text style={[styles.subjectTitle, {color: action1}]}>{translate('see_more')}</Text>
                 </View>
                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -52,15 +60,15 @@ const MonthlyStatisticsView = () => {
                             name={monthlyStatistics.expenses?.difference! > 0 ? Icons.chevron.down: Icons.chevron.up}
                             color={monthlyStatistics.expenses?.difference! > 0 ? red : green}
                         />
-                        <Text style={{fontSize: FontSize.normal, color: monthlyStatistics.expenses?.difference! > 0 ? red : green}}>{monthlyStatistics.expenses?.difference} XAF</Text>
+                        <Text style={{fontSize: FontSize.normal, color: monthlyStatistics.expenses?.difference! > 0 ? red : green}}>{parseThousand(monthlyStatistics.expenses?.difference ?? 0)} XAF</Text>
                     </View>
-                    <Text style={{fontSize: FontSize.normal, color: text, marginLeft: 10}}>du mois passé</Text>
+                    <Text style={{fontSize: FontSize.normal, color: text, marginLeft: 10}}>{translate('from_previous_month')}</Text>
                 </View>
                 <View style={styles.statContainer}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         <BarChart
                             data={expensesData}
-                            width={wp(100)}
+                            width={wp(90)}
                             height={300}
                             showValuesOnTopOfBars={true}
                             withHorizontalLabels={true}
@@ -79,17 +87,20 @@ const MonthlyStatisticsView = () => {
                                 backgroundGradientFromOpacity: 1,
                                 backgroundGradientTo: containerBackground,
                                 backgroundGradientToOpacity: 1,
-                                color: (opacity = 1) => text,
-                                labelColor: (opacity = 1) => text,
-                                strokeWidth: 2, // optional, default 3
+                                color: () => text,
+                                labelColor: () => text,
+                                strokeWidth: 2,
                                 barPercentage: 1.5,
+                                propsForLabels: {
+                                    fontSize: FontSize.normal
+                                },
                                 propsForDots: {
                                     r: "6",
                                     strokeWidth: "2",
-                                    stroke: text
+                                    stroke: text,
                                 },
-                                fillShadowGradient: action1, // Bar color
-                                fillShadowGradientOpacity: 1,  // Full opacity for solid color
+                                fillShadowGradient: action1,
+                                fillShadowGradientOpacity: 1,
                             }}
                             verticalLabelRotation={0}
                         />
@@ -97,21 +108,21 @@ const MonthlyStatisticsView = () => {
                 </View>
 
                 <View style={styles.header}>
-                    <Text style={styles.subjectTitle}>Épargne du mois de {month}</Text>
-                    <Text style={[styles.subjectTitle, {color: action1}]}>Voir plus</Text>
+                    <Text style={styles.subjectTitle}>{translate('income_for_month_of')} {month}</Text>
+                    <Text style={[styles.subjectTitle, {color: action1}]}>{translate('see_more')}</Text>
                 </View>
                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Icon size={IconSizes.medium} name={ monthlyStatistics.incomes?.difference! < 0 ? Icons.chevron.down : Icons.chevron.up} color={monthlyStatistics.incomes?.difference! < 0 ? red : green}/>
-                        <Text style={{fontSize: FontSize.normal, color: monthlyStatistics.incomes?.difference! < 0 ? red : green}}>{monthlyStatistics.incomes?.difference} XAF</Text>
+                        <Text style={{fontSize: FontSize.normal, color: monthlyStatistics.incomes?.difference! < 0 ? red : green}}>{parseThousand(monthlyStatistics.incomes?.difference ?? 0)} XAF</Text>
                     </View>
-                    <Text style={{fontSize: FontSize.normal, color: text, marginLeft: 10}}>du mois passé</Text>
+                    <Text style={{fontSize: FontSize.normal, color: text, marginLeft: 10}}>{translate('from_previous_month')}</Text>
                 </View>
                 <View style={styles.statContainer}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         <BarChart
                             data={incomesData}
-                            width={wp(100)}
+                            width={wp(90)}
                             height={300}
                             showValuesOnTopOfBars={true}
                             withHorizontalLabels={true}
@@ -139,6 +150,9 @@ const MonthlyStatisticsView = () => {
                                     r: "6",
                                     strokeWidth: "2",
                                     stroke: text
+                                },
+                                propsForLabels: {
+                                    fontSize: FontSize.normal
                                 },
                                 fillShadowGradient: action1, // Bar color
                                 fillShadowGradientOpacity: 1,  // Full opacity for solid color

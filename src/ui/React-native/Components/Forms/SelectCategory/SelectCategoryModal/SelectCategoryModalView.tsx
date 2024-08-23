@@ -10,6 +10,7 @@ import ISelectCategoryItem from "../SelectCategoryItem.ts";
 import AddCategoryModal from "./AddCategoryModal/AddCategoryModal.tsx";
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 import SelectCategoryModalViewStyle from "./selectCategoryModalView.style.ts";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type selectCategoryModalViewProps = {
     action: (item: ISelectCategoryItem) => void,
@@ -18,6 +19,7 @@ type selectCategoryModalViewProps = {
     list: any[]
 }
 const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCategoryModalViewProps) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, action1, text }} = useTheme();
     const styles = SelectCategoryModalViewStyle(pageBackground, containerBackground, text, action1);
     const [addCategoryModalIsVisible, setAddCategoryModalIsVisible] = useState(false);
@@ -89,7 +91,7 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                     filterList.length == 0 && <View style={styles.listAddCategoryContainer}>
                         <TouchableOpacity onPress={showAddCategoryModal} style={[styles.itemContainer,{borderBottomColor: text, borderBottomWidth: 0.3}]}>
                             <Icon name={Icons.add} size={IconSizes.normal} color={action1}/>
-                            <Text style={[styles.itemText]} numberOfLines={1}>Ajouter une nouvelle catégorie</Text>
+                            <Text style={[styles.itemText]} numberOfLines={1}>{translate('add_new_category')}</Text>
                         </TouchableOpacity>
                     </View>
                 }

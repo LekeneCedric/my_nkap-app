@@ -9,6 +9,7 @@ import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
 import CheckedFormStyle from "./CheckedForm.style.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     label: string;
@@ -17,6 +18,7 @@ type props = {
     values: ICheckedItem[];
 }
 const CheckedForm = ({label, field, values, errorMessage}: props) => {
+    const {translate} = useCustomTranslation();
     const [selectItem, setSelectItem] = useState<ICheckedItem|null>(null)
     const checkItem = (item: ICheckedItem) => {
         setSelectItem(item);
@@ -51,7 +53,7 @@ const CheckedForm = ({label, field, values, errorMessage}: props) => {
             ))}
         </View>
         {errorMessage ? (
-            <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+            <Text style={[styles.info, {color: Theme.red}]}>{translate(errorMessage)}</Text>
         ) : (
             <Text style={[styles.info, {color: Theme.gray}]}/>
         )}

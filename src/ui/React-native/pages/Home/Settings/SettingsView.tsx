@@ -14,8 +14,10 @@ import useCustomNavigation from "../../../utils/useNavigation";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SettingsViewStyles from "./SettingsView.style";
 import MenuView from "./Components/Menu/MenuView.tsx";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 const SettingsView = () => {
+  const {translate} = useCustomTranslation();
   const {menuItems} = useSettingsView();
   const {goBack} = useCustomNavigation();
   const {colorPalette: {pageBackground, containerBackground, text}}= useTheme();
@@ -31,7 +33,7 @@ const SettingsView = () => {
             color={text}
           />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Paramètres</Text>
+        <Text style={styles.headerTitle}>{translate('settings')}</Text>
       </View>
       <View style={{padding: 10}}>
         <ScrollView>

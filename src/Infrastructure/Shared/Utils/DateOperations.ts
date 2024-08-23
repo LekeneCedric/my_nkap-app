@@ -8,10 +8,10 @@ export const formatDateToYYYYMMDD = (date: Date) => {
     return `${year}-${month}-${day}`;
 };
 
-export const formatDateToReadable = (date: Date): string => {
+export const formatDateToReadable = (date: Date, todayFormatted: string): string => {
     const today = new Date();
     if (today.getDate() == date.getDate()) {
-        return "Aujourd'hui";
+        return todayFormatted;
     }
     return date.toLocaleDateString('fr-FR', {
         day: 'numeric',

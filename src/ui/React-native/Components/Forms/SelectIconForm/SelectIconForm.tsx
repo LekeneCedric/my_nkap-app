@@ -8,6 +8,7 @@ import {Icons} from "../../../Global/Icons.ts";
 import SelectIconModalView from "./Modal/SelectIconModalView.tsx";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SelectIconFormStyle from "./SelectIconForm.style.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type SelectCategoryFormProps = {
     icon: string;
@@ -18,6 +19,7 @@ type SelectCategoryFormProps = {
     color?: string,
 };
 const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: SelectCategoryFormProps) => {
+    const {translate} = useCustomTranslation();
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
     const {colorPalette: {pageBackground, containerBackground, text, red, action1, gray}} = useTheme();
@@ -72,7 +74,7 @@ const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: 
                 />
             </TouchableOpacity>
             {errorMessage ? (
-                <Text style={[styles.info, {color: red}]}>{errorMessage}</Text>
+                <Text style={[styles.info, {color: red}]}>{translate(errorMessage)}</Text>
             ) : (
                 <Text style={[styles.info, {color: text}]}/>
             )}

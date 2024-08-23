@@ -1,7 +1,7 @@
 interface IUseUtilsBehaviour {
     formatDateToYYYYMMDD(date: Date):string,
     formatDateToYYYYMMDDHIS(date: Date): string,
-    formatMonthToMonthName(month: number): string,
+    formatMonthToMonthName(month: number, currentLanguage: string): string,
 }
 const useUtils = (): IUseUtilsBehaviour => {
 
@@ -27,35 +27,38 @@ const useUtils = (): IUseUtilsBehaviour => {
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     }
 
-    const formatMonthToMonthName = (month: number): string => {
-        switch (month) {
-            case 1:
-                return 'Janvier';
-            case 2:
-                return 'Février';
-            case 3:
-                return 'Mars';
-            case 4:
-                return 'Avril';
-            case 5:
-                return 'Mai';
-            case 6:
-                return 'Juin';
-            case 7:
-                return 'Juillet';
-            case 8:
-                return 'Août';
-            case 9:
-                return 'Septembre';
-            case 10:
-                return 'Octobre';
-            case 11:
-                return 'Novembre';
-            case 12:
-                return 'Décembre';
-            default:
-                return '';
+    const formatMonthToMonthName = (month: number, currentLanguage: "en"|"fr"): string => {
+        const months = {
+            en: [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ],
+            fr: [
+                'Janvier',
+                'Février',
+                'Mars',
+                'Avril',
+                'Mai',
+                'Juin',
+                'Juillet',
+                'Août',
+                'Septembre',
+                'Octobre',
+                'Novembre',
+                'Décembre'
+            ]
         }
+        return months["en"][month]
     }
     return {
         formatDateToYYYYMMDD: formatDateToYYYYMMDD,

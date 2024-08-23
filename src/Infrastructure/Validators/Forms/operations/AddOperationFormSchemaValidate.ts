@@ -6,23 +6,23 @@ const dateFormatRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
 export const AddOperationFormSchemaValidate = yup.object({
     accountId: yup
         .string()
-        .required('Veuillez sélectionner le compte liée à cette opération !'),
+        .required('operation_target_account_is_required'),
     type: yup
         .number()
         //@ts-ignore
         .oneOf(Object.values(IOperationTypeEnum), 'Type d\'opération invalide')
-        .required('Veuillez sélectionner le type de l\'opération !'),
+        .required('operation_type_is_required'),
     amount: yup
         .number()
-        .moreThan(0, 'Le montant se doit dêtre supérieur à 0')
-        .required('Veuillez entrez le montant de l\'opération'),
+        .moreThan(0, 'operation_amount_must_be_greater_than_0')
+        .required('operation_amount_is_required'),
     categoryId: yup
         .string()
-        .required('Veuillez sélectionner une catégorie pour cette opération'),
+        .required('operation_category_is_required'),
     details: yup
         .string(),
     date: yup
         .string()
         .matches(dateFormatRegex)
-        .required('Veuillez sélectionner la date à laquelle a été éffectué cette opération !'),
+        .required('operation_date_is_required'),
 })

@@ -25,6 +25,7 @@ import ISelectItem from "../../../../Components/Forms/Select/SelectItem.ts";
 import SelectModalView from "../../../../Components/Forms/Select/Modal/SelectModalView.tsx";
 import useNavigation from "../../../../utils/useNavigation.ts";
 import {routes} from "../../../routes";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 const Transactions = () => {
     const {
@@ -54,6 +55,7 @@ const Transactions = () => {
     const showSelectCategoryModal = () => {
         setModalSelectCategoryIsVisible(true)
     }
+    const {translate} = useCustomTranslation();
     const [modalSelectCategoryIsVisible, setModalSelectCategoryIsVisible] = useState(false);
     const [modalSelectTypeIsVisible, setModalSelectTypeIsVisible] = useState(false);
     const [modalSelectMonthIsVisible, setModalSelectMonthIsVisible] = useState(false);
@@ -168,7 +170,7 @@ const Transactions = () => {
                                 }}
                             >
                                 <Icon name={Icons.wallet} size={IconSizes.normal} color={light} />
-                                <Text style={{color: action1Text, paddingLeft: 5}}>Gérer mes comptes</Text>
+                                <Text style={{color: action1Text, paddingLeft: 5}}>{translate('manage_my_accounts')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -188,7 +190,7 @@ const Transactions = () => {
                                     borderRadius: 8,
                                     width: '60%'
                                 }}>
-                                    <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text}}> Réinitialiser </Text>
+                                    <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text}}> {translate('clear')} </Text>
                                     <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                                 </TouchableOpacity>
                             )
@@ -210,7 +212,7 @@ const Transactions = () => {
                                         ): (
                                             <TouchableOpacity onPress={()=>{setModalSelectAccountIsVisible(true)}} style={styles.transactionFilterCategoriesItem}>
                                                 <Text style={styles.transactionFilterCategoriesItemText}
-                                                      numberOfLines={1}>Compte</Text>
+                                                      numberOfLines={1}>{translate('account')}</Text>
                                                 <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
                                             </TouchableOpacity>
                                         )
@@ -229,7 +231,7 @@ const Transactions = () => {
                                         ): (
                                             <TouchableOpacity onPress={()=>{setModalSelectMonthIsVisible(true)}} style={styles.transactionFilterCategoriesItem}>
                                                 <Text style={styles.transactionFilterCategoriesItemText}
-                                                      numberOfLines={1}>Mois</Text>
+                                                      numberOfLines={1}>{translate('month')}</Text>
                                                 <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
                                             </TouchableOpacity>
                                         )
@@ -250,7 +252,7 @@ const Transactions = () => {
                                             <TouchableOpacity onPress={showSelectCategoryModal}
                                                               style={styles.transactionFilterCategoriesItem}>
                                                 <Text style={styles.transactionFilterCategoriesItemText}
-                                                      numberOfLines={1}>Catégories</Text>
+                                                      numberOfLines={1}>{translate('category')}</Text>
                                                 <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
                                             </TouchableOpacity>
                                         )
@@ -268,7 +270,7 @@ const Transactions = () => {
                                         ) : (
                                             <TouchableOpacity onPress={()=>{setModalSelectTypeIsVisible(true)}} style={styles.transactionFilterCategoriesItem}>
                                                 <Text style={styles.transactionFilterCategoriesItemText}
-                                                      numberOfLines={1}>Types</Text>
+                                                      numberOfLines={1}>{translate('types')}</Text>
                                                 <Icon name={Icons.dropDown} size={IconSizes.normal} color={action1}/>
                                             </TouchableOpacity>
                                         )
@@ -317,7 +319,7 @@ const Transactions = () => {
                             {
                                 operationsLoadingState !== LoadingState.pending && operations.length === 0 && (
                                     <View style={styles.notFoundContainer}>
-                                        <Text style={styles.notFoundText}>Aucune opération enregistrée</Text>
+                                        <Text style={styles.notFoundText}>{translate('not_found_operations')}</Text>
                                     </View>
                                 )
                             }

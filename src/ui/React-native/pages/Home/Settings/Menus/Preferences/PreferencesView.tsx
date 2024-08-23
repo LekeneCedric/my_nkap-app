@@ -10,8 +10,17 @@ import {FontSize} from "../../../../../Global/FontSize.ts";
 import {useState} from "react";
 import ThemeModalView from "./ThemeModal/ThemeModalView.tsx";
 import useThemeModalView from "./ThemeModal/useThemeModalView.ts";
+import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
 
 const PreferencesView = () => {
+    const {
+        translate,
+        currentLanguage,
+        changeLanguage
+    } = useCustomTranslation();
+    const switchLanguage = () => {
+        changeLanguage(currentLanguage == 'en' ? 'fr' : 'en');
+    }
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1}}= useTheme();
     const styles = PreferencesViewStyles(pageBackground, text);
     const {goBack} = useCustomNavigation();
@@ -33,7 +42,7 @@ const PreferencesView = () => {
                             color={text}
                         />
                     </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Paramètres{' > '}Préférences</Text>
+                    <Text style={styles.headerTitle}>{translate('settings')}{' > '}{translate('customizations')}</Text>
                 </View>
                 <View style={{padding: 10}}>
                     <ScrollView>
@@ -44,11 +53,13 @@ const PreferencesView = () => {
                                 <Text style={{color: text, fontWeight: '100', fontSize: FontSize.normal}}>{currentTheme}</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginBottom: 15}}>
+                        <TouchableOpacity onPress={switchLanguage} style={{flexDirection: 'row', alignItems: 'center', marginBottom: 15}}>
                             <Icon style={{flex: 1}} name={Icons.internationalisation} size={IconSizes.normMed} color={gray} />
                             <View style={{flex: 9, flexDirection: 'column', marginLeft: 10}}>
-                                <Text style={{color: text, fontSize: FontSize.normal}}>Language</Text>
-                                <Text style={{color: text, fontWeight: '100', fontSize: FontSize.normal}}>Francais</Text>
+                                <Text style={{color: text, fontSize: FontSize.normal}}>{translate('language')}</Text>
+                                <Text style={{color: text, fontWeight: '100', fontSize: FontSize.normal}}>{
+                                    currentLanguage == 'en' ? translate('english') : translate('french')
+                                }</Text>
                             </View>
                         </TouchableOpacity>
                     </ScrollView>

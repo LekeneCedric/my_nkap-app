@@ -16,6 +16,7 @@ import {FontSize} from "../../../../Global/FontSize.ts";
 import ValidateActionModalView from "../../../../Components/Modals/ValidateActionModal/ValidateActionModalView.tsx";
 import {useState} from "react";
 import InputTextAreaForm from "../../../../Components/Forms/InputTextArea/InputTextAreaForm.tsx";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     addFinancialGoalsFormBehaviour: AddFinancialGoalsFormBehaviour,
@@ -24,6 +25,7 @@ type props = {
     onDeleteFinancialGoal?: () => void,
 }
 const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpdate, onDeleteFinancialGoal}: props) => {
+    const {translate} = useCustomTranslation();
     const {form, onSubmit, loadingState} = addFinancialGoalsFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {containerBackground, red}} = useTheme();
@@ -31,8 +33,8 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
     return (
         <>
             <ValidateActionModalView
-                title={'Suppréssion'}
-                description={'La suppréssion de cet objectif est irreversible \n Continuer ?'}
+                title={translate('delete_financial_goal_action')}
+                description={translate('delete_financial_goal_action_description')}
                 action={onDeleteFinancialGoal!}
                 close={()=>{setValidateActionIsVisibleModal(false)}}
                 isVisible={validateActionIsVisibleModal}
@@ -43,10 +45,10 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
                     name={'details'}
                     render={({field}) => (
                         <InputTextAreaForm
-                            label={'Titre'}
+                            label={translate('financial_goal_title')}
                             field={field}
                             errorMessage={errors.details?.message}
-                            placeholder={'Titre'}
+                            placeholder={translate('financial_goal_title_placeholder')}
                         />
                     )}
                 />
@@ -57,9 +59,9 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
                         <SelectForm
                             icon={Icons.walletOutline}
                             errorMessage={errors.accountId?.message}
-                            label={'Compte'}
+                            label={translate('account')}
                             field={field}
-                            placeholder={'Sélectionnez le compte correspondant'}
+                            placeholder={translate('select_corresponding_account')}
                             list={accounts}
                         />
                     )}
@@ -71,9 +73,9 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
                         <InputDateForm
                             mode={'date'}
                             errorMessage={errors.startDate?.message}
-                            label={'Date de début'}
+                            label={translate('start_date')}
                             field={field}
-                            placeholder={'Sélectionnez la date de début'}
+                            placeholder={translate('start_date_placeholder')}
                         />
                     )}
                 />
@@ -84,9 +86,9 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
                         <InputDateForm
                             mode={'date'}
                             errorMessage={errors.startDate?.message}
-                            label={'Date de fin'}
+                            label={translate('end_date')}
                             field={field}
-                            placeholder={'Sélectionnez la date de fin'}
+                            placeholder={translate('end_date_placeholder')}
                         />
                     )}
                 />
@@ -97,16 +99,16 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
                         <InputForm
                             type={'amount'}
                             icon={Icons.wallet}
-                            label={'Montant désiré'}
+                            label={translate('desired_amount')}
                             field={field}
                             errorMessage={errors.desiredAmount?.message}
                             keyboardType={'numeric'}
-                            placeholder={'Entrez le montant désiré '}
+                            placeholder={translate('desired_amount_placeholder')}
                         />
                     )}
                 />
                 <VerticalSeparator percent={1}/>
-                <ButtonForm loading={loadingState} loadingLabel={'Enregistrement ...'} label={'Enregistrer'}
+                <ButtonForm loading={loadingState} loadingLabel={translate('pending_add_new_financial_goal')} label={translate('add_new_financial_goal')}
                             handleClick={handleSubmit(onSubmit)}/>
                 {
                     isUpdate && (
@@ -122,7 +124,7 @@ const AddFinancialGoalsForm = ({addFinancialGoalsFormBehaviour, accounts, isUpda
                                             borderBottomWidth: 1,
                                             borderBottomColor: red
                                         }}>
-                                            Supprimer
+                                            {translate('delete')}
                                         </Text>
                                     </TouchableOpacity>
                             }

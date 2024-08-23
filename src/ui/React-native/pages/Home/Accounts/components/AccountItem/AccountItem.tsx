@@ -8,11 +8,19 @@ import {IconSizes} from "../../../../../Global/IconSizes.ts";
 import useConfiguration from "../../../../../Shared/Hooks/useConfiguration.ts";
 import AddAccountModalView from "../Modals/AddAccountModal/AddAccountModalView.tsx";
 import {useState} from "react";
+import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
+import useMoneyParser from "../../../../../Shared/useMoneyParser.ts";
 
 type props = {
     data: IAccount
 }
 const AccountItem = ({data}: props) => {
+    const {
+        translate
+    } = useCustomTranslation();
+    const {
+        parseThousand
+    } = useMoneyParser();
     const {colorPalette: {
         pageBackground,
         containerBackground,
@@ -59,16 +67,16 @@ const AccountItem = ({data}: props) => {
             </View>
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10}}>
-                <Text style={styles.amountTitle}>Solde:</Text>
-                <Text style={styles.amountValue}>{displayAmount(`XAF ${data.balance}`)}</Text>
+                <Text style={styles.amountTitle}>{translate('balance')}:</Text>
+                <Text style={styles.amountValue}>{displayAmount(`XAF ${parseThousand(data.balance)}`)}</Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10}}>
-                <Text style={styles.amountTitle}>Revenus totale:</Text>
-                <Text style={[styles.amountValue, {color: green}]}>{displayAmount(`XAF ${data.totalIncomes}`)}</Text>
+                <Text style={styles.amountTitle}>{translate('total_incomes')}:</Text>
+                <Text style={[styles.amountValue, {color: green}]}>{displayAmount(`XAF ${parseThousand(data.totalIncomes)}`)}</Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10}}>
-                <Text style={styles.amountTitle}>Dépenses totale:</Text>
-                <Text style={[styles.amountValue, {color: red}]}>{displayAmount(`XAF ${data.totalExpenses}`)}</Text>
+                <Text style={styles.amountTitle}>{translate('total_expenses')}:</Text>
+                <Text style={[styles.amountValue, {color: red}]}>{displayAmount(`XAF ${parseThousand(data.totalExpenses)}`)}</Text>
             </View>
         </View>
     </>

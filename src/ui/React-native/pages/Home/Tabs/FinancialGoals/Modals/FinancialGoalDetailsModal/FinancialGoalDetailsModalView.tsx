@@ -9,6 +9,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../../../../Global/Icons.ts";
 import AddFinancialGoalsForm from "../../../../AddFinancialGoals/Form/AddFinancialGoalsForm.tsx";
 import {FontSize} from "../../../../../../Global/FontSize.ts";
+import useCustomTranslation from "../../../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     closeModal: () => void,
@@ -16,6 +17,9 @@ type props = {
     data: IFinancialGoal
 }
 const FinancialGoalDetailsModalView = ({closeModal, isVisible, data}: props) => {
+    const {
+        translate
+    } = useCustomTranslation();
     const {
         addFinancialGoalFormBehaviour,
         accounts,
@@ -31,7 +35,7 @@ const FinancialGoalDetailsModalView = ({closeModal, isVisible, data}: props) => 
                            exiting={BounceInUp}>
 
                 <View style={{width: '100%', height: IconSizes.medium, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={{color: text, fontSize: FontSize.medium, fontWeight: 'bold'}}>Modification</Text>
+                    <Text style={{color: text, fontSize: FontSize.medium, fontWeight: 'bold'}}>{translate('update_financial_goal')}</Text>
                     <TouchableOpacity onPress={closeModal} style={{position: 'absolute', right: 10, top: 10}}>
                         <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                     </TouchableOpacity>

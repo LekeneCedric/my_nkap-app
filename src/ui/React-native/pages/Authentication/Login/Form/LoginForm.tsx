@@ -7,10 +7,14 @@ import ButtonForm from "../../../../Components/Forms/Button/ButtonForm.tsx";
 import InputPasswordForm from "../../../../Components/Forms/InputPassword/InputPasswordForm.tsx";
 import { Icons } from "../../../../Global/Icons.ts";
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 export const LoginForm = (
   {loginFormBehaviour}: {loginFormBehaviour: LoginFormBehaviour}
 ) => {
+  const {
+    translate
+  } = useCustomTranslation();
   const {form, onSubmit, loadingState} = loginFormBehaviour;
   const {formState: {errors}, control, handleSubmit, } = form
   return (<View style={{flexDirection: 'column'}}>
@@ -20,11 +24,11 @@ export const LoginForm = (
       render={({field}) => (
         <InputForm 
           icon={Icons.email}
-          label={'Adresse e-mail'}
+          label={translate('email')}
           errorMessage={errors.email?.message}
           field={field}
           keyboardType={'email-address'}
-          placeholder={'Entrez votre adresse e-mail'}
+          placeholder={translate('email_placeholder')}
 
         />
       )}
@@ -35,13 +39,14 @@ export const LoginForm = (
       control={control}
       render={({field}) => (
         <InputPasswordForm
-          label={'Mot de passe'}
+          label={translate('password')}
           errorMessage={errors.password?.message}
           field={field}
+          placeholder={translate('password_placeholder')}
         />
       )}
     />
     <VerticalSeparator percent={5} />
-    <ButtonForm loading={loadingState} loadingLabel={'Connexion en cours...'} label={'connexion'} handleClick={handleSubmit(onSubmit)} />
+    <ButtonForm loading={loadingState} loadingLabel={translate('pending_connexion')} label={'connexion'} handleClick={handleSubmit(onSubmit)} />
   </View>)
 }

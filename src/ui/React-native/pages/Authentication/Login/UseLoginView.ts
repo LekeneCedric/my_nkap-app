@@ -8,6 +8,7 @@ import {useToast} from "react-native-toast-notifications";
 import {LoadingState} from "../../../../../Domain/Enums/LoadingState";
 import {LoginAsync} from "../../../../../Feature/Authentication/Thunks/Login/LoginAsync";
 import ILoginCommand from "../../../../../Feature/Authentication/Thunks/Login/LoginCommand";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 export interface LoginFormBehaviour {
   form: UseFormReturn<InputLoginForm>;
@@ -20,6 +21,7 @@ interface UseLoginViewBehaviour {
 }
 
 export const UseLoginView = (): UseLoginViewBehaviour => {
+  const {translate} = useCustomTranslation();
   const dispatch = useAppDispatch();
   const loadingState = useAppSelector(selectAuthenticationLoadingState);
   const toast = useToast();
@@ -35,7 +37,7 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
     } as ILoginCommand;
     const response = await dispatch(LoginAsync(command));
     if (LoginAsync.fulfilled.match(response)) {
-      toast.show(response.payload.message, {
+      toast.show(`${translate('welcome')} ${response.payload.message}`, {
         type: "success",
         placement: "top",
         duration: 3000,
@@ -44,7 +46,7 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
     }
     if (LoginAsync.rejected.match(response)) {
       //@ts-ignore
-      toast.show(response.payload.message, {
+      toast.show(translate(response.payload.message), {
         type: "danger",
         placement: "top",
         duration: 3000,

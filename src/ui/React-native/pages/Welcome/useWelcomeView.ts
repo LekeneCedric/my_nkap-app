@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigation } from "@react-navigation/native";
 import { routes } from '../routes';
+import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 
 interface useWelcomeViewBehavior {
 	currentTitle: string,
@@ -13,6 +14,9 @@ interface useWelcomeViewBehavior {
 }
 
 export const useWelcomeView = (): useWelcomeViewBehavior => {
+	const {
+		translate,
+	} = useCustomTranslation();
 	const navigation = useNavigation();
 	const slides = [0, 1, 2];
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -40,16 +44,16 @@ export const useWelcomeView = (): useWelcomeViewBehavior => {
 	const setCorrespondingContent = () => {
 		switch (currentSlide) {
 			case 0:
-				setCurrentTitle(`Avoir un oeil constant sur vos finances !`);
-				setCurrentDescription(`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500`);
+				setCurrentTitle(translate(`welcome_slide_1_title`));
+				setCurrentDescription(translate(`welcome_slide_1_description`));
 				break;
 			case 1:
-				setCurrentTitle(`Pouvoir retracer vos transactions financières !`);
-				setCurrentDescription(`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500`);
+				setCurrentTitle(translate(`welcome_slide_2_title`));
+				setCurrentDescription(translate(`welcome_slide_2_description`));
 				break;
 			case 2:
-				setCurrentTitle(`Allez lancez vous !`);
-				setCurrentDescription(`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500`);
+				setCurrentTitle(translate(`welcome_slide_3_title`));
+				setCurrentDescription(translate(`welcome_slide_3_description`));
 				break;
 			default:
 				break;

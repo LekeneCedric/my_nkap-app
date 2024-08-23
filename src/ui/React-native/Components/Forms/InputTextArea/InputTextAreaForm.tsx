@@ -4,6 +4,7 @@ import {Text, TextInput, View} from "react-native";
 import {Theme} from "../../../Global/Theme.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import InputTextAreaStyles from "./InputTextAreaForm.style.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     label: string,
@@ -12,6 +13,7 @@ type props = {
     placeholder: string
 }
 const InputTextAreaForm = ({label, errorMessage, field, placeholder}: props) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, text, action1}} = useTheme();
     const styles = InputTextAreaStyles(pageBackground, text);
     return (
@@ -35,7 +37,7 @@ const InputTextAreaForm = ({label, errorMessage, field, placeholder}: props) => 
                 />
             </View>
             {errorMessage ? (
-                <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+                <Text style={[styles.info, {color: Theme.red}]}>{translate(errorMessage)}</Text>
             ) : (
                 <Text style={[styles.info, {color: Theme.gray}]} />
             )}

@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../../../Global/IconSizes.ts";
 import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
 import useNavigation from "../../../../../utils/useNavigation.ts";
-import {act} from "react-test-renderer";
 
 type props = {
     menus: IMenu[]

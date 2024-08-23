@@ -10,6 +10,7 @@ import {ControllerRenderProps} from "react-hook-form";
 import SelectCategoryModalView from "./SelectCategoryModal/SelectCategoryModalView.tsx";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SelectCategoryFormStyle from "./SelectCategoryForm.style.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type SelectCategoryFormProps = {
     icon: string;
@@ -20,6 +21,7 @@ type SelectCategoryFormProps = {
     list: ISelectCategoryItem[],
 };
 const SelectCategoryForm = ({icon, label, errorMessage, field, placeholder, list}: SelectCategoryFormProps) => {
+    const {translate} = useCustomTranslation();
     useEffect(() => {
         if (field.value) {
             const selectedItem = list.find(elt => elt.id == field.value);
@@ -76,7 +78,7 @@ const SelectCategoryForm = ({icon, label, errorMessage, field, placeholder, list
                 />
             </TouchableOpacity>
             {errorMessage ? (
-                <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+                <Text style={[styles.info, {color: Theme.red}]}>{translate(errorMessage)}</Text>
             ) : (
                 <Text style={[styles.info, {color: Theme.gray}]}/>
             )}

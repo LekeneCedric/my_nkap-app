@@ -22,6 +22,7 @@ import {useState} from "react";
 import ValidateActionModalView from "../../../../Components/Modals/ValidateActionModal/ValidateActionModalView.tsx";
 import useNavigation from "../../../../utils/useNavigation.ts";
 import {HomeRoutes} from "../../../routes/HomeRoutes.ts";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     addOperationFormBehaviour: AddOperationFormBehaviour,
@@ -31,6 +32,7 @@ type props = {
     onDeleteOperation?: () => void
 }
 const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUpdate, onDeleteOperation}: props) => {
+    const {translate} = useCustomTranslation();
     const navigation = useNavigation();
     const {form, onSubmit, loadingState} = addOperationFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
@@ -38,8 +40,8 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
     const [validateActionIsVisibleModal, setValidateActionIsVisibleModal] = useState<boolean>(false);
     return <View style={{flexDirection: 'column', backgroundColor: containerBackground, paddingTop: 10}}>
         <ValidateActionModalView
-            title={'Suppréssion'}
-            description={'La suppréssion de cette opération est irreversible \n Continuer ?'}
+            title={translate('delete_operation_action')}
+            description={translate('delete_operation_action_description')}
             action={onDeleteOperation!}
             close={()=>{setValidateActionIsVisibleModal(false)}}
             isVisible={validateActionIsVisibleModal}
@@ -51,12 +53,12 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
                 <SelectForm
                     icon={Icons.walletOutline}
                     errorMessage={errors.accountId?.message}
-                    label={'Compte'}
+                    label={translate('account')}
                     field={field}
-                    placeholder={'Sélectionnez le compte correspondant'}
+                    placeholder={translate('select_corresponding_account')}
                     list={accounts}
-                    notFoundMessage={'Aucun compte trouvé'}
-                    notFoundLinkName={'Ajouter un compte'}
+                    notFoundMessage={translate('not_found_accounts')}
+                    notFoundLinkName={translate('add_account')}
                     notFoundLinkAction={() => {
                         navigation.navigateByPath(HomeRoutes.accounts)
                     }}
@@ -70,9 +72,9 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
                 <SelectCategoryForm
                     icon={Icons.category}
                     errorMessage={errors.categoryId?.message}
-                    label={'Catégorie'}
+                    label={translate('category')}
                     field={field}
-                    placeholder={'Sélectionnez la catégorie de l\'opération'}
+                    placeholder={translate('operation_category_placeholder')}
                     list={categories}
                 />
             )}
@@ -83,11 +85,11 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
             render={({field}) => (
                 <CheckedForm
                     errorMessage={errors.type?.message}
-                    label={'Type d\'opération'}
+                    label={translate('operation_type')}
                     field={field}
                     values={[
-                        {id: IOperationTypeEnum.INCOME, label: 'Revenu', color: Theme.green},
-                        {id: IOperationTypeEnum.EXPENSE, label: 'Dépense', color: Theme.red},
+                        {id: IOperationTypeEnum.INCOME, label: translate('income'), color: Theme.green},
+                        {id: IOperationTypeEnum.EXPENSE, label: translate('expense'), color: Theme.red},
                     ]}
                 />
             )}
@@ -99,11 +101,11 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
                 <InputForm
                     type={'amount'}
                     icon={Icons.wallet}
-                    label={'Montant'}
+                    label={translate('amount')}
                     field={field}
                     errorMessage={errors.amount?.message}
                     keyboardType={'numeric'}
-                    placeholder={'Entrez le montant de l\'opération '}
+                    placeholder={translate('amount_placeholder')}
                 />
             )}
         />
@@ -115,9 +117,9 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
                 <InputDateForm
                     mode={'datetime'}
                     errorMessage={errors.date?.message}
-                    label={'Date de l\'opération'}
+                    label={translate('operation_date')}
                     field={field}
-                    placeholder={'Sélectionnez la date de l\'opération'}
+                    placeholder={translate('operation_date_placeholder')}
                 />
             )}
         />
@@ -127,15 +129,15 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
             name={'details'}
             render={({field}) => (
                 <InputTextAreaForm
-                    label={'Description'}
+                    label={translate('description')}
                     field={field}
                     errorMessage={errors.details?.message}
-                    placeholder={'Des détails concernant l\'opération ?'}
+                    placeholder={translate('operation_description_placeholder')}
                 />
             )}
         />
         <VerticalSeparator percent={1}/>
-        <ButtonForm loading={loadingState} loadingLabel={'Enregistrement ...'} label={'Enregistrer'}
+        <ButtonForm loading={loadingState} loadingLabel={translate('pending_add_new_operation')} label={translate('add_new_operation')}
                     handleClick={handleSubmit(onSubmit)}/>
         {
             isUpdate && (
@@ -151,7 +153,7 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
                                     borderBottomWidth: 1,
                                     borderBottomColor: red
                                 }}>
-                                    Supprimer
+                                    {translate('delete')}
                                 </Text>
                             </TouchableOpacity>
                     }

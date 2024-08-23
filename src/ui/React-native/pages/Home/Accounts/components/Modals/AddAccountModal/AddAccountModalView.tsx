@@ -10,6 +10,7 @@ import {IconSizes} from "../../../../../../Global/IconSizes.ts";
 import {FontSize} from "../../../../../../Global/FontSize.ts";
 import {wp} from "../../../../../../Global/Percentage.ts";
 import IAccount from "../../../../../../../../Domain/Account/Account.ts";
+import useCustomTranslation from "../../../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     closeModal: () => void,
@@ -18,6 +19,7 @@ type props = {
     account?: IAccount,
 }
 const AddAccountModalView = ({closeModal, isVisible, isUpdate, account}: props) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, text, action1, action1Text}} = useTheme();
     const styles = AddAccountModalViewStyles(containerBackground);
     const {
@@ -34,7 +36,7 @@ const AddAccountModalView = ({closeModal, isVisible, isUpdate, account}: props) 
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                         <Icon name={Icons.wallet} size={IconSizes.normal} color={action1} />
                         <Text numberOfLines={1} style={{fontSize: FontSize.medium, color: text, fontWeight: 'bold'}}>
-                            {!isUpdate ? 'Ajouter un nouveau compte' : 'Modification du compte'  }
+                            {!isUpdate ? translate('add_account') : translate('update_account')  }
                         </Text>
                     </View>
                 </View>

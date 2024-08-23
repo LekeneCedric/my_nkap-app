@@ -8,6 +8,8 @@ import IAccount from "../../../../../Domain/Account/Account.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
 import {routes} from "../../../pages/routes";
 import {Icons} from "../../../Global/Icons.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import useMoneyParser from "../../../Shared/useMoneyParser.ts";
 
 type props = {
     data: IAccount,
@@ -16,6 +18,8 @@ const AccountCard = ({data}: props) => {
     const {
         displayAmount
     } = useConfiguration();
+    const {parseThousand} = useMoneyParser();
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text, light}} = useTheme();
     const styles = AccountCardStyle(pageBackground, containerBackground, text, gray, action1, action1Text);
     return (
@@ -27,13 +31,13 @@ const AccountCard = ({data}: props) => {
                 <View>
                     <Text numberOfLines={1} style={styles.title}>{data.name}</Text>
                     <Text numberOfLines={1} style={styles.amount}>
-                        {displayAmount(`XAF ${data.balance}`)}
+                        {displayAmount(`XAF ${parseThousand(data.balance)}`)}
                     </Text>
                 </View>
             </View>
 
             <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Détails</Text>
+                <Text style={styles.buttonText}>{translate('details')}</Text>
             </TouchableOpacity>
         </Animated.View>
     )

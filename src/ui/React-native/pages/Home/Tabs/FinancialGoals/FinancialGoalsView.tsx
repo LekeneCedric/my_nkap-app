@@ -13,8 +13,12 @@ import LoadingTransactionItem from "../../../../Components/TransactionItem/Loadi
 import {Widget} from "../../../../Components/Widget/Widget.tsx";
 import {FontSize} from "../../../../Global/FontSize.ts";
 import Animated, {LightSpeedInLeft, LightSpeedOutRight} from "react-native-reanimated";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 const FinancialGoalsView = () => {
+    const {
+        translate,
+    } = useCustomTranslation();
     const {
         bounceValue,
         navigateToAddFinancialGoals,
@@ -64,7 +68,7 @@ const FinancialGoalsView = () => {
                         {
                             filteredFinancialGoals.length === 0 && (
                                 <View style={{flex: 1,alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: hp(2)}}>
-                                    <Text style={{fontSize: FontSize.normal, color: text}}>{`Aucun objectif financier !`}</Text>
+                                    <Text style={{fontSize: FontSize.normal, color: text}}>{translate('no_financial_goal')}</Text>
                                 </View>
                             )
                         }

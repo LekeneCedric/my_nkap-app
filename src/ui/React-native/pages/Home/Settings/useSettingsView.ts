@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {persistStore} from "redux-persist";
 import {store} from "../../../../../app/store.ts";
 import {useToast} from "react-native-toast-notifications";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 interface IMenuItem {
     title: string,
@@ -28,6 +29,7 @@ interface UseSettingsView {
 }
 
 const useSettingsView = (): UseSettingsView => {
+    const {translate} = useCustomTranslation();
     const dispatch = useAppDispatch();
     const {colorPalette: {text, red, gray}} = useTheme();
     const toast = useToast();
@@ -36,7 +38,7 @@ const useSettingsView = (): UseSettingsView => {
         const persist = persistStore(store);
         persist.flush().then(() => {
             persist.purge().then(()=>{
-                toast.show('Vous avez été déconnecté', {
+                toast.show(translate('have_been_disconnect'), {
                     type: 'warning',
                     placement: 'top',
                     duration: 3000
@@ -46,17 +48,17 @@ const useSettingsView = (): UseSettingsView => {
     }
     const menuItems: IMenu[] = [
         {
-            title: 'Personalisations',
+            title: translate('customizations'),
             section: [
                 {
-                    title: 'Notifications',
+                    title: translate('notifications'),
                     route: '',
                     icon: Icons.notification,
                     iconColor: gray,
                     color: text
                 },
                 {
-                    title: 'Préférences',
+                    title: translate('preferences'),
                     route: routes.home.settings.preferences,
                     icon: Icons.tools,
                     iconColor: gray,
@@ -65,24 +67,24 @@ const useSettingsView = (): UseSettingsView => {
             ]
         },
         {
-            title: 'Plus',
+            title: translate('more'),
             section: [
                 {
-                    title: 'Stockage & Exportation',
+                    title: translate('storage_and_exports'),
                     route: '',
                     icon: Icons.database,
                     iconColor: gray,
                     color: text
                 },
+                // {
+                //     title: 'App Info',
+                //     route: '',
+                //     icon: Icons.info,
+                //     iconColor: gray,
+                //     color: text
+                // },
                 {
-                    title: 'App Info',
-                    route: '',
-                    icon: Icons.info,
-                    iconColor: gray,
-                    color: text
-                },
-                {
-                    title: 'Aide',
+                    title: translate('help'),
                     route: '',
                     icon: Icons.help,
                     iconColor: gray,
@@ -91,11 +93,11 @@ const useSettingsView = (): UseSettingsView => {
             ]
         },
         {
-            title: 'Compte',
+            title: translate('account'),
             end: true,
             section: [
                 {
-                    title: 'Deconnexion',
+                    title: translate('logout'),
                     route: '',
                     icon: Icons.logout,
                     iconColor: red,

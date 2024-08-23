@@ -1,7 +1,6 @@
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import TextStyles from "../../../Global/Styles/Text.styles.ts";
 import { LoginForm } from "./Form/LoginForm.tsx";
-import { Theme } from "../../../Global/Theme.ts";
 import Animated, {
   BounceInDown,
   BounceInUp,
@@ -15,9 +14,11 @@ import { routes } from "../../routes";
 import useCustomNavigation from "../../../utils/useNavigation.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import LoginViewStyles from "./LoginView.style.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 const LoginView = () => {
   const {loginFormBehaviour} = UseLoginView();
+  const {translate} = useCustomTranslation();
   const {navigateByPath} = useCustomNavigation();
   const {colorPalette: {pageBackground, containerBackground, primary, text, primaryLight, action1}} = useTheme();
   const styles = LoginViewStyles(pageBackground, containerBackground, text);
@@ -30,22 +31,22 @@ const LoginView = () => {
             entering={LightSpeedInLeft.duration(1500)}
             exiting={LightSpeedInRight.duration(1500)}
             style={[TextStyles.title, {textAlign: 'center', color: action1}]}>
-              Connexion
+            {translate('connexion_title')}
           </Animated.Text>
           <Animated.Text
             entering={LightSpeedInLeft.duration(1500)}
             exiting={LightSpeedInRight.duration(1500)}
             style={[TextStyles.description, {textAlign: 'center', color: text}]}>
-              Veuillez rentrer vos informations pour continuer
+            {translate('connexion_description')}
           </Animated.Text>
         </View>
       </Animated.View>
       <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp} style={styles.formContainer}>
         <LoginForm loginFormBehaviour={loginFormBehaviour} />
         <View style={{flexDirection: 'row', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(3)}}>
-          <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> Vous n'avez pas de compte ? </Text>
+          <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('not_already_account')}</Text>
           <TouchableOpacity onPress={()=>{navigateByPath(routes.auth.register)}}>
-          <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> Inscrivez vous </Text>
+          <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> {translate('register_title')} </Text>
           </TouchableOpacity>
         </View>
       </Animated.View>

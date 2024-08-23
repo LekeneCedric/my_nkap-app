@@ -35,22 +35,22 @@ import * as yup from "yup";
 const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 export const InputRegisterFormSchemaValidate = yup.object({
-  username: yup.string().required("Votre nom d'utilisateur est requis !"),
-  email: yup
-    .string()
-    .email("Entrez une adresse e-mail valide !")
-    .required("Votre adresse e-mail est requise !"),
-  birthday: yup
-      .string()
-      .matches(dateFormatRegex)
-      .required("Entrez une date de naissance valide !"),
-  professionId: yup.string().required("Votre profession est requise !"),
-  password: yup.string().required("Le mot de passe est requis !"),
-  passwordConfirmation: yup
-    .string()
-    .oneOf(
-      [yup.ref("password")],
-      "Les 2 mots de passes doivent etre identiques",
-    )
-    .required("Confirmation du mot de passe requise !"),
+    username: yup.string().required("user_name_required"),
+    email: yup
+        .string()
+        .email("email_invalid")
+        .required("email_required"),
+    birthday: yup
+        .string()
+        .matches(dateFormatRegex)
+        .required("date_of_birth_required"),
+    professionId: yup.string().required("profession_required"),
+    password: yup.string().required("password_required"),
+    passwordConfirmation: yup
+        .string()
+        .oneOf(
+            [yup.ref("password")],
+            "confirm_password_invalid",
+        )
+        .required("confirm_password_required"),
 });

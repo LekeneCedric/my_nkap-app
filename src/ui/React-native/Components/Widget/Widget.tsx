@@ -2,6 +2,7 @@ import {Text, View} from "react-native";
 import {FinancialGoalStatus} from "../../../../Domain/FinancialGoal/FinancialGoal.ts";
 import useTheme from "../../Shared/Hooks/useTheme.ts";
 import WidgetStyles from "./Widget.styles.ts";
+import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     backgroundColor: string,
@@ -9,6 +10,7 @@ type props = {
     isSelected?: boolean,
 }
 export const Widget = ({backgroundColor, value, isSelected}: props) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {light}} = useTheme();
     const styles = WidgetStyles();
     return <View style={[
@@ -21,7 +23,7 @@ export const Widget = ({backgroundColor, value, isSelected}: props) => {
             isSelected === undefined && {color: light},
             isSelected !== undefined && !isSelected && {color: backgroundColor},
             isSelected && {color: light}
-        ]}>{value}</Text>
+        ]}>{translate(value)}</Text>
     </View>
 }
 

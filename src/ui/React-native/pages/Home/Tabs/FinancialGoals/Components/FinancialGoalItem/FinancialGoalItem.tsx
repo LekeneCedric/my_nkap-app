@@ -94,11 +94,11 @@ const FinancialGoalItem = ({data}: props) => {
                             <Text style={styles.labelDesc}>
                                 Temps restant :
                             </Text>
-                            <View style={[styles.statusContainer, {backgroundColor: action1}]}>
-                                <Text style={[styles.statusText, {color: light}]}>
+                            {/*<View style={[styles.statusContainer, {backgroundColor: action1}]}>*/}
+                                <Text style={[styles.statusText, {color: action1}]}>
                                     {formattedDurationEndDate}
                                 </Text>
-                            </View>
+                            {/*</View>*/}
                         </View>
                     }
 
@@ -117,8 +117,9 @@ const FinancialGoalItem = ({data}: props) => {
                         backgroundColor: progressBarColor,
                         borderRadius: 10,
                     }}/>
+
                 </View>
-                <Text style={[styles.percentage, {color: progressBarColor}]}>{`${percentage}%`}</Text>
+                <Text style={[styles.percentage, {color: progressBarColor, fontWeight: 'bold'}]}>{`${percentage}%`}</Text>
             </View>
         </TouchableOpacity>
     </>

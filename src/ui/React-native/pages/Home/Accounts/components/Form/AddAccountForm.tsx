@@ -16,6 +16,7 @@ import {IconSizes} from "../../../../../Global/IconSizes.ts";
 import {FontSize} from "../../../../../Global/FontSize.ts";
 import ValidateActionModalView from "../../../../../Components/Modals/ValidateActionModal/ValidateActionModalView.tsx";
 import {ColorsList} from "../../../../../Shared/Constants/Colors.ts";
+import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     addAccountFormBehaviour: AddAccountFormBehaviour,
@@ -24,6 +25,7 @@ type props = {
     onDeleteAccount?: () => void,
 }
 const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAccount}: props) => {
+    const {translate} = useCustomTranslation();
     const {form, onSubmit, loadingState} = addAccountFormBehaviour;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {pageBackground, containerBackground, text, action1, red, green, gray}} = useTheme();
@@ -33,8 +35,8 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
 
     return <View style={{flexDirection: 'column', backgroundColor: containerBackground, paddingTop: 10}}>
         <ValidateActionModalView
-            title={'Suppréssion'}
-            description={'La suppréssion de ce compte est irreversible, et entrainera la suppréssion de toutes les opérations le concernant \n Continuer ?'}
+            title={translate('delete_account_action')}
+            description={translate('delete_account_action_description')}
             action={onDeleteAccount!}
             close={()=>{setValidateActionIsVisibleModal(false)}}
             isVisible={validateActionIsVisibleModal}
@@ -45,10 +47,10 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
             render={({field}) => (
                 <InputForm
                     icon={Icons.walletOutline}
-                    label={'Nom du compte'}
+                    label={translate('account_name')}
                     field={field}
                     keyboardType={'default'}
-                    placeholder={'Entrez le nom du compte'}
+                    placeholder={translate('account_name_placeholder')}
                     errorMessage={errors.name?.message}
                 />
             )}
@@ -59,10 +61,10 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
             render={({field}) => (
                 <InputForm
                     icon={Icons.walletOutline}
-                    label={'Type de compte'}
+                    label={translate('account_type')}
                     field={field}
                     keyboardType={'default'}
-                    placeholder={'De quel type de compte s\'agit t\'il ?'}
+                    placeholder={translate('account_type_placeholder')}
                     errorMessage={errors.type?.message}
                 />
             )}
@@ -75,11 +77,11 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
                     <InputForm
                         type={'amount'}
                         icon={Icons.wallet}
-                        label={'Montant'}
+                        label={translate('amount')}
                         field={field}
                         errorMessage={errors.balance?.message}
                         keyboardType={'numeric'}
-                        placeholder={'Entrez le montant de l\'opération '}
+                        placeholder={translate('amount_placeholder')}
                     />
                 )}
             />
@@ -92,11 +94,11 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
             render={({field}) => (
                 <CheckedForm
                     errorMessage={errors.isIncludeInTotalBalance?.message}
-                    label={'Inclus dans mon solde totale'}
+                    label={translate('include_in_total_balance')}
                     field={field}
                     values={[
-                        {id: false, label: 'Non', color: Theme.gray},
-                        {id: true, label: 'Oui', color: green},
+                        {id: false, label: translate('no'), color: Theme.gray},
+                        {id: true, label: translate('yes'), color: green},
                     ]}
                 />
             )}
@@ -123,9 +125,9 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
                 <SelectIconForm
                     icon={Icons.icon}
                     errorMessage={errors.icon?.message}
-                    label={'Icône'}
+                    label={translate('icon')}
                     field={field}
-                    placeholder={'Sélectionnez une icône'}
+                    placeholder={translate('select_icon')}
                     color={selectedColor}
                 />
             )}
@@ -133,8 +135,8 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
 
         <ButtonForm
             loading={loadingState}
-            loadingLabel={!isUpdate ? 'creation du compte ...' : 'Modification du compte ...'}
-            label={!isUpdate ? 'Creer un nouveau compte' : 'modifier le compte'}
+            loadingLabel={!isUpdate ? translate('pending_create_account') : translate('pending_update_account')}
+            label={!isUpdate ? translate('create_new_account') : translate('update_account')}
             handleClick={handleSubmit(onSubmit)}
         />
         {
@@ -151,7 +153,7 @@ const AddAccountForm = ({addAccountFormBehaviour, isUpdate, account, onDeleteAcc
                                     borderBottomWidth: 1,
                                     borderBottomColor: red
                                 }}>
-                                    Supprimer
+                                    {translate('delete')}
                                 </Text>
                             </TouchableOpacity>
                     }

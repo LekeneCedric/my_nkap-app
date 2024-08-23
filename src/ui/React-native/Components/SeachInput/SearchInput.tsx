@@ -3,18 +3,20 @@ import { TextInput } from "react-native";
 import { FontSize } from "../../Global/FontSize";
 import SearchInputStyle from "./SearchInput.style";
 import useTheme from "../../Shared/Hooks/useTheme.ts";
+import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 
 type SearchInputProps = {
     value: string,
     onChange: (text: string) => void;
 }
 const SeachInput = ({value, onChange}: SearchInputProps) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, text}} = useTheme();
     const styles = SearchInputStyle(pageBackground);
     return <Animated.View style={styles.container}>
         <TextInput
           keyboardType={'default'}
-          placeholder={'Rechercher dans la liste'}
+          placeholder={translate('select_placeholder')}
           placeholderTextColor={text}
           cursorColor={text}
           onChangeText={onChange}

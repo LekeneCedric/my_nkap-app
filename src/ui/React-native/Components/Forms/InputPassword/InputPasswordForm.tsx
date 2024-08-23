@@ -13,13 +13,16 @@ import {ControllerRenderProps} from "react-hook-form";
 import {useState} from "react";
 import InputPasswordStyles from "./InputPasswordForm.style";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type inputFormPasswordProps = {
   label: string;
   errorMessage?: string;
   field: ControllerRenderProps<any, any>;
+  placeholder?: string
 };
-const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps) => {
+const InputPasswordForm = ({label, errorMessage, field, placeholder}: inputFormPasswordProps) => {
+  const {translate} = useCustomTranslation();
   const [canSee, setCanSee] = useState<boolean>(false);
   const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme()
   const styles = InputPasswordStyles(pageBackground, containerBackground, text, gray)
@@ -34,7 +37,7 @@ const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps)
         <Icon name={Icons.secure} size={IconSizes.normal} color={action1} />
         <TextInput
           secureTextEntry={!canSee}
-          placeholder={"Entrez votre adresse e-mail"}
+          placeholder={placeholder}
           placeholderTextColor={text}
           cursorColor={text}
           onBlur={field.onBlur}
@@ -62,7 +65,7 @@ const InputPasswordForm = ({label, errorMessage, field}: inputFormPasswordProps)
         </TouchableOpacity>
       </View>
       {errorMessage ? (
-        <Text style={[styles.info, {color: Theme.red}]}>{errorMessage}</Text>
+        <Text style={[styles.info, {color: Theme.red}]}>{translate(errorMessage)}</Text>
       ) : (
         <Text style={[styles.info, {color: Theme.gray}]} />
       )}

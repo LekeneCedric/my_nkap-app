@@ -11,21 +11,21 @@ const FinancialGoalFormSchemaValidate = yup.object({
         .required(),
     accountId: yup
         .string()
-        .required(),
+        .required('financial_goal_account_required'),
     startDate: yup
         .string()
         .matches(dateFormatRegex)
-        .required('Entrez la date de début'),
+        .required('financial_goal_start_date_required'),
     endDate: yup
         .string()
         .matches(dateFormatRegex)
-        .required('Entrez la date de fin'),
+        .required('financial_goal_end_date_required'),
     desiredAmount: yup
         .number()
-        .moreThan(0, 'Le montant se doit être supérieur à 0')
-        .required('Entrez le montant que vous souhaiter atteindre !'),
+        .moreThan(0, 'financial_goal_desired_amount_greater_than_0')
+        .required('financial_goal_desired_amount_required'),
     details: yup
         .string()
-        .required('Entrez les détails de votre objectif !'),
+        .required('financial_goal_title_required'),
 });
 export default FinancialGoalFormSchemaValidate;

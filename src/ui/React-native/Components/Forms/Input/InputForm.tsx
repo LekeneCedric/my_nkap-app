@@ -11,6 +11,7 @@ import { FontSize } from "../../../Global/FontSize.ts";
 import {useEffect, useState} from "react";
 import InputFormStyles from "./InputForm.style.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type inputFormProps = {
   type?: 'amount'
@@ -22,6 +23,7 @@ type inputFormProps = {
   placeholder: string
 }
 export const InputForm = ({type, icon, label, errorMessage, field, keyboardType, placeholder}: inputFormProps) => {
+  const {translate} = useCustomTranslation();
   const {colorPalette: {pageBackground, containerBackground, gray, text, red, action1}} = useTheme();
   const styles = InputFormStyles(pageBackground, containerBackground, text, gray);
   const [initialValue, setInitialValue] = useState(type === 'amount' ? '0' : '')
@@ -81,7 +83,7 @@ export const InputForm = ({type, icon, label, errorMessage, field, keyboardType,
         }
       </View>
       {errorMessage ? (
-        <Text style={[styles.info, {color: red}]}>{errorMessage}</Text>
+        <Text style={[styles.info, {color: red}]}>{translate(errorMessage)}</Text>
       ) : (
         <Text style={[styles.info, {color: Theme.gray}]} />
       )}

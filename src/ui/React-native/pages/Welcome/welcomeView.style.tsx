@@ -52,7 +52,7 @@ const WelcomeViewStyles = (pageBackgroundColor: string, containerBackgroundColor
 		fontSize: FontSize.medium,
 		textAlign: 'center',
 		color: textColor,
-		fontWeight: '600'
+		fontWeight: '300'
 	},
 	indicatorsContainer: {
 		flexDirection: 'row',

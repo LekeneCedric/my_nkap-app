@@ -2,11 +2,11 @@ import * as yup from 'yup';
 export const AddCategoryFormSchemaValidate = yup.object({
     color: yup
         .string()
-        .required('choisissez une couleur !'),
+        .required('category_color_required'),
     icon: yup
         .string()
-        .required('Choisissez une icone !'),
+        .required('category_icon_required'),
     name: yup
         .string()
-        .required('Renseignez un nom !'),
+        .required('category_name_required'),
 })

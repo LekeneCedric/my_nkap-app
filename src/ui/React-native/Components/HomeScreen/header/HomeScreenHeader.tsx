@@ -9,6 +9,7 @@ import HomeScreenHeaderStyle from "./HomeScreenHeader.style";
 import useHomeScreenHeader from "./useHomeScreenHeader.ts";
 import {FontSize} from "../../../Global/FontSize.ts";
 import useConfiguration from "../../../Shared/Hooks/useConfiguration.ts";
+import useMoneyParser from "../../../Shared/useMoneyParser.ts";
 
 type props = {
     userName: string,
@@ -18,6 +19,9 @@ const HomeScreenHeader = ({props}: props) => {
     const {
         totalBalance,
     } = useHomeScreenHeader();
+    const {
+        parseThousand
+    } = useMoneyParser();
     const {
         switchCanSeeAmount,
         displayAmount
@@ -34,7 +38,7 @@ const HomeScreenHeader = ({props}: props) => {
             </TouchableOpacity>
             <TouchableOpacity onPress={switchCanSeeAmount} style={{backgroundColor: action1Container, padding: 5, borderRadius: 8}}>
                 <Text numberOfLines={1} style={{fontSize: FontSize.medium, fontWeight: 'bold', color: action1}}>
-                    {displayAmount(`XAF ${totalBalance}`)}
+                    {displayAmount(`XAF ${parseThousand(totalBalance)}`)}
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.iconContainer, {backgroundColor: containerBackground, padding: 8}]}>

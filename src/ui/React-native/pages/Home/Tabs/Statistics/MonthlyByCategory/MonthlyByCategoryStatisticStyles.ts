@@ -12,7 +12,6 @@ const MonthlyByCategoryStatisticStyles = ({pageBackground, containerBackground, 
             flex: 1,
             backgroundColor: pageBackground,
             paddingTop: 10,
-            paddingBottom: 50,
         },
         title: {
             color: text,

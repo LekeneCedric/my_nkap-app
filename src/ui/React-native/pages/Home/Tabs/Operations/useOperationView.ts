@@ -34,6 +34,7 @@ import IGetAllCategoryCommand from "../../../../../../Feature/Category/Thunks/Ge
 import GetAllCategoryAsync from "../../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
 import {MonthItem} from "../../../../../../Domain/Shared/Months.ts";
 import ISelectItem from "../../../../Components/Forms/Select/SelectItem.ts";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 
 interface UseTransactionViewBehaviour {
     accounts: IAccount[],
@@ -57,6 +58,8 @@ interface UseTransactionViewBehaviour {
     accountsList: ISelectItem[],
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
+    const {translate} = useCustomTranslation();
+    const todayFormatted = translate('today');
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const operationFilterParams = useAppSelector(selectOperationsFilterParams);
     const bounceValue = useRef(new Animated.Value(0)).current;
@@ -190,7 +193,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         const previousDay = operationFilterParams.selectedDate ? new Date(operationFilterParams.selectedDate) : new Date();
         previousDay.setDate(previousDay.getDate() - numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(previousDay);
-        const formattedDate = formatDateToReadable(previousDay);
+        const formattedDate = formatDateToReadable(previousDay, todayFormatted);
         dispatch(ChangeOperationFilterParam({
             ...operationFilterParams,
             selectedDate: previousDay,
@@ -205,7 +208,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         const nextDay = operationFilterParams.selectedDate ? new Date(operationFilterParams.selectedDate) : new Date();
         nextDay.setDate(nextDay.getDate() + numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(nextDay);
-        const formattedDate = formatDateToReadable(nextDay);
+        const formattedDate = formatDateToReadable(nextDay, todayFormatted);
         if (today.getTime() >= nextDayBeforeComparison.getTime()) {
             dispatch(ChangeOperationFilterParam({
                 ...operationFilterParams,
