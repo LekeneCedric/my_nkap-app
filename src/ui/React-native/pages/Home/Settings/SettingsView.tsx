@@ -15,12 +15,16 @@ import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SettingsViewStyles from "./SettingsView.style";
 import MenuView from "./Components/Menu/MenuView.tsx";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import { FontSize } from "../../../Global/FontSize.ts";
 
 const SettingsView = () => {
   const {translate} = useCustomTranslation();
-  const {menuItems} = useSettingsView();
+  const {
+    menuItems,
+    linkToMyGithubProfile
+  } = useSettingsView();
   const {goBack} = useCustomNavigation();
-  const {colorPalette: {pageBackground, containerBackground, text}}= useTheme();
+  const {colorPalette: {pageBackground, text, action1}}= useTheme();
   const styles= SettingsViewStyles(pageBackground, text);
 
   return (
@@ -39,6 +43,30 @@ const SettingsView = () => {
         <ScrollView>
           <MenuView menus={menuItems}/>
         </ScrollView>
+      </View>
+      <View 
+        style={{
+          alignSelf: 'center',
+          flexDirection: 'row',
+          alignItems: 'center',
+          position: 'absolute',
+          bottom: 80
+        }}>
+        <Text 
+          style={{
+            color: text,
+            fontSize: FontSize.normal,
+            fontWeight: '300'
+          }}>Powered by</Text>
+        <TouchableOpacity onPress={linkToMyGithubProfile}>
+          <Text 
+            style={{
+              marginLeft: 5,
+              color: action1,
+              fontSize: FontSize.normal,
+              fontWeight: 'bold'
+            }}>@Lekene Cedric</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

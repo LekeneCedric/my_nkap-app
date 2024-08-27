@@ -53,7 +53,7 @@ const SelectModalView = ({
                         setInputSearch(text);
                         sortList(text)
                     }}/>
-                    <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
+                    <TouchableOpacity onPress={()=>{clearSearch(true)}} style={{flex: 1, alignItems: 'center'}}>
                         <Icon name={Icons.close} size={IconSizes.normal} color={text}/>
                     </TouchableOpacity>
                 </View>

@@ -61,7 +61,7 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                         setInputSearch(text);
                         sortList(text)
                     }}/>
-                    <TouchableOpacity onPress={clearSearch} style={{flex: 1, alignItems: 'center'}}>
+                    <TouchableOpacity onPress={()=>{clearSearch(true)}} style={{flex: 1, alignItems: 'center'}}>
                         <Icon name={Icons.close} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
                 </View>

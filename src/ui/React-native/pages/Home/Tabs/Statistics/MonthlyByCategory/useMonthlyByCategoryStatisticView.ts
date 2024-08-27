@@ -55,7 +55,7 @@ const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView =>
         .filter(item => item.percentage > 0)
         .map((item) => {
             return {
-                name: item.categoryLabel,
+                name: '',
                 population: item.totalIncome,
                 color: item.categoryColor,
                 legendFontColor: item.categoryColor,
@@ -68,7 +68,7 @@ const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView =>
         .filter(item => item.percentage > 0)
         .map((item) => {
             return {
-                name: item.categoryLabel,
+                name: '',
                 population: item.totalExpense,
                 color: item.categoryColor,
                 legendFontColor: item.categoryColor,

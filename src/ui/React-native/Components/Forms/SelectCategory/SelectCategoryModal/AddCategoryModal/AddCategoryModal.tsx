@@ -31,7 +31,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
     const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
     const colorsList = ColorsList;
     const {formState: {errors}, control, handleSubmit} = form;
-    const {colorPalette: {pageBackground, containerBackground, text, red, action1, gray}} = useTheme();
+    const {colorPalette: {pageBackground, containerBackground, text, action1, gray}} = useTheme();
     const styles = AddCategoryModalStyles(pageBackground, containerBackground, text, action1, gray);
     return <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>
         <ScrollView>

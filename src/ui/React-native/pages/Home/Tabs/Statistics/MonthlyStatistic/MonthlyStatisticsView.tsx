@@ -11,6 +11,7 @@ import useMonthlyStatistics from "./useMonthlyStatistics.ts";
 import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
 import useMoneyParser from "../../../../../Shared/useMoneyParser.ts";
 import {LoadingState} from "../../../../../../../Domain/Enums/LoadingState.ts";
+import Loading from "../../../../../Components/Loading/Loading.tsx";
 
 const MonthlyStatisticsView = () => {
   const {currentLanguage} = useCustomTranslation();
@@ -54,13 +55,11 @@ const MonthlyStatisticsView = () => {
     <View style={styles.container}>
       {loadingState == LoadingState.pending && (
         <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-          <Text
-            style={{
-              color: text,
-              fontSize: FontSize.medium,
-            }}>
-            {translate("any_stats_data")}
-          </Text>
+          <Loading
+                   color={action1}
+                   textColor={text}
+                   message= {translate('load_stats_data')}
+            /> 
         </View>
       )}
       {
@@ -102,8 +101,8 @@ const MonthlyStatisticsView = () => {
                   size={IconSizes.medium}
                   name={
                     monthlyStatistics.expenses?.difference! > 0
-                      ? Icons.chevron.down
-                      : Icons.chevron.up
+                      ? Icons.chevron.up
+                      : Icons.chevron.down
                   }
                   color={
                     monthlyStatistics.expenses?.difference! > 0 ? red : green
@@ -116,7 +115,7 @@ const MonthlyStatisticsView = () => {
                       monthlyStatistics.expenses?.difference! > 0 ? red : green,
                   }}
                 >
-                  {parseThousand(monthlyStatistics.expenses?.difference ?? 0)}{" "}
+                  {parseThousand(Math.abs(monthlyStatistics.expenses?.difference ?? 0))}{" "}
                   XAF
                 </Text>
               </View>
@@ -191,9 +190,9 @@ const MonthlyStatisticsView = () => {
                 <Icon
                   size={IconSizes.medium}
                   name={
-                    monthlyStatistics.incomes?.difference! < 0
-                      ? Icons.chevron.down
-                      : Icons.chevron.up
+                    monthlyStatistics.incomes?.difference! > 0
+                      ? Icons.chevron.up
+                      : Icons.chevron.down
                   }
                   color={
                     monthlyStatistics.incomes?.difference! < 0 ? red : green
@@ -206,7 +205,7 @@ const MonthlyStatisticsView = () => {
                       monthlyStatistics.incomes?.difference! < 0 ? red : green,
                   }}
                 >
-                  {parseThousand(monthlyStatistics.incomes?.difference ?? 0)}{" "}
+                  {parseThousand(Math.abs(monthlyStatistics.incomes?.difference ?? 0))}{" "}
                   XAF
                 </Text>
               </View>

@@ -8,6 +8,7 @@ import {persistStore} from "redux-persist";
 import {store} from "../../../../../app/store.ts";
 import {useToast} from "react-native-toast-notifications";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import { Linking } from "react-native";
 
 interface IMenuItem {
     title: string,
@@ -25,7 +26,8 @@ export interface IMenu {
 }
 
 interface UseSettingsView {
-    menuItems: IMenu[]
+    menuItems: IMenu[],
+    linkToMyGithubProfile: () => void,
 }
 
 const useSettingsView = (): UseSettingsView => {
@@ -107,8 +109,13 @@ const useSettingsView = (): UseSettingsView => {
             ]
         }
     ];
+
+    const linkToMyGithubProfile = () => {
+        Linking.openURL('https://github.com/LekeneCedric');
+    }
     return {
-        menuItems: menuItems
+        menuItems: menuItems,
+        linkToMyGithubProfile: linkToMyGithubProfile,
     };
 }
 export default useSettingsView;

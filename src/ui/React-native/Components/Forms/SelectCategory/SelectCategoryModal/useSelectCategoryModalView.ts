@@ -21,7 +21,7 @@ type useSelectCategoryModalViewBehaviour = {
     form: UseFormReturn<IAddCategoryForm>,
     onSubmit: (data: IAddCategoryForm) => void,
     loading: LoadingState,
-    clearSearch: () => void,
+    clearSearch: (shouldClearIfEmptySearch: boolean) => void,
 }
 export const useSelectCategoryModalView = (initialList : any[], closeAddCategoryModal: () => void, closeModal: () => void): useSelectCategoryModalViewBehaviour =>
 {
@@ -84,13 +84,15 @@ export const useSelectCategoryModalView = (initialList : any[], closeAddCategory
         const newFilterList = initialList.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
         setFilterList(newFilterList);
     }
-    const clearSearch = () => {
+    const clearSearch = (shouldClearIfEmptySearch: boolean = false) => {
         if (inputSearch.length > 0) {
             setInputSearch('');
             sortList('');
             return;
         }
-        closeModal();
+        if (shouldClearIfEmptySearch) {
+            closeModal();
+        }
     }
     useEffect(() => {
         setFilterList(initialList);

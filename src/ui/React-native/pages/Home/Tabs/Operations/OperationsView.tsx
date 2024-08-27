@@ -196,6 +196,9 @@ const Transactions = () => {
                             )
                         }
                         <View style={styles.transactionFilterContainer}>
+                            <TouchableOpacity style={styles.transactionFilterCalendar}>
+                                <Icon name={Icons.filter} size={IconSizes.medium} color={action1}/>
+                            </TouchableOpacity>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 <View style={styles.transactionFilterCategories}>
                                     {
@@ -278,10 +281,6 @@ const Transactions = () => {
 
                                 </View>
                             </ScrollView>
-
-                            <TouchableOpacity style={styles.transactionFilterCalendar}>
-                                <Icon name={Icons.filter} size={IconSizes.medium} color={action1}/>
-                            </TouchableOpacity>
                         </View>
 
                     </View>

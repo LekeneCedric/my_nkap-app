@@ -13,6 +13,8 @@ import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslati
 import { LoadingState } from "../../../../../../../Domain/Enums/LoadingState.ts";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import Loading from "../../../../../Components/Loading/Loading.tsx";
+import { useAppSelector } from "../../../../../../../app/hook.ts";
+import { selectCurrentTheme } from "../../../../../../../Feature/Configuration/ConfigurationSelector.ts";
 
 const MonthlyByCategoryStatisticView = () => {
   const {translate} = useCustomTranslation();
@@ -26,6 +28,7 @@ const MonthlyByCategoryStatisticView = () => {
     loadingState,
   } = useMonthlyByCategoryStatisticView();
   const {parseThousand} = useMoneyParser();
+  const currenTheme = useAppSelector(selectCurrentTheme);
   const {
     colorPalette: {
       pageBackground,
@@ -109,6 +112,7 @@ const MonthlyByCategoryStatisticView = () => {
 
             <ScrollView horizontal={true}>
               <PieChart
+                
                 data={isShowIncomes ? incomesChartData : expensesChartData}
                 width={wp(90)}
                 height={hp(25)}
@@ -146,14 +150,14 @@ const MonthlyByCategoryStatisticView = () => {
               />
             </ScrollView>
             <View style={[styles.tableRowContainer]}>
-              <Text style={[styles.tableColTitle, {flex: 4, color: action1}]}>
+              <Text style={[styles.tableColTitle, {flex: 4, color: currenTheme == 'dark' ? containerBackground : gray}]}>
                 {translate("category")}
               </Text>
               {/*<Text style={[styles.tableColTitle, {flex: 1}]}>%</Text>*/}
               <Text
                 style={[
                   styles.tableColTitle,
-                  {flex: 2, textAlign: "center", color: action1},
+                  {flex: 2, textAlign: "center", color: currenTheme == 'dark' ? containerBackground: gray},
                 ]}
               >
                 {translate("amount")}(XAF)
@@ -199,7 +203,7 @@ const MonthlyByCategoryStatisticView = () => {
                           <Text
                             style={[
                               styles.tableColItem,
-                              {flex: 2, textAlign: "center", padding: 10},
+                              {flex: 2, textAlign: "center", padding: 10, fontWeight: 'bold'},
                             ]}
                             numberOfLines={1}
                           >

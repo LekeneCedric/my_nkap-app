@@ -6,7 +6,7 @@ type useSelectModalViewBehaviour = {
     setInputSearch: Dispatch<SetStateAction<string>>,
     filterList: any[],
     sortList: (name: string) => void,
-    clearSearch: () => void,
+    clearSearch: (shouldCloseIfEmptySearch: boolean) => void,
 }
 export const useSelectModalView = (initialList : any[], closeModal: () => void,): useSelectModalViewBehaviour => {
     const [inputSearch, setInputSearch] = useState<string>('');
@@ -17,13 +17,15 @@ export const useSelectModalView = (initialList : any[], closeModal: () => void,)
         const newFilterList = initialList.filter(item => normalizeString(item.name).includes(normalizeString(searchElement)));
         setFilterList(newFilterList);
     }
-    const clearSearch = () => {
+    const clearSearch = (shouldCloseIfEmptySearch: boolean = false) => {
         if (inputSearch.length > 0) {
             setInputSearch('');
-            sortList('')
+            sortList('');
             return;
         }
-        closeModal()
+        if (shouldCloseIfEmptySearch) {
+            closeModal();
+        }
     }
     useEffect(() => {
         setFilterList(initialList);
