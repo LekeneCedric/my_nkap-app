@@ -11,3 +11,7 @@ export const selectMonthlyCategoryByStatistics = (state: RootState) => {
 export const selectStatisticsCurrentMonth = (state: RootState) => {
     return state.statisticsReducer.currentMonth;
 }
+
+export const selectStatisticsLoading = (state: RootState) => {
+    return state.statisticsReducer.loading;
+}

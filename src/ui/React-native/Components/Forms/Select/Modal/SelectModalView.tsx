@@ -25,16 +25,15 @@ type selectModalViewProps = {
 const SelectModalView = ({
     action, closeModal, isVisible, list, notFoundMessage, notFoundLinkName, notFoundLinkAction
 }: selectModalViewProps) => {
-    const [inputSearch, setInputSearch] = useState<string>('');
-    const {filterList, sortList} = useSelectModalView(list);
-    const clearSearch = () => {
-        if (inputSearch.length > 0) {
-            setInputSearch('');
-            sortList('')
-            return;
-        }
-        closeModal()
-    }
+    const {
+        inputSearch,
+        setInputSearch,
+        filterList,
+        sortList,
+        clearSearch,
+    } = useSelectModalView(list, closeModal);
+
+    
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1}} = useTheme();
     const styles = SelectModalViewStyle(pageBackground, containerBackground, text, gray);
     return (

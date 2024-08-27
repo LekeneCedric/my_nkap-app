@@ -9,9 +9,9 @@ type LoadingProps = {
 }
 const Loading = ({message, color, textColor}: LoadingProps) => {
     return (
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-            <ActivityIndicator color={color } size={IconSizes.normal} />
-            <Text style={{color: textColor ? textColor : color, fontSize: FontSize.normal}}>{message}</Text>
+        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <ActivityIndicator color={color } size={IconSizes.medium} />
+            <Text style={{color: textColor ? textColor : color, fontSize: FontSize.medium}}>{message}</Text>
         </View>
     )
 }

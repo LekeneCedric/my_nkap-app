@@ -7,10 +7,12 @@ import GetAllMonthlyByCategoryStatisticsCommand
 import {selectUser} from "../../../../../../../Feature/Authentication/AuthenticationSelector.ts";
 import {
     selectMonthlyCategoryByStatistics,
+    selectStatisticsLoading,
     selectStatisticsCurrentMonth
 } from "../../../../../../../Feature/Statistics/StatisticsSelectors.ts";
 import {FontSize} from "../../../../../Global/FontSize.ts";
 import useUtils from "../../../../../utils/useUtils.ts";
+import { LoadingState } from "../../../../../../../Domain/Enums/LoadingState.ts";
 
 type ChartDataItem = {
     name: string,
@@ -35,6 +37,7 @@ interface IMonthlyByCategoryStatisticView {
     expensesStatsData: StatsDataItem[];
     isShowIncomes: boolean;
     switchIsShowIncomes: (value: boolean) => void;
+    loadingState: LoadingState,
 }
 
 const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView => {
@@ -47,6 +50,7 @@ const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView =>
     const currentYear = new Date().getFullYear();
     const currentMonth = useAppSelector(selectStatisticsCurrentMonth);
     const monthlyByCategoryStatistics = useAppSelector(selectMonthlyCategoryByStatistics);
+    const loadingStatistics = useAppSelector(selectStatisticsLoading)
     const incomesChartData: ChartDataItem[] = monthlyByCategoryStatistics?.incomes
         .filter(item => item.percentage > 0)
         .map((item) => {
@@ -103,13 +107,13 @@ const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView =>
     const switchIsShowIncomes = (value: boolean) => {
         setIsShowIncomes(value);
     }
-    const getAllMonthlyByCategoryStatistics = () => {
+    const getAllMonthlyByCategoryStatistics = async () => {
         const command: GetAllMonthlyByCategoryStatisticsCommand = {
             userId: userId,
             year: currentYear,
             month: currentMonth,
         }
-        dispatch(GetAllMonthlyBycategoryStatisticAsync(command));
+        await dispatch(GetAllMonthlyBycategoryStatisticAsync(command));
     }
     useEffect(() => {
         getAllMonthlyByCategoryStatistics();
@@ -121,6 +125,7 @@ const useMonthlyByCategoryStatisticView = (): IMonthlyByCategoryStatisticView =>
         expensesStatsData: expensesStatsData,
         isShowIncomes: isShowIncomes,
         switchIsShowIncomes: switchIsShowIncomes,
+        loadingState: loadingStatistics,
     }
 };
 

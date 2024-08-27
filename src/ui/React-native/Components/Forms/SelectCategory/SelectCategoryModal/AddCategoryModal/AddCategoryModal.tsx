@@ -57,13 +57,13 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                         control={control}
                         name={'name'}
                         render={({field}) => {
-                            field.value = defaultName;
                             return (
                                 <InputForm
                                     icon={Icons.category}
                                     errorMessage={errors.name?.message}
                                     label={translate('category_name')}
                                     field={field}
+                                    defaultValue={defaultName}
                                     keyboardType={'default'}
                                     placeholder={translate('category_name_placeholder')}
                                 />

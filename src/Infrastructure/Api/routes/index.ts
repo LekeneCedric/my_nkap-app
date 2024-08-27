@@ -5,7 +5,8 @@ import OperationsRoutes from "./OperationsRoutes.ts";
 import CategoryRoutes from "./CategoryRoutes.ts";
 import FinancialGoalRoutes from "./FinancialGoalRoutes.ts";
 import StatisticsRoutes from "./StatisticsRoutes.ts";
-export const BASE_API_ROUTES = 'http://192.168.43.31:8001/api';
+
+export const BASE_API_ROUTES = process.env.API_URL ?? 'http://192.168.43.31:8001/api';
 
 export const ApiRoutes = {
     professions: ProfessionApiRoutes,

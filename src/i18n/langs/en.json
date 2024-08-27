@@ -158,5 +158,7 @@
   "french": "French",
   "light": "Light",
   "dark": "Dark",
-  "of": "of"
+  "of": "of",
+  "any_stats_data": "No statistical data for this month",
+  "load_stats_data": "Statistical data recovery"
 }

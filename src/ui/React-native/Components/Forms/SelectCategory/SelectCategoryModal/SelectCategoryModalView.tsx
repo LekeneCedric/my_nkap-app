@@ -23,28 +23,24 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
     const {colorPalette: {pageBackground, containerBackground, action1, text }} = useTheme();
     const styles = SelectCategoryModalViewStyle(pageBackground, containerBackground, text, action1);
     const [addCategoryModalIsVisible, setAddCategoryModalIsVisible] = useState(false);
-    const [inputSearch, setInputSearch] = useState<string>('');
     const showAddCategoryModal = () => {
         setAddCategoryModalIsVisible(true);
     }
     const closeAddCategoryModal = () => {
         setAddCategoryModalIsVisible(false);
     }
+    
     const {
+        inputSearch,
+        setInputSearch,
         filterList,
         sortList,
         form,
         onSubmit,
         loading,
-    } = useSelectCategoryModalView(list, closeAddCategoryModal);
-    const clearSearch = () => {
-        if (inputSearch.length > 0) {
-            setInputSearch('');
-            sortList('');
-            return;
-        }
-        closeModal();
-    }
+        clearSearch,
+    } = useSelectCategoryModalView(list, closeAddCategoryModal, closeModal);
+    
     return <>
         <AddCategoryModal
             defaultName={inputSearch}

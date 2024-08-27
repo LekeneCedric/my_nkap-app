@@ -158,5 +158,7 @@
   "french": "Français",
   "light": "Blanc",
   "dark": "Sombre",
-  "of": "de"
+  "of": "de",
+  "any_stats_data": "aucune donnée ne statistique pour ce mois",
+  "load_stats_data": "Récupération de données statistiques"
 }

@@ -14,7 +14,8 @@ import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type inputFormProps = {
-  type?: 'amount'
+  type?: 'amount',
+  defaultValue?: string,
   icon: string,
   label: string,
   errorMessage?: string,
@@ -22,7 +23,7 @@ type inputFormProps = {
   keyboardType: KeyboardType,
   placeholder: string
 }
-export const InputForm = ({type, icon, label, errorMessage, field, keyboardType, placeholder}: inputFormProps) => {
+export const InputForm = ({defaultValue, type, icon, label, errorMessage, field, keyboardType, placeholder}: inputFormProps) => {
   const {translate} = useCustomTranslation();
   const {colorPalette: {pageBackground, containerBackground, gray, text, red, action1}} = useTheme();
   const styles = InputFormStyles(pageBackground, containerBackground, text, gray);
@@ -37,7 +38,12 @@ export const InputForm = ({type, icon, label, errorMessage, field, keyboardType,
       setCurrentValue(String(field.value));
     }
     if (!field.value && type === 'amount') {
-      field.onChange(0)
+      field.onChange(0);
+    }
+    if (defaultValue) {
+      setInitialValue(defaultValue);
+      setCurrentValue(defaultValue);
+      field.onChange(defaultValue);
     }
   }, []);
   return (

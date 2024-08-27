@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useForm, UseFormReturn} from "react-hook-form";
 import IAddCategoryForm from "../../../../../../Infrastructure/Validators/Forms/Category/AddCategoryForm.ts";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -14,14 +14,20 @@ import {selectCategoryLoadingState} from "../../../../../../Feature/Category/Cat
 import {LoadingState} from "../../../../../../Domain/Enums/LoadingState.ts";
 
 type useSelectCategoryModalViewBehaviour = {
+    inputSearch: string,
+    setInputSearch: Dispatch<SetStateAction<string>>,
     filterList: any[],
     sortList: (name: string) => void,
     form: UseFormReturn<IAddCategoryForm>,
     onSubmit: (data: IAddCategoryForm) => void,
     loading: LoadingState,
+    clearSearch: () => void,
 }
-export const useSelectCategoryModalView = (initialList : any[], closeAddCategoryModal: () => void): useSelectCategoryModalViewBehaviour =>
+export const useSelectCategoryModalView = (initialList : any[], closeAddCategoryModal: () => void, closeModal: () => void): useSelectCategoryModalViewBehaviour =>
 {
+    const [inputSearch, setInputSearch] = useState<string>('');
+    const [filterList, setFilterList] = useState<any[]>(initialList);
+
     const userId = useAppSelector(selectUser)?.userId;
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectCategoryLoadingState);
@@ -32,7 +38,7 @@ export const useSelectCategoryModalView = (initialList : any[], closeAddCategory
     const onSubmit = async (data: IAddCategoryForm) => {
         console.log('save category');
         data.userId = userId;
-
+        console.log(data);
         const response = await dispatch(SaveCategoryAsync({
             userId: userId!,
             name: data.name,
@@ -41,6 +47,8 @@ export const useSelectCategoryModalView = (initialList : any[], closeAddCategory
             description: data.description,
         }));
         if (SaveCategoryAsync.fulfilled.match(response)) {
+            console.log(response.payload.message);
+
             const categoryId = response.payload.categoryId;
             dispatch(AddCategory({
                 id: categoryId,
@@ -49,13 +57,14 @@ export const useSelectCategoryModalView = (initialList : any[], closeAddCategory
                 color: data.color,
                 description: data.description,
             }));
+            closeAddCategoryModal();
+
             toast.show('Nouvelle catégorie ajouté avec succès !', {
                 type: "success",
                 placement: "top",
                 duration: 3000,
                 animationType: "slide-in",
             });
-            closeAddCategoryModal();
         }
         if (SaveCategoryAsync.rejected.match(response)) {
             // @ts-ignore
@@ -70,17 +79,31 @@ export const useSelectCategoryModalView = (initialList : any[], closeAddCategory
 
         }
     }
-    const [filterList, setFilterList] = useState<any[]>(initialList);
     const sortList = (name: string) => {
         if (name.length == 0) setFilterList(initialList);
         const newFilterList = initialList.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
         setFilterList(newFilterList);
     }
+    const clearSearch = () => {
+        if (inputSearch.length > 0) {
+            setInputSearch('');
+            sortList('');
+            return;
+        }
+        closeModal();
+    }
+    useEffect(() => {
+        setFilterList(initialList);
+        clearSearch()
+    }, [initialList]);
     return {
+        inputSearch: inputSearch,
+        setInputSearch: setInputSearch,
         filterList: filterList,
         sortList: sortList,
         form: form,
         onSubmit: onSubmit,
         loading: loading,
+        clearSearch: clearSearch,
     }
 }
