@@ -6,4 +6,5 @@ export default interface ISaveOperationCommand {
     categoryId: string,
     date: string
     detail?: string,
+    previousAmount?: number,
 }

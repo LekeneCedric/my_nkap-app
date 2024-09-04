@@ -53,7 +53,7 @@ const monthlyStatistics = (
     getStatistics();
   }, [currentMonth]);
   useEffect(() => {
-    if (monthlyStatistics && currentLanguage) {
+    if (monthlyStatistics) {
       let incomesMonths = monthlyStatistics.incomes!.months;
       let sortedIncomesMonths = [...incomesMonths].sort((a, b) => a.month - b.month);
 

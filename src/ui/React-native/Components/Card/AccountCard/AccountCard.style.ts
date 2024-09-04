@@ -29,7 +29,7 @@ const AccountCardStyles = (pageColor: string, containerColor: string, textColor:
     amount: {
       color: textColor,
       fontWeight: "bold",
-      fontSize: FontSize.medium,
+      fontSize: FontSize.normal,
     },
     statsContainer: {
       flexDirection: "row",

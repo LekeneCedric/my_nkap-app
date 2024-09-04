@@ -28,7 +28,7 @@ const AccountCard = ({data}: props) => {
                 <TouchableOpacity style={[styles.iconContainer, {backgroundColor: data.color}]}>
                     <Icon style={styles.icon} name={data.icon} size={IconSizes.normal} color={light}/>
                 </TouchableOpacity>
-                <View>
+                <View style={{flex: 1}}>
                     <Text numberOfLines={1} style={styles.title}>{data.name}</Text>
                     <Text numberOfLines={1} style={styles.amount}>
                         {displayAmount(`XAF ${parseThousand(data.balance)}`)}

@@ -10,17 +10,19 @@ import {useState} from "react";
 import Animated, {BounceInDown, BounceInUp, LightSpeedInLeft, LightSpeedOutRight} from "react-native-reanimated";
 import TransactionItem from "../TransactionItem/TransactionItem.tsx";
 import useMoneyParser from "../../Shared/useMoneyParser.ts";
+import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     data: OperationDateItem
 }
 const OperationByDateItem = ({data}: props) => {
+    const {translate, currentLanguage} = useCustomTranslation();
     const {
         day,
         month,
         year,
         week,
-    } = useDateParser(data.date);
+    } = useDateParser(data.date, currentLanguage);
     const {
         parseThousand,
     } = useMoneyParser();

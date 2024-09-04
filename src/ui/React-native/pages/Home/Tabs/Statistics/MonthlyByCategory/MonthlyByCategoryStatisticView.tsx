@@ -59,9 +59,9 @@ const MonthlyByCategoryStatisticView = () => {
             )
         }
         {
-            loadingState == LoadingState.success &&
-            incomesStatsData.length === 0 &&
-            expensesStatsData.length === 0 &&
+          loadingState != LoadingState.pending &&
+            (incomesStatsData.length == 0 &&
+            expensesStatsData.length == 0 ) &&
             (
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                    <Text style={{
@@ -75,7 +75,7 @@ const MonthlyByCategoryStatisticView = () => {
         }
       {
       loadingState == LoadingState.success &&
-      (incomesStatsData.length > 0 || expensesStatsData.length > 0) &&
+      ((incomesStatsData.length > 0) || (expensesStatsData.length > 0)) &&
        (
         <>
           <View style={{alignItems: "center"}}>

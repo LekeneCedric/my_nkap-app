@@ -15,6 +15,11 @@ import {LoadingState} from "../../../../../../Domain/Enums/LoadingState.ts";
 import {useToast} from "react-native-toast-notifications";
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 
+type FinancialGoalFilterParam = {
+    backgroundColor: string,
+    value: FinancialGoalStatus,
+};
+
 interface IUseFinancialGoalViewBehaviour {
     bounceValue: Animated.Value,
     navigateToAddFinancialGoals: () => void,
@@ -28,10 +33,6 @@ interface IUseFinancialGoalViewBehaviour {
     updateSelectedStatus: (status: FinancialGoalStatus) => void
 }
 
-type FinancialGoalFilterParam = {
-    backgroundColor: string,
-    value: FinancialGoalStatus,
-};
 const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
     const dispatch = useAppDispatch();
     const userId = useAppSelector(selectUser)!.userId;
@@ -43,6 +44,22 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
     const financialGoals = useAppSelector(selectFinancialGoals);
     const {colorPalette: {red, action1, green}} = useTheme();
     const [selectedStatus, setSelectedStatus] = useState<FinancialGoalStatus|null>(null)
+
+    const onRefresh = async () => {
+        setFinancialGoalsIsPendingRefreshing(true);
+    }
+    const loadFinancialGoals = async () => {
+        const response = await dispatch(GetAllFinancialGoalAsync({userId: userId}));
+        if (GetAllFinancialGoalAsync.rejected.match(response)) {
+            // @ts-ignore
+            toast.show(response.payload.message, {
+                type: "danger",
+                placement: "top",
+                duration: 3000,
+                animationType: "slide-in",
+            });
+        }
+    }
 
     const financialGoalsFilterProps: FinancialGoalFilterParam[] = [
         {
@@ -63,21 +80,6 @@ const useFinancialGoalsView = (): IUseFinancialGoalViewBehaviour => {
         navigateByPath(routes.home.addFinancialGoals);
     }
 
-    const onRefresh = async () => {
-        setFinancialGoalsIsPendingRefreshing(true);
-    }
-    const loadFinancialGoals = async () => {
-        const response = await dispatch(GetAllFinancialGoalAsync({userId: userId}));
-        if (GetAllFinancialGoalAsync.rejected.match(response)) {
-            // @ts-ignore
-            toast.show(response.payload.message, {
-                type: "danger",
-                placement: "top",
-                duration: 3000,
-                animationType: "slide-in",
-            });
-        }
-    }
     const financialGoalStatus = (f: IFinancialGoal) => {
         const today = new Date();
         const endDate = new Date(f.endDate);

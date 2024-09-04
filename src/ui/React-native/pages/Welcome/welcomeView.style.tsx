@@ -12,21 +12,19 @@ const WelcomeViewStyles = (pageBackgroundColor: string, containerBackgroundColor
 		backgroundColor: pageBackgroundColor
 	},
 	logo: {
-		width: wp('40%'),
-		height: hp('19.5%'),
 		alignSelf: 'center',
 		backgroundColor: pageBackgroundColor,
 	},
 	container1: {
 		backgroundColor: pageBackgroundColor,
-		flex: 4,
+		flex: 7,
 		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
 	container2: {
 		backgroundColor: containerBackgroundColor,
-		flex: 3,
+		flex: 4,
 		width: '100%',
 		alignItems: 'center',
 		padding: wp('5%'),

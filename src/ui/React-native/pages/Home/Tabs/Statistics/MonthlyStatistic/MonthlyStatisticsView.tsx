@@ -23,7 +23,6 @@ const MonthlyStatisticsView = () => {
     colorPalette: {
       pageBackground,
       containerBackground,
-      gray,
       red,
       text,
       action1,
@@ -63,9 +62,8 @@ const MonthlyStatisticsView = () => {
         </View>
       )}
       {
-        loadingState == LoadingState.success && 
-        ((monthlyStatistics.incomes?.data ?? []).length == 0 ||
-          (monthlyStatistics.expenses?.data ?? []).length == 0) && (
+        ((monthlyStatistics.incomes?.data ?? []).length == 0 &&
+          (monthlyStatistics.expenses?.data ?? []).length == 0 ) && (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                    <Text style={{
                     color: text,

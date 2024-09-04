@@ -69,7 +69,7 @@ const useUpdateOperationModalView = (toUpdateOperation: IOperationDto): useUpdat
             date: data.date + ':00',
             detail: operationDetails,
         }
-        const response = await dispatch(SaveOperationAsync({...operation, operationId: data.operationId}));
+        const response = await dispatch(SaveOperationAsync({...operation, operationId: data.operationId, previousAmount: toUpdateOperation.amount}));
         if (SaveOperationAsync.rejected.match(response)) {
             // @ts-ignore
             toast.show(response.payload.message, {

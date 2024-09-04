@@ -12,13 +12,14 @@ import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts"
 
 const AddFinancialGoalsView = () => {
     const {translate} = useCustomTranslation();
+    const {goBack} = useNavigation();
     const {
         addFinancialGoalFormBehaviour,
         accounts
     } = useAddFinancialGoalsView();
-    const {goBack} = useNavigation();
     const {colorPalette: {pageBackground, containerBackground, text, action1}} = useTheme();
     const styles = AddFinancialGoalsViewStyles(pageBackground, containerBackground);
+    
     return (
         <SafeAreaView style={[styles.pageContainer, {backgroundColor: pageBackground}]}>
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp}>

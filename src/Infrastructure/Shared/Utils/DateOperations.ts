@@ -8,12 +8,12 @@ export const formatDateToYYYYMMDD = (date: Date) => {
     return `${year}-${month}-${day}`;
 };
 
-export const formatDateToReadable = (date: Date, todayFormatted: string): string => {
+export const formatDateToReadable = (date: Date, todayFormatted: string, currentLanguage: string = 'fr'): string => {
     const today = new Date();
-    if (today.getDate() == date.getDate()) {
+    if ((today.getMonth() == date.getMonth()) && (today.getDay() == date.getDay())) {
         return todayFormatted;
     }
-    return date.toLocaleDateString('fr-FR', {
+    return date.toLocaleDateString(currentLanguage, {
         day: 'numeric',
         month: 'long',
         year: 'numeric'

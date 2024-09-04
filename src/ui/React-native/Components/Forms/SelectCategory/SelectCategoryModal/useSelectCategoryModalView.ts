@@ -36,6 +36,7 @@ export const useSelectCategoryModalView = (initialList : any[], closeAddCategory
         resolver: yupResolver(AddCategoryFormSchemaValidate)
     });
     const onSubmit = async (data: IAddCategoryForm) => {
+        form.reset()
         console.log('save category');
         data.userId = userId;
         console.log(data);

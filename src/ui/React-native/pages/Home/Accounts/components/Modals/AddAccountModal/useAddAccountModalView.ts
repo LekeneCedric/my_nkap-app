@@ -30,7 +30,6 @@ interface useAddAccountModalViewBehaviour {
 
 const useAddAccountModalView = (closeModal: () => void, isUpdate?: boolean, account?: IAccount, ): useAddAccountModalViewBehaviour => {
     const dispatch = useAppDispatch();
-    const {goBack} = useNavigation();
     const toast = useToast();
     const userId = useAppSelector(selectUser)!.userId
     const loadingState = useAppSelector(selectAccountLoadingState);
@@ -70,6 +69,7 @@ const useAddAccountModalView = (closeModal: () => void, isUpdate?: boolean, acco
         }
     }
     const onSubmit = async (data: AddAccountForm) => {
+        form.reset();
         const command = {
             userId: data.userId,
             name: data.name,

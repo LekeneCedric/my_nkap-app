@@ -58,7 +58,7 @@ interface UseTransactionViewBehaviour {
     accountsList: ISelectItem[],
 }
 const useOperationsView = (): UseTransactionViewBehaviour => {
-    const {translate} = useCustomTranslation();
+    const {translate, currentLanguage} = useCustomTranslation();
     const todayFormatted = translate('today');
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const operationFilterParams = useAppSelector(selectOperationsFilterParams);
@@ -193,7 +193,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         const previousDay = operationFilterParams.selectedDate ? new Date(operationFilterParams.selectedDate) : new Date();
         previousDay.setDate(previousDay.getDate() - numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(previousDay);
-        const formattedDate = formatDateToReadable(previousDay, todayFormatted);
+        const formattedDate = formatDateToReadable(previousDay, todayFormatted, currentLanguage);
         dispatch(ChangeOperationFilterParam({
             ...operationFilterParams,
             selectedDate: previousDay,
@@ -208,7 +208,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
         const nextDay = operationFilterParams.selectedDate ? new Date(operationFilterParams.selectedDate) : new Date();
         nextDay.setDate(nextDay.getDate() + numberOfDay);
         const formattedDateToYYYMMDD = formatDateToYYYYMMDD(nextDay);
-        const formattedDate = formatDateToReadable(nextDay, todayFormatted);
+        const formattedDate = formatDateToReadable(nextDay, todayFormatted, currentLanguage);
         if (today.getTime() >= nextDayBeforeComparison.getTime()) {
             dispatch(ChangeOperationFilterParam({
                 ...operationFilterParams,
@@ -266,13 +266,24 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
             getAllCategories();
         }
         getAccounts();
-    },[])
+    },[]);
+    useEffect(() => {
+        const today = new Date();
+        const formattedDate = formatDateToReadable(today, todayFormatted, currentLanguage);
+        const formattedDateToYYYMMDD = formatDateToYYYYMMDD(today);
+        dispatch(ChangeOperationFilterParam({
+            ...operationFilterParams,
+            selectedDate: today,
+            formattedDate: formattedDate,
+            date: formattedDateToYYYMMDD,
+        }));
+    }, []);
     useEffect(() => {
         const getOperationsData = async() => {
             await getOperations({page: 1});
         }
         getOperationsData();
-    }, [operationFilterParams]);
+    }, [operationFilterParams, currentLanguage]);
 
     return {
         accounts: accounts,

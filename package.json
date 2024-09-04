@@ -2,6 +2,7 @@
   "name": "my_nkap_app",
   "version": "0.0.1",
   "private": true,
+  "registry": "https://registry.npmjs.org/",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",

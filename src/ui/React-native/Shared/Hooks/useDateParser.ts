@@ -5,7 +5,7 @@ export interface useDateParserBehaviour {
     year: string,
     week: string
 }
-const useDateParser = (inputDate: string): useDateParserBehaviour => {
+const useDateParser = (inputDate: string, currentLanguage: string = 'fr'): useDateParserBehaviour => {
 
     const date = new Date(inputDate);
 
@@ -15,10 +15,10 @@ const useDateParser = (inputDate: string): useDateParserBehaviour => {
     const weekOptions: Intl.DateTimeFormatOptions = { weekday: 'long' };
 
     // Use Intl.DateTimeFormat to format each part of the date
-    const day = new Intl.DateTimeFormat('fr-FR', dayOptions).format(date);
-    const month = new Intl.DateTimeFormat('fr-FR', monthOptions).format(date);
-    const year = new Intl.DateTimeFormat('fr-FR', yearOptions).format(date);
-    const weekday = new Intl.DateTimeFormat('fr-FR', weekOptions).format(date);
+    const day = new Intl.DateTimeFormat(currentLanguage, dayOptions).format(date);
+    const month = new Intl.DateTimeFormat(currentLanguage, monthOptions).format(date);
+    const year = new Intl.DateTimeFormat(currentLanguage, yearOptions).format(date);
+    const weekday = new Intl.DateTimeFormat(currentLanguage, weekOptions).format(date);
 
     return {
         day: day,

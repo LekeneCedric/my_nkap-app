@@ -1,14 +1,12 @@
-import {SafeAreaView, TouchableOpacity, View} from 'react-native';
+import {Image, SafeAreaView, TouchableOpacity, View} from 'react-native';
 import {useWelcomeView} from './useWelcomeView.ts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import {Icons} from "../../Global/Icons.ts";
 import {IconSizes} from "../../Global/IconSizes.ts";
-import Animated, {BounceInLeft, BounceInUp} from "react-native-reanimated";
-import {useAnimationView} from "./useAnimationView.ts";
+import Animated, {BounceInLeft} from "react-native-reanimated";
 import useTheme from "../../Shared/Hooks/useTheme.ts";
 import WelcomeViewStyles from "./welcomeView.style.tsx";
-import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 
 const Welcome = () => {
     const {
@@ -20,19 +18,17 @@ const Welcome = () => {
         prevSlide,
         goToSlide,
     } = useWelcomeView();
-    const {
-        animatedStyle,
-    } = useAnimationView();
     const {colorPalette: {pageBackground, containerBackground, text, action1, action1Text}} = useTheme();
 
     const styles = WelcomeViewStyles(pageBackground, containerBackground, text, action1, action1Text);
     return (
         <SafeAreaView style={styles.pageContainer}>
-            <Animated.View entering={BounceInUp.duration(500)} style={[styles.container1, animatedStyle]}>
-                {/*<Image*/}
-                {/* source={require('../../../assets/icons/welcome/money.png')}*/}
-                {/* style={styles.logo}*/}
-                {/*/>*/}
+            <Animated.View style={[styles.container1]}>
+                <Image
+                    source={require("../../../../assets/images/logo.png")}
+                    style={[styles.logo,{width: '100%', height:'90%'}]}
+
+                />
             </Animated.View>
             <GestureRecognizer
                 onSwipeLeft={nextSlide}

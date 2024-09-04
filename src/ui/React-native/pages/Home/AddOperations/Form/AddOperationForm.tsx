@@ -137,7 +137,10 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
             )}
         />
         <VerticalSeparator percent={1}/>
-        <ButtonForm loading={loadingState} loadingLabel={translate('pending_add_new_operation')} label={translate('add_new_operation')}
+        <ButtonForm 
+            loading={loadingState}
+            loadingLabel={isUpdate ? translate('pending_update_operation') : translate('pending_add_new_operation')}
+            label={isUpdate ? translate('update_operation') : translate('add_new_operation')}
                     handleClick={handleSubmit(onSubmit)}/>
         {
             isUpdate && (
