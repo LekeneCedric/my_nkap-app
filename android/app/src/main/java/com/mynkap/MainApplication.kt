@@ -1,4 +1,4 @@
-package com.my_nkap_app
+package com.mynkap
 
 import android.app.Application
 import com.facebook.react.PackageList

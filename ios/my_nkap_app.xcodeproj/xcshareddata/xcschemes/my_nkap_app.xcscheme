@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "my_nkap_app.app"
-               BlueprintName = "my_nkap_app"
-               ReferencedContainer = "container:my_nkap_app.xcodeproj">
+               BuildableName = "MyNkap.app"
+               BlueprintName = "MyNkap"
+               ReferencedContainer = "container:MyNkap.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "my_nkap_appTests.xctest"
-               BlueprintName = "my_nkap_appTests"
-               ReferencedContainer = "container:my_nkap_app.xcodeproj">
+               BuildableName = "MyNkapTests.xctest"
+               BlueprintName = "MyNkapTests"
+               ReferencedContainer = "container:MyNkap.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "my_nkap_app.app"
-            BlueprintName = "my_nkap_app"
-            ReferencedContainer = "container:my_nkap_app.xcodeproj">
+            BuildableName = "MyNkap.app"
+            BlueprintName = "MyNkap"
+            ReferencedContainer = "container:MyNkap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "my_nkap_app.app"
-            BlueprintName = "my_nkap_app"
-            ReferencedContainer = "container:my_nkap_app.xcodeproj">
+            BuildableName = "MyNkap.app"
+            BlueprintName = "MyNkap"
+            ReferencedContainer = "container:MyNkap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

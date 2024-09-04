@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface my_nkap_appTests : XCTestCase
+@interface MyNkapTests : XCTestCase
 
 @end
 
-@implementation my_nkap_appTests
+@implementation MyNkapTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
