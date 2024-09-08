@@ -29,6 +29,7 @@ import {
 import DeleteOperationAsync from "../../../../../Feature/Operations/Thunks/Delete/DeleteOperationAsync.ts";
 import IDeleteOperationCommand from "../../../../../Feature/Operations/Thunks/Delete/IDeleteOperationCommand.ts";
 import {UpdateFinancialGoalAfterSaveOperation} from "../../../../../Feature/FinancialGoal/FinancialGoalSlice.ts";
+import { selectCurrency } from "../../../../../Feature/Configuration/ConfigurationSelector.ts";
 
 interface useUpdateOperationModalViewBehaviour{
     addOperationFormBehaviour: AddOperationFormBehaviour,
@@ -38,6 +39,7 @@ interface useUpdateOperationModalViewBehaviour{
 }
 const useUpdateOperationModalView = (toUpdateOperation: IOperationDto): useUpdateOperationModalViewBehaviour => {
     const dispatch = useAppDispatch();
+    const currency = useAppSelector(selectCurrency);
     const toast = useToast();
     const userId = useAppSelector(selectUser)?.userId;
     const accounts = useAppSelector(selectAccounts);
@@ -58,7 +60,7 @@ const useUpdateOperationModalView = (toUpdateOperation: IOperationDto): useUpdat
     });
     const onSubmit = async (data: AddOperationForm) => {
         const operationDetails = data.details ? data.details : `
-            ${data.type == IOperationTypeEnum.EXPENSE ? 'Dépense' : 'Revenu'} de ${data.amount} XAF
+            ${data.type == IOperationTypeEnum.EXPENSE ? 'Dépense' : 'Revenu'} de ${data.amount} ${currency?.currency ?? ''}
             `;
         const operation: IOperation = {
             id: data.operationId,

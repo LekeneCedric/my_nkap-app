@@ -3,6 +3,15 @@ interface IUseUtilsBehaviour {
     formatDateToYYYYMMDDHIS(date: Date): string,
     formatMonthToMonthName(month: number, currentLanguage: string): string,
 }
+
+export const serializeFunction = (func: Function): string => {
+    return func.toString();
+}
+
+export const deserializeFunction = (funcString: string): ((amount: number) => string) => {
+    return new Function('return ' + funcString)() as (amount: number) => string;
+};
+
 const useUtils = (): IUseUtilsBehaviour => {
 
     const formatDateToYYYYMMDD = (date: Date) => {
@@ -62,6 +71,10 @@ const useUtils = (): IUseUtilsBehaviour => {
             return months["en"][month-1];
         return months[currentLanguage][month-1]
     }
+
+    
+
+    
     return {
         formatDateToYYYYMMDD: formatDateToYYYYMMDD,
         formatDateToYYYYMMDDHIS: formatDateToYYYYMMDDHIS,

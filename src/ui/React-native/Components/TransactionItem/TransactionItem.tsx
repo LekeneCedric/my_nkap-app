@@ -72,7 +72,7 @@ const TransactionItem = ({data}: props) => {
                           style={[styles.transactionAmountTitle, {color: data.type === IOperationTypeEnum.EXPENSE ? red : green}]}>
                         {data.type === IOperationTypeEnum.EXPENSE && '-'}
                         {data.type === IOperationTypeEnum.INCOME && '+'}
-                        XAF {parseThousand(data.amount)}
+                        {parseThousand(data.amount)}
                     </Text>
                     <Text style={styles.transactionTime}>{date}</Text>
                 </View>

@@ -124,8 +124,6 @@ const Transactions = () => {
                             titleColor={action1Text}
                             onRefresh={onRefresh}/>}>
                     <View style={styles.accountsContainer}>
-                        {/*<Text style={styles.title}>Montant totale</Text>*/}
-                        {/*<Text style={styles.accountBalance}>XAF 25.002.250</Text>*/}
                         <View style={{width: "100%", alignItems: 'center'}}>
                             <ScrollView
                                 horizontal={true}

@@ -7,3 +7,7 @@ export const selectCurrentTheme = (state: RootState) => {
 export const selectCanSeeAmount = (state: RootState) => {
     return state.configurationReducer.canSeeAmount;
 }
+
+export const selectCurrency = (state: RootState) => {
+    return state.configurationReducer.currency;
+}

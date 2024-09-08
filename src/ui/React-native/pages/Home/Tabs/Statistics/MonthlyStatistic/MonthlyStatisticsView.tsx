@@ -17,8 +17,7 @@ const MonthlyStatisticsView = () => {
   const {currentLanguage} = useCustomTranslation();
   const {translate} = useCustomTranslation();
   const {parseThousand} = useMoneyParser();
-  const {monthlyStatistics, month, loadingState} =
-    useMonthlyStatistics(currentLanguage);
+  const {monthlyStatistics, loadingState} = useMonthlyStatistics(currentLanguage);
   const {
     colorPalette: {
       pageBackground,
@@ -58,10 +57,11 @@ const MonthlyStatisticsView = () => {
                    color={action1}
                    textColor={text}
                    message= {translate('load_stats_data')}
-            /> 
+          /> 
         </View>
       )}
       {
+        loadingState !== LoadingState.pending &&
         ((monthlyStatistics.incomes?.data ?? []).length == 0 &&
           (monthlyStatistics.expenses?.data ?? []).length == 0 ) && (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -74,7 +74,7 @@ const MonthlyStatisticsView = () => {
                 </View>
           )
       }
-      {loadingState == LoadingState.success &&
+      {loadingState !== LoadingState.pending &&
         ((monthlyStatistics.incomes?.data ?? []).length > 0 ||
           (monthlyStatistics.expenses?.data ?? []).length > 0) && (
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -113,8 +113,7 @@ const MonthlyStatisticsView = () => {
                       monthlyStatistics.expenses?.difference! > 0 ? red : green,
                   }}
                 >
-                  {parseThousand(Math.abs(monthlyStatistics.expenses?.difference ?? 0))}{" "}
-                  XAF
+                  {parseThousand(Math.abs(monthlyStatistics.expenses?.difference ?? 0))}
                 </Text>
               </View>
               <Text
@@ -203,8 +202,7 @@ const MonthlyStatisticsView = () => {
                       monthlyStatistics.incomes?.difference! < 0 ? red : green,
                   }}
                 >
-                  {parseThousand(Math.abs(monthlyStatistics.incomes?.difference ?? 0))}{" "}
-                  XAF
+                  {parseThousand(Math.abs(monthlyStatistics.incomes?.difference ?? 0))}
                 </Text>
               </View>
               <Text

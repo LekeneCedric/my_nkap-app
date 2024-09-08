@@ -31,7 +31,7 @@ const AccountCard = ({data}: props) => {
                 <View style={{flex: 1}}>
                     <Text numberOfLines={1} style={styles.title}>{data.name}</Text>
                     <Text numberOfLines={1} style={styles.amount}>
-                        {displayAmount(`XAF ${parseThousand(data.balance)}`)}
+                        {displayAmount(`${parseThousand(data.balance)}`)}
                     </Text>
                 </View>
             </View>

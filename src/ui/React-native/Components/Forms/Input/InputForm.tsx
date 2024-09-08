@@ -12,6 +12,8 @@ import {useEffect, useState} from "react";
 import InputFormStyles from "./InputForm.style.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import { useAppSelector } from "../../../../../app/hook.ts";
+import { selectCurrency } from "../../../../../Feature/Configuration/ConfigurationSelector.ts";
 
 type inputFormProps = {
   type?: 'amount',
@@ -24,6 +26,7 @@ type inputFormProps = {
   placeholder: string
 }
 export const InputForm = ({defaultValue, type, icon, label, errorMessage, field, keyboardType, placeholder}: inputFormProps) => {
+  const currency = useAppSelector(selectCurrency);
   const {translate} = useCustomTranslation();
   const {colorPalette: {pageBackground, containerBackground, gray, text, red, action1}} = useTheme();
   const styles = InputFormStyles(pageBackground, containerBackground, text, gray);
@@ -83,7 +86,7 @@ export const InputForm = ({defaultValue, type, icon, label, errorMessage, field,
         {
           type == 'amount' && (
               <Text style={{color: text, fontSize: FontSize.normal, position: 'absolute', right: 10, top: 10}}>
-                XAF
+                {currency?.currency ?? ''}
               </Text>
             )
         }

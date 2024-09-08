@@ -43,6 +43,7 @@ export const StatisticsSlice = createSlice({
             })
             .addCase(GetAllMonthlyStatisticsAsync.rejected, state => {
                 state.loading = LoadingState.failed;
+                state.monthlyStats = {incomes: {months: [], difference: 0}, expenses: {months: [], difference: 0}};
             })
             .addCase(GetAllMonthlyStatisticAsync.fulfilled, (state, {payload}: PayloadAction<GetAllMonthlyStatisticsResponse>) => {
                 state.loading = LoadingState.success;
@@ -54,10 +55,11 @@ export const StatisticsSlice = createSlice({
             })
             .addCase(GetAllMonthlyByCategoryStatisticAsync.rejected, state => {
                 state.loading = LoadingState.failed;
+                state.monthlyCategoryStats = {incomes: [], expenses: []};
             })
             .addCase(GetAllMonthlyByCategoryStatisticsAsync.fulfilled, (state, {payload}: PayloadAction<GetAllMonthlyByCategoryStatisticsResponse>) => {
-                state.loading = LoadingState.success;
                 state.monthlyCategoryStats = payload.data;
+                state.loading = LoadingState.success;
             });
     }
 });

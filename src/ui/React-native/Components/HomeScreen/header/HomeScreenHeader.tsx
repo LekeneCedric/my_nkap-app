@@ -38,7 +38,7 @@ const HomeScreenHeader = ({props}: props) => {
             </TouchableOpacity>
             <TouchableOpacity onPress={switchCanSeeAmount} style={{backgroundColor: action1Container, padding: 5, borderRadius: 8}}>
                 <Text numberOfLines={1} style={{fontSize: FontSize.medium, fontWeight: 'bold', color: action1}}>
-                    {displayAmount(`XAF ${parseThousand(totalBalance)}`)}
+                    {displayAmount(`${parseThousand(totalBalance)}`)}
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.iconContainer, {backgroundColor: containerBackground, padding: 8}]}>

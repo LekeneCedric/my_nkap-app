@@ -60,7 +60,7 @@ const AccountsView = () => {
                 <View style={{flexDirection: 'column'}}>
 
                     <Text style={styles.balanceContainerTitle}>{translate('total_balance')}</Text>
-                    <Text style={styles.balanceContainerAmount}>{displayAmount(`XAF ${parseThousand(totalBalance)}`)}</Text>
+                    <Text style={styles.balanceContainerAmount}>{displayAmount(`${parseThousand(totalBalance)}`)}</Text>
                 </View>
                 <TouchableOpacity onPress={switchCanSeeAmount}>
                     <Icon name={canSeeAmount ? Icons.eyeClose : Icons.eyeOpen} size={IconSizes.normMed} color={action1} />

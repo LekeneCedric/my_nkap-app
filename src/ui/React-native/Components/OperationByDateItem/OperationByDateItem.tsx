@@ -46,10 +46,10 @@ const OperationByDateItem = ({data}: props) => {
                     </View>
                     <View style={{flexDirection: 'column'}}>
                         <Text numberOfLines={1} style={styles.incomes}>
-                            +XAF {parseThousand(data.totalIncomes)}
+                            +{parseThousand(data.totalIncomes)}
                         </Text>
                         <Text numberOfLines={1} style={styles.expenses}>
-                            -XAF {parseThousand(data.totalExpense)}
+                            -{parseThousand(data.totalExpense)}
                         </Text>
                     </View>
                 </View>

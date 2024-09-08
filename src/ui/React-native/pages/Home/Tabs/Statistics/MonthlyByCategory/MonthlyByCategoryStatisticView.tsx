@@ -14,10 +14,11 @@ import { LoadingState } from "../../../../../../../Domain/Enums/LoadingState.ts"
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import Loading from "../../../../../Components/Loading/Loading.tsx";
 import { useAppSelector } from "../../../../../../../app/hook.ts";
-import { selectCurrentTheme } from "../../../../../../../Feature/Configuration/ConfigurationSelector.ts";
+import { selectCurrency, selectCurrentTheme } from "../../../../../../../Feature/Configuration/ConfigurationSelector.ts";
 
 const MonthlyByCategoryStatisticView = () => {
   const {translate} = useCustomTranslation();
+  const currency = useAppSelector(selectCurrency);
   const {
     incomesChartData,
     incomesStatsData,
@@ -49,7 +50,7 @@ const MonthlyByCategoryStatisticView = () => {
   return (
     <View style={styles.container}>
         {
-            loadingState == LoadingState.pending && (
+            loadingState === LoadingState.pending && (
                 <View style={{flex: 1,flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                    <Loading
                    color={action1}
@@ -59,7 +60,7 @@ const MonthlyByCategoryStatisticView = () => {
             )
         }
         {
-          loadingState != LoadingState.pending &&
+          loadingState !== LoadingState.pending &&
             (incomesStatsData.length == 0 &&
             expensesStatsData.length == 0 ) &&
             (
@@ -74,7 +75,7 @@ const MonthlyByCategoryStatisticView = () => {
             )
         }
       {
-      loadingState == LoadingState.success &&
+      loadingState !== LoadingState.pending &&
       ((incomesStatsData.length > 0) || (expensesStatsData.length > 0)) &&
        (
         <>
@@ -160,7 +161,7 @@ const MonthlyByCategoryStatisticView = () => {
                   {flex: 2, textAlign: "center", color: currenTheme == 'dark' ? containerBackground: gray},
                 ]}
               >
-                {translate("amount")}(XAF)
+                {translate("amount")}({currency?.currency ?? '*'})
               </Text>
             </View>
           </View>

@@ -9,7 +9,6 @@ import {
   selectStatisticsCurrentMonth,
 } from "../../../../../../../Feature/Statistics/StatisticsSelectors.ts";
 import {FontSize} from "../../../../../Global/FontSize.ts";
-import useUtils from "../../../../../utils/useUtils.ts";
 import {LoadingState} from "../../../../../../../Domain/Enums/LoadingState.ts";
 
 type ChartDataItem = {
@@ -49,22 +48,13 @@ const useMonthlyByCategoryStatisticView =
       selectMonthlyCategoryByStatistics,
     );
     const loadingStatistics = useAppSelector(selectStatisticsLoading);
-    const [incomesChartData, setIncomesChartData] = useState<ChartDataItem[]>(
-      [],
-    );
-    const [incomesStatsData, setIncomesStatsData] = useState<StatsDataItem[]>(
-      [],
-    );
-    const [expensesChartData, setExpensesChartData] = useState<ChartDataItem[]>(
-      [],
-    );
-    const [expensesStatsData, setExpensesStatsData] = useState<StatsDataItem[]>(
-      [],
-    );
+    const [incomesChartData, setIncomesChartData] = useState<ChartDataItem[]>([]);
+    const [incomesStatsData, setIncomesStatsData] = useState<StatsDataItem[]>([]);
+    const [expensesChartData, setExpensesChartData] = useState<ChartDataItem[]>([]);
+    const [expensesStatsData, setExpensesStatsData] = useState<StatsDataItem[]>([]);
 
-    useEffect(() => {
-      let incomesChartData: ChartDataItem[] =
-        monthlyByCategoryStatistics?.incomes
+    const proceeedData = () => {
+      setIncomesChartData(monthlyByCategoryStatistics.incomes
           .filter(item => item.percentage > 0)
           .map(item => {
             return {
@@ -75,38 +65,32 @@ const useMonthlyByCategoryStatisticView =
               legendFontSize: FontSize.normal,
             };
           })
-          .sort((a, b) => b.population - a.population);
-
-      let expensesChartData: ChartDataItem[] =
-        monthlyByCategoryStatistics?.expenses
-          .filter(item => item.percentage > 0)
-          .map(item => {
-            return {
-              name: "",
-              population: item.totalExpense,
-              color: item.categoryColor,
-              legendFontColor: item.categoryColor,
-              legendFontSize: FontSize.normal,
-            };
-          })
-          .sort((a, b) => b.population - a.population);
-
-      let incomesStatsData: StatsDataItem[] =
-        monthlyByCategoryStatistics?.incomes
-          .filter(item => item.percentage > 0)
-          .map(item => {
-            return {
-              icon: item.categoryIcon,
-              color: item.categoryColor,
-              label: item.categoryLabel,
-              amount: item.totalIncome,
-              percentage: item.percentage,
-            };
-          })
-          .sort((a, b) => b.percentage - a.percentage);
-
-      let expensesStatsData: StatsDataItem[] =
-        monthlyByCategoryStatistics?.expenses
+          .sort((a, b) => b.population - a.population));
+      setIncomesStatsData(monthlyByCategoryStatistics.incomes
+        .filter(item => item.percentage > 0)
+        .map(item => {
+          return {
+            icon: item.categoryIcon,
+            color: item.categoryColor,
+            label: item.categoryLabel,
+            amount: item.totalIncome,
+            percentage: item.percentage,
+          };
+        })
+        .sort((a, b) => b.percentage - a.percentage));
+      setExpensesChartData(monthlyByCategoryStatistics.expenses
+        .filter(item => item.percentage > 0)
+        .map(item => {
+          return {
+            name: "",
+            population: item.totalExpense,
+            color: item.categoryColor,
+            legendFontColor: item.categoryColor,
+            legendFontSize: FontSize.normal,
+          };
+        })
+        .sort((a, b) => b.population - a.population));
+      setExpensesStatsData(monthlyByCategoryStatistics.expenses
           .filter(item => item.percentage > 0)
           .map(item => {
             return {
@@ -117,13 +101,8 @@ const useMonthlyByCategoryStatisticView =
               percentage: item.percentage,
             };
           })
-          .sort((a, b) => b.percentage - a.percentage);
-
-      setIncomesChartData(incomesChartData);
-      setIncomesStatsData(incomesStatsData);
-      setExpensesChartData(expensesChartData);
-      setExpensesStatsData(expensesStatsData);
-    }, [monthlyByCategoryStatistics]);
+          .sort((a, b) => b.percentage - a.percentage));
+    };
 
     const switchIsShowIncomes = (value: boolean) => {
       setIsShowIncomes(value);
@@ -134,8 +113,12 @@ const useMonthlyByCategoryStatisticView =
         year: currentYear,
         month: currentMonth,
       };
+      console.warn('s-month', currentMonth);
       await dispatch(GetAllMonthlyBycategoryStatisticAsync(command));
     };
+    useEffect(() => {
+      proceeedData();
+    }, [monthlyByCategoryStatistics])
     useEffect(() => {
       getAllMonthlyByCategoryStatistics();
     }, [currentMonth]);

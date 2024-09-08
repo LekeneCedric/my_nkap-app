@@ -30,6 +30,7 @@ import {
   UpdateFinancialGoalAfterSaveOperation,
 } from "../../../../../Feature/FinancialGoal/FinancialGoalSlice.ts";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import { selectCurrency } from "../../../../../Feature/Configuration/ConfigurationSelector.ts";
 
 export interface AddOperationFormBehaviour {
   form: UseFormReturn<AddOperationForm>;
@@ -44,6 +45,7 @@ interface UseAddOperationViewBehaviour {
 }
 
 const useAddOperationView = (): UseAddOperationViewBehaviour => {
+  const currency = useAppSelector(selectCurrency);
   const {translate} = useCustomTranslation();
   const dispatch = useAppDispatch();
   const toast = useToast();
@@ -78,7 +80,7 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
   const onSubmit = async (data: AddOperationForm) => {
     const operationDetails = data.details
       ? data.details
-      : `${data.type == IOperationTypeEnum.EXPENSE? translate('expense'): translate('income')} ${translate('of')} ${data.amount} XAF`;
+      : `${data.type == IOperationTypeEnum.EXPENSE? translate('expense'): translate('income')} ${translate('of')} ${data.amount} ${currency?.currency ?? ''}`;
     const operation: IOperation = {
       accountId: data.accountId,
       type: data.type,

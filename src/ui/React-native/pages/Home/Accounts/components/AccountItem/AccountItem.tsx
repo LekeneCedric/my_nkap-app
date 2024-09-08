@@ -68,15 +68,15 @@ const AccountItem = ({data}: props) => {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10}}>
                 <Text style={styles.amountTitle}>{translate('balance')}:</Text>
-                <Text style={styles.amountValue}>{displayAmount(`XAF ${parseThousand(data.balance)}`)}</Text>
+                <Text style={styles.amountValue}>{displayAmount(`${parseThousand(data.balance)}`)}</Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10}}>
                 <Text style={styles.amountTitle}>{translate('total_incomes')}:</Text>
-                <Text style={[styles.amountValue, {color: green}]}>{displayAmount(`XAF ${parseThousand(data.totalIncomes)}`)}</Text>
+                <Text style={[styles.amountValue, {color: green}]}>{displayAmount(`${parseThousand(data.totalIncomes)}`)}</Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10}}>
                 <Text style={styles.amountTitle}>{translate('total_expenses')}:</Text>
-                <Text style={[styles.amountValue, {color: red}]}>{displayAmount(`XAF ${parseThousand(data.totalExpenses)}`)}</Text>
+                <Text style={[styles.amountValue, {color: red}]}>{displayAmount(`${parseThousand(data.totalExpenses)}`)}</Text>
             </View>
         </View>
     </>
