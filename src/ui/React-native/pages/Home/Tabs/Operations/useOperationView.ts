@@ -76,7 +76,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     const currentOperationsLimit = useAppSelector(selectCurrentOperationsLimit);
     const operationsByDate = useAppSelector(selectOperationsByDate);
     const navigateToAddOperation = () => {
-        navigateByPath(routes.home.addOperation)
+        navigateByPath(routes.home.addOperationByAI)
     }
     const getAllAccounts = async () => {
             const response = await dispatch(GetAllAccountAsync({userId: userId!}));

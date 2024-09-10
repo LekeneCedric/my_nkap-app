@@ -48,5 +48,9 @@ export const Icons = {
         up: 'chevron-up'
     },
     edit: 'pencil-outline',
-    database: 'database-outline'
+    database: 'database-outline',
+    resize: 'arrow-expand',
+    deResize: 'arrow-collapse',
+    recorder: 'microphone-outline',
+    send: 'send-outline'
 }

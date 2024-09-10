@@ -11,6 +11,7 @@ import PreferencesView from "./pages/Home/Settings/Menus/Preferences/Preferences
 import AddOperationView from "./pages/Home/AddOperations/AddOperationView.tsx";
 import AccountsView from "./pages/Home/Accounts/AccountsView.tsx";
 import AddFinancialGoalsView from "./pages/Home/AddFinancialGoals/AddFinancialGoalsView.tsx";
+import AddOperationByAI from "./pages/Home/AddOperationsByAI/AddOperationsByAI.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {
@@ -35,6 +36,7 @@ const Root = () => {
             <Stack.Screen name={routes.home.settings.preferences} component={PreferencesView} />
             <Stack.Screen name={routes.home.addOperation} component={AddOperationView} />
             <Stack.Screen name={routes.home.addFinancialGoals} component={AddFinancialGoalsView} />
+            <Stack.Screen name={routes.home.addOperationByAI} component={AddOperationByAI} />
           </>
         )
       }

@@ -90,7 +90,7 @@ const MonthlyStatisticsView = () => {
                   {color: action1, flex: 2, textAlign: "right"},
                 ]}
               >
-                {translate("see_more")}
+                {/* {translate("see_more")} */}
               </Text>
             </View>
             <View style={{alignItems: "center", flexDirection: "row"}}>
@@ -179,7 +179,7 @@ const MonthlyStatisticsView = () => {
                   {color: action1, flex: 2, textAlign: "right"},
                 ]}
               >
-                {translate("see_more")}
+                {/* {translate("see_more")} */}
               </Text>
             </View>
             <View style={{alignItems: "center", flexDirection: "row"}}>

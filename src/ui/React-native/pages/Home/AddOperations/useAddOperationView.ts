@@ -101,7 +101,7 @@ const useAddOperationView = (): UseAddOperationViewBehaviour => {
     }
     if (SaveOperationAsync.fulfilled.match(response)) {
       const operationId = response.payload.operationId;
-      const category = categories.find(c => c.id == data.categoryId);
+      const category = categories.find((c: ICategory) => c.id == data.categoryId);
       const newOperation: IOperationDto = {
         type: data.type,
         id: operationId,
