@@ -26,6 +26,7 @@ import SelectModalView from "../../../../Components/Forms/Select/Modal/SelectMod
 import useNavigation from "../../../../utils/useNavigation.ts";
 import {routes} from "../../../routes";
 import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
+import FloatingButton from "../../../../Components/Buttons/FloatingButton/FloatingButton.tsx";
 
 const Transactions = () => {
     const {
@@ -377,30 +378,11 @@ const Transactions = () => {
                         </View>
                     )
                 }
-
-                <Animated.View style={{
-                    translateY: bounceValue,
-                    position: 'absolute',
-                    width: 60,
-                    height: 60,
-                    borderRadius: 30,
-                    backgroundColor: action1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    right: 20,
-                    opacity: 0.7,
-                    bottom: hp(operationFilterParams.month ? 2 : 10),
-                    elevation: 8, // Add shadow for Android
-                    shadowColor: text, // Add shadow for iOS
-                    shadowOffset: {width: 0, height: 2},
-                    shadowOpacity: 0.8,
-                    shadowRadius: 2,
-                }}
-                >
-                    <TouchableOpacity onPress={navigateToAddOperation}>
-                        <Icon name={Icons.add} size={IconSizes.medium} color={action1Text}/>
-                    </TouchableOpacity>
-                </Animated.View>
+                <FloatingButton
+                    icon={Icons.add}
+                    onPress={navigateToAddOperation}
+                    customStyles={{bottom: hp(operationFilterParams.month ? 2 : 10)}}
+                />
             </SafeAreaView>
         </>
     );

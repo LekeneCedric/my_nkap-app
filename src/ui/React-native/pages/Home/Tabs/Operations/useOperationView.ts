@@ -232,7 +232,6 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
 
     useEffect(() => {
         // dispatch(ResetFilter());
-        const startBouncing = () => {
             Animated.loop(
                 Animated.sequence([
                     Animated.timing(bounceValue, {
@@ -249,9 +248,6 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
                     }),
                 ])
             ).start();
-        };
-
-        startBouncing();
         const getAccounts = async() => {
             await getAllAccounts();
         }

@@ -49,8 +49,11 @@ export const Icons = {
     },
     edit: 'pencil-outline',
     database: 'database-outline',
-    resize: 'arrow-expand',
+    enlarge: 'arrow-expand',
+    reduce: 'arrow-collapse',
     deResize: 'arrow-collapse',
     recorder: 'microphone-outline',
-    send: 'send-outline'
+    send: 'send-outline',
+    keyboard: 'keyboard-outline',
+    ai: 'star-four-points'
 }

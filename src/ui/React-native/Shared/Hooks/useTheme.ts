@@ -17,11 +17,13 @@ type colorPalette = {
     action2Text: string,
     action3: string
     action3Text: string,
-    light: string
+    light: string,
+    placeholder: string,
 }
 
 interface useThemeBehaviour {
     colorPalette: colorPalette,
+    currentTheme: 'dark'|'light'
 }
 
 const useTheme = (): useThemeBehaviour => {
@@ -37,13 +39,14 @@ const useTheme = (): useThemeBehaviour => {
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',
-        action1Container: '#cfc3ea',
+        action1Container: '#cfc9ea',
         action1Text: '#FEFEFE',
         action2: '#FEFEFE',
         action2Text: '#FEFEFE',
         action3: '#FEFEFE',
         action3Text: '#FEFEFE',
-        light: '#FFFFFF'
+        light: '#FFFFFF',
+        placeholder: '#ffffff7f',
     } : {
         pageBackground: '#F2F2F2',
         containerBackground: '#FFFFFF',
@@ -54,16 +57,18 @@ const useTheme = (): useThemeBehaviour => {
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',
-        action1Container: '#cfc3ea',
+        action1Container: '#cfc9ea',
         action1Text: '#FEFEFE',
         action2: '#030303',
         action2Text: '#030303',
         action3: '#030303',
         action3Text: '#030303',
-        light: '#FFFFFF'
+        light: '#FFFFFF',
+        placeholder: '#ffffff7f',
     }
     return {
         colorPalette: colorPalette!,
+        currentTheme: currentTheme
     }
 }
 

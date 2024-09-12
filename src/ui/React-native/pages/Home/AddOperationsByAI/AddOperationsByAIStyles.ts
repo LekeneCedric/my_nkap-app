@@ -1,5 +1,6 @@
 import {StyleSheet} from "react-native";
 import { PageStyles } from "../../../Global/Styles/page.styles";
+import { FontSize } from "../../../Global/FontSize";
 
 const Styles = (pageBackground: string, textColor: string) => {
   return StyleSheet.create({
@@ -21,7 +22,8 @@ const Styles = (pageBackground: string, textColor: string) => {
     },
     input: {
         width: '90%',
-        color: textColor
+        color: textColor,
+        fontSize: FontSize.medium
     }
   });
 };

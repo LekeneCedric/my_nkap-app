@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-masked-view/masked-view": "^0.3.1",
+    "@react-native-voice/voice": "^3.2.4",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/material-top-tabs": "^6.6.14",
     "@react-navigation/native": "^6.1.18",
