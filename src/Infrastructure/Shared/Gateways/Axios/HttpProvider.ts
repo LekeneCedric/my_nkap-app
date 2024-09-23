@@ -1,3 +1,4 @@
+import axios from "axios";
 import api from "./AxiosInterceptor";
 
 export abstract class HttpProvider {
@@ -9,6 +10,13 @@ export abstract class HttpProvider {
     return api.post(url, data);
   }
 
+  public async postByOverrideBearer(url: string, data: Object) {
+    return axios.post(url, data, {
+      headers: {
+        "Content-Type": 'application/json',
+      }
+    })
+  }
   public async update(url: string, data: Object): Promise<Response> {
     return api.put(url, data);
   }

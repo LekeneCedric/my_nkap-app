@@ -25,7 +25,6 @@ const FloatingButton = ({icon, extraIcon, onPress, customStyles}: props) => {
             justifyContent: 'center',
             alignItems: 'center',
             right: 20,
-            opacity: 0.7,
             elevation: 8, // Add shadow for Android
             shadowColor: text, // Add shadow for iOS
             shadowOffset: {width: 0, height: 2},

@@ -6,7 +6,7 @@ const Styles = (pageBackground: string, textColor: string) => {
   return StyleSheet.create({
     container: {
         ...PageStyles.container,
-        backgroundColor: pageBackground
+        backgroundColor: pageBackground,
     },
     modalContainer: {
       padding: 10,

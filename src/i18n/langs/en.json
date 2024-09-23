@@ -183,5 +183,7 @@
   "novembre": "November",
   "decembre": "December",
   "currency": "Currency",
-  "type-talk": "Type or Talk"
+  "type-talk": "Type or Talk",
+  "empty-operations": "No operations added yet",
+  "something-went-wrong": "An error has occurred, please try again!"
 }

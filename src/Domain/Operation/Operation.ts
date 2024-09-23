@@ -1,5 +1,4 @@
 import IOperationDto from "./IOperationDto.ts";
-import {IAccountItem} from "../Account/Account.ts";
 
 export default interface IOperation {
     id?: string,

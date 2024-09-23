@@ -1,20 +1,38 @@
 import {MutableRefObject, useEffect, useRef, useState} from "react";
 import Voice from "@react-native-voice/voice";
+import {useAppDispatch, useAppSelector} from "../../../../../../app/hook";
+import {selectCategories} from "../../../../../../Feature/Category/CategorySelector";
+import IProcessingOperationByAiCommand from "../../../../../../Feature/AIOperations/Thunks/ProcessingByAI/ProcessingByAICommand";
+import ProcessingOperationByAIAsync from "../../../../../../Feature/AIOperations/Thunks/ProcessingByAI/ProcessingByAIAsync";
+import {LoadingState} from "../../../../../../Domain/Enums/LoadingState";
+import {selectLoadingStateProcessingByAIOperations} from "../../../../../../Feature/AIOperations/ProcessingByAISelector";
+import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation";
+import moment from "moment";
+import "moment/locale/fr";
+import "moment/locale/en-gb";
+import { useToast } from "react-native-toast-notifications";
 
 interface useRecordingModalBehaviour {
-  inputRef: MutableRefObject<any>,
-  startRecording: () => void,
-  stopRecording: () => void,
-  recordingText: string,
-  updateRecordingText: (text: string, notConcatenate?: boolean) => void,
-  isRecording: boolean,
-  openKeyboard: () => void,
+  inputRef: MutableRefObject<any>;
+  startRecording: () => void;
+  stopRecording: () => void;
+  recordingText: string;
+  updateRecordingText: (text: string, notConcatenate?: boolean) => void;
+  isRecording: boolean;
+  openKeyboard: () => void;
+  processingOperation: () => void;
+  loading: LoadingState;
 }
 
 const useRecordingModal = (): useRecordingModalBehaviour => {
+  const toast = useToast();
+  const dispatch = useAppDispatch();
   const [recordingText, setRecordingText] = useState<string>("");
   const [isRecording, setIsRecording] = useState(false);
-  
+  const categories = useAppSelector(selectCategories);
+  const loading = useAppSelector(selectLoadingStateProcessingByAIOperations);
+  const {currentLanguage, translate} = useCustomTranslation();
+
   const inputRef = useRef(null);
   const focusOnInputAndOpenKeyboard = () => {
     setTimeout(() => {
@@ -24,7 +42,6 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
       inputRef.current?.focus();
     }, 100);
   };
-
 
   Voice.onSpeechStart = () => {
     setIsRecording(true);
@@ -36,7 +53,7 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
   Voice.onSpeechResults = result => {
     //@ts-ignore
     const newRecord = result.value[0];
-    console.log("new-record");
+    console.log("new-record", newRecord);
     updateRecordingText(newRecord);
   };
 
@@ -58,7 +75,10 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
     }
   };
 
-  const updateRecordingText = (text: string, notConcatenate: boolean = false) => {
+  const updateRecordingText = (
+    text: string,
+    notConcatenate: boolean = false,
+  ) => {
     if (notConcatenate) {
       setRecordingText(text);
       return;
@@ -66,6 +86,34 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
     setRecordingText((prev: string) => `${prev} ${text}`);
   };
 
+  const processingOperation = async () => {
+    const today = new Date();
+    const command: IProcessingOperationByAiCommand = {
+      categories: categories.map(c => {
+        return {id: c.id, label: c.name};
+      }),
+      currentDate: moment(today).format("YYYY-MM-DD HH:mm:ss"),
+      message: recordingText,
+      language: currentLanguage,
+    };
+    const response = await dispatch(ProcessingOperationByAIAsync(command));
+    if (ProcessingOperationByAIAsync.fulfilled.match(response)) {
+      setRecordingText("");
+    }
+    if (ProcessingOperationByAIAsync.rejected.match(response)) {
+      toast.show(translate('something-went-wrong'), {
+        type: "danger",
+        placement: "top",
+        duration: 3000,
+        animationType: "slide-in",
+      });
+    }
+  };
+
+  useEffect(() => {
+    moment.locale(currentLanguage);
+  }, []);
+  
   useEffect(() => {
     if (inputRef.current) {
       //@ts-ignore
@@ -81,6 +129,8 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
     isRecording: isRecording,
     startRecording: startRecording,
     stopRecording: stopRecording,
+    processingOperation: processingOperation,
+    loading: loading,
   };
 };
 

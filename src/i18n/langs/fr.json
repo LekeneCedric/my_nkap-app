@@ -183,5 +183,7 @@
   "novembre": "Novembre",
   "decembre": "Decembre",
   "currency": "Devise",
-  "type-talk": "Écrire ou Parler"
+  "type-talk": "Écrire ou Parler",
+  "empty-operations": "Aucune opération ajoutée pour le moment",
+  "something-went-wrong": "Une érreur est survenue , veuillez réessayer !"
 }

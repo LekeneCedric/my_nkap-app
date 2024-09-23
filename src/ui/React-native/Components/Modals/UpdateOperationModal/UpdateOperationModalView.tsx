@@ -22,7 +22,7 @@ const UpdateOperationModalView = ({closeModal, isVisible, operation}: props) => 
         categories,
         deleteOperation
     } = useUpdateOperationModalView(operation);
-    const {colorPalette: {pageBackground, containerBackground, text, action1, action1Text}} = useTheme();
+    const {colorPalette: {containerBackground, text}} = useTheme();
     const styles = UpdateOperationModalViewStyles(containerBackground);
     return (
         <Modal transparent={true} style={styles.modalContainer} animationType={'slide'} visible={isVisible}>

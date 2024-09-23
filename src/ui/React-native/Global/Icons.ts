@@ -55,5 +55,6 @@ export const Icons = {
     recorder: 'microphone-outline',
     send: 'send-outline',
     keyboard: 'keyboard-outline',
-    ai: 'star-four-points'
+    ai: 'star-four-points',
+    trash: 'trash-can-outline'
 }

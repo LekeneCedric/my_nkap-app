@@ -1,4 +1,10 @@
-import {SafeAreaView, TouchableOpacity, View} from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import useTheme from "../../../Shared/Hooks/useTheme";
 import AddOperationByAIStyles from "./AddOperationsByAIStyles";
 import RecordingModal from "./RecordingModal/RecordingModal";
@@ -7,36 +13,80 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons";
 import {IconSizes} from "../../../Global/IconSizes";
 import useCustomNavigation from "../../../utils/useNavigation";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import FloatingButton from "../../../Components/Buttons/FloatingButton/FloatingButton";
 import {hp} from "../../../Global/Percentage";
+import OperationItem from "./Components/OperationItem";
+import { LoadingState } from "../../../../../Domain/Enums/LoadingState";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation";
+import { FontSize } from "../../../Global/FontSize";
 
 const AddOperationByAI = () => {
+  const {loading, operations, deleteOperation} = useAddOperationsByAI();
   const [hideRecordingModal, setHideRecordingModal] = useState<boolean>(false);
   const {
-    colorPalette: {text, pageBackground},
+    colorPalette: {text, pageBackground, green},
   } = useTheme();
   const {goBack} = useCustomNavigation();
-  const {updateRecordSpeech} = useAddOperationsByAI();
-
+  const {translate} = useCustomTranslation();
   const styles = AddOperationByAIStyles(pageBackground, text);
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: 4,
+        }}>
         <TouchableOpacity onPress={goBack}>
           <Icon name={Icons.back} size={IconSizes.normMed} color={text} />
         </TouchableOpacity>
+
+        {(operations.length > 0 && loading !== LoadingState.pending) && (
+          <TouchableOpacity>
+            <Icon
+              name={Icons.circle.checked}
+              size={IconSizes.medium}
+              color={green}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+      <View style={{flex: 1, marginBottom: hideRecordingModal ? 0 : 250}}>
+      {
+        operations.length === 0 && (
+          <View style={{marginTop: hp(25)}}>
+            <Text style={{textAlign: 'center', color: text, fontSize: FontSize.normal}}>{translate('empty-operations')}</Text>
+          </View>
+        )
+      }
+      
+      <FlatList
+        data={operations}
+        keyExtractor={item => item.uuid}
+        renderItem={({item}) => (
+          <OperationItem
+            deleteOperation={()=>{
+              deleteOperation(item.uuid);
+            }}
+            data={item}
+          />
+        )}
+      />
       </View>
       <RecordingModal
-        onRecordSpeech={updateRecordSpeech}
         isHide={hideRecordingModal}
         hide={() => setHideRecordingModal(true)}
+        loadingState={loading}
       />
       {hideRecordingModal && (
         <FloatingButton
           icon={Icons.recorder}
           extraIcon={Icons.ai}
-          onPress={() => setHideRecordingModal(false)}
+          onPress={() => {
+            setHideRecordingModal(false);
+          }}
           customStyles={{bottom: hp(4)}}
         />
       )}
