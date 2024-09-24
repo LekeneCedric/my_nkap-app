@@ -5,6 +5,7 @@ import {ApiRoutes} from "../../Api/routes";
 import {HttpProvider} from "../../Shared/Gateways/Axios/HttpProvider";
 import parseGeminiApiResposne from "../../Utils/ParseGeminiApiResponse";
 import ProcessingOperationByAIResponseFactory from "../Factories/ProcessingOperationByAIResponseFactory";
+import {GOOGLE_GEMINI_API_KEY} from '@env';
 
 export default class OperationAIApiGatewayHttp
   extends HttpProvider
@@ -70,33 +71,17 @@ export default class OperationAIApiGatewayHttp
       "generationConfig": {
         "temperature": 0.0,
         "response_mime_type":"application/json",
-        // responseMimeType: "application/json",
-        // responseSchema: {
-        //   type: "ARRAY",
-        //   items: {
-        //     type: "OBJECT",
-        //     properties: {
-        //       type:  "INTEGER",
-        //       amount:  "INTEGER",
-        //       categoryId:  "STRING",
-        //       date:  "STRING",
-        //       title:  "STRING",
-        //     },
-        //   },
-        // },
       },
     };
     try {
       const response = await this.postByOverrideBearer(
-        `${ApiRoutes.gemini}?key=AIzaSyAeTaE2_7iCFxZfNY-japkRIirMTUFXJQs`,
+        `${ApiRoutes.gemini}?key=${GOOGLE_GEMINI_API_KEY}`,
         commandData,
       );
       //@ts-ignore
       let output = response.data;
-      console.log(output);
       result = parseGeminiApiResposne(output);
-      console.log('---parsed');
-      console.log(result)
+      console.warn(`api: ${GOOGLE_GEMINI_API_KEY}`)
     } catch (e: any) {
       console.log(e);
       throw new Error("something-went-wrong-model");
