@@ -16,5 +16,5 @@ export const ApiRoutes = {
     category: CategoryRoutes,
     financialGoal: FinancialGoalRoutes,
     statistics: StatisticsRoutes,
-    gemini: 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent'
+    gemini: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
 }

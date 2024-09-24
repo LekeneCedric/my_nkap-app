@@ -12,8 +12,26 @@ import FilterOperationCommandBuilder from "../Builder/FilterOperationCommandBuil
 import IDeleteOperationCommand from "../../../Feature/Operations/Thunks/Delete/IDeleteOperationCommand.ts";
 import IDeleteOperationResponse from "../../../Feature/Operations/Thunks/Delete/IDeleteOperationResponse.ts";
 import DeleteOperationsResponseFactory from "../Factories/DeleteOperationsResponseFactory.ts";
+import ISaveManyOperationsCommand from "../../../Feature/AIOperations/Thunks/SaveMany/SaveManyOperationsCommand.ts";
+import ISaveManyOperationsResponse from "../../../Feature/AIOperations/Thunks/SaveMany/SaveManyOperationsResponse.ts";
+import SaveManyOperationResponseFactory from "../Factories/SaveManyOperationResponseFactory.ts";
 
 export default class OperationsApiGatewayHttp extends HttpProvider implements IOperationApiGateway {
+    async saveMany(command: ISaveManyOperationsCommand): Promise<ISaveManyOperationsResponse> {
+        let result: any;
+        try{
+            const response = await this.post(ApiRoutes.operations.saveMany, command);
+            //@ts-ignore
+            result = response.data;
+            if (!result.status) {
+                throw new Error(result.message);
+            }
+        } catch (e: any) {
+            throw new Error(e.message ? e.message : gatewayMessages.technicalError);
+        }
+
+        return SaveManyOperationResponseFactory.buildFromApiResponse(result);
+    }
 
     async filter(command: IFilterOperationsCommand): Promise<IFilterOperationsResponse> {
         let result: any;

@@ -1,7 +1,7 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {FontSize} from "../../../../Global/FontSize";
 import useTheme from "../../../../Shared/Hooks/useTheme";
-import Animated, {BounceInLeft, BounceInRight} from "react-native-reanimated";
+import Animated, {BounceInLeft, BounceInRight, BounceOutLeft} from "react-native-reanimated";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../../Global/IconSizes";
 import {OperationProcessingByAI} from "../../../../../../Feature/AIOperations/Thunks/ProcessingByAI/ProcessingByAIResponse";
@@ -24,7 +24,7 @@ type props = {
 };
 const OperationItem = ({data, deleteOperation}: props) => {
   const [isVisibleUpdateOperationModal, setIsVisibleUpdateOperationModal] = useState(false);
-  const {currentLanguage} = useCustomTranslation();
+  const {currentLanguage, translate} = useCustomTranslation();
   const {
     colorPalette: {containerBackground, text, green, red, gray, action1},
   } = useTheme();
@@ -34,6 +34,7 @@ const OperationItem = ({data, deleteOperation}: props) => {
     selectCategory(state, data.categoryId),
   );
   const swipeRef = useRef<Swipeable | null>(null);
+  const accountIsNotDefined = data.accountId === undefined;
   const renderedActions = () => {
     return <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <TouchableOpacity onPress={()=>{setIsVisibleUpdateOperationModal(true)}} style={{width: 50, alignItems: 'center'}}>
@@ -65,7 +66,7 @@ const OperationItem = ({data, deleteOperation}: props) => {
       isVisible={isVisibleUpdateOperationModal}
       data={data}
     />
-    <Animated.View entering={BounceInLeft.duration(1000)} exiting={BounceInRight.duration(1000)}>
+    <Animated.View entering={BounceInLeft.duration(1000)} exiting={BounceOutLeft.duration(100)}>
       <Swipeable ref={swipeRef}
        renderRightActions={() => renderedActions() }>
         <TouchableOpacity
@@ -126,25 +127,29 @@ const OperationItem = ({data, deleteOperation}: props) => {
                 <Icon
                   name={selectedCategory!.icon}
                   color={selectedCategory!.color}
-                  size={IconSizes.small}
+                  size={IconSizes.normSmall}
                   style={{marginRight: 2}}
                 />
                 <Text style={{fontSize: FontSize.normal, color: text}}>
                   {selectedCategory?.name}
                 </Text>
               </View>
-              <Text style={{fontSize: FontSize.normal, color: gray}}>
+              <Text style={{fontSize: FontSize.normal, color: text, fontWeight: '100'}}>
                 {moment(data.date).format("dddd HH:mm")}
               </Text>
             </View>
           </View>
         </TouchableOpacity>
+        {
+          accountIsNotDefined && (
+          <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5, marginLeft: 8}}>
+            <Icon name={Icons.info} color={red} size={IconSizes.small} />
+            <Text style={{fontSize: FontSize.small, color: red, marginLeft: 5}}>{translate("account-not-selected")}</Text>
+          </View>
+          )
+        }
+        
       </Swipeable>
-
-      {/* <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
-        <Icon name={Icons.info} color={red} size={IconSizes.small} />
-        <Text style={{fontSize: FontSize.small, color: red, marginLeft: 5}}>montant manquant !</Text>
-      </View> */}
     </Animated.View>
     </>
   );

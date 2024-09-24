@@ -3,6 +3,7 @@ import IProcessingOperationByAiCommand from "../../../Feature/AIOperations/Thunk
 import IProcessingOperationByAIResponse from "../../../Feature/AIOperations/Thunks/ProcessingByAI/ProcessingByAIResponse";
 import {ApiRoutes} from "../../Api/routes";
 import {HttpProvider} from "../../Shared/Gateways/Axios/HttpProvider";
+import parseGeminiApiResposne from "../../Utils/ParseGeminiApiResponse";
 import ProcessingOperationByAIResponseFactory from "../Factories/ProcessingOperationByAIResponseFactory";
 
 export default class OperationAIApiGatewayHttp
@@ -14,24 +15,7 @@ export default class OperationAIApiGatewayHttp
   ): Promise<IProcessingOperationByAIResponse> {
     let result: any;
     const commandData = {
-      generationConfig: {
-        temperature: 0.0,
-        maxOutputTokens: 800,
-        // responseMimeType: "application/json",
-        // responseSchema: {
-        //   type: "ARRAY",
-        //   items: {
-        //     type: "OBJECT",
-        //     properties: {
-        //       type:  "INTEGER",
-        //       amount:  "INTEGER",
-        //       categoryId:  "STRING",
-        //       date:  "STRING",
-        //       title:  "STRING",
-        //     },
-        //   },
-        // },
-      },
+      
       contents: {
         parts: [
           {
@@ -53,16 +37,18 @@ export default class OperationAIApiGatewayHttp
                 Date: '2024-09-20 10:15:00'
                 Message: "I spent 50 dollars on groceries."
                 Expected Output:
-                [
                 {
-                  type: 2,
-                  amount: 50,
-                  categoryId: "1",
-                  date: '2024-09-20 10:15:00',
-                  title: "Groceries"
+                  [
+                    {
+                      type: 2,
+                      amount: 50,
+                      categoryId: "1",
+                      date: '2024-09-20 10:15:00',
+                      title: "Groceries"
+                    },
+                  ]
                 }
-                ]
-                Your response must be just a ARRAY containing list of operations based on message provided and making string utf-8 encoded.
+                Your response must be JSON containing list of operations based on message provided and making string utf-8 encoded.
             `,
           },
           {
@@ -81,6 +67,24 @@ export default class OperationAIApiGatewayHttp
           },
         ],
       },
+      "generationConfig": {
+        "temperature": 0.0,
+        "response_mime_type":"application/json",
+        // responseMimeType: "application/json",
+        // responseSchema: {
+        //   type: "ARRAY",
+        //   items: {
+        //     type: "OBJECT",
+        //     properties: {
+        //       type:  "INTEGER",
+        //       amount:  "INTEGER",
+        //       categoryId:  "STRING",
+        //       date:  "STRING",
+        //       title:  "STRING",
+        //     },
+        //   },
+        // },
+      },
     };
     try {
       const response = await this.postByOverrideBearer(
@@ -88,13 +92,15 @@ export default class OperationAIApiGatewayHttp
         commandData,
       );
       //@ts-ignore
-      let output = response.data.candidates[0].content.parts[0].text;
-      output = output.replace(/```/g, '').slice(4,-1);
-      result = JSON.parse(output);
+      let output = response.data;
+      console.log(output);
+      result = parseGeminiApiResposne(output);
+      console.log('---parsed');
+      console.log(result)
     } catch (e: any) {
       console.log(e);
       throw new Error("something-went-wrong-model");
     }
     return ProcessingOperationByAIResponseFactory.buildFromApiResponse(result);
-  }
+  } 
 }

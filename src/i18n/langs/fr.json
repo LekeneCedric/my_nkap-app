@@ -185,5 +185,7 @@
   "currency": "Devise",
   "type-talk": "Écrire ou Parler",
   "empty-operations": "Aucune opération ajoutée pour le moment",
-  "something-went-wrong": "Une érreur est survenue , veuillez réessayer !"
+  "something-went-wrong": "Une érreur est survenue , veuillez réessayer !",
+  "operations-added": "Opérations ajoutées avec succès !",
+  "account-not-selected": "veuillez selectionner le compte correspondant !"
 }

@@ -43,14 +43,19 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
     }, 100);
   };
 
-  Voice.onSpeechStart = () => {
+  const onSpeechStart = () => {
     setIsRecording(true);
   };
-  Voice.onSpeechEnd = () => {
-    stopRecording();
+
+  const onSpeechEnd = () => {
+    setIsRecording(false);
   };
 
-  Voice.onSpeechResults = result => {
+  const onSpeechError = (error: any) => {
+    stopRecording();
+  };
+  
+  const onSpeechResults = (result: any) => {
     //@ts-ignore
     const newRecord = result.value[0];
     console.log("new-record", newRecord);
@@ -59,7 +64,7 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
 
   const startRecording = async () => {
     try {
-      await Voice.start("fr-FR");
+      await Voice.start(currentLanguage == 'en' ? "en-US" : "fr-FR");
       setIsRecording(true);
     } catch (err) {
       console.log("start-err", err);
@@ -67,8 +72,11 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
   };
 
   const stopRecording = async () => {
+    console.warn('stop-rec')
     try {
+      Voice.destroy().then(Voice.removeAllListeners);
       await Voice.stop();
+      await Voice.cancel();
       setIsRecording(false);
     } catch (err) {
       console.log("stop-err", err);
@@ -119,6 +127,18 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
       //@ts-ignore
       inputRef.current.focus();
     }
+  }, []);
+
+  useEffect(() => {
+    // Setup event listeners
+    Voice.onSpeechStart = onSpeechStart;
+    Voice.onSpeechEnd = onSpeechEnd;
+    Voice.onSpeechResults = onSpeechResults;
+    Voice.onSpeechError = onSpeechError;
+    return () => {
+      // Cleanup event listeners
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
   }, []);
 
   return {

@@ -20,16 +20,20 @@ import OperationItem from "./Components/OperationItem";
 import { LoadingState } from "../../../../../Domain/Enums/LoadingState";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation";
 import { FontSize } from "../../../Global/FontSize";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Loading from "../../../Components/Loading/Loading";
 
 const AddOperationByAI = () => {
-  const {loading, operations, deleteOperation} = useAddOperationsByAI();
+  const {loading, operations, deleteOperation, addOperation, operationIsComplete} = useAddOperationsByAI();
   const [hideRecordingModal, setHideRecordingModal] = useState<boolean>(false);
   const {
-    colorPalette: {text, pageBackground, green},
+    colorPalette: {text, pageBackground, green, gray, action1, light},
   } = useTheme();
   const {goBack} = useCustomNavigation();
   const {translate} = useCustomTranslation();
   const styles = AddOperationByAIStyles(pageBackground, text);
+  const operationsIsLoading = loading === LoadingState.pending;
+  const operationsIsEmpty = operations.length == 0;
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -42,9 +46,19 @@ const AddOperationByAI = () => {
         <TouchableOpacity onPress={goBack}>
           <Icon name={Icons.back} size={IconSizes.normMed} color={text} />
         </TouchableOpacity>
-
-        {(operations.length > 0 && loading !== LoadingState.pending) && (
-          <TouchableOpacity>
+        {
+          ((!operationIsComplete || operationsIsEmpty) && !operationsIsLoading) && (
+            <TouchableWithoutFeedback>
+              <Icon
+              name={Icons.circle.checked}
+              size={IconSizes.medium}
+              color={gray}
+            />
+            </TouchableWithoutFeedback>
+          )
+        }
+        {(operationIsComplete && !operationsIsLoading && !operationsIsEmpty) && (
+          <TouchableOpacity onPress={addOperation}>
             <Icon
               name={Icons.circle.checked}
               size={IconSizes.medium}
@@ -52,6 +66,16 @@ const AddOperationByAI = () => {
             />
           </TouchableOpacity>
         )}
+        {
+          operationsIsLoading && (
+            <Loading
+              addStyles={{position: "absolute", right: 10}}
+              message=""
+              color={action1}
+              textColor={light}
+            />
+          )
+        }
       </View>
       <View style={{flex: 1, marginBottom: hideRecordingModal ? 0 : 250}}>
       {
