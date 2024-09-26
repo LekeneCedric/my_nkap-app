@@ -9,6 +9,7 @@ import {store} from "../../../../../app/store.ts";
 import {useToast} from "react-native-toast-notifications";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 import { Linking } from "react-native";
+import useUtils from "../../../utils/useUtils.ts";
 
 interface IMenuItem {
     title: string,
@@ -33,7 +34,8 @@ interface UseSettingsView {
 const useSettingsView = (): UseSettingsView => {
     const {translate} = useCustomTranslation();
     const dispatch = useAppDispatch();
-    const {colorPalette: {text, red, gray}} = useTheme();
+    const {colorPalette: {text, red, gray, action1, primary}} = useTheme();
+    const {capitalizeFirstLetter} = useUtils();
     const toast = useToast();
     const logout = () => {
         dispatch(Logout());
@@ -49,6 +51,25 @@ const useSettingsView = (): UseSettingsView => {
         });
     }
     const menuItems: IMenu[] = [
+        {
+            title: translate('management'),
+            section: [
+                {
+                    title: capitalizeFirstLetter(translate('categories')),
+                    route: routes.home.settings.categories_management,
+                    icon: Icons.category,
+                    iconColor: primary,
+                    color: text
+                },
+                {
+                    title: capitalizeFirstLetter(translate('accounts')),
+                    route: routes.home.accounts,
+                    icon: Icons.wallet,
+                    iconColor: action1,
+                    color: text
+                }      
+            ]
+        },
         {
             title: translate('customizations'),
             section: [

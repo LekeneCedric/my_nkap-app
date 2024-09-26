@@ -41,7 +41,7 @@
   "cancel": "Annuler",
   "technical_error_message": "Une erreur s'est produite, veuillez réessayer plus tard !",
   "welcome": "Bienvenue",
-  "not_found_user": "Utilisateur non trouvé !",
+  "not_found_user": "Aucun utilisateur ne correspond a ces informations !",
   "details": "Détails",
   "manage_my_accounts": "Gérer mes comptes",
   "clear": "Effacer",
@@ -187,5 +187,8 @@
   "empty-operations": "Aucune opération ajoutée pour le moment",
   "something-went-wrong": "Une érreur est survenue , veuillez réessayer !",
   "operations-added": "Opérations ajoutées avec succès !",
-  "account-not-selected": "veuillez selectionner le compte correspondant !"
+  "account-not-selected": "veuillez selectionner le compte correspondant !",
+  "management": "Gestion",
+  "categories": "Catégories",
+  "accounts": "comptes"
 }

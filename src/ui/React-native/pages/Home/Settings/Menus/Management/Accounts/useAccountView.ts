@@ -1,8 +1,8 @@
-import {useAppSelector} from "../../../../../app/hook.ts";
-import {selectAccounts, selectTotalBalance} from "../../../../../Feature/Account/AccountSelector.ts";
-import IAccount from "../../../../../Domain/Account/Account.ts";
 import {Animated, Easing} from "react-native";
 import {useEffect, useRef} from "react";
+import { useAppSelector } from "../../../../../../../../app/hook";
+import { selectAccounts, selectTotalBalance } from "../../../../../../../../Feature/Account/AccountSelector";
+import IAccount from "../../../../../../../../Domain/Account/Account";
 
 interface useAccountViewBehaviour {
     totalBalance: number,

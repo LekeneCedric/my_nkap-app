@@ -1,15 +1,16 @@
-import IAccount from "../../../../../../../Domain/Account/Account.ts";
-import {Text, TouchableOpacity, View} from "react-native";
-import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
-import AccountItemStyles from "./AccountItem.styles.ts";
+import { useState } from "react";
+import IAccount from "../../../../../../../../../../Domain/Account/Account";
+import useConfiguration from "../../../../../../../../Shared/Hooks/useConfiguration";
+import useCustomTranslation from "../../../../../../../../Shared/Hooks/useCustomTranslation";
+import useTheme from "../../../../../../../../Shared/Hooks/useTheme";
+import useMoneyParser from "../../../../../../../../Shared/useMoneyParser";
+import AccountItemStyles from "./AccountItem.styles";
+import AddAccountModalView from "../Modals/AddAccountModal/AddAccountModalView";
+import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {Icons} from "../../../../../Global/Icons.ts";
-import {IconSizes} from "../../../../../Global/IconSizes.ts";
-import useConfiguration from "../../../../../Shared/Hooks/useConfiguration.ts";
-import AddAccountModalView from "../Modals/AddAccountModal/AddAccountModalView.tsx";
-import {useState} from "react";
-import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
-import useMoneyParser from "../../../../../Shared/useMoneyParser.ts";
+import { IconSizes } from "../../../../../../../../Global/IconSizes";
+import { Icons } from "../../../../../../../../Global/Icons";
+
 
 type props = {
     data: IAccount

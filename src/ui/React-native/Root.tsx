@@ -9,9 +9,10 @@ import HomeScreen from "./Screens/HomeScreen.tsx";
 import SettingsView from "./pages/Home/Settings/SettingsView.tsx";
 import PreferencesView from "./pages/Home/Settings/Menus/Preferences/PreferencesView.tsx";
 import AddOperationView from "./pages/Home/AddOperations/AddOperationView.tsx";
-import AccountsView from "./pages/Home/Accounts/AccountsView.tsx";
 import AddFinancialGoalsView from "./pages/Home/AddFinancialGoals/AddFinancialGoalsView.tsx";
 import AddOperationByAI from "./pages/Home/AddOperationsByAI/AddOperationsByAI.tsx";
+import AccountsView from "./pages/Home/Settings/Menus/Management/Accounts/AccountsView.tsx";
+import CategoriesView from "./pages/Home/Settings/Menus/Management/Categories/CategoriesView.tsx";
 
 const Stack = createNativeStackNavigator();
 const Root = () => {
@@ -37,6 +38,7 @@ const Root = () => {
             <Stack.Screen name={routes.home.addOperation} component={AddOperationView} />
             <Stack.Screen name={routes.home.addFinancialGoals} component={AddFinancialGoalsView} />
             <Stack.Screen name={routes.home.addOperationByAI} component={AddOperationByAI} />
+            <Stack.Screen name={routes.home.settings.categories_management} component={CategoriesView} />
           </>
         )
       }

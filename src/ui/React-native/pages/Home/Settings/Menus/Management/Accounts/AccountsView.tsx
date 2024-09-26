@@ -1,19 +1,19 @@
 import {Animated, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import useTheme from "../../../Shared/Hooks/useTheme.ts";
-import AccountsViewStyles from "./AccountsView.styles.ts";
-import useAccountView from "./useAccountView.ts";
-import useConfiguration from "../../../Shared/Hooks/useConfiguration.ts";
+import useCustomTranslation from "../../../../../../Shared/Hooks/useCustomTranslation";
+import useAccountView from "./useAccountView";
+import useMoneyParser from "../../../../../../Shared/useMoneyParser";
+import useConfiguration from "../../../../../../Shared/Hooks/useConfiguration";
+import { useNavigation } from "@react-navigation/native";
+import AccountsViewStyles from "./AccountsView.styles";
+import { useState } from "react";
+import AddAccountModalView from "./components/Modals/AddAccountModal/AddAccountModalView";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {IconSizes} from "../../../Global/IconSizes.ts";
-import {Icons} from "../../../Global/Icons.ts";
-import AccountCard from "../../../Components/Card/AccountCard/AccountCard.tsx";
-import AccountItem from "./components/AccountItem/AccountItem.tsx";
-import useNavigation from "../../../utils/useNavigation.ts";
-import {hp} from "../../../Global/Percentage.ts";
-import {useState} from "react";
-import AddAccountModalView from "./components/Modals/AddAccountModal/AddAccountModalView.tsx";
-import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
-import useMoneyParser from "../../../Shared/useMoneyParser.ts";
+import { Icons } from "../../../../../../Global/Icons";
+import { IconSizes } from "../../../../../../Global/IconSizes";
+import AccountItem from "./components/AccountItem/AccountItem";
+import { hp } from "../../../../../../Global/Percentage";
+import useTheme from "../../../../../../Shared/Hooks/useTheme";
+
 
 const AccountsView = () => {
     const {

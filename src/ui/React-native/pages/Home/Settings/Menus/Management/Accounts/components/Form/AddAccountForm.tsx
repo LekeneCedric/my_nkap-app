@@ -1,22 +1,23 @@
+import { useMemo, useState } from "react";
+import IAccount from "../../../../../../../../../../Domain/Account/Account.ts";
+import useCustomTranslation from "../../../../../../../../Shared/Hooks/useCustomTranslation.ts";
 import {AddAccountFormBehaviour} from "../Modals/AddAccountModal/useAddAccountModalView.ts";
-import useTheme from "../../../../../Shared/Hooks/useTheme.ts";
-import {useMemo, useState} from "react";
-import {ActivityIndicator, Text, TouchableOpacity, View} from "react-native";
-import {Controller} from "react-hook-form";
-import {InputForm} from "../../../../../Components/Forms/Input/InputForm.tsx";
-import {Icons} from "../../../../../Global/Icons.ts";
-import SelectIconForm from "../../../../../Components/Forms/SelectIconForm/SelectIconForm.tsx";
-import SelectColorForm from "../../../../../Components/Forms/SelectColorForm/SelectColorForm.tsx";
-import ButtonForm from "../../../../../Components/Forms/Button/ButtonForm.tsx";
-import CheckedForm from "../../../../../Components/Forms/Checked/CheckedForm.tsx";
-import {Theme} from "../../../../../Global/Theme.ts";
-import IAccount from "../../../../../../../Domain/Account/Account.ts";
-import {LoadingState} from "../../../../../../../Domain/Enums/LoadingState.ts";
-import {IconSizes} from "../../../../../Global/IconSizes.ts";
-import {FontSize} from "../../../../../Global/FontSize.ts";
-import ValidateActionModalView from "../../../../../Components/Modals/ValidateActionModal/ValidateActionModalView.tsx";
-import {ColorsList} from "../../../../../Shared/Constants/Colors.ts";
-import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
+import { ColorsList } from "../../../../../../../../Shared/Constants/Colors.ts";
+import ValidateActionModalView from "../../../../../../../../Components/Modals/ValidateActionModal/ValidateActionModalView.tsx";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { Controller } from "react-hook-form";
+import { InputForm } from "../../../../../../../../Components/Forms/Input/InputForm.tsx";
+import { Icons } from "../../../../../../../../Global/Icons.ts";
+import CheckedForm from "../../../../../../../../Components/Forms/Checked/CheckedForm.tsx";
+import SelectColorForm from "../../../../../../../../Components/Forms/SelectColorForm/SelectColorForm.tsx";
+import SelectIconForm from "../../../../../../../../Components/Forms/SelectIconForm/SelectIconForm.tsx";
+import ButtonForm from "../../../../../../../../Components/Forms/Button/ButtonForm.tsx";
+import { LoadingState } from "../../../../../../../../../../Domain/Enums/LoadingState.ts";
+import { IconSizes } from "../../../../../../../../Global/IconSizes.ts";
+import { FontSize } from "../../../../../../../../Global/FontSize.ts";
+import { Theme } from "../../../../../../../../Global/Theme.ts";
+import useTheme from "../../../../../../../../Shared/Hooks/useTheme.ts";
+
 
 type props = {
     addAccountFormBehaviour: AddAccountFormBehaviour,

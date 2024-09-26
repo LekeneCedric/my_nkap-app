@@ -49,6 +49,8 @@ const Transactions = () => {
         operationsByDate,
         selectAccount,
         accountsList,
+        shouldNotGoForwardNextDay,
+        shouldNoyGoForwardFourthNexDays
     } = useOperationsView();
     const {
         navigateByPath
@@ -365,15 +367,15 @@ const Transactions = () => {
                                 </Text>
                                 <Icon name={Icons.calendar} color={action1} size={IconSizes.normMed}/>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {
+                            <TouchableOpacity disabled={shouldNotGoForwardNextDay} onPress={() => {
                                 handleNextDay(1)
                             }}>
-                                <Icon name={Icons.chevron.right} color={text} size={IconSizes.normMed}/>
+                                <Icon name={Icons.chevron.right} color={shouldNotGoForwardNextDay ? gray : text} size={IconSizes.normMed}/>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {
+                            <TouchableOpacity disabled={shouldNoyGoForwardFourthNexDays} onPress={() => {
                                 handleNextDay(4)
                             }}>
-                                <Icon name={Icons.chevron.doubleRight} color={text} size={IconSizes.normMed}/>
+                                <Icon name={Icons.chevron.doubleRight} color={shouldNoyGoForwardFourthNexDays ? gray : text} size={IconSizes.normMed}/>
                             </TouchableOpacity>
                         </View>
                     )

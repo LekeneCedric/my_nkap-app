@@ -1,21 +1,18 @@
 import {useForm, UseFormReturn} from "react-hook-form";
-import AddAccountForm from "../../../../../../../../Infrastructure/Validators/Forms/account/AddAccountForm.ts";
-import {LoadingState} from "../../../../../../../../Domain/Enums/LoadingState.ts";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {
-    AddAccountFormSchemaValidate
-} from "../../../../../../../../Infrastructure/Validators/Forms/account/AddAccountFormSchemaValidate.ts";
-import {useAppDispatch, useAppSelector} from "../../../../../../../../app/hook.ts";
-import {selectAccountLoadingState} from "../../../../../../../../Feature/Account/AccountSelector.ts";
-import {selectUser} from "../../../../../../../../Feature/Authentication/AuthenticationSelector.ts";
-import ISaveAccountCommand from "../../../../../../../../Feature/Account/Thunks/Save/SaveAccountCommand.ts";
-import {SaveAccountAsync} from "../../../../../../../../Feature/Account/Thunks/Save/SaveAccountAsync.ts";
-import {useToast} from "react-native-toast-notifications";
-import IAccount from "../../../../../../../../Domain/Account/Account.ts";
-import useNavigation from "../../../../../../utils/useNavigation.ts";
-import {AddAccount, UpdateAccount} from "../../../../../../../../Feature/Account/AccountSlice.ts";
-import DeleteAccountAsync from "../../../../../../../../Feature/Account/Thunks/Delete/DeleteAccountAsync.ts";
-import {DeleteOperationsRelatedToAccount} from "../../../../../../../../Feature/Operations/OperationSlice.ts";
+import AddAccountForm from "../../../../../../../../../../../Infrastructure/Validators/Forms/account/AddAccountForm";
+import { LoadingState } from "../../../../../../../../../../../Domain/Enums/LoadingState";
+import { useAppDispatch, useAppSelector } from "../../../../../../../../../../../app/hook";
+import { useToast } from "react-native-toast-notifications";
+import { selectUser } from "../../../../../../../../../../../Feature/Authentication/AuthenticationSelector";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { selectAccountLoadingState } from "../../../../../../../../../../../Feature/Account/AccountSelector";
+import { AddAccountFormSchemaValidate } from "../../../../../../../../../../../Infrastructure/Validators/Forms/account/AddAccountFormSchemaValidate";
+import DeleteAccountAsync from "../../../../../../../../../../../Feature/Account/Thunks/Delete/DeleteAccountAsync";
+import { DeleteOperationsRelatedToAccount } from "../../../../../../../../../../../Feature/Operations/OperationSlice";
+import ISaveAccountCommand from "../../../../../../../../../../../Feature/Account/Thunks/Save/SaveAccountCommand";
+import { SaveAccountAsync } from "../../../../../../../../../../../Feature/Account/Thunks/Save/SaveAccountAsync";
+import IAccount from "../../../../../../../../../../../Domain/Account/Account";
+import { AddAccount, UpdateAccount } from "../../../../../../../../../../../Feature/Account/AccountSlice";
 
 export interface AddAccountFormBehaviour {
     form: UseFormReturn<AddAccountForm>,

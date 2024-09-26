@@ -35,7 +35,7 @@ const useTheme = (): useThemeBehaviour => {
         text: '#FEFEFE',
         green: '#1FA398',
         red: '#A94856',
-        gray: '#494949',
+        gray: '#818181',
         primaryLight: '#97BCFF',
         primary: '#3F5C7C',
         action1: '#8651E5',

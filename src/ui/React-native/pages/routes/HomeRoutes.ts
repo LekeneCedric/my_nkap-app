@@ -5,7 +5,8 @@ export const HomeRoutes = {
     addOperationByAI: 'add-operation-by-ai',
     settings: {
         main: 'settings',
-        preferences: 'preferences'
+        preferences: 'preferences',
+        categories_management: 'categories-management'
     },
     accounts: 'accounts',
 }

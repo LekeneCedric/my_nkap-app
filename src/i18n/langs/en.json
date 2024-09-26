@@ -41,7 +41,7 @@
   "cancel": "cancel",
   "technical_error_message": "An error occurred, please try again later!",
   "welcome": "Welcome",
-  "not_found_user": "User not found!",
+  "not_found_user": "No users match this information !",
   "details": "Details",
   "manage_my_accounts": "Manage my accounts",
   "clear": "clear",
@@ -187,5 +187,8 @@
   "empty-operations": "No operations added yet",
   "something-went-wrong": "An error has occurred, please try again!",
   "operations-added": "Operations added successfully !",
-  "account-not-selected": "Please select the corresponding account !"
+  "account-not-selected": "Please select the corresponding account !",
+  "management": "Management",
+  "categories": "Categories",
+  "accounts": "accounts"
 }

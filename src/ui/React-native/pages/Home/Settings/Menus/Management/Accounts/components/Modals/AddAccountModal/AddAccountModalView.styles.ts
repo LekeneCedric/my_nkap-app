@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {hp, wp} from "../../../../../../Global/Percentage.ts";
+import { hp, wp } from "../../../../../../../../../Global/Percentage";
 
 const AddAccountModalViewStyles = (containerBackground: string) => {
     return StyleSheet.create({

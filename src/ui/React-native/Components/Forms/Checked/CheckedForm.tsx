@@ -16,15 +16,16 @@ type props = {
     field: ControllerRenderProps<any, any>;
     errorMessage?: string;
     values: ICheckedItem[];
+    disabled?: boolean;
 }
-const CheckedForm = ({label, field, values, errorMessage}: props) => {
+const CheckedForm = ({label, field, values, errorMessage, disabled}: props) => {
     const {translate} = useCustomTranslation();
     const [selectItem, setSelectItem] = useState<ICheckedItem|null>(null)
     const checkItem = (item: ICheckedItem) => {
         setSelectItem(item);
         field.onChange(item.id);
     }
-    const {colorPalette: {text}} = useTheme();
+    const {colorPalette: {text, gray}} = useTheme();
     const styles = CheckedFormStyle(text);
     useEffect(() => {
         if (field.value !== undefined) {
@@ -37,16 +38,16 @@ const CheckedForm = ({label, field, values, errorMessage}: props) => {
     return <Animated.View entering={LightSpeedInLeft.duration(1500)}
                           exiting={LightSpeedOutRight.duration(1500)}
                           style={styles.container}>
-        <Text style={styles.inputLabel}>{label}</Text>
+        <Text style={[styles.inputLabel, disabled && {color: gray}]}>{label}</Text>
         <View style={styles.itemsContainer}>
             {values.map((item, index) => (
-                <TouchableOpacity onPress={()=>{checkItem(item)}} style={styles.itemContainer}>
+                <TouchableOpacity disabled={disabled} onPress={()=>{checkItem(item)}} style={styles.itemContainer}>
                     <Icon
                         name={selectItem && selectItem.id==item.id ? Icons.circle.checked: Icons.circle.unChecked}
                         size={IconSizes.normal}
-                        color={item.color || Theme.primary}
+                        color={disabled ? gray : item.color || Theme.primary}
                     />
-                    <Text style={[styles.itemLabel, item.color && {color: item.color}]}>
+                    <Text style={[styles.itemLabel, item.color && {color: disabled ? gray : item.color}]}>
                         {item.label}
                     </Text>
                 </TouchableOpacity>

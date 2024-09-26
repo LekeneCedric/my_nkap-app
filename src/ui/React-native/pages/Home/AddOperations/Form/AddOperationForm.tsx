@@ -84,6 +84,7 @@ const AddOperationForm = ({addOperationFormBehaviour, accounts, categories, isUp
             name={'type'}
             render={({field}) => (
                 <CheckedForm
+                    disabled={isUpdate}
                     errorMessage={errors.type?.message}
                     label={translate('operation_type')}
                     field={field}

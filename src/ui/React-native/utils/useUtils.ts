@@ -2,6 +2,7 @@ interface IUseUtilsBehaviour {
     formatDateToYYYYMMDD(date: Date):string,
     formatDateToYYYYMMDDHIS(date: Date): string,
     formatMonthToMonthName(month: number, currentLanguage: string): string,
+    capitalizeFirstLetter(text: string): string,
 }
 
 export const serializeFunction = (func: Function): string => {
@@ -13,6 +14,11 @@ export const deserializeFunction = (funcString: string): ((amount: number) => st
 };
 
 const useUtils = (): IUseUtilsBehaviour => {
+
+    const capitalizeFirstLetter = (str: string): string => {
+        if (!str) return str; // Return empty string if input is empty
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     const formatDateToYYYYMMDD = (date: Date) => {
         const pad = (num: number) => String(num).padStart(2, '0');
@@ -79,6 +85,7 @@ const useUtils = (): IUseUtilsBehaviour => {
         formatDateToYYYYMMDD: formatDateToYYYYMMDD,
         formatDateToYYYYMMDDHIS: formatDateToYYYYMMDDHIS,
         formatMonthToMonthName: formatMonthToMonthName,
+        capitalizeFirstLetter: capitalizeFirstLetter,
     }
 }
 export default useUtils;
