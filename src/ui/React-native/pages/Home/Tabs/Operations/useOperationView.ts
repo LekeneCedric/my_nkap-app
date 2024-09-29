@@ -89,7 +89,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
   const currentOperationsLimit = useAppSelector(selectCurrentOperationsLimit);
   const operationsByDate = useAppSelector(selectOperationsByDate);
   const navigateToAddOperation = () => {
-    navigateByPath(routes.home.addOperationByAI);
+    navigateByPath(routes.home.addOperation);
   };
   const [shouldNotGoForwardNextDay, setShouldNotGoForwardNextDay] =
     useState<boolean>(true);

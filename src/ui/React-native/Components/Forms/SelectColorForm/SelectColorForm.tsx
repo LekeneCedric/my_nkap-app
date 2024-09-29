@@ -11,14 +11,17 @@ type props = {
     currentSelectedColor?: string,
     field: ControllerRenderProps<any, any>,
     setSelectedColor: (selectedColor: string) => void,
+    defaultValue: string|undefined,
 }
-const SelectColorForm = ({colors, currentSelectedColor, errorMessages, field, setSelectedColor}: props) => {
+const SelectColorForm = ({defaultValue, colors, currentSelectedColor, errorMessages, field, setSelectedColor}: props) => {
     const {translate} = useCustomTranslation();
     const {colorPalette: {text, red,}} = useTheme();
     const styles = SelectColorFormStyles(text);
     useEffect(() => {
-        if (field.value) {
-            setSelectedColor(field.value);
+        if (field.value || defaultValue) {
+            const defaultColor = defaultValue ?? field.value;
+            setSelectedColor(defaultColor);
+            field.onChange(defaultColor);
         }
     }, []);
     return <View style={styles.colorSelectContainer}>

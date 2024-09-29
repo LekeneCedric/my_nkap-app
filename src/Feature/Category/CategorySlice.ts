@@ -25,6 +25,15 @@ export const CategorySlice = createSlice({
                     ...state.categories,
                     payload,
                 ]
+            },
+            UpdateCategory: (state, {payload}: PayloadAction<ICategory>) => {
+                const updatedCategories = state.categories.map(c => {
+                    if (c.id == payload.id) {
+                        return payload;
+                    }
+                    return c;
+                });
+                state.categories = [...updatedCategories];
             }
         },
         extraReducers: builder => {
@@ -54,5 +63,5 @@ export const CategorySlice = createSlice({
         }
     }
 );
-export const {AddCategory} = CategorySlice.actions;
+export const {AddCategory, UpdateCategory} = CategorySlice.actions;
 export default CategorySlice.reducer;

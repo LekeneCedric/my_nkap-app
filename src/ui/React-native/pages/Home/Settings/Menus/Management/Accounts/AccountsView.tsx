@@ -39,23 +39,22 @@ const AccountsView = () => {
     const {colorPalette: {pageBackground, containerBackground, text, gray, action1, action1Text}} = useTheme();
     const styles = AccountsViewStyles(pageBackground, containerBackground, text, gray, action1);
     const [showAddAccountModalView, setShowAddAccountModalView] = useState<boolean>(false)
-    return <>
-        <AddAccountModalView
-            closeModal = {() => setShowAddAccountModalView(false)}
-            isVisible={showAddAccountModalView}
-        />
-        <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={goBack}>
-                <Icon
-                    name={Icons.back}
-                    size={IconSizes.medium}
-                    color={text}
+    return <SafeAreaView
+            style={styles.pageContainer}>
+                <AddAccountModalView
+                    closeModal = {() => setShowAddAccountModalView(false)}
+                    isVisible={showAddAccountModalView}
                 />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>{translate('manage_my_accounts')}</Text>
-        </View>
-        <SafeAreaView
-            style={[styles.pageContainer]}>
+            <View style={styles.headerContainer}>
+                <TouchableOpacity onPress={goBack}>
+                    <Icon
+                        name={Icons.back}
+                        size={IconSizes.medium}
+                        color={text}
+                    />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>{translate('settings')} {'>'} {translate('accounts')}</Text>
+            </View>    
             <View style={styles.balanceContainer}>
                 <View style={{flexDirection: 'column'}}>
 
@@ -98,6 +97,5 @@ const AccountsView = () => {
                 </TouchableOpacity>
             </Animated.View>
         </SafeAreaView>
-    </>
 };
 export default AccountsView;

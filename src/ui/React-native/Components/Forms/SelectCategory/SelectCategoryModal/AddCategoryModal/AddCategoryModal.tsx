@@ -17,6 +17,7 @@ import AddCategoryModalStyles from "./AddCategoryModal.styles.ts";
 import SelectColorForm from "../../../SelectColorForm/SelectColorForm.tsx";
 import {ColorsList} from "../../../../../Shared/Constants/Colors.ts";
 import useCustomTranslation from "../../../../../Shared/Hooks/useCustomTranslation.ts";
+import ICategory from "../../../../../../../Domain/Category/Category.ts";
 
 type AddCategoryModalProps = {
     isVisible: boolean,
@@ -24,11 +25,12 @@ type AddCategoryModalProps = {
     onSubmit: (data: IAddCategoryForm) => void,
     onClose: () => void,
     loading: LoadingState,
-    defaultName: string,
+    defaultName?: string,
+    data?: ICategory,
 }
-const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultName}: AddCategoryModalProps) => {
+const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultName, data}: AddCategoryModalProps) => {
     const {translate} = useCustomTranslation();
-    const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined)
+    const [selectedColor, setSelectedColor] = useState<string | undefined>( data ? data.color : undefined)
     const colorsList = ColorsList;
     const {formState: {errors}, control, handleSubmit} = form;
     const {colorPalette: {pageBackground, containerBackground, text, action1, gray}} = useTheme();
@@ -50,7 +52,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                             fontSize: FontSize.mediumHigh,
                             color: text,
                         }}>
-                            {translate('add_new_category')}
+                            {!data  ? translate('add_new_category') : translate('update_category')}
                         </Text>
                     </View>
                     <Controller
@@ -63,7 +65,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                                     errorMessage={errors.name?.message}
                                     label={translate('category_name')}
                                     field={field}
-                                    defaultValue={defaultName}
+                                    defaultValue={defaultName ? defaultName : data ? data.name : ''}
                                     keyboardType={'default'}
                                     placeholder={translate('category_name_placeholder')}
                                 />
@@ -76,6 +78,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                         name={'color'}
                         render={({field}) => (
                             <SelectColorForm
+                                defaultValue={data?.color}
                                 colors={colorsList}
                                 errorMessages={errors.color?.message}
                                 currentSelectedColor={selectedColor}
@@ -95,6 +98,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                                 field={field}
                                 placeholder={translate('category_icon_placeholder')}
                                 color={selectedColor}
+                                defaultValue={data?.icon}
                             />
                         )}
                     />
@@ -103,6 +107,7 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                         name={'description'}
                         render={({field}) => (
                             <InputTextAreaForm
+                                defaultValue={data?.description}
                                 label={translate('category_description')}
                                 errorMessage={errors.description?.message}
                                 field={field}
@@ -112,8 +117,8 @@ const AddCategoryModal = ({isVisible, form, onSubmit, onClose, loading, defaultN
                     />
                     <ButtonForm
                         loading={loading}
-                        loadingLabel={translate('pending_add_new_category')}
-                        label={translate('add_new_category')}
+                        loadingLabel={data ? translate('pending_update_category') : translate('pending_add_new_category')}
+                        label={!data ? translate('add') : translate('update')}
                         handleClick={handleSubmit(onSubmit)}
                     />
                 </View>

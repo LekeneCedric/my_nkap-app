@@ -10,7 +10,8 @@ const AccountsViewStyles = (pageContainerColor: string, cardContainerColor: stri
             flexDirection: "row",
             alignItems: "center",
             width: "100%",
-            backgroundColor: pageContainerColor
+            backgroundColor: pageContainerColor,
+            marginBottom: 10
         },
         headerTitle: {
             fontSize: FontSize.medium,

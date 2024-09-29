@@ -5,17 +5,24 @@ import {Theme} from "../../../Global/Theme.ts";
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import InputTextAreaStyles from "./InputTextAreaForm.style.ts";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import { useEffect } from "react";
 
 type props = {
     label: string,
     errorMessage?: string,
     field: ControllerRenderProps<any, any>,
-    placeholder: string
+    placeholder: string,
+    defaultValue?: string
 }
-const InputTextAreaForm = ({label, errorMessage, field, placeholder}: props) => {
+const InputTextAreaForm = ({defaultValue, label, errorMessage, field, placeholder}: props) => {
     const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, text, action1}} = useTheme();
     const styles = InputTextAreaStyles(pageBackground, text);
+    useEffect(() => {
+        if (defaultValue) {
+            field.onChange(defaultValue);
+        }
+    }, [])
     return (
         <Animated.View
             entering={LightSpeedInLeft.duration(1500)}

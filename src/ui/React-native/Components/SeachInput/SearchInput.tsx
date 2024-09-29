@@ -8,13 +8,15 @@ import useCustomTranslation from "../../Shared/Hooks/useCustomTranslation.ts";
 type SearchInputProps = {
     value: string,
     onChange: (text: string) => void;
+    backgroundColor?: string
 }
-const SeachInput = ({value, onChange}: SearchInputProps) => {
+const SeachInput = ({value, onChange, backgroundColor}: SearchInputProps) => {
     const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, text}} = useTheme();
     const styles = SearchInputStyle(pageBackground);
-    return <Animated.View style={styles.container}>
+    return <Animated.View style={[styles.container, {backgroundColor: backgroundColor ?? containerBackground}]}>
         <TextInput
+            key={'text-id'}
           keyboardType={'default'}
           placeholder={translate('select_placeholder')}
           placeholderTextColor={text}

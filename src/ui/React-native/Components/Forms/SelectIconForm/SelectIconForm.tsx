@@ -17,8 +17,9 @@ type SelectCategoryFormProps = {
     field: ControllerRenderProps<any, any>;
     placeholder: string;
     color?: string,
+    defaultValue?: string,
 };
-const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: SelectCategoryFormProps) => {
+const SelectIconForm = ({defaultValue, icon, label, errorMessage, field, placeholder, color}: SelectCategoryFormProps) => {
     const {translate} = useCustomTranslation();
     const [selectedIcon, setSelectedIcon] = useState<string|null>(null);
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
@@ -26,8 +27,10 @@ const SelectIconForm = ({icon, label, errorMessage, field, placeholder, color}: 
     const styles = SelectIconFormStyle(pageBackground, containerBackground, text, action1, gray);
     useEffect(() => {}, [color]);
     useEffect(() => {
-        if (field.value) {
-            setSelectedIcon(field.value);
+        if (field.value || defaultValue) {
+            const defaultIcon = defaultValue ?? field.value;
+            setSelectedIcon(defaultIcon);
+            field.onChange(defaultIcon);
         }
     }, []);
     return <>

@@ -60,7 +60,9 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                     <SearchInput value={inputSearch} onChange={(text: string) => {
                         setInputSearch(text);
                         sortList(text)
-                    }}/>
+                    }}
+                    backgroundColor={pageBackground}
+                    />
                     <TouchableOpacity onPress={()=>{clearSearch(true)}} style={{flex: 1, alignItems: 'center'}}>
                         <Icon name={Icons.close} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
