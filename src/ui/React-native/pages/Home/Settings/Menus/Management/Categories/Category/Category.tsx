@@ -20,12 +20,18 @@ const Category = ({data}: props) => {
     const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
     const {colorPalette: {containerBackground, action1, red, text}} = useTheme();
     const swipeRef = useRef<Swipeable | null>(null);
+    const showingUpdateModal = () => {
+        setShowUpdateModal(true);
+    }
+    const deleteCategory = () => {
+
+    }
     const renderedActions = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity onPress={()=>{setShowUpdateModal(true)}} style={{width: 50, alignItems: 'center'}}>
+                    <TouchableOpacity onPress={showingUpdateModal} style={{width: 50, alignItems: 'center'}}>
                         <Icon name={Icons.edit} size={IconSizes.normal} color={action1} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{}} style={{width: 50, alignItems: 'center'}}>
+                    <TouchableOpacity onPress={deleteCategory} style={{width: 50, alignItems: 'center'}}>
                         <Icon name={Icons.trash} size={IconSizes.normal} color={red} />
                     </TouchableOpacity>
                 </View>
@@ -35,7 +41,7 @@ const Category = ({data}: props) => {
             swipeRef.current.close();
         }
     }
-    const onPressSimulateSwipe= () => {
+    const onPressSimulateSwipe = () => {
         if (swipeRef.current) {
           swipeRef.current.openRight();
         }
@@ -43,7 +49,6 @@ const Category = ({data}: props) => {
     const {loading, form, onSubmit} = useCategory(data, closeModal, cancelSwipe);
 
     return <Animated.View entering={BounceInLeft.duration(1000)} exiting={BounceOutLeft.duration(100)}>
-        <>
         <AddCategoryModal
             form={form}
             loading={loading}
@@ -86,7 +91,6 @@ const Category = ({data}: props) => {
                 </View>
             </TouchableOpacity>
         </Swipeable>
-        </>
     </Animated.View>
 };
 
