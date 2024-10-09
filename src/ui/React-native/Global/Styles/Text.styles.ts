@@ -10,7 +10,8 @@ const TextStyles = StyleSheet.create({
   description: {
     fontWeight: '300',
     fontSize: FontSize.medium,
-    marginBottom: 10
+    marginBottom: 10,
+    padding: 10
   }
 });
 export default TextStyles;

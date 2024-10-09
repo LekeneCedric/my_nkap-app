@@ -28,7 +28,8 @@ export const Icons = {
     },
     circle: {
         unChecked: 'checkbox-blank-circle-outline',
-        checked: 'checkbox-marked-circle'
+        checked: 'checkbox-marked-circle',
+        alert: 'alert-circle'
     },
     money: 'money',
     category: 'dots-grid',

@@ -20,7 +20,8 @@ const RegisterView = () => {
     const styles = RegisterViewStyle(pageBackground, containerBackground, text);
     const {navigateByPath} = useCustomNavigation();
     return (<SafeAreaView style={[styles.pageContainer, {backgroundColor: pageBackground}]}>
-        <ScrollView>
+        
+        <ScrollView showsVerticalScrollIndicator={false}>
             <Animated.View entering={BounceInUp.duration(0)} style={styles.formHeader}>
                 <View style={styles.titleContainer}>
                     <Animated.Text

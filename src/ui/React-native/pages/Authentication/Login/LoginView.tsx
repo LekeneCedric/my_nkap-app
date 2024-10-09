@@ -23,7 +23,6 @@ const LoginView = () => {
   const {colorPalette: {pageBackground, containerBackground, primary, text, primaryLight, action1}} = useTheme();
   const styles = LoginViewStyles(pageBackground, containerBackground, text);
   return (<SafeAreaView style={[styles.pageContainer]}>
-
     <ScrollView>
       <Animated.View entering={BounceInUp.duration(0)} style={styles.formHeader}>
         <View style={styles.titleContainer}>
@@ -44,9 +43,15 @@ const LoginView = () => {
       <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp} style={styles.formContainer}>
         <LoginForm loginFormBehaviour={loginFormBehaviour} />
         <View style={{flexDirection: 'row', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(3)}}>
-          <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('not_already_account')}</Text>
+          <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('not_already_account')} ?</Text>
           <TouchableOpacity onPress={()=>{navigateByPath(routes.auth.register)}}>
           <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> {translate('register_title')} </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{flexDirection: 'row', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(3)}}>
+          <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('password_forgotten')} ?</Text>
+          <TouchableOpacity onPress={()=>{navigateByPath(routes.auth.send_recover_password_code)}}>
+          <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> {translate('forgotten_title')} </Text>
           </TouchableOpacity>
         </View>
       </Animated.View>

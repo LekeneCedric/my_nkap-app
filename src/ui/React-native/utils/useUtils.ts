@@ -3,6 +3,7 @@ interface IUseUtilsBehaviour {
     formatDateToYYYYMMDDHIS(date: Date): string,
     formatMonthToMonthName(month: number, currentLanguage: string): string,
     capitalizeFirstLetter(text: string): string,
+    formatTimeToMMSS(seconds: number): string,
 }
 
 export const serializeFunction = (func: Function): string => {
@@ -40,6 +41,12 @@ const useUtils = (): IUseUtilsBehaviour => {
         const minutes = pad(date.getMinutes());
 
         return `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
+
+    const formatTimeToMMSS = (seconds: number ) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
     }
 
     const formatMonthToMonthName = (month: number, currentLanguage: "en"|"fr"): string => {
@@ -86,6 +93,7 @@ const useUtils = (): IUseUtilsBehaviour => {
         formatDateToYYYYMMDDHIS: formatDateToYYYYMMDDHIS,
         formatMonthToMonthName: formatMonthToMonthName,
         capitalizeFirstLetter: capitalizeFirstLetter,
+        formatTimeToMMSS: formatTimeToMMSS,
     }
 }
 export default useUtils;

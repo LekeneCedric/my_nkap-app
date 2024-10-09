@@ -25,7 +25,7 @@ const ValidateActionModalView = ({title, description, action, close, isVisible}:
                 <View style={{flexDirection: 'column', justifyContent: 'space-evenly', marginBottom: 10}}>
                     <ButtonForm noAnimation={true} color={red} loading={LoadingState.success} loadingLabel={'Enregistrement ...'}
                                 label={'Enregistrer'}
-                                handleClick={action}/>
+                                handleClick={()=>{action();close()}}/>
                     <View style={{width: '100%', alignItems: 'center', justifyContent: 'center', marginTop: 15, marginBottom: 15}}>
                         <TouchableOpacity onPress={close}>
                             <Text style={{

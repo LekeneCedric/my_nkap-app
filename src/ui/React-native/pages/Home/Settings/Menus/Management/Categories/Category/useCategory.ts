@@ -22,7 +22,7 @@ type props = {
   form: UseFormReturn<IAddCategoryForm>;
   onSubmit: (data: IAddCategoryForm) => void;
 };
-const useCategory = (categoryData: ICategory, closeModal: () => void, cancelSwipe: () => void): props => {
+const useCategory = (categoryData: ICategory, closeModal: () => void): props => {
   const dispatch = useAppDispatch();
   const {translate} = useCustomTranslation();
   const userId = useAppSelector(selectUser)!.userId;
@@ -47,7 +47,6 @@ const useCategory = (categoryData: ICategory, closeModal: () => void, cancelSwip
     if (SaveCategoryAsync.fulfilled.match(response)) {
       form.reset();
       closeModal();
-      cancelSwipe();
       // @ts-ignore
       toast.show(translate(response.payload.message), {
         type: "success",
@@ -76,7 +75,6 @@ const useCategory = (categoryData: ICategory, closeModal: () => void, cancelSwip
       });
     }
   };
-
   return {
     loading: loading,
     form: form,

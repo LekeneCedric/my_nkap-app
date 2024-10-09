@@ -11,6 +11,7 @@ import { IconSizes } from "../../../../../../../../../Global/IconSizes.ts";
 import { Icons } from "../../../../../../../../../Global/Icons.ts";
 import { FontSize } from "../../../../../../../../../Global/FontSize.ts";
 import { wp } from "../../../../../../../../../Global/Percentage.ts";
+import React from "react";
 
 type props = {
     closeModal: () => void,
