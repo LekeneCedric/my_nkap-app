@@ -34,7 +34,7 @@ const useActivateAccount = (): behaviour => {
     const inputRefs = [inputRef1, inputRef2, inputRef3, inputRef4, inputRef5, inputRef6];
     const [code, setCode] = useState<string[]>(['','','','','','']);
     const expirationTime = useAppSelector(selectActivationAccountExpirationTime);
-    const [timeLeft, setTimeLeft] = useState<number>(10)
+    const [timeLeft, setTimeLeft] = useState<number>(10);
     const loadingState = useAppSelector(selectActivationAccountLoadingState);
     const activationAccountEmail = useAppSelector(selectActivationAccountEmail);
 
