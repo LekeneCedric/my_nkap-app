@@ -220,5 +220,7 @@
   "verif_account_part1": "Ein Bestätigungscode wurde an Sie gesendet an ",
   "verif_account_part2": " Bitte geben Sie diesen Code ein, um Ihr Konto zu aktivieren.",
   "languages": "Sprachen",
-  "german": "Deutsch"
+  "german": "Deutsch",
+  "Compte épargne": "Sparkonto",
+  "Compte courant": "Girokonto"
 }

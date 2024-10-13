@@ -220,5 +220,7 @@
   "verif_account_part1": "A verification code has been sent to you at ",
   "verif_account_part2": " Please enter this code to activate your account",
   "languages": "Languages",
-  "german": "German"
+  "german": "German",
+  "Compte épargne": "Savings account",
+  "Compte courant": "Checking account"
 }
