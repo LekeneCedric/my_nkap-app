@@ -55,7 +55,7 @@ const CategoriesView = () => {
         <View style={{flexDirection: 'row', alignContent: 'center', marginTop: 10}}>
             <SeachInput value={searchText} onChange={setSearchText} backgroundColor={containerBackground} />
         </View>
-        <ScrollView>
+        <ScrollView style={{marginTop: 10}}>
             <FlatList
                 data={filteredCategories}
                 keyExtractor={item => item.id}

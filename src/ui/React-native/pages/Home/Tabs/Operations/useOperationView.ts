@@ -322,15 +322,6 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
       await getAllAccounts();
     };
 
-    const getAllCategories = async () => {
-      const command = {
-        userId: userId ? userId : "",
-      } as IGetAllCategoryCommand;
-      await dispatch(GetAllCategoryAsync(command));
-    };
-    if (categories.length == 0) {
-      getAllCategories();
-    }
     getAccounts();
   }, []);
   useEffect(() => {

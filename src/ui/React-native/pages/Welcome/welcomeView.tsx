@@ -7,6 +7,8 @@ import {IconSizes} from "../../Global/IconSizes.ts";
 import Animated, {BounceInLeft} from "react-native-reanimated";
 import useTheme from "../../Shared/Hooks/useTheme.ts";
 import WelcomeViewStyles from "./welcomeView.style.tsx";
+import React from 'react';
+import { wp } from '../../Global/Percentage.ts';
 
 const Welcome = () => {
     const {
@@ -26,8 +28,7 @@ const Welcome = () => {
             <Animated.View style={[styles.container1]}>
                 <Image
                     source={require("../../../../assets/images/logo.png")}
-                    style={[styles.logo,{width: '100%', height:'90%'}]}
-
+                    style={[styles.logo,{width: wp(100), height:wp(100)}]}
                 />
             </Animated.View>
             <GestureRecognizer

@@ -17,16 +17,16 @@ const WelcomeViewStyles = (pageBackgroundColor: string, containerBackgroundColor
 	},
 	container1: {
 		backgroundColor: pageBackgroundColor,
-		flex: 7,
 		width: '100%',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		padding: 20
 	},
 	container2: {
 		backgroundColor: containerBackgroundColor,
-		flex: 4,
 		width: '100%',
 		alignItems: 'center',
+		flexGrow: 1,
 		padding: wp('5%'),
 		borderTopLeftRadius: wp('10%'),
 		borderTopRightRadius: wp('10%'),

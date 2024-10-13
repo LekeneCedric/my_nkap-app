@@ -222,5 +222,7 @@
   "languages": "Sprachen",
   "german": "Deutsch",
   "Compte épargne": "Sparkonto",
-  "Compte courant": "Girokonto"
+  "Compte courant": "Girokonto",
+  "épargne": "Ersparnisse",
+  "courant": "Giro"
 }

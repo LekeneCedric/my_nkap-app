@@ -10,6 +10,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconSizes } from "../../../../../../../../Global/IconSizes";
 import { Icons } from "../../../../../../../../Global/Icons";
+import React from "react";
 
 
 type props = {
@@ -56,8 +57,8 @@ const AccountItem = ({data}: props) => {
                     </View>
 
                     <View style={{paddingLeft: 10}}>
-                        <Text style={styles.name}>{data.name}</Text>
-                        <Text style={styles.type}>{data.type}</Text>
+                        <Text style={styles.name}>{translate(data.name)}</Text>
+                        <Text style={styles.type}>{translate(data.type)}</Text>
                     </View>
 
                 </View>

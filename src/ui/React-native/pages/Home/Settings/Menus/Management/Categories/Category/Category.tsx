@@ -39,13 +39,14 @@ const Category = ({data}: props) => {
                 style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 15,
+                    margin: 4,
+                    marginTop: 5,
                     backgroundColor: containerBackground,
                     shadowColor: "#171717",
                     shadowOffset: {width: 5, height: 5},
                     shadowOpacity: 0.2,
-                    shadowRadius: 20,
-                    elevation: 10,
+                    shadowRadius: 5,
+                    elevation: 5,
                     borderRadius: 5,
                     padding: 3,
                   }}

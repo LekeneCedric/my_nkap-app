@@ -68,8 +68,13 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                         <Icon name={Icons.close} size={IconSizes.medium} color={text}/>
                     </TouchableOpacity>
                 </View>
-                {
-                    filterList.length > 0 && <FlatList
+                <View style={styles.listAddCategoryContainer}>
+                        <TouchableOpacity onPress={showAddCategoryModal} style={[styles.itemContainer,{borderBottomColor: text, borderBottomWidth: 0.3}]}>
+                            <Icon name={Icons.add} size={IconSizes.normal} color={action1}/>
+                            <Text style={[styles.itemText]} numberOfLines={1}>{translate('add_new_category')}</Text>
+                        </TouchableOpacity>
+                </View>
+                <FlatList
                         data={filterList}
                         renderItem={({item}) =>
                             <TouchableOpacity onPress={() => {
@@ -84,16 +89,8 @@ const SelectCategoryModalView = ({action, closeModal, isVisible, list}: selectCa
                             </TouchableOpacity>}
                         keyExtractor={item => item.id}
                         style={styles.listContainer}
-                    />
-                }
-                {
-                    filterList.length == 0 && <View style={styles.listAddCategoryContainer}>
-                        <TouchableOpacity onPress={showAddCategoryModal} style={[styles.itemContainer,{borderBottomColor: text, borderBottomWidth: 0.3}]}>
-                            <Icon name={Icons.add} size={IconSizes.normal} color={action1}/>
-                            <Text style={[styles.itemText]} numberOfLines={1}>{translate('add_new_category')}</Text>
-                        </TouchableOpacity>
-                    </View>
-                }
+                />
+                
             </Animated.View>
         </Modal>
     </>

@@ -13,6 +13,7 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
       paddingTop: pageStylesConstant.padding,
       paddingLeft: pageStylesConstant.padding,
       paddingRight: pageStylesConstant.padding,
+      flex: 1,
       // paddingBottom: 50
     },
     accountsContainer: {
@@ -60,7 +61,8 @@ const OperationViewStyles = (pageContainerColor: string, cardContainerColor: str
       color: text,
     },
     transactionBodyContainer: {
-      marginRight: 5
+      marginRight: 5,
+      flexGrow: 1,
     },
     notFoundContainer: {
       flexDirection: 'column',

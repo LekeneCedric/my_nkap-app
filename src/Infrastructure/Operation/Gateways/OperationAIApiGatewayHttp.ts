@@ -80,6 +80,7 @@ export default class OperationAIApiGatewayHttp
       );
       //@ts-ignore
       let output = response.data;
+      console.warn(output);
       result = parseGeminiApiResposne(output);
       console.warn(`api: ${GOOGLE_GEMINI_API_KEY}`)
     } catch (e: any) {

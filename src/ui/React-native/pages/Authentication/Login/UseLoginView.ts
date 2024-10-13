@@ -3,13 +3,18 @@ import InputLoginForm from "../../../../../Infrastructure/Validators/Forms/auth/
 import {yupResolver} from "@hookform/resolvers/yup";
 import {InputLoginFormFormSchemaValidate} from "../../../../../Infrastructure/Validators/Forms/auth/Login/InputLoginFormFormSchemaValidate";
 import {useAppDispatch, useAppSelector} from "../../../../../app/hook";
-import {selectAuthenticationLoadingState} from "../../../../../Feature/Authentication/AuthenticationSelector";
+import {
+  selectAuthenticationLoadingState,
+  selectUser,
+} from "../../../../../Feature/Authentication/AuthenticationSelector";
 import {useToast} from "react-native-toast-notifications";
 import {LoadingState} from "../../../../../Domain/Enums/LoadingState";
 import {LoginAsync} from "../../../../../Feature/Authentication/Thunks/Login/LoginAsync";
 import ILoginCommand from "../../../../../Feature/Authentication/Thunks/Login/LoginCommand";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
-import { SetActivationAccountEmail } from "../../../../../Feature/Authentication/AuthenticationSlice.ts";
+import {SetActivationAccountEmail} from "../../../../../Feature/Authentication/AuthenticationSlice.ts";
+import GetAllCategoryAsync from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
+import IGetAllCategoryCommand from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
 
 export interface LoginFormBehaviour {
   form: UseFormReturn<InputLoginForm>;
@@ -26,10 +31,16 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
   const dispatch = useAppDispatch();
   const loadingState = useAppSelector(selectAuthenticationLoadingState);
   const toast = useToast();
-
   const form = useForm<InputLoginForm>({
     resolver: yupResolver(InputLoginFormFormSchemaValidate),
   });
+
+  const getAllCategories = async (userId: string) => {
+    const command = {
+      userId: userId ? userId : "",
+    } as IGetAllCategoryCommand;
+    await dispatch(GetAllCategoryAsync(command));
+  };
 
   const onSubmit = async (data: InputLoginForm) => {
     const command = {
@@ -38,7 +49,8 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
     } as ILoginCommand;
     const response = await dispatch(LoginAsync(command));
     if (LoginAsync.fulfilled.match(response)) {
-      toast.show(`${translate('welcome')} ${response.payload.message}`, {
+      await getAllCategories(response.payload.user.userId);
+      toast.show(`${translate("welcome")} ${response.payload.message}`, {
         type: "success",
         placement: "top",
         duration: 3000,

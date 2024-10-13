@@ -1,4 +1,4 @@
-import {Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import AccountCard from "../../../../Components/Card/AccountCard/AccountCard";
 import TransactionItem from "../../../../Components/TransactionItem/TransactionItem";
 import useOperationsView from "./useOperationView.ts";
@@ -26,7 +26,6 @@ import SelectModalView from "../../../../Components/Forms/Select/Modal/SelectMod
 import useNavigation from "../../../../utils/useNavigation.ts";
 import {routes} from "../../../routes";
 import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
-import FloatingButton from "../../../../Components/Buttons/FloatingButton/FloatingButton.tsx";
 import React from "react";
 import FloatingButtons from "../../../../Components/Buttons/FloatingButtons/FloatingButtons.tsx";
 
@@ -38,7 +37,6 @@ const Transactions = () => {
         operations,
         refreshing,
         onRefresh,
-        bounceValue,
         navigateToAddOperation,
         navigateTOAddAIOperation: navigateToAddAIOperation,
         operationFilterParams,
@@ -118,17 +116,11 @@ const Transactions = () => {
             />
             <SafeAreaView
                 style={[styles.pageContainer, !operationFilterParams.month && {paddingBottom: 50}]}>
-                <ScrollView
+                {/* <ScrollView
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            progressBackgroundColor={action1}
-                            colors={[action1Text]}
-                            tintColor={action1Text}
-                            titleColor={action1Text}
-                            onRefresh={onRefresh}/>}>
+                    scrollEnabled={false}
+                    > */}
                     <View style={styles.accountsContainer}>
                         <View style={{width: "100%", alignItems: 'center'}}>
                             <ScrollView
@@ -287,8 +279,18 @@ const Transactions = () => {
                         </View>
 
                     </View>
+                    
                     <View style={styles.transactionBodyContainer}>
-                        <ScrollView showsVerticalScrollIndicator={false}>
+                        <ScrollView
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    progressBackgroundColor={action1}
+                                    colors={[action1Text]}
+                                    tintColor={action1Text}
+                                    titleColor={action1Text}
+                                    onRefresh={onRefresh}/>}
+                            style={{flex: 1}} showsVerticalScrollIndicator={false}>
                             {
                                 operationsLoadingState == LoadingState.pending && (
                                     <>
@@ -339,7 +341,7 @@ const Transactions = () => {
                     {/*    </View>*/}
                     {/*    */}
                     {/*</View>*/}
-                </ScrollView>
+                {/* </ScrollView> */}
                 {
                     !operationFilterParams.month && (
                         <View style={{
