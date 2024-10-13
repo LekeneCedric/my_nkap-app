@@ -21,7 +21,7 @@ import { FontSize } from "../../../Global/FontSize";
 import useCustomNavigation from "../../../utils/useNavigation";
 import { routes } from "../../routes";
 
-const sendRecoverPasswordCode = () => {
+const SendRecoverPasswordCode = () => {
   const {translate} = useCustomTranslation();
   const {navigateByPath} = useCustomNavigation();
   const {
@@ -40,7 +40,6 @@ const sendRecoverPasswordCode = () => {
 
   return (
     <SafeAreaView style={styles.pageContainer}>
-      <ScrollView>
         <Animated.View
           entering={BounceInUp.duration(0)}
           style={styles.formHeader}
@@ -48,6 +47,7 @@ const sendRecoverPasswordCode = () => {
           <View style={styles.titleContainer}>
             <Animated.Text
               entering={LightSpeedInLeft.duration(1500)}
+              
               exiting={LightSpeedInRight.duration(1500)}
               style={[TextStyles.title, {textAlign: "center", color: action1}]}
             >
@@ -85,24 +85,33 @@ const sendRecoverPasswordCode = () => {
                 />
               )}
             />
-            <VerticalSeparator percent={5}/>
+            
+            <VerticalSeparator percent={2}/>
+
             <ButtonForm
               loading={loadingState}
               loadingLabel={translate("pending_send_recover_password_code")}
               label={translate("send_recover_password_code")}
               handleClick={handleSubmit(onSubmit)}
             />
-            <View style={{flexDirection: 'row', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(3)}}>
-              <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('already_received_recover_code')} ?</Text>
-              <TouchableOpacity onPress={()=>{navigateByPath(routes.auth.recover_password)}}>
-              <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> {translate('recover_password')} </Text>
-              </TouchableOpacity>
+            <VerticalSeparator percent={1}/>
+            <View style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignSelf: 'center',
+                justifyContent: 'center',
+                marginTop: hp(1),
+                marginBottom: hp(5),
+              }}>
+                <Text style={{color: text, fontWeight: '300', fontSize: FontSize.normal}}> {translate('already_received_recover_code')} ? </Text>
+                <TouchableOpacity onPress={() => {navigateByPath(routes.auth.recover_password)}}>
+                    <Text style={{color: action1, fontWeight: 'bold', fontSize: FontSize.normal}}> {translate('recover_password')} </Text>
+                </TouchableOpacity>
             </View>
           </View>
         </Animated.View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default sendRecoverPasswordCode;
+export default SendRecoverPasswordCode;

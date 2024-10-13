@@ -1,4 +1,4 @@
-import {Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Animated} from "react-native";
+import {Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import AccountCard from "../../../../Components/Card/AccountCard/AccountCard";
 import TransactionItem from "../../../../Components/TransactionItem/TransactionItem";
 import useOperationsView from "./useOperationView.ts";
@@ -27,6 +27,8 @@ import useNavigation from "../../../../utils/useNavigation.ts";
 import {routes} from "../../../routes";
 import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
 import FloatingButton from "../../../../Components/Buttons/FloatingButton/FloatingButton.tsx";
+import React from "react";
+import FloatingButtons from "../../../../Components/Buttons/FloatingButtons/FloatingButtons.tsx";
 
 const Transactions = () => {
     const {
@@ -38,6 +40,7 @@ const Transactions = () => {
         onRefresh,
         bounceValue,
         navigateToAddOperation,
+        navigateTOAddAIOperation: navigateToAddAIOperation,
         operationFilterParams,
         handlePreviousDay,
         handleNextDay,
@@ -131,8 +134,7 @@ const Transactions = () => {
                             <ScrollView
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                showsVerticalScrollIndicator={false}
-                            >
+                                showsVerticalScrollIndicator={false}>
                                 {
                                     accountLoadingState == LoadingState.pending && (
                                         <>
@@ -380,11 +382,25 @@ const Transactions = () => {
                         </View>
                     )
                 }
-                <FloatingButton
-                    icon={Icons.add}
-                    onPress={navigateToAddOperation}
+                <FloatingButtons
                     customStyles={{bottom: hp(operationFilterParams.month ? 2 : 10)}}
+                    buttons={[
+                        {
+                            icon: Icons.recorder,
+                            size: IconSizes.normal,
+                            action: navigateToAddAIOperation,
+                            color: action1
+                        },
+                        {
+                            icon: Icons.keyboard,
+                            size: IconSizes.normal,
+                            action: navigateToAddOperation,
+                            color: action1
+                        }
+                    ]}
+                    icon={Icons.add}
                 />
+                
             </SafeAreaView>
         </>
     );

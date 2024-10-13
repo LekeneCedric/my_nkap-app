@@ -13,6 +13,7 @@ import { IconSizes } from "../../../../../../Global/IconSizes"
 import { useAppDispatch } from "../../../../../../../../app/hook"
 import { SwitchCurrency } from "../../../../../../../../Feature/Configuration/ConfigurationSlice"
 import { hp } from "../../../../../../Global/Percentage"
+import React from "react"
 
 type props = {
     closeModal: () => void,
@@ -28,7 +29,6 @@ const CurrencyModalView = ({closeModal, isVisible, currentCurrency}: props) => {
     const {colorPalette: {containerBackground, text, action1, gray }} = useTheme();
     const styles = CurrencyModalStyles(containerBackground);
     return (
-        <>
             <Modal style={styles.modalContainer} transparent={true} animationType={'slide'} visible={isVisible}>
                 <Animated.View  entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>
@@ -73,7 +73,6 @@ const CurrencyModalView = ({closeModal, isVisible, currentCurrency}: props) => {
                         </View>
                 </Animated.View>
             </Modal>
-        </>
     )
 };
 

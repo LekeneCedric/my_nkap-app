@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
 import SelectMonthModalStyles from "./SelectMonthModalView.styles.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     action: (item: MonthItem) => void,
@@ -16,6 +17,7 @@ type props = {
     selectedMonth?: number
 }
 const SelectMonthModalView = ({action, closeModal, selectedMonth, isVisible}: props) => {
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, action1, text}} = useTheme();
     const styles = SelectMonthModalStyles(pageBackground, containerBackground, text, action1);
 
@@ -35,7 +37,7 @@ const SelectMonthModalView = ({action, closeModal, selectedMonth, isVisible}: pr
                         fontSize: FontSize.normal,
                         fontWeight: 'bold',
                         textAlign: 'center'
-                    }}>Mois</Text>
+                    }}>{translate('months')}</Text>
                     <TouchableOpacity style={{alignSelf: 'flex-end', position: 'absolute', right: 10}} onPress={() => {
                         closeModal()
                     }}>
@@ -56,7 +58,7 @@ const SelectMonthModalView = ({action, closeModal, selectedMonth, isVisible}: pr
                                     color={selectedMonth == item.value ? action1 : text}
                                 />
                                 <Text style={{color: text, fontSize: FontSize.medium}}>
-                                    {item.label}
+                                    {translate(item.label)}
                                 </Text>
                             </TouchableOpacity>
                         })

@@ -11,6 +11,7 @@ import SelectCategoryModalView from "./SelectCategoryModal/SelectCategoryModalVi
 import useTheme from "../../../Shared/Hooks/useTheme.ts";
 import SelectCategoryFormStyle from "./SelectCategoryForm.style.ts";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
+import React from "react";
 
 type SelectCategoryFormProps = {
     icon: string;

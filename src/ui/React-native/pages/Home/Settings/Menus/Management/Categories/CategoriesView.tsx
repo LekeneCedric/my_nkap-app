@@ -9,14 +9,36 @@ import useCustomNavigation from "../../../../../../utils/useNavigation";
 import SeachInput from "../../../../../../Components/SeachInput/SearchInput";
 import useCategories from "./useCategories";
 import Category from "./Category/Category";
+import FloatingButton from "../../../../../../Components/Buttons/FloatingButton/FloatingButton";
+import { hp } from "../../../../../../Global/Percentage";
+import AddCategoryModal from "../../../../../../Components/Forms/SelectCategory/SelectCategoryModal/AddCategoryModal/AddCategoryModal";
 
 const CategoriesView = () => {
     const {goBack} = useCustomNavigation();
     const {colorPalette: {pageBackground, text, containerBackground}} = useTheme();
     const {translate} = useCustomTranslation();
     const styles = categoriesStyles(pageBackground, text);
-    const {filteredCategories, searchText, setSearchText} = useCategories();
+    const {
+        filteredCategories,
+        searchText,
+        setSearchText,
+        form,
+        loading,
+        onSubmit,
+        closeAddCAtegoryModal,
+        openAddCategoryModal,
+        showAddCategoryModal
+    } = useCategories();
     return <SafeAreaView style={styles.pageContainer}>
+
+        <AddCategoryModal
+            defaultName={searchText}
+            form={form}
+            loading={loading}
+            onClose={closeAddCAtegoryModal}
+            onSubmit={onSubmit}
+            isVisible={showAddCategoryModal}
+        />
         <View style={styles.headerContainer}>
             <TouchableOpacity onPress={goBack}>
                 <Icon
@@ -42,6 +64,12 @@ const CategoriesView = () => {
                 )}
             />
         </ScrollView>
+        <FloatingButton
+          icon={Icons.add}
+          extraIcon={Icons.category}
+          onPress={openAddCategoryModal}
+          customStyles={{bottom: hp(4)}}
+        />
     </SafeAreaView>
 };
 

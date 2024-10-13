@@ -17,6 +17,7 @@ import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation"
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { Icons } from "../../../../Global/Icons";
 import UpdateOperationItemModal from "./Modal/UpdateOperationItemModal/UpdateOperationItemModal";
+import React from "react";
 
 type props = {
   data: OperationProcessingByAI;
@@ -124,12 +125,14 @@ const OperationItem = ({data, deleteOperation}: props) => {
                 justifyContent: "space-between",
               }}>
               <View style={{flexDirection: "row", alignItems: "center"}}>
-                <Icon
+                {
+                  selectedCategory && <Icon
                   name={selectedCategory!.icon}
                   color={selectedCategory!.color}
                   size={IconSizes.normSmall}
                   style={{marginRight: 2}}
                 />
+                }
                 <Text style={{fontSize: FontSize.normal, color: text}}>
                   {selectedCategory?.name}
                 </Text>

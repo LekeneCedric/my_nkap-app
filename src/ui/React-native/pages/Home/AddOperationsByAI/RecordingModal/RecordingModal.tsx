@@ -1,6 +1,5 @@
 import {
   Animated,
-  Modal,
   ScrollView,
   TouchableOpacity,
   View,
@@ -17,6 +16,7 @@ import useRecordingModal from "./useRecordingModal";
 import {useEffect} from "react";
 import {LoadingState} from "../../../../../../Domain/Enums/LoadingState";
 import Loading from "../../../../Components/Loading/Loading";
+import React from "react";
 
 type props = {
   isHide: boolean;
@@ -120,7 +120,7 @@ const RecordingModal = ({isHide, hide, loadingState}: props) => {
       >
         <View
           style={{
-            borderRadius: 15,
+            borderRadius: 100,
             backgroundColor: action1Container,
             alignSelf: "center",
             flexDirection: "row",
@@ -158,7 +158,7 @@ const RecordingModal = ({isHide, hide, loadingState}: props) => {
               zIndex: 1,
               padding: 10,
               backgroundColor: action1Container,
-              borderRadius: 15,
+              borderRadius: 100,
               alignSelf: "center",
             }}
           >

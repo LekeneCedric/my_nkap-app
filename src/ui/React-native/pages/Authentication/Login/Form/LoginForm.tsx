@@ -33,7 +33,6 @@ export const LoginForm = (
         />
       )}
     />
-    <VerticalSeparator percent={1} />
     <Controller
       name={'password'}
       control={control}
@@ -46,7 +45,7 @@ export const LoginForm = (
         />
       )}
     />
-    <VerticalSeparator percent={5} />
+    <VerticalSeparator percent={2} />
     <ButtonForm loading={loadingState} loadingLabel={translate('pending_connexion')} label={'connexion'} handleClick={handleSubmit(onSubmit)} />
   </View>)
 }

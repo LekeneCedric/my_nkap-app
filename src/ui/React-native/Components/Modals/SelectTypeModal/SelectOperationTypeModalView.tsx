@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons.ts";
 import {IconSizes} from "../../../Global/IconSizes.ts";
 import {FontSize} from "../../../Global/FontSize.ts";
+import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 
 type props = {
     action: (operationType: IOperationTypeEnum) => void,
@@ -17,14 +18,15 @@ type props = {
 const SelectOperationTypeModalView = ({action, closeModal, isVisible, selectedOperationTypeValue}: props) => {
     const data = [
         {
-            label: 'Dépenses',
+            label: 'expense',
             value: IOperationTypeEnum.EXPENSE,
         },
         {
-            label: 'Revenus',
+            label: 'income',
             value: IOperationTypeEnum.INCOME,
         }
     ]
+    const {translate} = useCustomTranslation();
     const {colorPalette: {pageBackground, containerBackground, action1, text }} = useTheme();
     const styles = SelectOperationTypeModalStyles(pageBackground, containerBackground, text, action1);
     return (
@@ -32,7 +34,9 @@ const SelectOperationTypeModalView = ({action, closeModal, isVisible, selectedOp
             <Animated.View entering={BounceInDown.duration(1000)} exiting={BounceInUp.duration(1000)}
                            style={styles.container}>
                 <View style={{width: '100%', alignItems: 'center', paddingRight: 10, flexDirection: 'row', justifyContent: 'center'}}>
-                    <Text style={{color: text, fontSize: FontSize.normal, fontWeight: 'bold', textAlign: 'center'}}>Type d'opération</Text>
+                    <Text style={{color: text, fontSize: FontSize.normal, fontWeight: 'bold', textAlign: 'center'}}>
+                        {translate('operation_type')}
+                    </Text>
                     <TouchableOpacity style={{alignSelf: 'flex-end', position: 'absolute', right: 10}} onPress={()=>{closeModal()}}>
                         <Icon color={text}  name={Icons.close} size={IconSizes.normal} />
                     </TouchableOpacity>
@@ -48,7 +52,7 @@ const SelectOperationTypeModalView = ({action, closeModal, isVisible, selectedOp
                                     color={itemIsSelected ? action1 : text}
                                 />
                                 <Text style={{marginLeft: 10, color: text, fontSize: FontSize.medium}}>
-                                    {item.label}
+                                    {translate(item.label)}
                                 </Text>
                             </TouchableOpacity>
                         })

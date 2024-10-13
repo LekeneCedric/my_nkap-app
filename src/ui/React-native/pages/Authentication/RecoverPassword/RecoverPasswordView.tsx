@@ -24,7 +24,6 @@ const RecoverPasswordView = () => {
         handleSubmit
     } = form;
     return <SafeAreaView style={styles.pageContainer}>
-        <ScrollView>
             <Animated.View
             entering={BounceInUp.duration(0)}
             style={styles.formHeader}>
@@ -52,70 +51,69 @@ const RecoverPasswordView = () => {
                 entering={BounceInDown.duration(1000)}
                 exiting={BounceInUp}
                 style={styles.formContainer}>
-                <View style={{flexDirection: "column"}}>
-                <Controller
-                    name={'email'}
-                    control={control}
-                    render={({field}) => (
-                        <InputForm 
-                        icon={Icons.email}
-                        label={translate('email')}
-                        errorMessage={errors.email?.message}
-                        field={field}
-                        keyboardType={'email-address'}
-                        placeholder={translate('email_placeholder')}
+                    <ScrollView style={{flex: 1}}>
+                            <Controller
+                            name={'email'}
+                            control={control}
+                            render={({field}) => (
+                                <InputForm 
+                                icon={Icons.email}
+                                label={translate('email')}
+                                errorMessage={errors.email?.message}
+                                field={field}
+                                keyboardType={'email-address'}
+                                placeholder={translate('email_placeholder')}
 
+                                />
+                            )}
                         />
-                    )}
-                />
-                <Controller
-                    name={"code"}
-                    control={control}
-                    render={({field}) => (
-                        <InputForm
-                            icon={Icons.send}
-                            label={translate("code")}
-                            errorMessage={errors.code?.message}
-                            field={field}
-                            keyboardType={'number-pad'}
-                            placeholder={translate("code_placeholder")}
+                        <Controller
+                            name={"code"}
+                            control={control}
+                            render={({field}) => (
+                                <InputForm
+                                    icon={Icons.send}
+                                    label={translate("code")}
+                                    errorMessage={errors.code?.message}
+                                    field={field}
+                                    keyboardType={'number-pad'}
+                                    placeholder={translate("code_placeholder")}
+                                />
+                            )}
                         />
-                    )}
-                />
-                <Controller
-                    name={"password"}
-                    control={control}
-                    render={({field}) => (
-                        <InputPasswordForm
-                            label={translate('password')}
-                            errorMessage={errors.password?.message}
-                            field={field}
-                            placeholder={translate('password_placeholder')}
+                        <Controller
+                            name={"password"}
+                            control={control}
+                            render={({field}) => (
+                                <InputPasswordForm
+                                    label={translate('password')}
+                                    errorMessage={errors.password?.message}
+                                    field={field}
+                                    placeholder={translate('password_placeholder')}
+                                />
+                            )}
                         />
-                    )}
-                />
-                <Controller
-                    name={"passwordConfirmation"}
-                    control={control}
-                    render={({field}) => (
-                        <InputPasswordForm
-                            label={translate('confirm_password')}
-                            errorMessage={errors.passwordConfirmation?.message}
-                            field={field}
-                            placeholder={translate('confirm_password_placeholder')}
+                        <Controller
+                            name={"passwordConfirmation"}
+                            control={control}
+                            render={({field}) => (
+                                <InputPasswordForm
+                                    label={translate('confirm_password')}
+                                    errorMessage={errors.passwordConfirmation?.message}
+                                    field={field}
+                                    placeholder={translate('confirm_password_placeholder')}
+                                />
+                            )}
                         />
-                    )}
-                />
-                <VerticalSeparator percent={5}/>
-                <ButtonForm
-                    loading={loadingState}
-                    loadingLabel={translate("pending_recover_password")}
-                    label={translate("recover_password")}
-                    handleClick={handleSubmit(onSubmit)}
-                />
-                </View>
+                        <VerticalSeparator percent={2}/>
+                        <ButtonForm
+                            loading={loadingState}
+                            loadingLabel={translate("pending_recover_password")}
+                            label={translate("recover_password")}
+                            handleClick={handleSubmit(onSubmit)}
+                        />
+                    </ScrollView>
             </Animated.View>
-        </ScrollView>
     </SafeAreaView>
 };
 

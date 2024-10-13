@@ -7,22 +7,17 @@ const SendRecoverPasswordCodeStyles = (pageBackground: string, containerBackgrou
     pageContainer: {
       ...PageStyles.container,
       backgroundColor: pageBackground,
+      flex: 1,
     },
     formHeader: {
       backgroundColor: pageBackground,
-      height: hp(100),
-      width: wp(100),
       padding: 10
     },
     formContainer: {
       borderTopLeftRadius: wp(10),
       borderTopRightRadius: wp(10),
-      height: '100%',
-      width: wp(100),
-      marginTop: hp(25),
       paddingTop: hp(5),
-      zIndex: 2,
-      position: "absolute",
+      flexGrow: 1,
       backgroundColor: containerBackground,
     },
     titleContainer: {

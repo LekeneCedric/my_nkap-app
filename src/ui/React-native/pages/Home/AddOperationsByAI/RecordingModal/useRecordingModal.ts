@@ -11,6 +11,7 @@ import moment from "moment";
 import "moment/locale/fr";
 import "moment/locale/en-gb";
 import { useToast } from "react-native-toast-notifications";
+import { Languages } from "../../../../Shared/Constants/Languages";
 
 interface useRecordingModalBehaviour {
   inputRef: MutableRefObject<any>;
@@ -64,7 +65,7 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
 
   const startRecording = async () => {
     try {
-      await Voice.start(currentLanguage == 'en' ? "en-US" : "fr-FR");
+      await Voice.start(Languages.find(l => l.code == currentLanguage)!.vcode);
       setIsRecording(true);
     } catch (err) {
       console.log("start-err", err);

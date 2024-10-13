@@ -98,9 +98,11 @@ const useActivateAccount = (): behaviour => {
         focusOnInput(0);
         const tenMinutesInSeconds = 600;
         const interval = setInterval(() => {
-            setTimeLeft(
-                tenMinutesInSeconds - Math.floor((new Date().getTime() - expirationTime)/1000)
-            )
+            if (timeLeft > 0) {
+                setTimeLeft(
+                    tenMinutesInSeconds - Math.floor((new Date().getTime() - expirationTime)/1000)
+                )
+            }
         }, 1000);
 
         return () => clearInterval(interval);

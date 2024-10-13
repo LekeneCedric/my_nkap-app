@@ -8,7 +8,7 @@ export const formatDateToYYYYMMDD = (date: Date) => {
     return `${year}-${month}-${day}`;
 };
 
-export const formatDateToReadable = (date: Date, todayFormatted: string, currentLanguage: string = 'fr'): string => {
+export const formatDateToReadable = (date: Date, todayFormatted: string, currentLanguage: string): string => {
     const today = new Date();
     if ((today.getMonth() == date.getMonth()) && (today.getDay() == date.getDay())) {
         return todayFormatted;

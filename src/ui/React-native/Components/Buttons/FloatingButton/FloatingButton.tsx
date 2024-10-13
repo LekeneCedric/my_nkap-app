@@ -1,6 +1,5 @@
 import { Animated, RegisteredStyle, TouchableOpacity, ViewStyle } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Icons } from "../../../Global/Icons";
 import { IconSizes } from "../../../Global/IconSizes";
 import useTheme from "../../../Shared/Hooks/useTheme";
 import useFloatingButtonAnimation from "./useFloatingButtonAnimation";
@@ -10,16 +9,17 @@ type props = {
     extraIcon?: string,
     onPress: () => void,
     customStyles?: false | RegisteredStyle<ViewStyle> | Animated.Value | Animated.AnimatedInterpolation<string | number> | Animated.WithAnimatedObject<ViewStyle> | null | undefined,
+    size?: number
 }
-const FloatingButton = ({icon, extraIcon, onPress, customStyles}: props) => {
+const FloatingButton = ({icon, extraIcon, onPress, customStyles, size}: props) => {
     const {colorPalette: {text, action1Text, action1}} = useTheme();
     const {bounceYValue} = useFloatingButtonAnimation();
     return (
         <Animated.View style={[{
             translateY: bounceYValue,
             position: 'absolute',
-            width: 60,
-            height: 60,
+            width: size ?? 60,
+            height: size ?? 60,
             borderRadius: 30,
             backgroundColor: action1,
             justifyContent: 'center',

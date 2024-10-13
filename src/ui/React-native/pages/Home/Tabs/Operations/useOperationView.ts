@@ -55,6 +55,7 @@ interface UseTransactionViewBehaviour {
   refreshing: boolean;
   bounceValue: Animated.Value;
   navigateToAddOperation: () => void;
+  navigateTOAddAIOperation: () => void;
   operationFilterParams: IOperationFilterParam;
   handlePreviousDay: (pageNumber: number) => void;
   handleNextDay: (pageNumber: number) => void;
@@ -91,6 +92,9 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
   const navigateToAddOperation = () => {
     navigateByPath(routes.home.addOperation);
   };
+  const navigateTOAddAIOperation = () => {
+    navigateByPath(routes.home.addOperationByAI);
+  }
   const [shouldNotGoForwardNextDay, setShouldNotGoForwardNextDay] =
     useState<boolean>(true);
   const [shouldNoyGoForwardFourthNexDays, setShouldNotGoForwardFourthNexDays] =
@@ -375,6 +379,7 @@ const useOperationsView = (): UseTransactionViewBehaviour => {
     accountsList: accountsSelectItems,
     shouldNotGoForwardNextDay: shouldNotGoForwardNextDay,
     shouldNoyGoForwardFourthNexDays: shouldNoyGoForwardFourthNexDays,
+    navigateTOAddAIOperation: navigateTOAddAIOperation,
   };
 };
 export default useOperationsView;

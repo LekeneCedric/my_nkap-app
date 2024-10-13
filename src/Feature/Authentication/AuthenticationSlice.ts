@@ -75,6 +75,7 @@ export const AuthenticationSlice = createSlice({
           state.loadingState = LoadingState.success;
           state.token = payload.token;
           state.user = payload.user;
+          state.status = UserStatusEnum.ACTIVATE;
         },
       )
       .addCase(LoginAsync.rejected, state => {

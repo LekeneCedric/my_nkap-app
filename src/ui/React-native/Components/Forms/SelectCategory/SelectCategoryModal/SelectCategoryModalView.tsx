@@ -11,6 +11,7 @@ import AddCategoryModal from "./AddCategoryModal/AddCategoryModal.tsx";
 import useTheme from "../../../../Shared/Hooks/useTheme.ts";
 import SelectCategoryModalViewStyle from "./selectCategoryModalView.style.ts";
 import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation.ts";
+import React from "react";
 
 type selectCategoryModalViewProps = {
     action: (item: ISelectCategoryItem) => void,
