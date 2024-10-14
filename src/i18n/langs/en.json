@@ -224,5 +224,11 @@
   "Compte épargne": "Savings account",
   "Compte courant": "Checking account",
   "épargne": "Savings",
-  "courant": "Checking"
+  "courant": "Checking",
+  "category-not-selected": "No category defined !",
+  "microphone_permission_title": "Microphone Permission",
+  "microphone_permission_message": "This app needs access to your microphone for voice recognition",
+  "microphone_permission_button_neutral": "Ask me later",
+  "microphone_permission_button_negative": "Deny",
+  "microphone_permission_button_positive": "Allow"
 }

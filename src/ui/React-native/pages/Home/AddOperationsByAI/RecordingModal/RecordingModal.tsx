@@ -73,7 +73,7 @@ const RecordingModal = ({isHide, hide, loadingState}: props) => {
     stopAnimation();
   };
 
-  const triggerRecording = () => {
+  const triggerRecording = async () => {
     if (isRecording) {
       stopRecording();
       stopAnimation();

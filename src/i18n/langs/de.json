@@ -224,5 +224,11 @@
   "Compte épargne": "Sparkonto",
   "Compte courant": "Girokonto",
   "épargne": "Ersparnisse",
-  "courant": "Giro"
+  "courant": "Giro",
+  "category-not-selected": "Keine Kategorien definiert!",
+  "microphone_permission_title": "Mikrofonberechtigung",
+  "microphone_permission_message": "Diese App benötigt Zugriff auf Ihr Mikrofon für die Spracherkennung",
+  "microphone_permission_button_neutral": "Später fragen",
+  "microphone_permission_button_negative": "Ablehnen",
+  "microphone_permission_button_positive": "Erlauben"
 }

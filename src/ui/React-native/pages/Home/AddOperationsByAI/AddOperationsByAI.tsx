@@ -13,7 +13,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons";
 import {IconSizes} from "../../../Global/IconSizes";
 import useCustomNavigation from "../../../utils/useNavigation";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import FloatingButton from "../../../Components/Buttons/FloatingButton/FloatingButton";
 import {hp} from "../../../Global/Percentage";
 import OperationItem from "./Components/OperationItem";

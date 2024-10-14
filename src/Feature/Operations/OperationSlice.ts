@@ -31,7 +31,7 @@ const initialState: IOperationState = {
     },
     total: 0,
     page: 1,
-    limit: 15,
+    limit: 100000,
 }
 
 const OperationSlice = createSlice({

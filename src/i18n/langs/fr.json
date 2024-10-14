@@ -224,5 +224,11 @@
   "Compte épargne": "Compte épargne",
   "Compte courant": "Compte courant",
   "épargne": "épargne",
-  "courant": "courant"
+  "courant": "courant",
+  "category-not-selected": "Aucune catégorie définie !",
+  "microphone_permission_title": "Autorisation du Microphone",
+  "microphone_permission_message": "Cette application a besoin d'accéder à votre microphone pour la reconnaissance vocale",
+  "microphone_permission_button_neutral": "Demander plus tard",
+  "microphone_permission_button_negative": "Refuser",
+  "microphone_permission_button_positive": "Autoriser"
 }

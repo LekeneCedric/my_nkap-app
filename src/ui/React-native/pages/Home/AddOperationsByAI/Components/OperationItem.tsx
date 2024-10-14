@@ -26,6 +26,7 @@ type props = {
 const OperationItem = ({data, deleteOperation}: props) => {
   const [isVisibleUpdateOperationModal, setIsVisibleUpdateOperationModal] = useState(false);
   const {currentLanguage, translate} = useCustomTranslation();
+  const [errors, setErrors] = useState<string[]>([]);
   const {
     colorPalette: {containerBackground, text, green, red, gray, action1},
   } = useTheme();
@@ -35,7 +36,6 @@ const OperationItem = ({data, deleteOperation}: props) => {
     selectCategory(state, data.categoryId),
   );
   const swipeRef = useRef<Swipeable | null>(null);
-  const accountIsNotDefined = data.accountId === undefined;
   const renderedActions = () => {
     return <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <TouchableOpacity onPress={()=>{setIsVisibleUpdateOperationModal(true)}} style={{width: 50, alignItems: 'center'}}>
@@ -53,8 +53,17 @@ const OperationItem = ({data, deleteOperation}: props) => {
     }
   }
   useEffect(() => {
+    setErrors([]);
     moment.locale(currentLanguage);
-  }, []);
+    const accountIsNotDefined = data.accountId === undefined;
+    const categoryIsNotDefined = data.categoryId === undefined;
+    if (accountIsNotDefined) {
+      setErrors(prev => [...prev, translate("account-not-selected")]);
+    }
+    if (categoryIsNotDefined) {
+      setErrors(prev => [...prev, translate("category-not-selected")])
+    }
+  }, [data]);
   return (
     <>
     <UpdateOperationItemModal
@@ -144,14 +153,15 @@ const OperationItem = ({data, deleteOperation}: props) => {
           </View>
         </TouchableOpacity>
         {
-          accountIsNotDefined && (
-          <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5, marginLeft: 8}}>
-            <Icon name={Icons.info} color={red} size={IconSizes.small} />
-            <Text style={{fontSize: FontSize.small, color: red, marginLeft: 5}}>{translate("account-not-selected")}</Text>
-          </View>
-          )
+          errors.map (err => {
+            return (
+              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5, marginLeft: 8}}>
+                <Icon name={Icons.info} color={red} size={IconSizes.small} />
+                <Text style={{fontSize: FontSize.small, color: red, marginLeft: 5}}>{translate(err)}</Text>
+              </View>
+            )
+          })
         }
-        
       </Swipeable>
     </Animated.View>
     </>
