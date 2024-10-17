@@ -72,6 +72,7 @@ const useRoot = (): IUseRootViewBehaviour => {
   }, []);
 
   useEffect(() => {
+    updateTheme(Appearance.getColorScheme());
     const subscription = Appearance.addChangeListener(({colorScheme}) => {
       updateTheme(colorScheme);
     });

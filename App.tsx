@@ -8,10 +8,14 @@ import Root from "./src/ui/React-native/Root.tsx";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import Orientation from "react-native-orientation-locker";
 import {useEffect} from "react";
+import SplashScreen from 'react-native-splash-screen';
 
 function App(): React.JSX.Element {
   const persistor = persistStore(store);
   useEffect(() => {
+    const timer = setTimeout(() => {
+      SplashScreen.hide();
+    }, 4000)
     // Lock orientation to portrait mode
     Orientation.lockToPortrait();
 
@@ -21,8 +25,10 @@ function App(): React.JSX.Element {
     // Cleanup the orientation lock when the component unmounts
     return () => {
       Orientation.unlockAllOrientations(); // Restore to default behavior
+      clearTimeout(timer);
     };
   }, []);
+  
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>

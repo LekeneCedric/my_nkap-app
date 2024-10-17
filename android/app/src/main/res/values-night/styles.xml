@@ -1,0 +1,6 @@
+<resources>
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/splashscreen_background_dark</item>
+        <item name="splashscreen_background">@color/splashscreen_background_dark</item>
+    </style>
+</resources>

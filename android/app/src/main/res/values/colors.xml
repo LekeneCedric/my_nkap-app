@@ -1,0 +1,5 @@
+<resources>
+    <!-- Define your splash screen colors here -->
+    <color name="splashscreen_background_light">#F2F2F2</color>
+    <color name="splashscreen_background_dark">#26242C</color>
+</resources>

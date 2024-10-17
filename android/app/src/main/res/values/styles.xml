@@ -6,4 +6,9 @@
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
     </style>
 
+    <!-- SplashScreen theme with light mode -->
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/splashscreen_background_light</item>
+        <item name="splashscreen_background">@color/splashscreen_background_light</item>
+    </style>
 </resources>
