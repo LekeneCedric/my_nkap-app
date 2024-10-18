@@ -5,16 +5,15 @@ import {InputLoginFormFormSchemaValidate} from "../../../../../Infrastructure/Va
 import {useAppDispatch, useAppSelector} from "../../../../../app/hook";
 import {
   selectAuthenticationLoadingState,
-  selectUser,
 } from "../../../../../Feature/Authentication/AuthenticationSelector";
 import {useToast} from "react-native-toast-notifications";
 import {LoadingState} from "../../../../../Domain/Enums/LoadingState";
 import {LoginAsync} from "../../../../../Feature/Authentication/Thunks/Login/LoginAsync";
 import ILoginCommand from "../../../../../Feature/Authentication/Thunks/Login/LoginCommand";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
-import {SetActivationAccountEmail} from "../../../../../Feature/Authentication/AuthenticationSlice.ts";
 import GetAllCategoryAsync from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
 import IGetAllCategoryCommand from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
+import { InitConsumedToken } from "../../../../../Feature/Authentication/AuthenticationSlice.ts";
 
 export interface LoginFormBehaviour {
   form: UseFormReturn<InputLoginForm>;
@@ -49,6 +48,8 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
     } as ILoginCommand;
     const response = await dispatch(LoginAsync(command));
     if (LoginAsync.fulfilled.match(response)) {
+      const aiToken = response.payload.aiToken;
+      dispatch(InitConsumedToken({consumedToken: aiToken}));
       await getAllCategories(response.payload.user.userId);
       toast.show(`${translate("welcome")} ${response.payload.message}`, {
         type: "success",

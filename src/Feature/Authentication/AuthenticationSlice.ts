@@ -18,6 +18,8 @@ interface IAuthenticationState {
   status: UserStatusEnum,
   activationAccountExpirationTime: number,
   activationAccountEmail: string,
+  aiToken: number,
+  aiUpdatedAtToken: number,
 }
 
 const initialState: IAuthenticationState = {
@@ -26,6 +28,8 @@ const initialState: IAuthenticationState = {
   status: UserStatusEnum.DEACTIVATE,
   activationAccountExpirationTime: 0,
   activationAccountEmail: '',
+  aiToken: 0,
+  aiUpdatedAtToken: 0
 };
 
 export const AuthenticationSlice = createSlice({
@@ -45,6 +49,14 @@ export const AuthenticationSlice = createSlice({
     },
     SetActivationAccountEmail: (state, {payload: {email}}: PayloadAction<{email: string}>) => {
       state.activationAccountEmail = email;
+    },
+    UpdateConsumedToken: (state , {payload}: PayloadAction<{consumedToken: number}>) => {
+      state.aiToken = state.aiToken - payload.consumedToken;
+      state.aiUpdatedAtToken = new Date().getTime();
+    },
+    InitConsumedToken: (state, {payload}: PayloadAction<{consumedToken: number}>) => {
+      state.aiToken = payload.consumedToken;
+      state.aiUpdatedAtToken = new Date().getTime();
     }
   },
   extraReducers: builder => {
@@ -60,6 +72,8 @@ export const AuthenticationSlice = createSlice({
           state.user = payload.user;
           state.status = UserStatusEnum.PENDING;
           state.activationAccountExpirationTime = new Date().getTime();
+          state.aiToken = 5000;
+          state.aiUpdatedAtToken = new Date().getTime();
         },
       )
       .addCase(RegisterAsync.rejected, state => {
@@ -121,5 +135,5 @@ export const AuthenticationSlice = createSlice({
   },
 });
 
-export const {Logout, DeactivateUserStatus, SetActivationAccountEmail} = AuthenticationSlice.actions;
+export const {Logout, DeactivateUserStatus, InitConsumedToken, SetActivationAccountEmail, UpdateConsumedToken} = AuthenticationSlice.actions;
 export default AuthenticationSlice.reducer;

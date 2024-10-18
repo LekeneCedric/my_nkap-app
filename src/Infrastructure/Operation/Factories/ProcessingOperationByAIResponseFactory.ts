@@ -4,11 +4,10 @@ import IProcessingOperationByAIResponse from "../../../Feature/AIOperations/Thun
 export default class ProcessingOperationByAIResponseFactory {
     static buildFromApiResponse(result: any): IProcessingOperationByAIResponse {
         return {
-            data: result.map((item: any) => {
-                console.table('item', item);
-                console.log('id:',`${item.type}#${item.amount}#${item.categoryId}#${item.title}#${item.date}`)
+            consumedToken: result.consumedToken,
+            data: result.operations.map((item: any) => {
                 return {
-                    uuid: `${item.type}#${item.amount}#${item.categoryId}#${item.title}#${item.date}`,
+                    uuid: item.uuid,
                     type: item.type == 1 ? IOperationTypeEnum.INCOME : IOperationTypeEnum.EXPENSE,
                     amount: item.amount,
                     categoryId: item.categoryId,

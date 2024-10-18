@@ -9,10 +9,11 @@ type props = {
     extraIcon?: string,
     onPress: () => void,
     customStyles?: false | RegisteredStyle<ViewStyle> | Animated.Value | Animated.AnimatedInterpolation<string | number> | Animated.WithAnimatedObject<ViewStyle> | null | undefined,
-    size?: number
+    size?: number,
+    deactivated?: boolean,
 }
-const FloatingButton = ({icon, extraIcon, onPress, customStyles, size}: props) => {
-    const {colorPalette: {text, action1Text, action1}} = useTheme();
+const FloatingButton = ({icon, extraIcon, onPress, customStyles, size, deactivated}: props) => {
+    const {colorPalette: {text, action1Text, action1, gray}} = useTheme();
     const {bounceYValue} = useFloatingButtonAnimation();
     return (
         <Animated.View style={[{
@@ -21,7 +22,7 @@ const FloatingButton = ({icon, extraIcon, onPress, customStyles, size}: props) =
             width: size ?? 60,
             height: size ?? 60,
             borderRadius: 30,
-            backgroundColor: action1,
+            backgroundColor: deactivated ? gray : action1,
             justifyContent: 'center',
             alignItems: 'center',
             right: 20,
@@ -31,7 +32,7 @@ const FloatingButton = ({icon, extraIcon, onPress, customStyles, size}: props) =
             shadowOpacity: 0.8,
             shadowRadius: 2,
             }, customStyles ?? {}]}>
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity disabled={deactivated} onPress={onPress}>
                 {
                     extraIcon && <Icon style={{position: 'absolute', right: 0}} name={extraIcon} size={IconSizes.small} color={action1Text} />
                 }

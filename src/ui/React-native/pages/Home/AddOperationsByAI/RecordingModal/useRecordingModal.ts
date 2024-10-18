@@ -12,6 +12,7 @@ import "moment/locale/fr";
 import "moment/locale/en-gb";
 import { useToast } from "react-native-toast-notifications";
 import { Languages } from "../../../../Shared/Constants/Languages";
+import { UpdateConsumedToken } from "../../../../../../Feature/Authentication/AuthenticationSlice";
 
 interface useRecordingModalBehaviour {
   inputRef: MutableRefObject<any>;
@@ -108,6 +109,8 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
     const response = await dispatch(ProcessingOperationByAIAsync(command));
     if (ProcessingOperationByAIAsync.fulfilled.match(response)) {
       setRecordingText("");
+      const consumedToken = response.payload.consumedToken;
+      dispatch(UpdateConsumedToken({consumedToken: consumedToken}));
     }
     if (ProcessingOperationByAIAsync.rejected.match(response)) {
       toast.show(translate('something-went-wrong'), {

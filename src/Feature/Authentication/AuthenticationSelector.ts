@@ -31,3 +31,11 @@ export const selectActivationAccountExpirationTime = (state: RootState): number 
 export const selectUserStatus = (state: RootState) => {
     return state.authenticationReducer.status;
 }
+
+export const selectUserToken = (state: RootState) => {
+    return state.authenticationReducer.aiToken;
+}
+
+export const selectUpdatedAtToken = (state: RootState) => {
+    return state.authenticationReducer.aiUpdatedAtToken;
+}

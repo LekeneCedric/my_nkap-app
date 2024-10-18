@@ -10,5 +10,6 @@ export type OperationProcessingByAI = {
     accountId?: string,
 }
 export default interface IProcessingOperationByAIResponse {
+    consumedToken: number,
     data: OperationProcessingByAI[]
 }

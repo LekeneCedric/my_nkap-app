@@ -24,10 +24,10 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Loading from "../../../Components/Loading/Loading";
 
 const AddOperationByAI = () => {
-  const {loading, operations, deleteOperation, addOperation, operationIsComplete} = useAddOperationsByAI();
+  const {loading, operations, deleteOperation, addOperation, operationIsComplete, aiLeftToken} = useAddOperationsByAI();
   const [hideRecordingModal, setHideRecordingModal] = useState<boolean>(false);
   const {
-    colorPalette: {text, pageBackground, green, gray, action1, light},
+    colorPalette: {text, pageBackground, green, gray, action1, light, action1Text},
   } = useTheme();
   const {goBack} = useCustomNavigation();
   const {translate} = useCustomTranslation();
@@ -46,6 +46,12 @@ const AddOperationByAI = () => {
         <TouchableOpacity onPress={goBack}>
           <Icon name={Icons.back} size={IconSizes.normMed} color={text} />
         </TouchableOpacity>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={{fontSize: FontSize.normal, color: action1}}>Tokens restants:</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', padding: 5, backgroundColor: action1, borderRadius: 10, marginLeft: 10}}>
+            <Text style={{color: action1Text}}>{aiLeftToken}</Text>
+          </View>
+        </View>
         {
           ((!operationIsComplete || operationsIsEmpty) && !operationsIsLoading) && (
             <TouchableWithoutFeedback>
@@ -100,7 +106,7 @@ const AddOperationByAI = () => {
       />
       </View>
       <RecordingModal
-        isHide={hideRecordingModal}
+        isHide={hideRecordingModal || (aiLeftToken <= 0)}
         hide={() => setHideRecordingModal(true)}
         loadingState={loading}
       />
@@ -112,6 +118,7 @@ const AddOperationByAI = () => {
             setHideRecordingModal(false);
           }}
           customStyles={{bottom: hp(4)}}
+          deactivated={aiLeftToken <= 0}
         />
       )}
     </SafeAreaView>

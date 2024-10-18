@@ -2,12 +2,8 @@
 const parseGeminiApiResposne = (apiResponse: any) => {
     try {
         let apiTextResponse: string = apiResponse.candidates[0].content.parts[0].text;
-        console.log('api-test-rep');
-        console.log(apiTextResponse);
         const cleanedResponse = apiTextResponse.trim();
         const parsedData =  parseJsonWithRetry(cleanedResponse);
-        console.log('parsed-data');
-        console.log(parsedData);
         return parsedData;
     } catch (error) {
         return null;

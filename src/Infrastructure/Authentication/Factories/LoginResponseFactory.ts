@@ -8,6 +8,7 @@ export default class LoginResponseFactory {
            user: response.user,
            token: response.token,
            message: response.message,
+           aiToken: response.aiToken,
         } as ILoginResponse
     }
 }

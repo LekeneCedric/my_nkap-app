@@ -6,4 +6,5 @@ export default interface ILoginResponse {
     user: IUser,
     token: string,
     message: string,
+    aiToken: number
 }

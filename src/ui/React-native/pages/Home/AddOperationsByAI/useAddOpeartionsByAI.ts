@@ -17,6 +17,7 @@ import IOperationDto from "../../../../../Domain/Operation/IOperationDto";
 import {AddOperation} from "../../../../../Feature/Operations/OperationSlice";
 import {UpdateAccountByAddingOperation} from "../../../../../Feature/Account/AccountSlice";
 import {UpdateFinancialGoalAfterSaveOperation} from "../../../../../Feature/FinancialGoal/FinancialGoalSlice";
+import { selectUserToken } from "../../../../../Feature/Authentication/AuthenticationSelector";
 
 interface useAddOperationsByAIBehaviour {
   loading: LoadingState;
@@ -24,12 +25,14 @@ interface useAddOperationsByAIBehaviour {
   deleteOperation: (operationId: string) => void;
   addOperation: () => void;
   operationIsComplete: boolean;
+  aiLeftToken: number
 }
 const useAddOperationsByAI = (): useAddOperationsByAIBehaviour => {
   const toast = useToast();
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectLoadingStateProcessingByAIOperations);
   const operations = useAppSelector(selectProcessingByAIOperations);
+  const aiLeftToken = useAppSelector(selectUserToken);
   const {translate} = useCustomTranslation();
   const {goBack} = useNavigation();
   const operationsIsComplete =
@@ -42,7 +45,7 @@ const useAddOperationsByAI = (): useAddOperationsByAIBehaviour => {
   };
 
   const addOperations = async () => {
-    const operationsBackup = [...operations];
+    const operationsToAdd = [...operations];
     const command: ISaveManyOperationsCommand = {
       operations: operations.map(op => {
         return {
@@ -64,8 +67,7 @@ const useAddOperationsByAI = (): useAddOperationsByAIBehaviour => {
         animationType: "slide-in",
       });
       const operationIds = response.payload.operationIds;
-      console.warn(operationsBackup.length);
-      operationsBackup.map(
+      operationsToAdd.map(
         (operation: OperationProcessingByAI, index: number) => {
           const opCategory = categories.find(c => c.id == operation.categoryId);
           const newOperation: IOperationDto = {
@@ -119,6 +121,7 @@ const useAddOperationsByAI = (): useAddOperationsByAIBehaviour => {
     deleteOperation: deleteOperation,
     addOperation: addOperations,
     operationIsComplete: operationsIsComplete,
+    aiLeftToken: aiLeftToken,
   };
 };
 
