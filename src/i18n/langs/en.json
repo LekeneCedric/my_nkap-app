@@ -230,5 +230,9 @@
   "microphone_permission_message": "This app needs access to your microphone for voice recognition",
   "microphone_permission_button_neutral": "Ask me later",
   "microphone_permission_button_negative": "Deny",
-  "microphone_permission_button_positive": "Allow"
+  "microphone_permission_button_positive": "Allow",
+  "credits": "Credits",
+  "empty_ai_message": "No message entry",
+  "ai_operation_failed": "Oops, something went wrong! But don’t worry, let’s give it another shot. Try again, and we’ll get it right!",
+  "empty_categories": "You don't have any categories yet. Add some to get started!"
 }

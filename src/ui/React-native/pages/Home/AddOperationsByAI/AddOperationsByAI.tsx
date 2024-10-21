@@ -2,6 +2,7 @@ import {
   FlatList,
   SafeAreaView,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -13,9 +14,9 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icons} from "../../../Global/Icons";
 import {IconSizes} from "../../../Global/IconSizes";
 import useCustomNavigation from "../../../utils/useNavigation";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import FloatingButton from "../../../Components/Buttons/FloatingButton/FloatingButton";
-import {hp} from "../../../Global/Percentage";
+import {hp, wp} from "../../../Global/Percentage";
 import OperationItem from "./Components/OperationItem";
 import { LoadingState } from "../../../../../Domain/Enums/LoadingState";
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation";
@@ -25,9 +26,11 @@ import Loading from "../../../Components/Loading/Loading";
 
 const AddOperationByAI = () => {
   const {loading, operations, deleteOperation, addOperation, operationIsComplete, aiLeftToken} = useAddOperationsByAI();
-  const [hideRecordingModal, setHideRecordingModal] = useState<boolean>(false);
+  const [hideRecordingModal, setHideRecordingModal] = useState<boolean>(true);
+  const triggerRecording = useRef(null);
+  const triggetKeyboardActivation = useRef(null)
   const {
-    colorPalette: {text, pageBackground, green, gray, action1, light, action1Text},
+    colorPalette: {text, pageBackground, containerBackground, green, gray, action1, light, action1Text},
   } = useTheme();
   const {goBack} = useCustomNavigation();
   const {translate} = useCustomTranslation();
@@ -47,10 +50,8 @@ const AddOperationByAI = () => {
           <Icon name={Icons.back} size={IconSizes.normMed} color={text} />
         </TouchableOpacity>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{fontSize: FontSize.normal, color: action1}}>Tokens restants:</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center', padding: 5, backgroundColor: action1, borderRadius: 10, marginLeft: 10}}>
-            <Text style={{color: action1Text}}>{aiLeftToken}</Text>
-          </View>
+          <Text style={{fontSize: FontSize.normal, color: text}}>{translate('credits')} :</Text>
+          <Text style={{color: action1, fontWeight: 'bold', marginLeft: 8}}>{aiLeftToken}</Text>
         </View>
         {
           ((!operationIsComplete || operationsIsEmpty) && !operationsIsLoading) && (
@@ -74,12 +75,13 @@ const AddOperationByAI = () => {
         )}
         {
           operationsIsLoading && (
-            <Loading
-              addStyles={{position: "absolute", right: 10}}
+            <View>
+              <Loading
               message=""
               color={action1}
               textColor={light}
             />
+            </View>
           )
         }
       </View>
@@ -91,6 +93,7 @@ const AddOperationByAI = () => {
           </View>
         )
       }
+      
       
       <FlatList
         data={operations}
@@ -104,13 +107,57 @@ const AddOperationByAI = () => {
           />
         )}
       />
+      {
+        hideRecordingModal && (
+          <View style={{width: '100%', borderTopWidth: 0.5, borderTopColor: text, paddingTop: 15, paddingBottom: 15, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableWithoutFeedback  onPress={() => {
+              setHideRecordingModal(false);
+              if (triggetKeyboardActivation.current !== null) {
+                //@ts-ignore
+                triggetKeyboardActivation.current();
+              }
+            }} style={{
+              borderWidth: 0.4, alignSelf: 'center', width: wp(70),
+              borderColor: gray, flexDirection: 'row', borderRadius: 25, justifyContent: 'space-between',
+              alignItems: 'center', marginBottom: 10,
+              backgroundColor: containerBackground,
+              padding: 2, paddingLeft: 10, position: 'relative'
+              }}>
+              <View>
+                <Text style={{fontSize: FontSize.normal, color: text}}>
+                  {translate('type-talk')}...
+                </Text>
+              </View>
+              <View pointerEvents={'box-none'}>
+                <TouchableWithoutFeedback onPress={()=>{
+                  setHideRecordingModal(false);
+                  if (triggerRecording.current !== null) {
+                    //@ts-ignore
+                    triggerRecording.current();
+                  }
+                }} >
+                <TouchableOpacity style={{padding: 15, borderRadius: 25, backgroundColor: action1}}>
+                  <Icon size={IconSizes.normMed} color={action1Text} name={Icons.recorder}/>
+                </TouchableOpacity>
+                </TouchableWithoutFeedback>
+              </View>
+            </TouchableWithoutFeedback>
+            {/* <Text style={{fontSize: FontSize.normal, fontWeight: 'bold'}}>
+              
+            </Text> */}
+          </View>
+        )
+      }
+      
       </View>
       <RecordingModal
-        isHide={hideRecordingModal || (aiLeftToken <= 0)}
+        isHide={hideRecordingModal}
         hide={() => setHideRecordingModal(true)}
         loadingState={loading}
+        triggerRecording={(action: any) => {triggerRecording.current = action}}
+        triggetKeyboardActivation={(action: any) => {triggetKeyboardActivation.current = action}}
       />
-      {hideRecordingModal && (
+      {/* {hideRecordingModal && (
         <FloatingButton
           icon={Icons.recorder}
           extraIcon={Icons.ai}
@@ -118,9 +165,8 @@ const AddOperationByAI = () => {
             setHideRecordingModal(false);
           }}
           customStyles={{bottom: hp(4)}}
-          deactivated={aiLeftToken <= 0}
         />
-      )}
+      )} */}
     </SafeAreaView>
   );
 };

@@ -22,8 +22,10 @@ type props = {
   isHide: boolean;
   hide: () => void;
   loadingState: LoadingState;
+  triggerRecording: (func: any) => void,
+  triggetKeyboardActivation: (func: any) => void,
 };
-const RecordingModal = ({isHide, hide, loadingState}: props) => {
+const RecordingModal = ({isHide, hide, loadingState, triggerRecording: triggerMyRecording, triggetKeyboardActivation}: props) => {
   const {
     recorderKeyboardIconScale,
     recorderCogOpacity,
@@ -41,7 +43,7 @@ const RecordingModal = ({isHide, hide, loadingState}: props) => {
     isRecording,
     openKeyboard,
     processingOperation,
-  } = useRecordingModal();
+  } = useRecordingModal(hide);
 
   const {translate} = useCustomTranslation();
   const {
@@ -82,7 +84,8 @@ const RecordingModal = ({isHide, hide, loadingState}: props) => {
     startRecording();
     startAnimation();
   };
-
+  triggetKeyboardActivation(activateKeyboard)
+  triggerMyRecording(triggerRecording)
   return isHide ? (
     <></>
   ) : (
@@ -103,10 +106,12 @@ const RecordingModal = ({isHide, hide, loadingState}: props) => {
             onChangeText={text => updateRecordingText(text, true)}
           />
         </ScrollView>
-
-        <TouchableOpacity onPress={hide} style={{top: 10}}>
+        {
+          !isRecording && <TouchableOpacity onPress={hide} style={{top: 10}}>
           <Icon name={Icons.reduce} size={IconSizes.normal} color={text} />
         </TouchableOpacity>
+        }
+        
       </View>
       <View
         style={{

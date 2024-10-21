@@ -230,5 +230,9 @@
   "microphone_permission_message": "Cette application a besoin d'accéder à votre microphone pour la reconnaissance vocale",
   "microphone_permission_button_neutral": "Demander plus tard",
   "microphone_permission_button_negative": "Refuser",
-  "microphone_permission_button_positive": "Autoriser"
+  "microphone_permission_button_positive": "Autoriser",
+  "credits": "Crédits",
+  "empty_ai_message": "Aucun message entré",
+  "ai_operation_failed": "Oups, quelque chose n'a pas fonctionné ! Pas de souci, on réessaie. Essayez à nouveau, et on va y arriver !",
+  "empty_categories": "Vous n'avez pas encore de catégories. Ajoutez-en pour commencer !"
 }

@@ -230,5 +230,9 @@
   "microphone_permission_message": "Diese App benötigt Zugriff auf Ihr Mikrofon für die Spracherkennung",
   "microphone_permission_button_neutral": "Später fragen",
   "microphone_permission_button_negative": "Ablehnen",
-  "microphone_permission_button_positive": "Erlauben"
+  "microphone_permission_button_positive": "Erlauben",
+  "credits": "Kredite",
+  "empty_ai_message": "keine Nachricht eingegangen",
+  "ai_operation_failed": "Ups, da ist etwas schiefgelaufen! Aber keine Sorge, wir probieren es noch einmal. Versuchen Sie es erneut, wir schaffen das!",
+  "empty_categories": "Sie haben noch keine Kategorien. Fügen Sie welche hinzu, um loszulegen!"
 }

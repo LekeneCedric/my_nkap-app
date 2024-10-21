@@ -48,6 +48,16 @@ export const OperationProcessingByAISlice = createSlice({
         operation => operation.uuid !== payload,
       );
     },
+    Init: (state) => {
+      state.currentOperations = state.currentOperations.map(
+        (op, i) => {
+          return {
+            ...op,
+            uuid: op.title
+          }
+        }
+      )
+    }
   },
   extraReducers: builder => {
     builder
@@ -61,7 +71,7 @@ export const OperationProcessingByAISlice = createSlice({
         ProcessingOperationByAIAsync.fulfilled,
         (state, {payload}: PayloadAction<IProcessingOperationByAIResponse>) => {
           state.loadingState = LoadingState.success;
-          console.log("payload ok");
+          console.log(payload.data);
           payload.data.map(newOp => {
             let operationAlreadyExist =
               state.currentOperations.find(
@@ -86,7 +96,7 @@ export const OperationProcessingByAISlice = createSlice({
   },
 });
 
-export const {DeleteOperationAI, UpdateOperationAI} =
+export const {DeleteOperationAI, UpdateOperationAI, Init} =
   OperationProcessingByAISlice.actions;
 
 export default OperationProcessingByAISlice.reducer;

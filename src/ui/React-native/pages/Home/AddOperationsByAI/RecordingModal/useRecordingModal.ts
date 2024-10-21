@@ -1,4 +1,4 @@
-import {MutableRefObject, useEffect, useRef, useState} from "react";
+import {MutableRefObject, useEffect, useMemo, useRef, useState} from "react";
 import Voice from "@react-native-voice/voice";
 import {useAppDispatch, useAppSelector} from "../../../../../../app/hook";
 import {selectCategories} from "../../../../../../Feature/Category/CategorySelector";
@@ -10,9 +10,11 @@ import useCustomTranslation from "../../../../Shared/Hooks/useCustomTranslation"
 import moment from "moment";
 import "moment/locale/fr";
 import "moment/locale/en-gb";
+import "moment/locale/de";
 import { useToast } from "react-native-toast-notifications";
 import { Languages } from "../../../../Shared/Constants/Languages";
-import { UpdateConsumedToken } from "../../../../../../Feature/Authentication/AuthenticationSlice";
+import { selectUser } from "../../../../../../Feature/Authentication/AuthenticationSelector";
+import { AITokenConsumed } from "../../../../../../Feature/Authentication/AuthenticationSlice";
 
 interface useRecordingModalBehaviour {
   inputRef: MutableRefObject<any>;
@@ -26,15 +28,15 @@ interface useRecordingModalBehaviour {
   loading: LoadingState;
 }
 
-const useRecordingModal = (): useRecordingModalBehaviour => {
+const useRecordingModal = (hide: () => void): useRecordingModalBehaviour => {
   const toast = useToast();
   const dispatch = useAppDispatch();
+  const userId = useAppSelector(selectUser)?.userId;
   const [recordingText, setRecordingText] = useState<string>("");
   const [isRecording, setIsRecording] = useState(false);
   const categories = useAppSelector(selectCategories);
   const loading = useAppSelector(selectLoadingStateProcessingByAIOperations);
   const {currentLanguage, translate} = useCustomTranslation();
-
   const inputRef = useRef(null);
   const focusOnInputAndOpenKeyboard = () => {
     setTimeout(() => {
@@ -97,8 +99,10 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
   };
 
   const processingOperation = async () => {
+    hide();
     const today = new Date();
     const command: IProcessingOperationByAiCommand = {
+      userId: userId!,
       categories: categories.map(c => {
         return {id: c.id, label: c.name};
       }),
@@ -110,10 +114,11 @@ const useRecordingModal = (): useRecordingModalBehaviour => {
     if (ProcessingOperationByAIAsync.fulfilled.match(response)) {
       setRecordingText("");
       const consumedToken = response.payload.consumedToken;
-      dispatch(UpdateConsumedToken({consumedToken: consumedToken}));
+      dispatch(AITokenConsumed({consumedToken: consumedToken}));
     }
     if (ProcessingOperationByAIAsync.rejected.match(response)) {
-      toast.show(translate('something-went-wrong'), {
+      //@ts-ignore
+      toast.show(translate(response.payload.message), {
         type: "danger",
         placement: "top",
         duration: 3000,

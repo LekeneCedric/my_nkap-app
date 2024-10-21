@@ -13,6 +13,7 @@ export default class RegisterResponseFactory {
                 email: response.user.email,
                 profession: response.user.profession,
             },
+            aiToken: response.aiToken,
         } as IRegisterResponse
     }
 }

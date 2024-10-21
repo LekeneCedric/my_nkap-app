@@ -13,7 +13,7 @@ import ILoginCommand from "../../../../../Feature/Authentication/Thunks/Login/Lo
 import useCustomTranslation from "../../../Shared/Hooks/useCustomTranslation.ts";
 import GetAllCategoryAsync from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryAsync.ts";
 import IGetAllCategoryCommand from "../../../../../Feature/Category/Thunks/GetAll/GetAllCategoryCommand.ts";
-import { InitConsumedToken } from "../../../../../Feature/Authentication/AuthenticationSlice.ts";
+import { UpdateAIToken } from "../../../../../Feature/Authentication/AuthenticationSlice.ts";
 
 export interface LoginFormBehaviour {
   form: UseFormReturn<InputLoginForm>;
@@ -49,7 +49,7 @@ export const UseLoginView = (): UseLoginViewBehaviour => {
     const response = await dispatch(LoginAsync(command));
     if (LoginAsync.fulfilled.match(response)) {
       const aiToken = response.payload.aiToken;
-      dispatch(InitConsumedToken({consumedToken: aiToken}));
+      dispatch(UpdateAIToken({aiToken: aiToken}));
       await getAllCategories(response.payload.user.userId);
       toast.show(`${translate("welcome")} ${response.payload.message}`, {
         type: "success",

@@ -8,7 +8,7 @@ import {IRegisterCommand} from "../../../../../Feature/Authentication/Thunks/Reg
 import {useToast} from "react-native-toast-notifications";
 import { selectAuthenticationLoadingState } from "../../../../../Feature/Authentication/AuthenticationSelector";
 import { LoadingState } from "../../../../../Domain/Enums/LoadingState";
-import { SetActivationAccountEmail } from "../../../../../Feature/Authentication/AuthenticationSlice";
+import { SetActivationAccountEmail, UpdateAIToken } from "../../../../../Feature/Authentication/AuthenticationSlice";
 
 export interface RegisterViewBehaviour {
   form: UseFormReturn<InputRegisterForm>;
@@ -35,13 +35,8 @@ export const useRegisterView = (): RegisterViewBehaviour => {
     } as IRegisterCommand;
     const response = await dispatch(RegisterAsync(command));
     if (RegisterAsync.fulfilled.match(response)) {
+      dispatch(UpdateAIToken({aiToken: response.payload.aiToken}))
       dispatch(SetActivationAccountEmail({email: command.email}));
-      // toast.show('Bienvenue ,'+response.payload.user.username, {
-      //   type: "success",
-      //   placement: "top",
-      //   duration: 3000,
-      //   animationType: "slide-in",
-      // });
     }
     if (RegisterAsync.rejected.match(response)) {
       //@ts-ignore

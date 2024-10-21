@@ -3,6 +3,7 @@ import IProcessingOperationByAiCommand from "../../../Feature/AIOperations/Thunk
 import IProcessingOperationByAIResponse from "../../../Feature/AIOperations/Thunks/ProcessingByAI/ProcessingByAIResponse";
 import {ApiRoutes} from "../../Api/routes";
 import {HttpProvider} from "../../Shared/Gateways/Axios/HttpProvider";
+import gatewayMessages from "../../Shared/Gateways/constants/gatewayMessages";
 import ProcessingOperationByAIResponseFactory from "../Factories/ProcessingOperationByAIResponseFactory";
 
 export default class OperationAIApiGatewayHttp
@@ -14,6 +15,7 @@ export default class OperationAIApiGatewayHttp
   ): Promise<IProcessingOperationByAIResponse> {
     let result: any;
     const processingCommand = {
+      userId: command.userId,
       categories: command.categories.map(ca => { return {"id": ca.id, "label": ca.label}}),
       currentDate: command.currentDate,
       message: command.message,
@@ -23,9 +25,11 @@ export default class OperationAIApiGatewayHttp
       const response = await this.post(ApiRoutes.operations.ai, processingCommand);
       //@ts-ignore
       result = response.data;
+      if (!result.status) {
+        throw new Error(result.message);
+      }
     } catch (e: any) {
-      console.log(e);
-      throw new Error("something-went-wrong-model");
+      throw new Error(e.message ? e.message : gatewayMessages.technicalError);
     }
     return ProcessingOperationByAIResponseFactory.buildFromApiResponse(result);
   } 

@@ -18,7 +18,7 @@ const RecordingModalStyles = ({cardContainerColor, textColor}: propsStyles) => {
     container: {
       flexDirection: "column",
       width: wp(100),
-      height: 250,
+      height: 200,
       padding: 10,
       alignSelf: "center",
       backgroundColor: cardContainerColor,

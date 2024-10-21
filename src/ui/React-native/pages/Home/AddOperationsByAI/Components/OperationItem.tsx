@@ -99,41 +99,30 @@ const OperationItem = ({data, deleteOperation}: props) => {
               height: "100%",
               borderBottomLeftRadius: 10,
               borderTopLeftRadius: 10,
-              width: "5%",
+              width: 10,
               backgroundColor: color,
             }}
           />
           <View
-            style={{
-              paddingLeft: 5,
-              paddingRight: 5,
-              width: "95%",
-            }}>
+            style={{paddingLeft: 5,paddingRight: 10,flexGrow: 1}}>
             <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}>
-              <Text style={{color: text, fontSize: FontSize.normal}}>
-                {data.title}
-              </Text>
-              <Text
-                style={{
-                  fontSize: FontSize.normal,
-                  color: color,
-                  fontWeight: "bold",
-                }}>
-                {parseThousand(Number(data.amount))}
-              </Text>
+              style={{flexDirection: "row",alignItems: "center",justifyContent: "space-between"}}>
+                <View style={{flex: 8}}>
+                  <Text numberOfLines={1} style={{color: text, fontSize: FontSize.normal}}>
+                    {data.title}
+                  </Text>
+                </View>
+                <View style={{flex: 4}}>
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: FontSize.normal,color: color,fontWeight: "bold", textAlign: 'right'}}>
+                    {parseThousand(Number(data.amount))}
+                  </Text>
+                </View>
             </View>
             <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}>
-              <View style={{flexDirection: "row", alignItems: "center"}}>
+              style={{flexDirection: "row",alignItems: "center",justifyContent: "space-between"}}>
+              <View style={{flexDirection: "row", alignItems: "center", flex: 8}}>
                 {
                   selectedCategory && <Icon
                   name={selectedCategory!.icon}
@@ -146,9 +135,11 @@ const OperationItem = ({data, deleteOperation}: props) => {
                   {selectedCategory?.name}
                 </Text>
               </View>
-              <Text style={{fontSize: FontSize.normal, color: text, fontWeight: '100'}}>
-                {moment(data.date).format("dddd HH:mm")}
-              </Text>
+              <View style={{flex: 4}}>
+                <Text numberOfLines={1} style={{fontSize: FontSize.normal, color: text, fontWeight: '100', textAlign: 'right'}}>
+                  {moment(data.date).format("dddd HH:mm")}
+                </Text>
+              </View>
             </View>
           </View>
         </TouchableOpacity>

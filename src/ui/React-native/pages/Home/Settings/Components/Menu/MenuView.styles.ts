@@ -6,8 +6,6 @@ const MenuViewStyles = (textColor: string, gray: string,) => {
         sectionContainer: {
             padding: 15,
             flexDirection: 'column',
-            borderBottomWidth: 0.5,
-            borderBottomColor: gray
         },
         sectionTitle: {
             fontSize: FontSize.medium,
@@ -18,7 +16,7 @@ const MenuViewStyles = (textColor: string, gray: string,) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 15
+            marginTop: 20
         },
         icon: {
             flex: 1,

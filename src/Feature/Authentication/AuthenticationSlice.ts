@@ -9,6 +9,7 @@ import SendRecoverPasswordCodeAsync from "./Thunks/SendRecoverPasswordCode/SendR
 import RecoverPasswordAsync from "./Thunks/RecoverPassword/RecoverPasswordAsync";
 import VerificationAccountAsync from "./Thunks/VerificationAccount/VerificationAccountAsync";
 import IVerificationAccountResponse from "./Thunks/VerificationAccount/VerificationAccountResponse";
+import { isDayAfter } from "../../ui/React-native/utils/DateOperations";
 
 interface IAuthenticationState {
   loadingState: LoadingState;
@@ -50,12 +51,19 @@ export const AuthenticationSlice = createSlice({
     SetActivationAccountEmail: (state, {payload: {email}}: PayloadAction<{email: string}>) => {
       state.activationAccountEmail = email;
     },
-    UpdateConsumedToken: (state , {payload}: PayloadAction<{consumedToken: number}>) => {
+    AITokenConsumed: (state , {payload}: PayloadAction<{consumedToken: number}>) => {
       state.aiToken = state.aiToken - payload.consumedToken;
       state.aiUpdatedAtToken = new Date().getTime();
     },
-    InitConsumedToken: (state, {payload}: PayloadAction<{consumedToken: number}>) => {
-      state.aiToken = payload.consumedToken;
+    UpdateAIToken: (state, {payload: {aiToken}}: PayloadAction<{aiToken: number}>) => {
+      state.aiToken = aiToken;
+      state.aiUpdatedAtToken = new Date().getTime();
+    },
+    InitAIToken: (state) => {
+      const isNewDay = isDayAfter(state.aiUpdatedAtToken);
+      if (isNewDay) {
+        state.aiToken = 5000;
+      }
       state.aiUpdatedAtToken = new Date().getTime();
     }
   },
@@ -135,5 +143,5 @@ export const AuthenticationSlice = createSlice({
   },
 });
 
-export const {Logout, DeactivateUserStatus, InitConsumedToken, SetActivationAccountEmail, UpdateConsumedToken} = AuthenticationSlice.actions;
+export const {Logout, DeactivateUserStatus, InitAIToken, SetActivationAccountEmail, AITokenConsumed, UpdateAIToken} = AuthenticationSlice.actions;
 export default AuthenticationSlice.reducer;

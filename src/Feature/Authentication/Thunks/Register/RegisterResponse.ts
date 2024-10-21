@@ -6,4 +6,5 @@ export default interface IRegisterResponse {
     message: string,
     token: string,
     user: IUser,
+    aiToken: number,
 }

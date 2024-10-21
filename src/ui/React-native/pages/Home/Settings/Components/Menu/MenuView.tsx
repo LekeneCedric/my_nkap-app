@@ -26,7 +26,7 @@ const MenuView = ({menus}: props) => {
         <ScrollView>
             {
                 menus.map(menu => {
-                    return <View style={[styles.sectionContainer, menu.end == true ? {borderBottomWidth: 0}: {}]}>
+                    return <View style={[styles.sectionContainer]}>
                         <Text style={styles.sectionTitle}>{menu.title}</Text>
                         {
                             menu.section.map(section => {

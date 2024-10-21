@@ -114,7 +114,7 @@ const useAddOperationsByAI = (): useAddOperationsByAIBehaviour => {
       });
     }
   };
-
+  
   return {
     loading: loading,
     operations: operations,

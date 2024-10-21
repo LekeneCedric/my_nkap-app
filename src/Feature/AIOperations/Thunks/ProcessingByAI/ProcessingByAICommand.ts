@@ -3,6 +3,7 @@ type category = {
     label: string
 }
 export default interface IProcessingOperationByAiCommand {
+    userId: string,
     categories: category[],
     currentDate: string,
     message: string,
