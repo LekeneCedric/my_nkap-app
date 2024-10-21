@@ -7,14 +7,14 @@ import {useAppDispatch} from "../../../../../../../../app/hook.ts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {IconSizes} from "../../../../../../Global/IconSizes.ts";
 import {Icons} from "../../../../../../Global/Icons.ts";
-import {SwitchTheme} from "../../../../../../../../Feature/Configuration/ConfigurationSlice.ts";
+import {SwitchTheme, Themes as ThemeEnum} from "../../../../../../../../Feature/Configuration/ConfigurationSlice.ts";
 import useCustomTranslation from "../../../../../../Shared/Hooks/useCustomTranslation.ts";
+import React from "react";
 
-export type theme = 'light'|'dark';
 type props = {
     closeModal: () => void;
     isVisible: boolean;
-    currentTheme: theme,
+    currentTheme: ThemeEnum,
 }
 const ThemeModalView = ({closeModal, isVisible, currentTheme}: props) => {
     const {
@@ -23,8 +23,8 @@ const ThemeModalView = ({closeModal, isVisible, currentTheme}: props) => {
     const {colorPalette: {pageBackground, containerBackground, action1, text, gray }} = useTheme();
     const styles = ThemeModalViewStyles(pageBackground, containerBackground, text, action1);
     const dispatch = useAppDispatch();
-    const themes: theme[] = ['light', 'dark'];
-    const changeTheme = (theme: 'light'|'dark') => {
+    const themes: ThemeEnum[] = [ThemeEnum.SYSTEM, ThemeEnum.LIGHT, ThemeEnum.DARK];
+    const changeTheme = (theme: ThemeEnum) => {
         dispatch(SwitchTheme(theme));
         closeModal()
     }
@@ -38,7 +38,7 @@ const ThemeModalView = ({closeModal, isVisible, currentTheme}: props) => {
                 </View>
                 <View style={{padding: 10}}>
                     {
-                        themes.map((theme: 'light'|'dark') => {
+                        themes.map((theme: ThemeEnum) => {
                             return <TouchableOpacity style={{flexDirection: 'row', margin: 10}} onPress={() => {
                                 changeTheme(theme)
                             }}>

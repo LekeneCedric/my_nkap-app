@@ -7,13 +7,18 @@ export type ICurrencyFormatSlice = {
     example: string,
     formatFunc: string
 }
+export enum Themes {
+    LIGHT = 'light',
+    DARK = 'dark',
+    SYSTEM = 'system' 
+}
 type initialState = {
-    theme: 'light'|'dark',
+    theme: Themes,
     canSeeAmount: boolean,
     currency?: ICurrencyFormatSlice
 }
 const initialState: initialState = {
-    theme: 'dark',
+    theme: Themes.SYSTEM,
     canSeeAmount: true,
 }
 
@@ -21,7 +26,7 @@ const ConfigurationSlice = createSlice({
     name: 'configuration',
     initialState: initialState,
     reducers: {
-        SwitchTheme: (state, {payload}: PayloadAction<'light'|'dark'>) => {
+        SwitchTheme: (state, {payload}: PayloadAction<Themes>) => {
             state.theme = payload;
         },
         SwitchCanSeeAmount: (state, {payload}: PayloadAction<boolean>) => {

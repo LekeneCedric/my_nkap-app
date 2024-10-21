@@ -11,8 +11,9 @@ import TimeConstants from "./Shared/Constants/Time";
 import * as RNLocalize from "react-native-localize";
 import CurrenciesFormat, {currencies} from "./Shared/Constants/Currencies";
 import useCustomTranslation from "./Shared/Hooks/useCustomTranslation";
-import {SwitchCurrency, SwitchTheme} from "../../Feature/Configuration/ConfigurationSlice";
+import {SwitchCurrency, SwitchTheme, Themes} from "../../Feature/Configuration/ConfigurationSlice";
 import {Appearance, ColorSchemeName} from "react-native";
+import { selectCurrentTheme } from "../../Feature/Configuration/ConfigurationSelector";
 
 interface IUseRootViewBehaviour {
   isAuthenticated: boolean;
@@ -23,16 +24,12 @@ const useRoot = (): IUseRootViewBehaviour => {
   const {changeLanguage} = useCustomTranslation();
   const token = useAppSelector(selectToken);
   const userStatus = useAppSelector(selectUserStatus);
+  const currentTheme = useAppSelector(selectCurrentTheme);
   const activationAccountExpTime = useAppSelector(
     selectActivationAccountExpTime,
   );
   const locales = useMemo(() => RNLocalize.getLocales(), []);
   const localCurrencies = useMemo(() => RNLocalize.getCurrencies(), []);
-
-  const updateTheme = (colorScheme: ColorSchemeName) => {
-    const currentTheme = colorScheme === 'dark' ? 'dark' : 'light';
-    dispatch(SwitchTheme(currentTheme));
-  };
   
   const getAppLanguagesAndCurrency = useCallback((): {sysLang: string; sysCurr: string} => {
     let systemLang = "en";
@@ -67,14 +64,7 @@ const useRoot = (): IUseRootViewBehaviour => {
   useEffect(() => {
     const {sysLang, sysCurr} = getAppLanguagesAndCurrency();
     updateLocalization(sysLang, sysCurr);
-    updateTheme(Appearance.getColorScheme());
-    const subscription = Appearance.addChangeListener(({colorScheme}) => {
-      updateTheme(colorScheme);
-    });
     dispatch(InitAIToken());
-
-    // Clean up the listener when the component unmounts
-    return () => subscription.remove();
   }, []);
 
   useEffect(() => {
